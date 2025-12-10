@@ -1,0 +1,295 @@
+{
+  "entries": [
+    {
+      "id": "06.12.2025_ensemble_champion_1765394539.194402",
+      "date": "2025-12-10T19:22:19.194408",
+      "draw_date": "06.12.2025",
+      "predicted_numbers": [
+        33,
+        34,
+        6,
+        26,
+        28,
+        29
+      ],
+      "actual_numbers": [
+        33,
+        35,
+        37,
+        15,
+        26,
+        27
+      ],
+      "matches": 2,
+      "predicted_sz": 1,
+      "actual_sz": 2,
+      "sz_match": false,
+      "method": "ensemble_champion",
+      "provider": "ensemble",
+      "confidence": 90,
+      "strategy": "Voting aus 6 KI-Vorhersagen"
+    },
+    {
+      "id": "06.12.2025_neural_network_1765394539.194444",
+      "date": "2025-12-10T19:22:19.194446",
+      "draw_date": "06.12.2025",
+      "predicted_numbers": [
+        34,
+        6,
+        45,
+        47,
+        22,
+        29
+      ],
+      "actual_numbers": [
+        33,
+        35,
+        37,
+        15,
+        26,
+        27
+      ],
+      "matches": 0,
+      "predicted_sz": 1,
+      "actual_sz": 2,
+      "sz_match": false,
+      "method": "neural_network",
+      "provider": "local_ml",
+      "confidence": 85.42125548463083,
+      "strategy": ""
+    },
+    {
+      "id": "06.12.2025_lstm_1765394539.194457",
+      "date": "2025-12-10T19:22:19.194458",
+      "draw_date": "06.12.2025",
+      "predicted_numbers": [
+        33,
+        35,
+        37,
+        26,
+        27,
+        28
+      ],
+      "actual_numbers": [
+        33,
+        35,
+        37,
+        15,
+        26,
+        27
+      ],
+      "matches": 5,
+      "predicted_sz": 7,
+      "actual_sz": 2,
+      "sz_match": false,
+      "method": "lstm",
+      "provider": "local_ml",
+      "confidence": 77.98939112292064,
+      "strategy": ""
+    },
+    {
+      "id": "06.12.2025_random_forest_1765394539.194465",
+      "date": "2025-12-10T19:22:19.194466",
+      "draw_date": "06.12.2025",
+      "predicted_numbers": [
+        1,
+        4,
+        11,
+        43,
+        49,
+        25
+      ],
+      "actual_numbers": [
+        33,
+        35,
+        37,
+        15,
+        26,
+        27
+      ],
+      "matches": 0,
+      "predicted_sz": 3,
+      "actual_sz": 2,
+      "sz_match": false,
+      "method": "random_forest",
+      "provider": "local_ml",
+      "confidence": 68.98451918233295,
+      "strategy": ""
+    },
+    {
+      "id": "06.12.2025_bayesian_1765394539.194471",
+      "date": "2025-12-10T19:22:19.194473",
+      "draw_date": "06.12.2025",
+      "predicted_numbers": [
+        9,
+        44,
+        13,
+        20,
+        28,
+        30
+      ],
+      "actual_numbers": [
+        33,
+        35,
+        37,
+        15,
+        26,
+        27
+      ],
+      "matches": 0,
+      "predicted_sz": 6,
+      "actual_sz": 2,
+      "sz_match": false,
+      "method": "bayesian",
+      "provider": "local_ml",
+      "confidence": 81.46475298376836,
+      "strategy": ""
+    },
+    {
+      "id": "06.12.2025_monte_carlo_1765394539.194478",
+      "date": "2025-12-10T19:22:19.194479",
+      "draw_date": "06.12.2025",
+      "predicted_numbers": [
+        7,
+        41,
+        11,
+        26,
+        29,
+        31
+      ],
+      "actual_numbers": [
+        33,
+        35,
+        37,
+        15,
+        26,
+        27
+      ],
+      "matches": 1,
+      "predicted_sz": 5,
+      "actual_sz": 2,
+      "sz_match": false,
+      "method": "monte_carlo",
+      "provider": "local_ml",
+      "confidence": 89.95932196208517,
+      "strategy": ""
+    },
+    {
+      "id": "06.12.2025_ensemble_ml_1765394539.194487",
+      "date": "2025-12-10T19:22:19.194488",
+      "draw_date": "06.12.2025",
+      "predicted_numbers": [
+        33,
+        34,
+        6,
+        43,
+        26,
+        28
+      ],
+      "actual_numbers": [
+        33,
+        35,
+        37,
+        15,
+        26,
+        27
+      ],
+      "matches": 2,
+      "predicted_sz": 0,
+      "actual_sz": 2,
+      "sz_match": false,
+      "method": "ensemble_ml",
+      "provider": "local_ml",
+      "confidence": 64.49133782392457,
+      "strategy": ""
+    }
+  ],
+  "stats": {
+    "total_entries": 7,
+    "avg_matches": 1.43,
+    "sz_accuracy": 0.0,
+    "three_plus_rate": 14.29,
+    "last_update": "2025-12-10T19:22:19.194538",
+    "last_draw": "06.12.2025"
+  },
+  "by_method": {
+    "ensemble_champion": {
+      "total_predictions": 1,
+      "total_matches": 2,
+      "total_possible": 6,
+      "sz_correct": 0,
+      "three_plus": 0,
+      "four_plus": 0,
+      "accuracy": 33.33,
+      "sz_accuracy": 0.0,
+      "three_plus_rate": 0.0
+    },
+    "neural_network": {
+      "total_predictions": 1,
+      "total_matches": 0,
+      "total_possible": 6,
+      "sz_correct": 0,
+      "three_plus": 0,
+      "four_plus": 0,
+      "accuracy": 0.0,
+      "sz_accuracy": 0.0,
+      "three_plus_rate": 0.0
+    },
+    "lstm": {
+      "total_predictions": 1,
+      "total_matches": 5,
+      "total_possible": 6,
+      "sz_correct": 0,
+      "three_plus": 1,
+      "four_plus": 1,
+      "accuracy": 83.33,
+      "sz_accuracy": 0.0,
+      "three_plus_rate": 100.0
+    },
+    "random_forest": {
+      "total_predictions": 1,
+      "total_matches": 0,
+      "total_possible": 6,
+      "sz_correct": 0,
+      "three_plus": 0,
+      "four_plus": 0,
+      "accuracy": 0.0,
+      "sz_accuracy": 0.0,
+      "three_plus_rate": 0.0
+    },
+    "bayesian": {
+      "total_predictions": 1,
+      "total_matches": 0,
+      "total_possible": 6,
+      "sz_correct": 0,
+      "three_plus": 0,
+      "four_plus": 0,
+      "accuracy": 0.0,
+      "sz_accuracy": 0.0,
+      "three_plus_rate": 0.0
+    },
+    "monte_carlo": {
+      "total_predictions": 1,
+      "total_matches": 1,
+      "total_possible": 6,
+      "sz_correct": 0,
+      "three_plus": 0,
+      "four_plus": 0,
+      "accuracy": 16.67,
+      "sz_accuracy": 0.0,
+      "three_plus_rate": 0.0
+    },
+    "ensemble_ml": {
+      "total_predictions": 1,
+      "total_matches": 2,
+      "total_possible": 6,
+      "sz_correct": 0,
+      "three_plus": 0,
+      "four_plus": 0,
+      "accuracy": 33.33,
+      "sz_accuracy": 0.0,
+      "three_plus_rate": 0.0
+    }
+  },
+  "by_provider": {}
+}
