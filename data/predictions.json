@@ -3,122 +3,122 @@
     {
       "numbers": [
         7,
-        25,
-        26,
-        28,
-        43,
-        49
+        11,
+        12,
+        13,
+        22,
+        29
       ],
-      "superzahl": 1,
+      "superzahl": 3,
       "method": "ensemble_champion",
       "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Voting aus 6 KI-Vorhersagen",
       "confidence": 90,
-      "timestamp": "2025-12-10T19:22:20.703272",
+      "timestamp": "2025-12-13T20:15:27.580705",
       "verified": false,
       "is_champion": true
     },
     {
       "numbers": [
-        3,
+        7,
+        11,
+        22,
         25,
-        34,
-        43,
-        45,
-        47
+        29,
+        34
       ],
-      "superzahl": 1,
+      "superzahl": 3,
       "method": "neural_network",
       "method_name": "\ud83e\udde0 Neuronales Netz",
       "provider": "local_ml",
-      "confidence": 66.36708825432495,
-      "timestamp": "2025-12-10T19:22:19.312110",
+      "confidence": 65.71011350644842,
+      "timestamp": "2025-12-13T20:15:26.197068",
       "verified": false
     },
     {
       "numbers": [
-        26,
-        27,
-        28,
-        33,
-        35,
-        37
+        11,
+        12,
+        13,
+        15,
+        17,
+        24
       ],
-      "superzahl": 7,
+      "superzahl": 9,
       "method": "lstm",
       "method_name": "\ud83d\udcc8 LSTM Sequenz",
       "provider": "local_ml",
-      "confidence": 75.88708679221797,
-      "timestamp": "2025-12-10T19:22:19.312194",
+      "confidence": 61.38959956650689,
+      "timestamp": "2025-12-13T20:15:26.197128",
       "verified": false
     },
     {
       "numbers": [
-        4,
         7,
-        10,
-        11,
-        31,
+        22,
+        25,
+        29,
+        43,
         49
       ],
       "superzahl": 0,
       "method": "random_forest",
       "method_name": "\ud83c\udf32 Random Forest",
       "provider": "local_ml",
-      "confidence": 79.60856808460944,
-      "timestamp": "2025-12-10T19:22:19.312274",
+      "confidence": 65.87508673013299,
+      "timestamp": "2025-12-13T20:15:26.197213",
       "verified": false
     },
     {
       "numbers": [
-        9,
+        12,
         13,
         20,
         28,
         30,
         44
       ],
-      "superzahl": 6,
+      "superzahl": 5,
       "method": "bayesian",
       "method_name": "\ud83d\udcca Bayesian",
       "provider": "local_ml",
-      "confidence": 71.21175268045253,
-      "timestamp": "2025-12-10T19:22:19.312351",
+      "confidence": 61.48002117821817,
+      "timestamp": "2025-12-13T20:15:26.197291",
       "verified": false
     },
     {
       "numbers": [
-        6,
-        7,
-        22,
-        25,
-        26,
-        49
+        4,
+        11,
+        29,
+        31,
+        33,
+        43
       ],
-      "superzahl": 3,
+      "superzahl": 2,
       "method": "monte_carlo",
       "method_name": "\ud83c\udfb2 Monte-Carlo",
       "provider": "local_ml",
-      "confidence": 65.49420493384144,
-      "timestamp": "2025-12-10T19:22:19.315667",
+      "confidence": 74.63567935353676,
+      "timestamp": "2025-12-13T20:15:26.200649",
       "verified": false
     },
     {
       "numbers": [
-        7,
-        25,
-        26,
-        28,
-        29,
-        43
+        11,
+        12,
+        13,
+        33,
+        41,
+        49
       ],
-      "superzahl": 5,
+      "superzahl": 6,
       "method": "ensemble_ml",
       "method_name": "\ud83c\udfc6 ML Ensemble",
       "provider": "local_ml",
-      "confidence": 84.74476843378488,
-      "timestamp": "2025-12-10T19:22:19.319125",
+      "confidence": 79.79689294132478,
+      "timestamp": "2025-12-13T20:15:26.204145",
       "verified": false
     }
   ],
@@ -278,44 +278,200 @@
         "sz_match": false,
         "draw_date": "06.12.2025"
       }
+    },
+    {
+      "numbers": [
+        7,
+        25,
+        26,
+        28,
+        43,
+        49
+      ],
+      "superzahl": 1,
+      "method": "ensemble_champion",
+      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "provider": "ensemble",
+      "strategy": "Voting aus 6 KI-Vorhersagen",
+      "confidence": 90,
+      "timestamp": "2025-12-10T19:22:20.703272",
+      "verified": true,
+      "is_champion": true,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "10.12.2025"
+      }
+    },
+    {
+      "numbers": [
+        3,
+        25,
+        34,
+        43,
+        45,
+        47
+      ],
+      "superzahl": 1,
+      "method": "neural_network",
+      "method_name": "\ud83e\udde0 Neuronales Netz",
+      "provider": "local_ml",
+      "confidence": 66.36708825432495,
+      "timestamp": "2025-12-10T19:22:19.312110",
+      "verified": true,
+      "result": {
+        "matches": 1,
+        "sz_match": false,
+        "draw_date": "10.12.2025"
+      }
+    },
+    {
+      "numbers": [
+        26,
+        27,
+        28,
+        33,
+        35,
+        37
+      ],
+      "superzahl": 7,
+      "method": "lstm",
+      "method_name": "\ud83d\udcc8 LSTM Sequenz",
+      "provider": "local_ml",
+      "confidence": 75.88708679221797,
+      "timestamp": "2025-12-10T19:22:19.312194",
+      "verified": true,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "10.12.2025"
+      }
+    },
+    {
+      "numbers": [
+        4,
+        7,
+        10,
+        11,
+        31,
+        49
+      ],
+      "superzahl": 0,
+      "method": "random_forest",
+      "method_name": "\ud83c\udf32 Random Forest",
+      "provider": "local_ml",
+      "confidence": 79.60856808460944,
+      "timestamp": "2025-12-10T19:22:19.312274",
+      "verified": true,
+      "result": {
+        "matches": 1,
+        "sz_match": false,
+        "draw_date": "10.12.2025"
+      }
+    },
+    {
+      "numbers": [
+        9,
+        13,
+        20,
+        28,
+        30,
+        44
+      ],
+      "superzahl": 6,
+      "method": "bayesian",
+      "method_name": "\ud83d\udcca Bayesian",
+      "provider": "local_ml",
+      "confidence": 71.21175268045253,
+      "timestamp": "2025-12-10T19:22:19.312351",
+      "verified": true,
+      "result": {
+        "matches": 1,
+        "sz_match": false,
+        "draw_date": "10.12.2025"
+      }
+    },
+    {
+      "numbers": [
+        6,
+        7,
+        22,
+        25,
+        26,
+        49
+      ],
+      "superzahl": 3,
+      "method": "monte_carlo",
+      "method_name": "\ud83c\udfb2 Monte-Carlo",
+      "provider": "local_ml",
+      "confidence": 65.49420493384144,
+      "timestamp": "2025-12-10T19:22:19.315667",
+      "verified": true,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "10.12.2025"
+      }
+    },
+    {
+      "numbers": [
+        7,
+        25,
+        26,
+        28,
+        29,
+        43
+      ],
+      "superzahl": 5,
+      "method": "ensemble_ml",
+      "method_name": "\ud83c\udfc6 ML Ensemble",
+      "provider": "local_ml",
+      "confidence": 84.74476843378488,
+      "timestamp": "2025-12-10T19:22:19.319125",
+      "verified": true,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "10.12.2025"
+      }
     }
   ],
-  "last_update": "2025-12-10T19:22:20.703312",
-  "next_draw": "13.12.2025",
+  "last_update": "2025-12-13T20:15:27.580928",
+  "next_draw": "17.12.2025",
   "ki_stats": {
     "providers_used": [
       "local_ml"
     ],
     "total_predictions": 7,
-    "best_superzahl": 1,
+    "best_superzahl": 3,
     "superzahl_ranking": [
       [
-        1,
-        71.6
+        3,
+        67.7
       ],
       [
-        7,
-        62.3
+        9,
+        63.2
       ],
       [
         0,
-        56.4
+        62.4
       ],
       [
-        6,
-        56.2
+        5,
+        59.5
       ],
       [
-        3,
-        54.4
+        2,
+        48.4
       ]
     ],
     "superzahl_patterns": {
       "frequency": {
+        "8": 287,
         "2": 300,
         "6": 314,
         "0": 303,
-        "8": 286,
         "5": 324,
         "9": 289,
         "7": 336,
@@ -324,35 +480,35 @@
         "3": 307
       },
       "gaps": {
-        "0": 2,
-        "1": 15,
-        "2": 0,
-        "3": 33,
-        "4": 22,
-        "5": 4,
-        "6": 1,
-        "7": 7,
-        "8": 3,
-        "9": 6
+        "0": 3,
+        "1": 16,
+        "2": 1,
+        "3": 34,
+        "4": 23,
+        "5": 5,
+        "6": 2,
+        "7": 8,
+        "8": 0,
+        "9": 7
       },
       "trends": {
         "0": 3,
-        "1": 1,
+        "1": -1,
         "2": 0,
         "3": -1,
         "4": -3,
         "5": 0,
         "6": 1,
         "7": -1,
-        "8": -2,
+        "8": 0,
         "9": 2
       },
       "wednesday": {
+        "8": 8,
         "6": 11,
-        "8": 7,
         "7": 7,
         "9": 2,
-        "0": 4,
+        "0": 3,
         "1": 5,
         "4": 3,
         "2": 7,
@@ -403,7 +559,7 @@
         "4->9": 34,
         "5->5": 34
       },
-      "last_sz": 2
+      "last_sz": 8
     }
   }
 }
