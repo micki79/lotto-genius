@@ -2164,28 +2164,58 @@
             let learningData = {};
             let providerScores = {};
             let predictionHistory = [];
+            let serverDataLoaded = false;
 
+            // 1. Versuche Server-Daten zu laden (vom GitHub Repository)
             try {
-                learningData = await lottoDB.get('settings', 'accuracy') || {};
-                const allLearning = await lottoDB.getAll('learningHistory') || [];
-                predictionHistory = allLearning.slice(-20).reverse();
+                const [learningRes, scoresRes] = await Promise.all([
+                    fetch('./data/learning.json').then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch('./data/provider_scores.json').then(r => r.ok ? r.json() : null).catch(() => null)
+                ]);
 
-                const providerData = await lottoDB.getAll('providerScores') || [];
-                providerData.forEach(p => providerScores[p.provider] = p);
+                if (learningRes && learningRes.entries) {
+                    predictionHistory = learningRes.entries.slice(-50).reverse();
+                    learningData = learningRes.stats || {};
+                    serverDataLoaded = true;
+                    console.log('📊 Server-Daten geladen:', predictionHistory.length, 'Einträge');
+                }
+
+                if (scoresRes) {
+                    providerScores = scoresRes;
+                }
             } catch (e) {
-                // Fallback zu localStorage
-                try {
-                    learningData = JSON.parse(localStorage.getItem('ki_accuracy')) || {};
-                    predictionHistory = JSON.parse(localStorage.getItem('ki_learning_history')) || [];
-                    predictionHistory = predictionHistory.slice(-20).reverse();
-                } catch (e2) {}
+                console.log('Server-Daten nicht verfügbar:', e.message);
             }
 
-            const totalPredictions = kiAgent.predictionAccuracy?.total || 0;
-            const correctPredictions = kiAgent.predictionAccuracy?.correct || 0;
-            const accuracyRate = totalPredictions > 0 ? ((correctPredictions / totalPredictions) * 100).toFixed(1) : 0;
-            const szAccuracy = szAnalyzer.getAccuracy();
-            const learningEntries = kiAgent.learningHistory?.length || 0;
+            // 2. Fallback zu IndexedDB
+            if (!serverDataLoaded) {
+                try {
+                    learningData = await lottoDB.get('settings', 'accuracy') || {};
+                    const allLearning = await lottoDB.getAll('learningHistory') || [];
+                    predictionHistory = allLearning.slice(-20).reverse();
+
+                    const providerData = await lottoDB.getAll('providerScores') || [];
+                    providerData.forEach(p => providerScores[p.provider] = p);
+                } catch (e) {
+                    // Fallback zu localStorage
+                    try {
+                        learningData = JSON.parse(localStorage.getItem('ki_accuracy')) || {};
+                        predictionHistory = JSON.parse(localStorage.getItem('ki_learning_history')) || [];
+                        predictionHistory = predictionHistory.slice(-20).reverse();
+                    } catch (e2) {}
+                }
+            }
+
+            // Verwende Server-Daten wenn verfügbar, sonst lokale Daten
+            const totalPredictions = serverDataLoaded
+                ? (learningData.total_entries || predictionHistory.length)
+                : (kiAgent.predictionAccuracy?.total || 0);
+            const szAccuracy = serverDataLoaded
+                ? { rate: learningData.sz_accuracy || 0, correct: 0, total: 0 }
+                : szAnalyzer.getAccuracy();
+            const learningEntries = serverDataLoaded
+                ? predictionHistory.length
+                : (kiAgent.learningHistory?.length || 0);
 
             // Berechne detaillierte Trefferstatistik
             const matchCounts = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
