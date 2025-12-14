@@ -3915,8 +3915,8 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
             return nextDraw.toISOString().split('T')[0]; // YYYY-MM-DD
         }
 
-        // Haupt-Vorhersagefunktion - lädt oder generiert Tipps
-        async function generatePredictions(forceNew = false) {
+        // Haupt-Vorhersagefunktion - lädt oder generiert Tipps (KEINE Überschreibung möglich!)
+        async function generatePredictions() {
             showLoader(true);
 
             const nextDrawDate = getNextDrawDate();
@@ -3934,13 +3934,12 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                 console.log('Predictions load error:', e);
             }
 
-            // Wenn Tipps existieren und nicht "force", diese anzeigen
-            if (savedPredictions && !forceNew) {
-                console.log('📋 Lade gespeicherte Tipps für:', nextDrawDate);
+            // Wenn Tipps existieren: IMMER laden, NIEMALS überschreiben!
+            if (savedPredictions) {
+                console.log('🔒 Lade gesperrte Tipps für:', nextDrawDate);
                 renderAIPredictions(savedPredictions);
                 kiAgent.lastAnalysis = savedPredictions;
                 showLoader(false);
-                showToast(`Tipps für ${nextDrawDate} geladen`, '📋');
                 return;
             }
 
@@ -4767,19 +4766,11 @@ Antworte NUR mit JSON:
                 } catch (e) {}
 
                 if (hasExisting) {
-                    // Frage ob neu generieren
-                    const confirmNew = confirm(
-                        `⚠️ Es existieren bereits Tipps für die Ziehung am ${nextDrawDate}.\n\n` +
-                        `Wenn du neue Tipps generierst, werden die alten überschrieben und zählen NICHT für die Statistik!\n\n` +
-                        `Neue Tipps generieren?`
-                    );
-
-                    if (confirmNew) {
-                        await generatePredictions(true); // Force new
-                    } else {
-                        await generatePredictions(false); // Load existing
-                    }
+                    // Tipps existieren bereits - GESPERRT, nur anzeigen!
+                    showToast(`🔒 Tipps für ${nextDrawDate} sind gesperrt und werden geladen`, '📋');
+                    await generatePredictions(false); // Nur laden, nicht neu generieren
                 } else {
+                    // Erste Generierung für diese Ziehung
                     await generatePredictions(false);
                 }
             });
