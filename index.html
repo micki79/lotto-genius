@@ -1731,6 +1731,35 @@
                 </div>
             </div>
 
+            <!-- KI Activity Log -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(0, 206, 201, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%); border: 1px solid rgba(0, 206, 201, 0.2);">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon teal">📋</span>
+                        KI Activity Log
+                    </div>
+                    <span style="color: var(--success); font-size: 12px;">🔴 Live</span>
+                </div>
+                <div id="kiActivityLog" style="max-height: 300px; overflow-y: auto; font-size: 13px;">
+                    <div style="color: var(--text-secondary); padding: 10px; text-align: center;">
+                        Warte auf KI-Aktivitäten...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategie Performance -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon gold">🏆</span>
+                        Strategie-Ranking
+                    </div>
+                </div>
+                <div id="strategyRanking">
+                    <!-- Strategy rankings will be inserted here -->
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
@@ -3956,6 +3985,285 @@
         const multiKI = new MultiKIAgent();
 
         // ========================================
+        // SELBSTLERNENDES KI-SYSTEM
+        // ========================================
+
+        class SelfLearningSystem {
+            constructor() {
+                this.strategies = {
+                    'frequency': { name: 'Häufigkeitsanalyse', weight: 1.0, wins: 0, total: 0, icon: '📊' },
+                    'overdue': { name: 'Überfällige Zahlen', weight: 1.0, wins: 0, total: 0, icon: '⏰' },
+                    'hot_cold': { name: 'Hot/Cold Balance', weight: 1.0, wins: 0, total: 0, icon: '🔥' },
+                    'position': { name: 'Positionsanalyse', weight: 1.0, wins: 0, total: 0, icon: '📍' },
+                    'pattern': { name: 'Mustererkennung', weight: 1.0, wins: 0, total: 0, icon: '🔮' },
+                    'neural': { name: 'Neuronales Netz', weight: 1.0, wins: 0, total: 0, icon: '🧠' },
+                    'ensemble': { name: 'Ensemble Voting', weight: 1.0, wins: 0, total: 0, icon: '🗳️' },
+                    'gradient': { name: 'Gradient Descent', weight: 1.0, wins: 0, total: 0, icon: '📈' }
+                };
+                this.activityLog = [];
+                this.maxLogEntries = 100;
+                this.discoveredPatterns = [];
+                this.initialized = false;
+            }
+
+            async init() {
+                await this.loadStrategies();
+                await this.loadActivityLog();
+                this.initialized = true;
+                this.log('system', '🚀 Selbstlernendes KI-System initialisiert');
+                this.log('system', `📊 ${Object.keys(this.strategies).length} Strategien geladen`);
+                this.updateUI();
+            }
+
+            async loadStrategies() {
+                try {
+                    const saved = await lottoDB.get('settings', 'strategies');
+                    if (saved?.data) {
+                        Object.assign(this.strategies, saved.data);
+                    }
+                } catch {
+                    const local = localStorage.getItem('ki_strategies');
+                    if (local) Object.assign(this.strategies, JSON.parse(local));
+                }
+            }
+
+            async saveStrategies() {
+                try {
+                    await lottoDB.save('settings', { key: 'strategies', data: this.strategies });
+                } catch {
+                    localStorage.setItem('ki_strategies', JSON.stringify(this.strategies));
+                }
+            }
+
+            async loadActivityLog() {
+                try {
+                    const saved = await lottoDB.get('settings', 'activityLog');
+                    if (saved?.data) this.activityLog = saved.data;
+                } catch {
+                    const local = localStorage.getItem('ki_activity_log');
+                    if (local) this.activityLog = JSON.parse(local);
+                }
+            }
+
+            async saveActivityLog() {
+                try {
+                    await lottoDB.save('settings', { key: 'activityLog', data: this.activityLog });
+                } catch {
+                    localStorage.setItem('ki_activity_log', JSON.stringify(this.activityLog));
+                }
+            }
+
+            log(type, message, details = null) {
+                const entry = {
+                    timestamp: new Date().toISOString(),
+                    time: new Date().toLocaleTimeString('de-DE'),
+                    type,
+                    message,
+                    details
+                };
+                this.activityLog.unshift(entry);
+                if (this.activityLog.length > this.maxLogEntries) {
+                    this.activityLog = this.activityLog.slice(0, this.maxLogEntries);
+                }
+                this.saveActivityLog();
+                this.updateActivityLogUI();
+            }
+
+            // Lernt aus einer Ziehung
+            async learnFromDraw(actualNumbers, predictions) {
+                this.log('learn', `📚 Analysiere Ziehung: ${actualNumbers.join(', ')}`);
+
+                let bestStrategy = null;
+                let maxMatches = 0;
+
+                // Vergleiche jede Strategie
+                for (const pred of predictions) {
+                    const strategy = pred.source || pred.strategy || 'unknown';
+                    const strategyKey = this.findStrategyKey(strategy);
+
+                    if (strategyKey && this.strategies[strategyKey]) {
+                        const matches = this.countMatches(pred.numbers || pred, actualNumbers);
+                        this.strategies[strategyKey].total++;
+
+                        if (matches >= 3) {
+                            this.strategies[strategyKey].wins++;
+                            this.log('success', `✅ ${this.strategies[strategyKey].icon} ${this.strategies[strategyKey].name}: ${matches} Treffer!`);
+                        }
+
+                        if (matches > maxMatches) {
+                            maxMatches = matches;
+                            bestStrategy = strategyKey;
+                        }
+                    }
+                }
+
+                // Gewichte anpassen
+                await this.adjustWeights(bestStrategy, maxMatches);
+                await this.discoverNewPatterns(actualNumbers);
+                await this.saveStrategies();
+                this.updateUI();
+            }
+
+            findStrategyKey(name) {
+                const lower = name.toLowerCase();
+                if (lower.includes('frequen') || lower.includes('häufig')) return 'frequency';
+                if (lower.includes('überfällig') || lower.includes('overdue')) return 'overdue';
+                if (lower.includes('hot') || lower.includes('cold') || lower.includes('heiß')) return 'hot_cold';
+                if (lower.includes('position')) return 'position';
+                if (lower.includes('muster') || lower.includes('pattern')) return 'pattern';
+                if (lower.includes('neural') || lower.includes('netz')) return 'neural';
+                if (lower.includes('ensemble') || lower.includes('voting')) return 'ensemble';
+                if (lower.includes('gradient')) return 'gradient';
+                return null;
+            }
+
+            countMatches(predicted, actual) {
+                if (!Array.isArray(predicted) || !Array.isArray(actual)) return 0;
+                return predicted.filter(n => actual.includes(n)).length;
+            }
+
+            async adjustWeights(bestStrategy, maxMatches) {
+                // Beste Strategie belohnen
+                if (bestStrategy && maxMatches >= 3) {
+                    const bonus = 0.05 * (maxMatches - 2);
+                    this.strategies[bestStrategy].weight = Math.min(2.0, this.strategies[bestStrategy].weight + bonus);
+                    this.log('adjust', `📈 ${this.strategies[bestStrategy].icon} ${this.strategies[bestStrategy].name} Gewicht erhöht auf ${(this.strategies[bestStrategy].weight * 100).toFixed(0)}%`);
+                }
+
+                // Schlechte Strategien leicht reduzieren
+                for (const [key, strategy] of Object.entries(this.strategies)) {
+                    if (strategy.total > 10 && strategy.wins / strategy.total < 0.1) {
+                        strategy.weight = Math.max(0.5, strategy.weight - 0.02);
+                        this.log('adjust', `📉 ${strategy.icon} ${strategy.name} Gewicht reduziert auf ${(strategy.weight * 100).toFixed(0)}%`);
+                    }
+                }
+            }
+
+            async discoverNewPatterns(numbers) {
+                // Suche nach neuen Mustern
+                const sum = numbers.reduce((a, b) => a + b, 0);
+                const avg = sum / numbers.length;
+                const hasConsecutive = this.hasConsecutiveNumbers(numbers);
+                const oddEvenRatio = numbers.filter(n => n % 2 === 1).length / numbers.length;
+
+                // Muster-Erkennung
+                if (sum > 200) {
+                    this.log('pattern', '🔍 Neues Muster entdeckt: Hohe Summe (>200)');
+                    this.discoveredPatterns.push({ type: 'high_sum', value: sum, date: new Date() });
+                }
+
+                if (hasConsecutive) {
+                    this.log('pattern', '🔍 Muster: Aufeinanderfolgende Zahlen erkannt');
+                }
+
+                if (oddEvenRatio > 0.7) {
+                    this.log('pattern', '🔍 Muster: Überwiegend ungerade Zahlen');
+                }
+
+                // Neue Strategie vorschlagen wenn Muster oft auftritt
+                if (this.discoveredPatterns.filter(p => p.type === 'high_sum').length >= 5) {
+                    this.log('discover', '💡 NEUE STRATEGIE entdeckt: "Hohe Summen Präferenz"');
+                    if (!this.strategies['high_sum']) {
+                        this.strategies['high_sum'] = {
+                            name: 'Hohe Summen',
+                            weight: 0.8,
+                            wins: 0,
+                            total: 0,
+                            icon: '➕',
+                            discovered: true
+                        };
+                        this.log('success', '✨ Neue Strategie "Hohe Summen" wurde automatisch hinzugefügt!');
+                    }
+                }
+            }
+
+            hasConsecutiveNumbers(numbers) {
+                const sorted = [...numbers].sort((a, b) => a - b);
+                for (let i = 0; i < sorted.length - 1; i++) {
+                    if (sorted[i + 1] - sorted[i] === 1) return true;
+                }
+                return false;
+            }
+
+            getStrategyRanking() {
+                return Object.entries(this.strategies)
+                    .map(([key, s]) => ({
+                        key,
+                        ...s,
+                        successRate: s.total > 0 ? (s.wins / s.total * 100).toFixed(1) : 0,
+                        score: s.weight * (s.total > 0 ? s.wins / s.total : 0.5)
+                    }))
+                    .sort((a, b) => b.score - a.score);
+            }
+
+            getWeightedStrategy() {
+                const ranking = this.getStrategyRanking();
+                return ranking[0]?.key || 'frequency';
+            }
+
+            updateActivityLogUI() {
+                const container = document.getElementById('kiActivityLog');
+                if (!container) return;
+
+                if (this.activityLog.length === 0) {
+                    container.innerHTML = '<div style="color: var(--text-secondary); padding: 10px; text-align: center;">Warte auf KI-Aktivitäten...</div>';
+                    return;
+                }
+
+                const typeColors = {
+                    'system': 'var(--primary)',
+                    'learn': 'var(--secondary)',
+                    'success': 'var(--success)',
+                    'adjust': '#f39c12',
+                    'pattern': 'var(--pink)',
+                    'discover': 'var(--gold)',
+                    'error': '#e74c3c'
+                };
+
+                container.innerHTML = this.activityLog.slice(0, 30).map(entry => `
+                    <div style="padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 10px; align-items: flex-start;">
+                        <span style="color: var(--text-secondary); font-size: 11px; white-space: nowrap;">${entry.time}</span>
+                        <span style="color: ${typeColors[entry.type] || 'white'};">${entry.message}</span>
+                    </div>
+                `).join('');
+            }
+
+            updateUI() {
+                this.updateActivityLogUI();
+                this.updateStrategyRankingUI();
+            }
+
+            updateStrategyRankingUI() {
+                const container = document.getElementById('strategyRanking');
+                if (!container) return;
+
+                const ranking = this.getStrategyRanking();
+
+                container.innerHTML = ranking.map((s, i) => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(${i === 0 ? '255, 215, 0' : '255, 255, 255'}, ${i === 0 ? '0.1' : '0.03'}); border-radius: 10px; margin-bottom: 8px; ${s.discovered ? 'border: 1px solid var(--gold);' : ''}">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 20px;">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : s.icon}</span>
+                            <div>
+                                <div style="font-weight: 600;">${s.name}${s.discovered ? ' <span style="color: var(--gold); font-size: 10px;">NEU</span>' : ''}</div>
+                                <div style="font-size: 11px; color: var(--text-secondary);">
+                                    ${s.wins}/${s.total} Erfolge | Gewicht: ${(s.weight * 100).toFixed(0)}%
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 18px; font-weight: 700; color: ${parseFloat(s.successRate) > 20 ? 'var(--success)' : 'var(--text-secondary)'};">
+                                ${s.successRate}%
+                            </div>
+                            <div style="font-size: 10px; color: var(--text-secondary);">Erfolgsrate</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        const selfLearning = new SelfLearningSystem();
+
+        // ========================================
         // ECHTE KI-INTEGRATION MIT CLAUDE API
         // ========================================
 
@@ -4115,10 +4423,13 @@
                 }
 
                 await this.saveAccuracy();
-                
+
                 // Lerne auch im MultiKI
                 await multiKI.learnFromResults(actualNumbers, predictions);
-                
+
+                // Lerne im Selbstlernenden System
+                await selfLearning.learnFromDraw(actualNumbers.slice(0, 6), predictions);
+
                 // Lerne Superzahl
                 if (predictions.length > 0 && actualNumbers[6] !== undefined) {
                     await szAnalyzer.learn(predictions[0].superzahl, actualNumbers[6], new Date().toISOString());
@@ -6265,6 +6576,7 @@ Antworte NUR mit JSON:
             // Initialisiere KI-Agenten
             await kiAgent.init();
             await multiKI.init();
+            await selfLearning.init();
             await szAnalyzer.loadHistory();
 
             // Initialisiere alle Spiel-Agenten
