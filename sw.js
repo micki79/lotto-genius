@@ -53,7 +53,7 @@ self.addEventListener('activate', (event) => {
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
     const requestUrl = new URL(event.request.url);
-    
+
     // Handle API requests (lottery data)
     if (requestUrl.hostname === 'johannesfriedrich.github.io') {
         event.respondWith(
@@ -77,7 +77,7 @@ self.addEventListener('fetch', (event) => {
     }
 
     // Handle Google Fonts
-    if (requestUrl.hostname === 'fonts.googleapis.com' || 
+    if (requestUrl.hostname === 'fonts.googleapis.com' ||
         requestUrl.hostname === 'fonts.gstatic.com') {
         event.respondWith(
             caches.open(CACHE_NAME)
@@ -116,7 +116,7 @@ self.addEventListener('fetch', (event) => {
                     );
                     return cachedResponse;
                 }
-                
+
                 // Not in cache, fetch from network
                 return fetch(event.request)
                     .then((response) => {
@@ -124,12 +124,12 @@ self.addEventListener('fetch', (event) => {
                         if (!response || response.status !== 200) {
                             return response;
                         }
-                        
+
                         // Clone and cache
                         const responseToCache = response.clone();
                         caches.open(CACHE_NAME)
                             .then((cache) => cache.put(event.request, responseToCache));
-                        
+
                         return response;
                     })
                     .catch(() => {
@@ -190,7 +190,7 @@ self.addEventListener('push', (event) => {
                 }
             ]
         };
-        
+
         event.waitUntil(
             self.registration.showNotification(data.title || 'LottoGenius', options)
         );
@@ -200,7 +200,7 @@ self.addEventListener('push', (event) => {
 // Notification click handler
 self.addEventListener('notificationclick', (event) => {
     event.notification.close();
-    
+
     if (event.action === 'view' || !event.action) {
         event.waitUntil(
             clients.openWindow('./')
