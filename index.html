@@ -4488,48 +4488,69 @@
                 const container = document.getElementById('providerPerformance');
                 if (!container) return;
 
-                // Lokale KI-Strategien (immer aktiv)
-                const localStrategies = [
-                    { name: 'Neuronales Netz', icon: '🧠', status: 'active', score: 78 + Math.floor(Math.random() * 15) },
-                    { name: 'Gradient Descent', icon: '📈', status: 'active', score: 75 + Math.floor(Math.random() * 15) },
-                    { name: 'Random Forest', icon: '🌲', status: 'active', score: 72 + Math.floor(Math.random() * 15) },
-                    { name: 'LSTM Sequenz', icon: '📊', status: 'active', score: 70 + Math.floor(Math.random() * 15) },
-                    { name: 'Transformer', icon: '⚡', status: 'active', score: 76 + Math.floor(Math.random() * 15) },
-                    { name: 'Hybrid Ensemble', icon: '🔮', status: 'active', score: 80 + Math.floor(Math.random() * 15) }
+                // Prüfe welche Cloud-KIs konfiguriert sind
+                const cloudProviders = [
+                    { key: 'gemini', name: 'Google Gemini', icon: '🔮', storageKey: 'gemini_api_key' },
+                    { key: 'groq', name: 'Groq (Llama)', icon: '⚡', storageKey: 'groq_api_key' },
+                    { key: 'deepseek', name: 'DeepSeek', icon: '🧠', storageKey: 'deepseek_api_key' },
+                    { key: 'openrouter', name: 'OpenRouter', icon: '🌐', storageKey: 'openrouter_api_key' },
+                    { key: 'huggingface', name: 'HuggingFace', icon: '🤗', storageKey: 'hf_api_key' },
+                    { key: 'together', name: 'Together AI', icon: '🚀', storageKey: 'together_api_key' }
                 ];
 
-                // Externe APIs (nur wenn konfiguriert)
-                const externalProviders = [
-                    { name: 'Gemini AI', icon: '🔷', status: 'standby', score: 0 },
-                    { name: 'Groq Fast', icon: '⚡', status: 'standby', score: 0 },
-                    { name: 'Claude AI', icon: '🟣', status: 'standby', score: 0 }
-                ];
-
-                // Prüfe ob externe APIs konfiguriert sind
-                const activeExternal = (typeof multiKI !== 'undefined') ? multiKI.getActiveProviders() : [];
-                externalProviders.forEach(p => {
-                    const key = p.name.toLowerCase().replace(' ', '_');
-                    if (activeExternal.some(a => a.toLowerCase().includes(key.split('_')[0]))) {
-                        p.status = 'active';
-                        p.score = 70 + Math.floor(Math.random() * 25);
-                    }
+                // Zähle aktive Cloud-KIs
+                let activeCloudCount = 0;
+                const cloudStatus = cloudProviders.map(p => {
+                    const hasKey = localStorage.getItem(p.storageKey);
+                    if (hasKey) activeCloudCount++;
+                    return {
+                        name: p.name,
+                        icon: p.icon,
+                        status: hasKey ? 'active' : 'inactive',
+                        score: hasKey ? (70 + Math.floor(Math.random() * 25)) : 0
+                    };
                 });
 
-                const providers = [...localStrategies, ...externalProviders.filter(p => p.status === 'active' || activeExternal.length === 0)];
+                // Lokale KI-Strategien (immer aktiv)
+                const localStrategies = [
+                    { name: 'Neuronales Netz', icon: '🧠', status: 'active', score: 78 + Math.floor(Math.random() * 15), isLocal: true },
+                    { name: 'Random Forest', icon: '🌲', status: 'active', score: 75 + Math.floor(Math.random() * 15), isLocal: true },
+                    { name: 'Transformer', icon: '⚙️', status: 'active', score: 76 + Math.floor(Math.random() * 15), isLocal: true }
+                ];
 
-                container.innerHTML = providers.map(p => `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                // Update aktive Strategien Zähler
+                const activeStrategiesEl = document.getElementById('activeStrategies');
+                if (activeStrategiesEl) {
+                    activeStrategiesEl.textContent = activeCloudCount + localStrategies.length;
+                }
+
+                // Kombiniere alle Provider
+                const allProviders = [...cloudStatus, ...localStrategies];
+
+                container.innerHTML = allProviders.map(p => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: ${p.status === 'active' ? 'rgba(0,206,201,0.05)' : 'rgba(255,255,255,0.02)'}; border-radius: 8px; ${p.status === 'inactive' ? 'opacity: 0.6;' : ''}">
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <span>${p.icon}</span>
-                            <span style="font-size: 13px;">${p.name}</span>
-                            <span style="font-size: 10px; padding: 2px 6px; border-radius: 10px; background: ${p.status === 'active' ? 'rgba(0,206,201,0.2)' : 'rgba(255,255,255,0.1)'}; color: ${p.status === 'active' ? 'var(--success)' : 'var(--text-secondary)'};">${p.status === 'active' ? 'Aktiv' : 'Standby'}</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <div style="width: 60px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
-                                <div style="width: ${p.score}%; height: 100%; background: ${p.score > 70 ? 'var(--success)' : p.score > 50 ? 'var(--gold)' : 'var(--pink)'}; border-radius: 3px;"></div>
+                            <span style="font-size: 18px;">${p.icon}</span>
+                            <div>
+                                <span style="font-size: 13px; ${p.isLocal ? 'color: var(--text-secondary);' : ''}">${p.name}</span>
+                                ${p.isLocal ? '<span style="font-size: 9px; color: var(--text-secondary); display: block;">Lokal</span>' : ''}
                             </div>
-                            <span style="font-size: 12px; font-weight: 600; color: ${p.score > 70 ? 'var(--success)' : 'white'};">${p.score}%</span>
+                            <span style="font-size: 10px; padding: 2px 8px; border-radius: 10px; background: ${p.status === 'active' ? 'rgba(0,206,201,0.3)' : 'rgba(255,100,100,0.2)'}; color: ${p.status === 'active' ? 'var(--success)' : '#ff6b6b'};">
+                                ${p.status === 'active' ? '✓ Aktiv' : '✗ Nicht konfiguriert'}
+                            </span>
                         </div>
+                        ${p.status === 'active' ? `
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 60px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                                    <div style="width: ${p.score}%; height: 100%; background: ${p.score > 70 ? 'var(--success)' : p.score > 50 ? 'var(--gold)' : 'var(--pink)'}; border-radius: 3px;"></div>
+                                </div>
+                                <span style="font-size: 12px; font-weight: 600; color: var(--success);">${p.score}%</span>
+                            </div>
+                        ` : `
+                            <button onclick="document.getElementById('settingsBtn').click()" style="font-size: 11px; padding: 4px 10px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                🔑 Key eingeben
+                            </button>
+                        `}
                     </div>
                 `).join('');
             }
