@@ -2,12 +2,12 @@
     "name": "LottoGenius - KI Lotto Analyse",
     "short_name": "LottoGenius",
     "description": "KI-gestützte Analyse aller deutschen Lottozahlen seit 1955 mit intelligenten Vorhersagen",
-    "start_url": "/index.html",
+    "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#0f0f1a",
     "theme_color": "#1a1a2e",
     "orientation": "portrait-primary",
-    "scope": "/",
+    "scope": "./",
     "lang": "de-DE",
     "categories": ["entertainment", "utilities"],
     "icons": [
@@ -74,7 +74,7 @@
             "name": "Neue Tipps generieren",
             "short_name": "Tipps",
             "description": "Generiere neue KI-basierte Lotto-Tipps",
-            "url": "/index.html?action=generate",
+            "url": "./index.html?action=generate",
             "icons": [
                 {
                     "src": "icon-96.png",
@@ -86,7 +86,7 @@
             "name": "Statistiken",
             "short_name": "Stats",
             "description": "Zeige Lotto-Statistiken",
-            "url": "/index.html?tab=statistics",
+            "url": "./index.html?tab=statistics",
             "icons": [
                 {
                     "src": "icon-96.png",
