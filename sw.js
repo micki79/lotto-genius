@@ -1,227 +1,172 @@
-// LottoGenius Service Worker
-const CACHE_NAME = 'lottogenius-v1.7.0';
-const DATA_CACHE_NAME = 'lottogenius-data-v1.7.0';
+// 🍀 LottoGenius Service Worker v2.1
+// Cache-Version erhöht um alten Cache zu invalidieren!
 
-// Assets to cache immediately
-const STATIC_ASSETS = [
-    './',
-    './index.html',
-    './manifest.json',
-    'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap'
+const CACHE_NAME = 'lotto-genius-v2.1';
+const OFFLINE_URL = '/lotto-genius/index.html';
+
+const ASSETS_TO_CACHE = [
+    '/lotto-genius/',
+    '/lotto-genius/index.html',
+    '/lotto-genius/manifest.json',
+    '/lotto-genius/icon-72.png',
+    '/lotto-genius/icon-96.png',
+    '/lotto-genius/icon-128.png',
+    '/lotto-genius/icon-144.png',
+    '/lotto-genius/icon-152.png',
+    '/lotto-genius/icon-192.png',
+    '/lotto-genius/icon-384.png',
+    '/lotto-genius/icon-512.png',
+    '/lotto-genius/icon.svg'
 ];
 
-// Install event - cache static assets
+// Installation - Cache neue Assets
 self.addEventListener('install', (event) => {
-    console.log('[SW] Installing...');
+    console.log('🍀 Service Worker v2.1 installiert');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                console.log('[SW] Caching static assets');
-                return cache.addAll(STATIC_ASSETS);
+                console.log('📦 Cache geöffnet');
+                return cache.addAll(ASSETS_TO_CACHE);
             })
             .then(() => {
-                console.log('[SW] Installation complete');
+                // Sofort aktivieren ohne auf andere Tabs zu warten
                 return self.skipWaiting();
             })
     );
 });
 
-// Activate event - clean up old caches
+// Aktivierung - LÖSCHE ALLE ALTEN CACHES
 self.addEventListener('activate', (event) => {
-    console.log('[SW] Activating...');
+    console.log('🍀 Service Worker v2.1 aktiviert');
     event.waitUntil(
-        caches.keys()
-            .then((cacheNames) => {
-                return Promise.all(
-                    cacheNames
-                        .filter((name) => {
-                            return name !== CACHE_NAME && name !== DATA_CACHE_NAME;
-                        })
-                        .map((name) => {
-                            console.log('[SW] Deleting old cache:', name);
-                            return caches.delete(name);
-                        })
-                );
-            })
-            .then(() => {
-                console.log('[SW] Activation complete');
-                return self.clients.claim();
-            })
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    // Lösche ALLE alten Caches
+                    if (cacheName !== CACHE_NAME) {
+                        console.log('🗑️ Lösche alten Cache:', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        }).then(() => {
+            // Übernehme sofort Kontrolle über alle Clients
+            return self.clients.claim();
+        })
     );
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch - Network First für HTML, Cache First für Assets
 self.addEventListener('fetch', (event) => {
-    const requestUrl = new URL(event.request.url);
+    const url = new URL(event.request.url);
     
-    // Handle API requests (lottery data)
-    if (requestUrl.hostname === 'johannesfriedrich.github.io') {
-        event.respondWith(
-            caches.open(DATA_CACHE_NAME)
-                .then((cache) => {
-                    return fetch(event.request)
-                        .then((response) => {
-                            // If response is valid, update cache
-                            if (response.status === 200) {
-                                cache.put(event.request, response.clone());
-                            }
-                            return response;
-                        })
-                        .catch(() => {
-                            // Network failed, try cache
-                            return cache.match(event.request);
-                        });
-                })
-        );
+    // Ignoriere non-GET requests
+    if (event.request.method !== 'GET') {
         return;
     }
-
-    // Handle Google Fonts
-    if (requestUrl.hostname === 'fonts.googleapis.com' || 
-        requestUrl.hostname === 'fonts.gstatic.com') {
+    
+    // Ignoriere Chrome Extensions und andere Protokolle
+    if (!url.protocol.startsWith('http')) {
+        return;
+    }
+    
+    // Für HTML-Seiten: Network First (immer aktuelle Version holen)
+    if (event.request.mode === 'navigate' || 
+        event.request.destination === 'document' ||
+        url.pathname.endsWith('.html') ||
+        url.pathname.endsWith('/')) {
+        
         event.respondWith(
-            caches.open(CACHE_NAME)
-                .then((cache) => {
-                    return cache.match(event.request)
+            fetch(event.request)
+                .then((response) => {
+                    // Erfolgreiche Antwort in Cache speichern
+                    if (response.status === 200) {
+                        const responseClone = response.clone();
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, responseClone);
+                        });
+                    }
+                    return response;
+                })
+                .catch(() => {
+                    // Offline - aus Cache laden
+                    return caches.match(event.request)
                         .then((cachedResponse) => {
                             if (cachedResponse) {
                                 return cachedResponse;
                             }
-                            return fetch(event.request)
-                                .then((response) => {
-                                    cache.put(event.request, response.clone());
-                                    return response;
-                                });
+                            // Fallback zur Offline-Seite
+                            return caches.match(OFFLINE_URL);
                         });
                 })
         );
         return;
     }
-
-    // Handle static assets - Cache First strategy
+    
+    // Für JSON-Daten: Network First (immer aktuelle Daten holen)
+    if (url.pathname.endsWith('.json')) {
+        event.respondWith(
+            fetch(event.request)
+                .then((response) => {
+                    if (response.status === 200) {
+                        const responseClone = response.clone();
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, responseClone);
+                        });
+                    }
+                    return response;
+                })
+                .catch(() => {
+                    return caches.match(event.request);
+                })
+        );
+        return;
+    }
+    
+    // Für statische Assets: Cache First (schneller)
     event.respondWith(
         caches.match(event.request)
             .then((cachedResponse) => {
                 if (cachedResponse) {
-                    // Return cached version, but update in background
-                    event.waitUntil(
-                        fetch(event.request)
-                            .then((response) => {
-                                if (response.status === 200) {
-                                    caches.open(CACHE_NAME)
-                                        .then((cache) => cache.put(event.request, response));
-                                }
-                            })
-                            .catch(() => {})
-                    );
+                    // Im Hintergrund aktualisieren
+                    fetch(event.request).then((response) => {
+                        if (response.status === 200) {
+                            caches.open(CACHE_NAME).then((cache) => {
+                                cache.put(event.request, response);
+                            });
+                        }
+                    }).catch(() => {});
                     return cachedResponse;
                 }
                 
-                // Not in cache, fetch from network
+                // Nicht im Cache - vom Netzwerk holen
                 return fetch(event.request)
                     .then((response) => {
-                        // Don't cache non-successful responses
-                        if (!response || response.status !== 200) {
-                            return response;
+                        if (response.status === 200) {
+                            const responseClone = response.clone();
+                            caches.open(CACHE_NAME).then((cache) => {
+                                cache.put(event.request, responseClone);
+                            });
                         }
-                        
-                        // Clone and cache
-                        const responseToCache = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then((cache) => cache.put(event.request, responseToCache));
-                        
                         return response;
-                    })
-                    .catch(() => {
-                        // Return offline page for navigation requests
-                        if (event.request.mode === 'navigate') {
-                            return caches.match('./index.html');
-                        }
                     });
             })
     );
 });
 
-// Background Sync for data refresh
-self.addEventListener('sync', (event) => {
-    if (event.tag === 'sync-lotto-data') {
-        console.log('[SW] Syncing lotto data...');
-        event.waitUntil(
-            fetch('https://johannesfriedrich.github.io/LottoNumberArchive/Lottonumbers_tidy_complete.json')
-                .then((response) => response.json())
-                .then((data) => {
-                    return caches.open(DATA_CACHE_NAME)
-                        .then((cache) => {
-                            return cache.put(
-                                'https://johannesfriedrich.github.io/LottoNumberArchive/Lottonumbers_tidy_complete.json',
-                                new Response(JSON.stringify(data))
-                            );
-                        });
-                })
-                .catch((error) => {
-                    console.log('[SW] Sync failed:', error);
-                })
-        );
+// Message Handler - Ermöglicht manuelles Cache-Löschen
+self.addEventListener('message', (event) => {
+    if (event.data === 'skipWaiting') {
+        self.skipWaiting();
     }
-});
-
-// Push notifications (for future use)
-self.addEventListener('push', (event) => {
-    if (event.data) {
-        const data = event.data.json();
-        const options = {
-            body: data.body || 'Neue Lottozahlen verfügbar!',
-            icon: './icon-192.png',
-            badge: './icon-72.png',
-            vibrate: [100, 50, 100],
-            data: {
-                dateOfArrival: Date.now(),
-                primaryKey: '1'
-            },
-            actions: [
-                {
-                    action: 'view',
-                    title: 'Anzeigen',
-                    icon: './icon-72.png'
-                },
-                {
-                    action: 'close',
-                    title: 'Schließen'
-                }
-            ]
-        };
-        
-        event.waitUntil(
-            self.registration.showNotification(data.title || 'LottoGenius', options)
-        );
-    }
-});
-
-// Notification click handler
-self.addEventListener('notificationclick', (event) => {
-    event.notification.close();
     
-    if (event.action === 'view' || !event.action) {
-        event.waitUntil(
-            clients.openWindow('./')
-        );
+    if (event.data === 'clearCache') {
+        caches.keys().then((cacheNames) => {
+            cacheNames.forEach((cacheName) => {
+                caches.delete(cacheName);
+            });
+        });
     }
 });
 
-// Periodic background sync (if supported)
-self.addEventListener('periodicsync', (event) => {
-    if (event.tag === 'update-lotto-data') {
-        const dataUrl = 'https://johannesfriedrich.github.io/LottoNumberArchive/Lottonumbers_tidy_complete.json';
-        event.waitUntil(
-            fetch(dataUrl)
-                .then((response) => {
-                    if (response.ok) {
-                        return caches.open(DATA_CACHE_NAME)
-                            .then((cache) => cache.put(dataUrl, response));
-                    }
-                })
-        );
-    }
-});
-
-console.log('[SW] Service Worker loaded');
+console.log('🍀 LottoGenius Service Worker v2.1 geladen');
