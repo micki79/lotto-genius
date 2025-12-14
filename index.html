@@ -406,6 +406,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .prediction-rank {
@@ -415,13 +417,39 @@
             background: rgba(0, 206, 201, 0.1);
             padding: 6px 14px;
             border-radius: 20px;
+            white-space: nowrap;
         }
 
         .prediction-confidence {
             font-family: 'Space Mono', monospace;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--gold);
+            white-space: nowrap;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, var(--success) 0%, #27ae60 100%);
         }
 
         /* Progress Bars */
@@ -1694,6 +1722,44 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+
+        // Kopiert Lotto-Tipp in die Zwischenablage
+        async function copyTipp(text, button) {
+            try {
+                await navigator.clipboard.writeText(text);
+
+                // Button-Feedback
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ Kopiert!';
+                button.classList.add('copied');
+
+                showToast('Tipp kopiert: ' + text, '📋');
+
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                // Fallback für ältere Browser
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+
+                button.innerHTML = '✅ Kopiert!';
+                button.classList.add('copied');
+                showToast('Tipp kopiert: ' + text, '📋');
+
+                setTimeout(() => {
+                    button.innerHTML = '📋 Kopieren';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
         }
 
         function showLoader(show = true) {
@@ -3920,11 +3986,17 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                 const szOptimized = pred.superzahlOptimized || pred.isEnsemble;
                 ballsHTML += `<div class="lotto-ball small superzahl ${szOptimized ? 'optimized' : ''}" title="${szOptimized ? 'KI-optimierte Superzahl' : ''}">${pred.superzahl}</div>`;
                 
+                const numbersStr = pred.numbers.join(', ');
+                const copyData = `${numbersStr} | SZ: ${pred.superzahl}`;
+
                 html += `
                     <div class="prediction-card ${isEnsemble ? 'ensemble-card' : ''}" style="animation-delay: ${i * 0.1}s">
                         <div class="prediction-header">
                             <span class="prediction-rank">${isEnsemble ? '🏆' : '🤖'} KI-Tipp #${i + 1}</span>
-                            <span class="prediction-confidence">${pred.confidence}% Konfidenz</span>
+                            <span class="prediction-confidence">${Math.round(pred.confidence)}%</span>
+                            <button class="copy-btn" onclick="copyTipp('${copyData}', this)">
+                                📋 Kopieren
+                            </button>
                         </div>
                         <div class="lotto-balls" style="justify-content: flex-start; margin: 15px 0;">
                             ${ballsHTML}
