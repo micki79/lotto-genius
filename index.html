@@ -3893,17 +3893,86 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
             };
         }
 
-        // Haupt-Vorhersagefunktion
-        async function generatePredictions() {
+        // Berechnet das Datum der nächsten Ziehung
+        function getNextDrawDate() {
+            const now = new Date();
+            let nextDraw = new Date(now);
+            const dayOfWeek = now.getDay();
+
+            // Mittwoch = 3, Samstag = 6
+            let daysToWed = (3 - dayOfWeek + 7) % 7;
+            let daysToSat = (6 - dayOfWeek + 7) % 7;
+
+            // Wenn heute Ziehungstag und nach 19:00/20:00, nächste Ziehung
+            if (daysToWed === 0 && now.getHours() >= 19) daysToWed = 7;
+            if (daysToSat === 0 && now.getHours() >= 20) daysToSat = 7;
+            if (daysToWed === 0) daysToWed = 7; // Nicht am selben Tag
+            if (daysToSat === 0) daysToSat = 7;
+
+            const daysUntilDraw = Math.min(daysToWed, daysToSat);
+            nextDraw.setDate(now.getDate() + daysUntilDraw);
+
+            return nextDraw.toISOString().split('T')[0]; // YYYY-MM-DD
+        }
+
+        // Haupt-Vorhersagefunktion - lädt oder generiert Tipps
+        async function generatePredictions(forceNew = false) {
             showLoader(true);
-            
+
+            const nextDrawDate = getNextDrawDate();
+            const storageKey = `predictions_${nextDrawDate}`;
+
+            // Prüfe ob bereits Tipps für diese Ziehung existieren
+            let savedPredictions = null;
             try {
+                savedPredictions = await lottoDB.get('predictions', storageKey);
+                if (!savedPredictions) {
+                    const local = localStorage.getItem(storageKey);
+                    if (local) savedPredictions = JSON.parse(local);
+                }
+            } catch (e) {
+                console.log('Predictions load error:', e);
+            }
+
+            // Wenn Tipps existieren und nicht "force", diese anzeigen
+            if (savedPredictions && !forceNew) {
+                console.log('📋 Lade gespeicherte Tipps für:', nextDrawDate);
+                renderAIPredictions(savedPredictions);
+                kiAgent.lastAnalysis = savedPredictions;
+                showLoader(false);
+                showToast(`Tipps für ${nextDrawDate} geladen`, '📋');
+                return;
+            }
+
+            // Neue Tipps generieren
+            try {
+                console.log('🔮 Generiere neue Tipps für:', nextDrawDate);
                 const aiResult = await analyzeWithRealAI(lottoData, frequencyMap, superzahlMap);
-                
+
                 if (aiResult && aiResult.predictions) {
+                    // Speichere mit Ziehungsdatum
+                    aiResult.generatedFor = nextDrawDate;
+                    aiResult.generatedAt = new Date().toISOString();
+
+                    // In IndexedDB speichern
+                    try {
+                        await lottoDB.save('predictions', {
+                            id: storageKey,
+                            ...aiResult
+                        });
+                    } catch (e) {
+                        localStorage.setItem(storageKey, JSON.stringify(aiResult));
+                    }
+
+                    // Für Lernzwecke speichern
+                    localStorage.setItem('last_predictions', JSON.stringify(aiResult.predictions));
+                    localStorage.setItem('last_prediction_date', nextDrawDate);
+
                     renderAIPredictions(aiResult);
                     updateKIStatus(true, aiResult);
                     kiAgent.lastAnalysis = aiResult;
+
+                    showToast(`Neue Tipps für ${nextDrawDate} generiert!`, '🔮');
                 }
             } catch (error) {
                 console.error('Prediction error:', error);
@@ -3916,7 +3985,7 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                 );
                 renderAIPredictions(fallbackResult);
             }
-            
+
             showLoader(false);
         }
 
@@ -4684,12 +4753,34 @@ Antworte NUR mit JSON:
 
             // Generate predictions button
             document.getElementById('generatePredictions').addEventListener('click', async () => {
-                await generatePredictions();
-                showToast('🤖 Neue KI-Tipps generiert!', '🔮');
-                
-                // Save for learning
-                if (kiAgent.lastAnalysis && kiAgent.lastAnalysis.predictions) {
-                    localStorage.setItem('last_predictions', JSON.stringify(kiAgent.lastAnalysis.predictions));
+                const nextDrawDate = getNextDrawDate();
+                const storageKey = `predictions_${nextDrawDate}`;
+
+                // Prüfe ob bereits Tipps existieren
+                let hasExisting = false;
+                try {
+                    const existing = await lottoDB.get('predictions', storageKey);
+                    hasExisting = !!existing;
+                    if (!hasExisting) {
+                        hasExisting = !!localStorage.getItem(storageKey);
+                    }
+                } catch (e) {}
+
+                if (hasExisting) {
+                    // Frage ob neu generieren
+                    const confirmNew = confirm(
+                        `⚠️ Es existieren bereits Tipps für die Ziehung am ${nextDrawDate}.\n\n` +
+                        `Wenn du neue Tipps generierst, werden die alten überschrieben und zählen NICHT für die Statistik!\n\n` +
+                        `Neue Tipps generieren?`
+                    );
+
+                    if (confirmNew) {
+                        await generatePredictions(true); // Force new
+                    } else {
+                        await generatePredictions(false); // Load existing
+                    }
+                } else {
+                    await generatePredictions(false);
                 }
             });
         });
