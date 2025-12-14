@@ -3078,7 +3078,7 @@
         class LottoDatabase {
             constructor() {
                 this.dbName = 'LottoGeniusDB';
-                this.dbVersion = 2;
+                this.dbVersion = 3;
                 this.db = null;
             }
 
@@ -3130,7 +3130,12 @@
                         if (!db.objectStoreNames.contains('lottoCache')) {
                             db.createObjectStore('lottoCache', { keyPath: 'key' });
                         }
-                        
+
+                        // Store für alle Spiel-Daten (Eurojackpot, Spiel 77, etc.)
+                        if (!db.objectStoreNames.contains('gameData')) {
+                            db.createObjectStore('gameData', { keyPath: 'id' });
+                        }
+
                         console.log('📦 Datenbank-Schema erstellt');
                     };
                 });
@@ -5220,8 +5225,19 @@ Antworte NUR mit JSON:
         async function loadAllGameDataFromServer() {
             const baseUrl = './data';
 
+            // Versuche zuerst aus dem Cache zu laden
+            let cachedData = null;
             try {
-                // Parallel alle Spieldaten laden
+                cachedData = await lottoDB.get('gameData', 'allGames');
+            } catch (e) {
+                try {
+                    const cached = localStorage.getItem('allGamesData');
+                    if (cached) cachedData = JSON.parse(cached);
+                } catch (e2) {}
+            }
+
+            try {
+                // Parallel alle Spieldaten vom Server laden
                 const [eurojackpot, spiel77, super6, gluecksspirale] = await Promise.all([
                     fetch(`${baseUrl}/eurojackpot_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
                     fetch(`${baseUrl}/spiel77_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
@@ -5229,51 +5245,138 @@ Antworte NUR mit JSON:
                     fetch(`${baseUrl}/gluecksspirale_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null)
                 ]);
 
-                if (eurojackpot?.draws) {
-                    eurojackpotAgent.data = eurojackpot.draws.map(d => ({
-                        date: d.date,
-                        numbers: d.numbers,
-                        eurozahlen: d.eurozahlen
-                    }));
-                    eurojackpotAgent.calculateFrequencies();
-                    console.log(`🌟 Eurojackpot: ${eurojackpot.draws.length} Ziehungen geladen`);
-                } else {
-                    await eurojackpotAgent.loadData();
+                // Speichere Server-Daten im Cache für konsistente Statistiken
+                const serverData = { eurojackpot, spiel77, super6, gluecksspirale, timestamp: Date.now() };
+                try {
+                    await lottoDB.save('gameData', { id: 'allGames', ...serverData });
+                } catch (e) {
+                    localStorage.setItem('allGamesData', JSON.stringify(serverData));
                 }
 
-                if (spiel77?.draws) {
-                    spiel77Agent.data = spiel77.draws;
-                    spiel77Agent.calculateFrequencies();
-                    console.log(`7️⃣ Spiel 77: ${spiel77.draws.length} Ziehungen geladen`);
-                } else {
-                    spiel77Agent.generateDemoData();
-                }
-
-                if (super6?.draws) {
-                    super6Agent.data = super6.draws;
-                    super6Agent.calculateFrequencies();
-                    console.log(`6️⃣ Super 6: ${super6.draws.length} Ziehungen geladen`);
-                } else {
-                    super6Agent.generateDemoData();
-                }
-
-                if (gluecksspirale?.draws) {
-                    gluecksspiraleAgent.data = gluecksspirale.draws;
-                    gluecksspiraleAgent.calculateFrequencies();
-                    console.log(`🌀 Glücksspirale: ${gluecksspirale.draws.length} Ziehungen geladen`);
-                } else {
-                    gluecksspiraleAgent.generateDemoData();
-                }
-
+                loadGameAgentsFromData(eurojackpot, spiel77, super6, gluecksspirale);
                 showToast('📊 Alle Spieldaten geladen!', '✅');
+
             } catch (e) {
-                console.log('Server-Daten nicht verfügbar, nutze lokale Generierung:', e);
-                // Fallback auf Demo-Daten
-                await eurojackpotAgent.loadData();
-                spiel77Agent.generateDemoData();
-                super6Agent.generateDemoData();
-                gluecksspiraleAgent.generateDemoData();
+                console.log('Server-Daten nicht verfügbar:', e);
+
+                // Fallback auf gecachte Daten
+                if (cachedData && cachedData.eurojackpot) {
+                    console.log('📦 Nutze gecachte Spieldaten');
+                    loadGameAgentsFromData(cachedData.eurojackpot, cachedData.spiel77, cachedData.super6, cachedData.gluecksspirale);
+                    showToast('📦 Gecachte Daten geladen', '✅');
+                } else {
+                    // Letzte Option: Generiere konsistente Demo-Daten mit festem Seed
+                    console.log('⚠️ Generiere Demo-Daten');
+                    generateConsistentDemoData();
+                }
             }
+        }
+
+        function loadGameAgentsFromData(eurojackpot, spiel77, super6, gluecksspirale) {
+            if (eurojackpot?.draws) {
+                eurojackpotAgent.data = eurojackpot.draws.map(d => ({
+                    date: d.date,
+                    numbers: d.numbers,
+                    eurozahlen: d.eurozahlen
+                }));
+                eurojackpotAgent.calculateFrequencies();
+                console.log(`🌟 Eurojackpot: ${eurojackpot.draws.length} Ziehungen`);
+            }
+
+            if (spiel77?.draws) {
+                spiel77Agent.data = spiel77.draws;
+                spiel77Agent.calculateFrequencies();
+                console.log(`7️⃣ Spiel 77: ${spiel77.draws.length} Ziehungen`);
+            }
+
+            if (super6?.draws) {
+                super6Agent.data = super6.draws;
+                super6Agent.calculateFrequencies();
+                console.log(`6️⃣ Super 6: ${super6.draws.length} Ziehungen`);
+            }
+
+            if (gluecksspirale?.draws) {
+                gluecksspiraleAgent.data = gluecksspirale.draws;
+                gluecksspiraleAgent.calculateFrequencies();
+                console.log(`🌀 Glücksspirale: ${gluecksspirale.draws.length} Ziehungen`);
+            }
+        }
+
+        // Generiert konsistente Demo-Daten mit festem Seed
+        function generateConsistentDemoData() {
+            // Fester Seed für konsistente Zufallszahlen
+            const seededRandom = (seed) => {
+                const x = Math.sin(seed) * 10000;
+                return x - Math.floor(x);
+            };
+
+            // Eurojackpot
+            eurojackpotAgent.data = [];
+            for (let i = 0; i < 200; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i * 3);
+                const numbers = [];
+                const used = new Set();
+                for (let j = 0; j < 5; j++) {
+                    let num;
+                    do {
+                        num = Math.floor(seededRandom(i * 100 + j) * 50) + 1;
+                    } while (used.has(num));
+                    used.add(num);
+                    numbers.push(num);
+                }
+                const eurozahlen = [
+                    Math.floor(seededRandom(i * 200) * 12) + 1,
+                    Math.floor(seededRandom(i * 200 + 1) * 12) + 1
+                ];
+                eurojackpotAgent.data.push({
+                    date: date.toLocaleDateString('de-DE'),
+                    numbers: numbers.sort((a, b) => a - b),
+                    eurozahlen: eurozahlen.sort((a, b) => a - b)
+                });
+            }
+            eurojackpotAgent.calculateFrequencies();
+
+            // Spiel 77
+            spiel77Agent.data = [];
+            for (let i = 0; i < 200; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i * 3);
+                let number = '';
+                for (let j = 0; j < 7; j++) {
+                    number += Math.floor(seededRandom(i * 300 + j) * 10);
+                }
+                spiel77Agent.data.push({ date: date.toLocaleDateString('de-DE'), number });
+            }
+            spiel77Agent.calculateFrequencies();
+
+            // Super 6
+            super6Agent.data = [];
+            for (let i = 0; i < 200; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i * 3);
+                let number = '';
+                for (let j = 0; j < 6; j++) {
+                    number += Math.floor(seededRandom(i * 400 + j) * 10);
+                }
+                super6Agent.data.push({ date: date.toLocaleDateString('de-DE'), number });
+            }
+            super6Agent.calculateFrequencies();
+
+            // Glücksspirale
+            gluecksspiraleAgent.data = [];
+            for (let i = 0; i < 200; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i * 7);
+                let number = '';
+                for (let j = 0; j < 7; j++) {
+                    number += Math.floor(seededRandom(i * 500 + j) * 10);
+                }
+                gluecksspiraleAgent.data.push({ date: date.toLocaleDateString('de-DE'), number });
+            }
+            gluecksspiraleAgent.calculateFrequencies();
+
+            console.log('✅ Konsistente Demo-Daten generiert');
         }
 
         function switchGame(game) {
