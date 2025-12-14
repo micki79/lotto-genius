@@ -5505,41 +5505,406 @@ Antworte NUR mit JSON:
         }
 
         function updateGameStatistics(game) {
-            let stats = {};
+            const statsGrid = document.getElementById('statsGrid');
+            const lastDrawBalls = document.getElementById('lastDrawBalls');
+            const lastDrawDate = document.getElementById('lastDrawDate');
+            const frequencyGrid = document.getElementById('frequencyGrid');
+            const superzahlGrid = document.getElementById('superzahlGrid');
+            const superzahlCard = superzahlGrid?.closest('.card');
+            const historyTableBody = document.getElementById('historyTableBody');
+
+            if (!statsGrid) return;
+
+            let statsHTML = '';
+            let ballsHTML = '';
+            let freqHTML = '';
+            let szHTML = '';
+            let histHTML = '';
+
+            const config = GAME_CONFIG[game];
 
             switch (game) {
-                case 'lotto6aus49':
-                    // Original stats
+                case 'lotto6aus49': {
+                    // Original Lotto 6aus49 Statistiken
+                    const totalDraws = lottoData.length;
+                    const oldestDate = lottoData.length > 0 ? lottoData[lottoData.length - 1].date : '--';
+                    const sortedFreq = Object.entries(frequencyMap).sort((a, b) => b[1] - a[1]);
+                    const hottestNumber = sortedFreq[0] ? sortedFreq[0][0] : '--';
+                    const coldestNumber = sortedFreq[sortedFreq.length - 1] ? sortedFreq[sortedFreq.length - 1][0] : '--';
+
+                    statsHTML = `
+                        <div class="stat-item">
+                            <div class="stat-icon purple">📊</div>
+                            <div>
+                                <div class="stat-value">${totalDraws.toLocaleString()}</div>
+                                <div class="stat-label">Gesamt Ziehungen</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon teal">📅</div>
+                            <div>
+                                <div class="stat-value">${oldestDate}</div>
+                                <div class="stat-label">Erste Ziehung</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon pink">🔥</div>
+                            <div>
+                                <div class="stat-value">${hottestNumber}</div>
+                                <div class="stat-label">Häufigste Zahl (${frequencyMap[hottestNumber] || 0}x)</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon gold">❄️</div>
+                            <div>
+                                <div class="stat-value">${coldestNumber}</div>
+                                <div class="stat-label">Seltenste Zahl (${frequencyMap[coldestNumber] || 0}x)</div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Letzte Ziehung
+                    if (lottoData.length > 0) {
+                        const lastDraw = lottoData[0];
+                        lastDrawDate.textContent = formatDate(lastDraw.date);
+                        lastDraw.numbers.forEach((num, i) => {
+                            ballsHTML += `<div class="lotto-ball" style="animation-delay: ${i * 0.1}s">${num}</div>`;
+                        });
+                        ballsHTML += `<div class="lotto-ball superzahl" style="animation-delay: 0.6s">${lastDraw.superzahl}</div>`;
+                    }
+
+                    // Frequency Grid (49 Zahlen)
+                    updateFrequencyGrid();
+                    if (superzahlCard) superzahlCard.style.display = 'block';
+
+                    // History
+                    updateHistory();
                     return;
-                case 'eurojackpot':
-                    stats = {
-                        totalDraws: eurojackpotAgent.data.length,
-                        numberRange: '1-50',
-                        extraRange: '1-12 (2 Eurozahlen)'
-                    };
+                }
+
+                case 'eurojackpot': {
+                    const data = eurojackpotAgent.data;
+                    const totalDraws = data.length;
+                    const oldestDate = data.length > 0 ? data[data.length - 1].date : '--';
+                    const freqMap = eurojackpotAgent.frequencyMap || {};
+                    const euroMap = eurojackpotAgent.eurozahlenMap || {};
+
+                    const sortedFreq = Object.entries(freqMap).sort((a, b) => b[1] - a[1]);
+                    const hottestNumber = sortedFreq[0] ? sortedFreq[0][0] : '--';
+                    const coldestNumber = sortedFreq[sortedFreq.length - 1] ? sortedFreq[sortedFreq.length - 1][0] : '--';
+
+                    statsHTML = `
+                        <div class="stat-item">
+                            <div class="stat-icon gold">📊</div>
+                            <div>
+                                <div class="stat-value">${totalDraws.toLocaleString()}</div>
+                                <div class="stat-label">Gesamt Ziehungen</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon teal">📅</div>
+                            <div>
+                                <div class="stat-value">${oldestDate}</div>
+                                <div class="stat-label">Erste Ziehung</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon pink">🔥</div>
+                            <div>
+                                <div class="stat-value">${hottestNumber}</div>
+                                <div class="stat-label">Häufigste (${freqMap[hottestNumber] || 0}x)</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon purple">🌟</div>
+                            <div>
+                                <div class="stat-value">5+2</div>
+                                <div class="stat-label">5 aus 50 + 2 aus 12</div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Letzte Ziehung
+                    if (data.length > 0) {
+                        const lastDraw = data[0];
+                        lastDrawDate.textContent = formatDate(lastDraw.date);
+                        lastDraw.numbers.forEach((num, i) => {
+                            ballsHTML += `<div class="lotto-ball euro-ball" style="animation-delay: ${i * 0.1}s">${num}</div>`;
+                        });
+                        lastDraw.eurozahlen.forEach((num, i) => {
+                            ballsHTML += `<div class="lotto-ball eurozahl" style="animation-delay: ${(5 + i) * 0.1}s">${num}</div>`;
+                        });
+                    }
+
+                    // Frequency Grid (50 Zahlen)
+                    const maxFreq = Math.max(...Object.values(freqMap), 1);
+                    for (let i = 1; i <= 50; i++) {
+                        const count = freqMap[i] || 0;
+                        const percentage = ((count / maxFreq) * 100).toFixed(0);
+                        freqHTML += `
+                            <div class="freq-item" title="Zahl ${i}: ${count}x gezogen">
+                                <div class="freq-number">${i}</div>
+                                <div class="freq-count">${count}x</div>
+                                <div class="freq-bar">
+                                    <div class="freq-bar-fill gold" style="width: ${percentage}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    frequencyGrid.innerHTML = freqHTML;
+
+                    // Eurozahlen statt Superzahl
+                    if (superzahlCard) {
+                        superzahlCard.style.display = 'block';
+                        superzahlCard.querySelector('.card-title').innerHTML = '<span class="icon gold">🌟</span> Eurozahlen-Häufigkeit';
+                    }
+                    const maxEZ = Math.max(...Object.values(euroMap), 1);
+                    for (let i = 1; i <= 12; i++) {
+                        const count = euroMap[i] || 0;
+                        const percentage = ((count / maxEZ) * 100).toFixed(0);
+                        szHTML += `
+                            <div class="freq-item" title="Eurozahl ${i}: ${count}x gezogen">
+                                <div class="freq-number">${i}</div>
+                                <div class="freq-count">${count}x</div>
+                                <div class="freq-bar">
+                                    <div class="freq-bar-fill gold" style="width: ${percentage}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    superzahlGrid.innerHTML = szHTML;
+                    superzahlGrid.style.gridTemplateColumns = 'repeat(6, 1fr)';
+
+                    // History
+                    data.slice(0, 20).forEach(draw => {
+                        let numBalls = '';
+                        draw.numbers.forEach(num => numBalls += `<div class="history-ball" style="background: var(--gradient-gold); color: #333;">${num}</div>`);
+                        draw.eurozahlen.forEach(num => numBalls += `<div class="history-ball" style="background: linear-gradient(135deg, #f39c12, #f1c40f); color: #333;">${num}</div>`);
+                        histHTML += `<tr><td class="history-date">${formatDate(draw.date)}</td><td><div class="history-balls">${numBalls}</div></td><td><div class="history-ball sz">EZ</div></td></tr>`;
+                    });
                     break;
-                case 'spiel77':
-                    stats = {
-                        totalDraws: spiel77Agent.data.length,
-                        digits: 7,
-                        prizes: '5€ - 177.777€+'
-                    };
+                }
+
+                case 'spiel77': {
+                    const data = spiel77Agent.data;
+                    const totalDraws = data.length;
+                    const oldestDate = data.length > 0 ? data[data.length - 1].date : '--';
+                    const digitFreq = spiel77Agent.positionFrequency || Array(7).fill(null).map(() => ({}));
+
+                    statsHTML = `
+                        <div class="stat-item">
+                            <div class="stat-icon teal">📊</div>
+                            <div>
+                                <div class="stat-value">${totalDraws.toLocaleString()}</div>
+                                <div class="stat-label">Gesamt Ziehungen</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon purple">7️⃣</div>
+                            <div>
+                                <div class="stat-value">7 Ziffern</div>
+                                <div class="stat-label">Losnummer-Länge</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon gold">💰</div>
+                            <div>
+                                <div class="stat-value">177.777€+</div>
+                                <div class="stat-label">Hauptgewinn</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon pink">🎯</div>
+                            <div>
+                                <div class="stat-value">5€</div>
+                                <div class="stat-label">Min. Gewinn (1 Endziffer)</div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Letzte Ziehung
+                    if (data.length > 0) {
+                        const lastDraw = data[0];
+                        lastDrawDate.textContent = formatDate(lastDraw.date);
+                        lastDraw.number.split('').forEach((digit, i) => {
+                            ballsHTML += `<div class="digit-ball" style="animation-delay: ${i * 0.1}s">${digit}</div>`;
+                        });
+                    }
+
+                    // Digit Frequency Grid
+                    freqHTML = renderDigitFrequencyGrid(digitFreq, 7, 'Spiel 77');
+                    frequencyGrid.innerHTML = freqHTML;
+                    if (superzahlCard) superzahlCard.style.display = 'none';
+
+                    // History
+                    data.slice(0, 20).forEach(draw => {
+                        let digits = '';
+                        draw.number.split('').forEach(d => digits += `<div class="history-ball" style="background: var(--gradient-2);">${d}</div>`);
+                        histHTML += `<tr><td class="history-date">${formatDate(draw.date)}</td><td><div class="history-balls">${digits}</div></td><td>-</td></tr>`;
+                    });
                     break;
-                case 'super6':
-                    stats = {
-                        totalDraws: super6Agent.data.length,
-                        digits: 6,
-                        prizes: '2,50€ - 100.000€'
-                    };
+                }
+
+                case 'super6': {
+                    const data = super6Agent.data;
+                    const totalDraws = data.length;
+                    const oldestDate = data.length > 0 ? data[data.length - 1].date : '--';
+                    const digitFreq = super6Agent.positionFrequency || Array(6).fill(null).map(() => ({}));
+
+                    statsHTML = `
+                        <div class="stat-item">
+                            <div class="stat-icon pink">📊</div>
+                            <div>
+                                <div class="stat-value">${totalDraws.toLocaleString()}</div>
+                                <div class="stat-label">Gesamt Ziehungen</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon purple">6️⃣</div>
+                            <div>
+                                <div class="stat-value">6 Ziffern</div>
+                                <div class="stat-label">Losnummer-Länge</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon gold">💰</div>
+                            <div>
+                                <div class="stat-value">100.000€</div>
+                                <div class="stat-label">Hauptgewinn</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon teal">🎯</div>
+                            <div>
+                                <div class="stat-value">2,50€</div>
+                                <div class="stat-label">Min. Gewinn (1 Endziffer)</div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Letzte Ziehung
+                    if (data.length > 0) {
+                        const lastDraw = data[0];
+                        lastDrawDate.textContent = formatDate(lastDraw.date);
+                        lastDraw.number.split('').forEach((digit, i) => {
+                            ballsHTML += `<div class="digit-ball" style="animation-delay: ${i * 0.1}s; background: var(--gradient-3);">${digit}</div>`;
+                        });
+                    }
+
+                    // Digit Frequency Grid
+                    freqHTML = renderDigitFrequencyGrid(digitFreq, 6, 'Super 6');
+                    frequencyGrid.innerHTML = freqHTML;
+                    if (superzahlCard) superzahlCard.style.display = 'none';
+
+                    // History
+                    data.slice(0, 20).forEach(draw => {
+                        let digits = '';
+                        draw.number.split('').forEach(d => digits += `<div class="history-ball" style="background: var(--gradient-3);">${d}</div>`);
+                        histHTML += `<tr><td class="history-date">${formatDate(draw.date)}</td><td><div class="history-balls">${digits}</div></td><td>-</td></tr>`;
+                    });
                     break;
-                case 'gluecksspirale':
-                    stats = {
-                        totalDraws: gluecksspiraleAgent.data.length,
-                        digits: 7,
-                        prizes: '10€ - 1,2 Mio € + Rente'
-                    };
+                }
+
+                case 'gluecksspirale': {
+                    const data = gluecksspiraleAgent.data;
+                    const totalDraws = data.length;
+                    const oldestDate = data.length > 0 ? data[data.length - 1].date : '--';
+                    const digitFreq = gluecksspiraleAgent.positionFrequency || Array(7).fill(null).map(() => ({}));
+
+                    statsHTML = `
+                        <div class="stat-item">
+                            <div class="stat-icon teal">📊</div>
+                            <div>
+                                <div class="stat-value">${totalDraws.toLocaleString()}</div>
+                                <div class="stat-label">Gesamt Ziehungen</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon purple">🌀</div>
+                            <div>
+                                <div class="stat-value">7 Ziffern</div>
+                                <div class="stat-label">Losnummer-Länge</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon gold">💰</div>
+                            <div>
+                                <div class="stat-value">2,1 Mio €</div>
+                                <div class="stat-label">+ 10.000€/Mon. Rente</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon pink">📅</div>
+                            <div>
+                                <div class="stat-value">Sa</div>
+                                <div class="stat-label">Nur Samstags</div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Letzte Ziehung
+                    if (data.length > 0) {
+                        const lastDraw = data[0];
+                        lastDrawDate.textContent = formatDate(lastDraw.date);
+                        lastDraw.number.split('').forEach((digit, i) => {
+                            ballsHTML += `<div class="digit-ball" style="animation-delay: ${i * 0.1}s; background: linear-gradient(135deg, var(--success), #55efc4);">${digit}</div>`;
+                        });
+                    }
+
+                    // Digit Frequency Grid
+                    freqHTML = renderDigitFrequencyGrid(digitFreq, 7, 'Glücksspirale');
+                    frequencyGrid.innerHTML = freqHTML;
+                    if (superzahlCard) superzahlCard.style.display = 'none';
+
+                    // History
+                    data.slice(0, 20).forEach(draw => {
+                        let digits = '';
+                        draw.number.split('').forEach(d => digits += `<div class="history-ball" style="background: linear-gradient(135deg, var(--success), #55efc4);">${d}</div>`);
+                        histHTML += `<tr><td class="history-date">${formatDate(draw.date)}</td><td><div class="history-balls">${digits}</div></td><td>-</td></tr>`;
+                    });
                     break;
+                }
             }
+
+            statsGrid.innerHTML = statsHTML;
+            lastDrawBalls.innerHTML = ballsHTML;
+            if (historyTableBody && histHTML) {
+                historyTableBody.innerHTML = histHTML;
+            }
+        }
+
+        // Helper: Digit Frequency Grid für Spiel 77, Super 6, Glücksspirale
+        function renderDigitFrequencyGrid(digitFreq, numDigits, gameName) {
+            let html = `<div style="margin-bottom: 15px; color: var(--text-secondary); font-size: 14px;">
+                ${gameName} - Ziffernhäufigkeit pro Position (von links nach rechts)
+            </div>`;
+
+            for (let pos = 0; pos < numDigits; pos++) {
+                const posFreq = digitFreq[pos] || {};
+                const maxCount = Math.max(...Object.values(posFreq), 1);
+
+                html += `<div style="margin-bottom: 20px;">
+                    <div style="font-weight: 600; margin-bottom: 10px; color: var(--secondary);">
+                        Position ${pos + 1} ${pos === numDigits - 1 ? '(Endziffer - wichtigste!)' : ''}
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;">`;
+
+                for (let digit = 0; digit <= 9; digit++) {
+                    const count = posFreq[digit] || 0;
+                    const percentage = ((count / maxCount) * 100).toFixed(0);
+                    html += `
+                        <div class="freq-item" title="Ziffer ${digit} auf Position ${pos + 1}: ${count}x">
+                            <div class="freq-number">${digit}</div>
+                            <div class="freq-count">${count}x</div>
+                            <div class="freq-bar">
+                                <div class="freq-bar-fill teal" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+                html += '</div></div>';
+            }
+            return html;
         }
 
         // =====================================================
