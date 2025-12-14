@@ -97,12 +97,61 @@
       "actual": 8,
       "correct": false,
       "method": "ensemble_ml"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 3,
+      "actual": 8,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 3,
+      "actual": 8,
+      "correct": false,
+      "method": "neural_network"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 9,
+      "actual": 8,
+      "correct": false,
+      "method": "lstm"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 0,
+      "actual": 8,
+      "correct": false,
+      "method": "random_forest"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 5,
+      "actual": 8,
+      "correct": false,
+      "method": "bayesian"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 2,
+      "actual": 8,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 6,
+      "actual": 8,
+      "correct": false,
+      "method": "ensemble_ml"
     }
   ],
   "stats": {
-    "total": 14,
+    "total": 21,
     "correct": 0,
     "accuracy": 0.0,
-    "last_update": "2025-12-13T20:15:26.079990"
+    "last_update": "2025-12-14T03:40:29.401758"
   }
 }
