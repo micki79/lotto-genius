@@ -2063,6 +2063,16 @@
             const szAccuracy = szAnalyzer.getAccuracy();
             const learningEntries = kiAgent.learningHistory?.length || 0;
 
+            // Berechne detaillierte Trefferstatistik
+            const matchCounts = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+            let totalMatches = 0;
+            predictionHistory.forEach(entry => {
+                const m = entry.matches || 0;
+                if (m >= 0 && m <= 6) matchCounts[m]++;
+                totalMatches += m;
+            });
+            const avgMatches = predictionHistory.length > 0 ? (totalMatches / predictionHistory.length).toFixed(2) : '0.00';
+
             // KI Lernstatistik HTML
             statsContainer.innerHTML = `
                 <div class="stat-item">
@@ -2075,25 +2085,66 @@
                 <div class="stat-item">
                     <div class="stat-icon gold">🎯</div>
                     <div>
-                        <div class="stat-value">${accuracyRate}%</div>
-                        <div class="stat-label">Erfolgsquote (3+ Treffer)</div>
+                        <div class="stat-value">${avgMatches}</div>
+                        <div class="stat-label">Ø Treffer pro Tipp</div>
                     </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-icon teal">⭐</div>
                     <div>
                         <div class="stat-value">${szAccuracy.rate}%</div>
-                        <div class="stat-label">Superzahl-Trefferquote (${szAccuracy.correct}/${szAccuracy.total})</div>
+                        <div class="stat-label">Superzahl-Quote (${szAccuracy.correct}/${szAccuracy.total})</div>
                     </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-icon pink">📈</div>
                     <div>
                         <div class="stat-value">${learningEntries}</div>
-                        <div class="stat-label">Lern-Einträge gespeichert</div>
+                        <div class="stat-label">Lern-Einträge</div>
                     </div>
                 </div>
             `;
+
+            // Detaillierte Treffer-Statistik Card
+            if (predictionHistory.length > 0) {
+                const detailHTML = `
+                <div style="background: linear-gradient(135deg, rgba(0,206,201,0.1) 0%, rgba(108,92,231,0.1) 100%); border-radius: 12px; padding: 15px; margin-top: 15px;">
+                    <strong style="color: var(--secondary);">📈 Treffer-Übersicht (${predictionHistory.length} Tipps)</strong>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px;">
+                        <div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 20px; font-weight: 700; color: #e74c3c;">🏆 6er</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--gold);">${matchCounts[6]}</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 20px; font-weight: 700; color: #f39c12;">⭐ 5er</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--secondary);">${matchCounts[5]}</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 20px; font-weight: 700; color: #2ecc71;">✓ 4er</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--secondary);">${matchCounts[4]}</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 20px; font-weight: 700; color: #3498db;">• 3er</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--secondary);">${matchCounts[3]}</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+                        <div style="text-align: center; padding: 8px; background: rgba(0,0,0,0.15); border-radius: 8px;">
+                            <div style="font-size: 14px; color: var(--text-secondary);">2er</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 18px;">${matchCounts[2]}</div>
+                        </div>
+                        <div style="text-align: center; padding: 8px; background: rgba(0,0,0,0.15); border-radius: 8px;">
+                            <div style="font-size: 14px; color: var(--text-secondary);">1er</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 18px;">${matchCounts[1]}</div>
+                        </div>
+                        <div style="text-align: center; padding: 8px; background: rgba(0,0,0,0.15); border-radius: 8px;">
+                            <div style="font-size: 14px; color: var(--text-secondary);">0er</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 18px;">${matchCounts[0]}</div>
+                        </div>
+                    </div>
+                </div>`;
+                statsContainer.innerHTML += detailHTML;
+            }
 
             // Provider Ranking
             const rankings = multiKI.getProviderRankings();
@@ -2607,6 +2658,46 @@
                 free: true,
                 description: 'Premium KI von Anthropic',
                 icon: '🤖'
+            },
+            // Mistral AI - Europäisches KI-Unternehmen
+            mistral: {
+                name: 'Mistral AI',
+                endpoint: 'https://api.mistral.ai/v1/chat/completions',
+                model: 'mistral-large-latest',
+                apiKeyStorage: 'mistral_api_key',
+                free: true,
+                description: 'Europäische Premium KI',
+                icon: '🌊'
+            },
+            // Cohere - Spezialisiert auf Analyse
+            cohere: {
+                name: 'Cohere',
+                endpoint: 'https://api.cohere.ai/v1/chat',
+                model: 'command-r-plus',
+                apiKeyStorage: 'cohere_api_key',
+                free: true,
+                description: 'Spezialisiert auf Datenanalyse',
+                icon: '💎'
+            },
+            // Perplexity - Mit Echtzeit-Daten
+            perplexity: {
+                name: 'Perplexity',
+                endpoint: 'https://api.perplexity.ai/chat/completions',
+                model: 'llama-3.1-sonar-large-128k-online',
+                apiKeyStorage: 'perplexity_api_key',
+                free: true,
+                description: 'KI mit Echtzeit-Suche',
+                icon: '🔍'
+            },
+            // Cerebras - Ultraschnelle Inferenz
+            cerebras: {
+                name: 'Cerebras',
+                endpoint: 'https://api.cerebras.ai/v1/chat/completions',
+                model: 'llama-3.3-70b',
+                apiKeyStorage: 'cerebras_api_key',
+                free: true,
+                description: 'Schnellste KI-Inferenz',
+                icon: '🧬'
             }
         };
 
@@ -2720,8 +2811,25 @@
                         data = await response.json();
                         return data[0]?.generated_text || null;
                     }
+                    else if (providerName === 'cohere') {
+                        // Cohere hat eigene API-Struktur
+                        response = await fetch(provider.endpoint, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${apiKey}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                model: provider.model,
+                                message: prompt,
+                                max_tokens: 2000
+                            })
+                        });
+                        data = await response.json();
+                        return data.text || null;
+                    }
                     else {
-                        // OpenAI-kompatible APIs (Groq, OpenRouter, Together, Gemini, DeepSeek)
+                        // OpenAI-kompatible APIs (Groq, OpenRouter, Together, Gemini, DeepSeek, Mistral, Perplexity, Cerebras)
                         const headers = {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${apiKey}`
