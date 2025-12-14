@@ -49,7 +49,9 @@
             background: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             overflow-x: hidden;
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         /* Animated Background */
@@ -205,6 +207,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            padding-bottom: 120px; /* Space for FAB button */
         }
 
         /* Navigation Tabs */
@@ -810,13 +813,25 @@
                 font-size: 20px;
             }
 
+            .container {
+                padding: 15px;
+                padding-bottom: 130px;
+            }
+
             .card {
-                padding: 20px;
+                padding: 18px;
+                border-radius: 18px;
             }
 
             .lotto-ball {
-                width: 50px;
-                height: 50px;
+                width: 48px;
+                height: 48px;
+                font-size: 17px;
+            }
+
+            .digit-ball {
+                width: 42px;
+                height: 42px;
                 font-size: 18px;
             }
 
@@ -845,12 +860,51 @@
             .history-table td {
                 padding: 10px;
             }
+
+            .prediction-card {
+                padding: 18px;
+            }
+
+            .prediction-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .game-selector {
+                justify-content: flex-start;
+            }
+
+            .game-btn {
+                min-width: 85px;
+                padding: 10px 15px;
+            }
+
+            .settings-btn {
+                width: 52px;
+                height: 52px;
+                font-size: 20px;
+                right: 15px;
+                bottom: calc(20px + env(safe-area-inset-bottom));
+            }
+
+            .sz-best {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .sz-best-number {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
         }
 
         /* Notification Toast */
         .toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 100px;
+            bottom: calc(100px + env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: var(--bg-card);
@@ -864,6 +918,7 @@
             z-index: 1000;
             transition: transform 0.3s ease;
             border: 1px solid rgba(108, 92, 231, 0.3);
+            max-width: 90%;
         }
 
         .toast.show {
@@ -1251,14 +1306,15 @@
         .settings-btn {
             position: fixed;
             bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+            bottom: calc(30px + env(safe-area-inset-bottom));
+            right: 20px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: var(--gradient-1);
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
             box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
             transition: all 0.3s ease;
