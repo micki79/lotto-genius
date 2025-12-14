@@ -745,7 +745,47 @@ Generiere 2 verschiedene Tipps. Antworte NUR mit diesem JSON-Format:
                 
         except Exception as e:
             print(f"   ❌ {provider_name}: {e}")
-    
+
+    # ===== PROVIDER-STATUS SPEICHERN =====
+    provider_status = load_json('provider_status.json', {'providers': {}})
+    provider_status['last_check'] = datetime.now().isoformat()
+
+    for provider_id, provider_name, _ in ki_apis:
+        api_key = get_api_key(provider_id)
+        provider_info = KI_PROVIDERS.get(provider_id, {})
+
+        if provider_id not in provider_status['providers']:
+            provider_status['providers'][provider_id] = {
+                'name': provider_info.get('name', provider_name),
+                'icon': provider_info.get('emoji', '🤖'),
+                'status': 'unknown',
+                'last_success': None,
+                'error': None
+            }
+
+        if not api_key:
+            provider_status['providers'][provider_id]['status'] = 'no_key'
+            provider_status['providers'][provider_id]['error'] = 'Kein API-Key konfiguriert'
+        elif provider_id in ki_results:
+            provider_status['providers'][provider_id]['status'] = 'online'
+            provider_status['providers'][provider_id]['last_success'] = datetime.now().isoformat()
+            provider_status['providers'][provider_id]['error'] = None
+        else:
+            provider_status['providers'][provider_id]['status'] = 'error'
+            provider_status['providers'][provider_id]['error'] = 'API-Aufruf fehlgeschlagen'
+
+    # Lokale ML immer online
+    provider_status['providers']['local_ml'] = {
+        'name': 'Lokale ML-Modelle',
+        'icon': '🖥️',
+        'status': 'online',
+        'last_success': datetime.now().isoformat(),
+        'error': None
+    }
+
+    save_json('provider_status.json', provider_status)
+    print(f"\n📊 Provider-Status gespeichert")
+
     # ===== 3. ENSEMBLE-VOTING =====
     print("\n🏆 Ensemble-Voting:")
     
