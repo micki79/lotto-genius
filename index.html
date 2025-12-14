@@ -1321,6 +1321,147 @@
         .install-close:hover {
             opacity: 1;
         }
+
+        /* Game Selector */
+        .game-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .game-selector::-webkit-scrollbar {
+            display: none;
+        }
+
+        .game-btn {
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-width: 100px;
+        }
+
+        .game-btn:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+        }
+
+        .game-btn.active {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, rgba(255, 234, 167, 0.1) 0%, rgba(253, 203, 110, 0.15) 100%);
+            color: var(--gold);
+        }
+
+        .game-btn .game-icon {
+            font-size: 24px;
+        }
+
+        .game-btn .game-name {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        /* Game specific colors */
+        .game-btn[data-game="lotto6aus49"].active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(162, 155, 254, 0.1) 100%);
+            color: var(--primary);
+        }
+
+        .game-btn[data-game="eurojackpot"].active {
+            border-color: #f39c12;
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, rgba(241, 196, 15, 0.1) 100%);
+            color: #f39c12;
+        }
+
+        .game-btn[data-game="spiel77"].active {
+            border-color: var(--secondary);
+            background: linear-gradient(135deg, rgba(0, 206, 201, 0.1) 0%, rgba(129, 236, 236, 0.1) 100%);
+            color: var(--secondary);
+        }
+
+        .game-btn[data-game="super6"].active {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(253, 121, 168, 0.1) 0%, rgba(250, 177, 160, 0.1) 100%);
+            color: var(--accent);
+        }
+
+        .game-btn[data-game="gluecksspirale"].active {
+            border-color: var(--success);
+            background: linear-gradient(135deg, rgba(0, 184, 148, 0.1) 0%, rgba(85, 239, 196, 0.1) 100%);
+            color: var(--success);
+        }
+
+        /* Digit Balls for Spiel 77 / Super 6 */
+        .digit-balls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .digit-ball {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            background: var(--gradient-2);
+            box-shadow: 0 5px 15px rgba(0, 206, 201, 0.3);
+        }
+
+        .digit-ball.match {
+            background: var(--gradient-gold);
+            color: #333;
+            box-shadow: 0 5px 15px rgba(253, 203, 110, 0.4);
+        }
+
+        /* Eurojackpot specific */
+        .euro-ball {
+            background: var(--gradient-gold) !important;
+            color: #333 !important;
+        }
+
+        .eurozahl {
+            background: linear-gradient(135deg, #f39c12 0%, #f1c40f 100%) !important;
+            color: #333 !important;
+        }
+
+        /* Game Info Badge */
+        .game-info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .game-info-badge .badge-icon {
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -1399,6 +1540,35 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Game Selector -->
+        <div class="game-selector" id="gameSelector">
+            <button class="game-btn active" data-game="lotto6aus49">
+                <span class="game-icon">🎱</span>
+                <span>6aus49</span>
+                <span class="game-name">Mi + Sa</span>
+            </button>
+            <button class="game-btn" data-game="eurojackpot">
+                <span class="game-icon">🌟</span>
+                <span>Eurojackpot</span>
+                <span class="game-name">Di + Fr</span>
+            </button>
+            <button class="game-btn" data-game="spiel77">
+                <span class="game-icon">7️⃣</span>
+                <span>Spiel 77</span>
+                <span class="game-name">Mi + Sa</span>
+            </button>
+            <button class="game-btn" data-game="super6">
+                <span class="game-icon">6️⃣</span>
+                <span>Super 6</span>
+                <span class="game-name">Mi + Sa</span>
+            </button>
+            <button class="game-btn" data-game="gluecksspirale">
+                <span class="game-icon">🌀</span>
+                <span>Glücksspirale</span>
+                <span class="game-name">Samstag</span>
+            </button>
         </div>
 
         <!-- Navigation Tabs -->
@@ -1702,9 +1872,411 @@
         let superzahlMap = {};
         let historyPage = 0;
         let deferredPrompt = null;
+        let currentGame = 'lotto6aus49';
 
-        // API Endpoint
+        // Game Data Storage
+        const gameData = {
+            lotto6aus49: { data: [], frequencyMap: {}, superzahlMap: {} },
+            eurojackpot: { data: [], frequencyMap: {}, eurozahlenMap: {} },
+            spiel77: { data: [], digitFrequency: {} },
+            super6: { data: [], digitFrequency: {} },
+            gluecksspirale: { data: [], digitFrequency: {} }
+        };
+
+        // API Endpoints
         const API_URL = 'https://johannesfriedrich.github.io/LottoNumberArchive/Lottonumbers_tidy_complete.json';
+        const EUROJACKPOT_API = 'https://johannesfriedrich.github.io/LottoNumberArchive/Eurojackpot_tidy_complete.json';
+
+        // ========================================
+        // GAME CONFIGURATION
+        // ========================================
+        const GAME_CONFIG = {
+            lotto6aus49: {
+                name: 'Lotto 6aus49',
+                icon: '🎱',
+                description: '6 aus 49 + Superzahl',
+                drawDays: [3, 6], // Mi, Sa
+                drawTimes: { 3: '18:25', 6: '19:25' },
+                numberRange: { min: 1, max: 49, count: 6 },
+                extraNumber: { name: 'Superzahl', min: 0, max: 9, count: 1 }
+            },
+            eurojackpot: {
+                name: 'Eurojackpot',
+                icon: '🌟',
+                description: '5 aus 50 + 2 Eurozahlen',
+                drawDays: [2, 5], // Di, Fr
+                drawTimes: { 2: '20:00', 5: '20:00' },
+                numberRange: { min: 1, max: 50, count: 5 },
+                extraNumber: { name: 'Eurozahlen', min: 1, max: 12, count: 2 }
+            },
+            spiel77: {
+                name: 'Spiel 77',
+                icon: '7️⃣',
+                description: '7-stellige Losnummer',
+                drawDays: [3, 6], // Mi, Sa
+                drawTimes: { 3: '18:25', 6: '19:25' },
+                digits: 7,
+                type: 'endnumber'
+            },
+            super6: {
+                name: 'Super 6',
+                icon: '6️⃣',
+                description: '6-stellige Losnummer',
+                drawDays: [3, 6], // Mi, Sa
+                drawTimes: { 3: '18:25', 6: '19:25' },
+                digits: 6,
+                type: 'endnumber'
+            },
+            gluecksspirale: {
+                name: 'Glücksspirale',
+                icon: '🌀',
+                description: '7-stellige Losnummer',
+                drawDays: [6], // nur Sa
+                drawTimes: { 6: '19:15' },
+                digits: 7,
+                type: 'endnumber'
+            }
+        };
+
+        // ========================================
+        // GAME CLASSES
+        // ========================================
+
+        // Eurojackpot Agent
+        class EurojackpotAgent {
+            constructor() {
+                this.data = [];
+                this.frequencyMap = {};
+                this.eurozahlenMap = {};
+            }
+
+            async loadData() {
+                try {
+                    const response = await fetch(EUROJACKPOT_API);
+                    if (response.ok) {
+                        const rawData = await response.json();
+                        this.processData(rawData);
+                        return true;
+                    }
+                } catch (e) {
+                    console.log('Eurojackpot API nicht verfügbar, generiere Demo-Daten');
+                }
+                this.generateDemoData();
+                return false;
+            }
+
+            processData(rawData) {
+                const grouped = {};
+                rawData.forEach(item => {
+                    if (!grouped[item.date]) {
+                        grouped[item.date] = { date: item.date, numbers: [], eurozahlen: [] };
+                    }
+                    if (item.variable === 'Lottozahl') {
+                        grouped[item.date].numbers.push(parseInt(item.value));
+                    } else if (item.variable === 'Eurozahl') {
+                        grouped[item.date].eurozahlen.push(parseInt(item.value));
+                    }
+                });
+
+                this.data = Object.values(grouped)
+                    .filter(d => d.numbers.length === 5 && d.eurozahlen.length === 2)
+                    .map(d => ({
+                        ...d,
+                        numbers: d.numbers.sort((a, b) => a - b),
+                        eurozahlen: d.eurozahlen.sort((a, b) => a - b)
+                    }))
+                    .sort((a, b) => {
+                        const [dayA, monthA, yearA] = a.date.split('.').map(Number);
+                        const [dayB, monthB, yearB] = b.date.split('.').map(Number);
+                        return new Date(yearB, monthB - 1, dayB) - new Date(yearA, monthA - 1, dayA);
+                    });
+
+                this.calculateFrequencies();
+            }
+
+            generateDemoData() {
+                this.data = [];
+                const now = new Date();
+                for (let i = 0; i < 200; i++) {
+                    const date = new Date(now);
+                    date.setDate(date.getDate() - i * 3);
+                    const numbers = this.generateRandomNumbers(5, 1, 50);
+                    const eurozahlen = this.generateRandomNumbers(2, 1, 12);
+                    this.data.push({
+                        date: date.toLocaleDateString('de-DE'),
+                        numbers: numbers.sort((a, b) => a - b),
+                        eurozahlen: eurozahlen.sort((a, b) => a - b)
+                    });
+                }
+                this.calculateFrequencies();
+            }
+
+            generateRandomNumbers(count, min, max) {
+                const numbers = new Set();
+                while (numbers.size < count) {
+                    numbers.add(Math.floor(Math.random() * (max - min + 1)) + min);
+                }
+                return Array.from(numbers);
+            }
+
+            calculateFrequencies() {
+                this.frequencyMap = {};
+                this.eurozahlenMap = {};
+
+                for (let i = 1; i <= 50; i++) this.frequencyMap[i] = 0;
+                for (let i = 1; i <= 12; i++) this.eurozahlenMap[i] = 0;
+
+                this.data.forEach(draw => {
+                    draw.numbers.forEach(num => this.frequencyMap[num]++);
+                    draw.eurozahlen.forEach(num => this.eurozahlenMap[num]++);
+                });
+            }
+
+            generatePredictions() {
+                const sortedFreq = Object.entries(this.frequencyMap).sort((a, b) => b[1] - a[1]);
+                const sortedEuro = Object.entries(this.eurozahlenMap).sort((a, b) => b[1] - a[1]);
+
+                const hotNumbers = sortedFreq.slice(0, 15).map(([n]) => parseInt(n));
+                const coldNumbers = sortedFreq.slice(-15).map(([n]) => parseInt(n));
+                const hotEuro = sortedEuro.slice(0, 6).map(([n]) => parseInt(n));
+
+                const predictions = [
+                    {
+                        numbers: this.selectWeighted(hotNumbers, 5),
+                        eurozahlen: hotEuro.slice(0, 2),
+                        confidence: 78,
+                        strategy: 'Heiße Zahlen + Top Eurozahlen',
+                        source: 'eurojackpot_hot'
+                    },
+                    {
+                        numbers: this.selectMixed(hotNumbers, coldNumbers, 5),
+                        eurozahlen: this.selectWeighted(hotEuro, 2),
+                        confidence: 72,
+                        strategy: 'Ausgewogene Mischung',
+                        source: 'eurojackpot_mixed'
+                    },
+                    {
+                        numbers: this.selectOverdue(5),
+                        eurozahlen: this.selectOverdueEuro(2),
+                        confidence: 68,
+                        strategy: 'Überfällige Zahlen',
+                        source: 'eurojackpot_overdue'
+                    }
+                ];
+
+                return {
+                    analysis: 'Eurojackpot-Analyse basiert auf ' + this.data.length + ' Ziehungen',
+                    predictions: predictions
+                };
+            }
+
+            selectWeighted(pool, count) {
+                const selected = new Set();
+                while (selected.size < count && pool.length > 0) {
+                    const idx = Math.floor(Math.random() * Math.min(pool.length, count * 2));
+                    selected.add(pool[idx]);
+                }
+                return Array.from(selected).sort((a, b) => a - b);
+            }
+
+            selectMixed(hot, cold, count) {
+                const selected = new Set();
+                const hotCount = Math.ceil(count * 0.6);
+                const coldCount = count - hotCount;
+
+                while (selected.size < hotCount) {
+                    selected.add(hot[Math.floor(Math.random() * hot.length)]);
+                }
+                while (selected.size < count) {
+                    selected.add(cold[Math.floor(Math.random() * cold.length)]);
+                }
+                return Array.from(selected).sort((a, b) => a - b);
+            }
+
+            selectOverdue(count) {
+                const gaps = {};
+                for (let num = 1; num <= 50; num++) {
+                    for (let j = 0; j < this.data.length; j++) {
+                        if (this.data[j].numbers.includes(num)) {
+                            gaps[num] = j;
+                            break;
+                        }
+                    }
+                    if (gaps[num] === undefined) gaps[num] = this.data.length;
+                }
+                return Object.entries(gaps)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, count)
+                    .map(([n]) => parseInt(n))
+                    .sort((a, b) => a - b);
+            }
+
+            selectOverdueEuro(count) {
+                const gaps = {};
+                for (let num = 1; num <= 12; num++) {
+                    for (let j = 0; j < this.data.length; j++) {
+                        if (this.data[j].eurozahlen.includes(num)) {
+                            gaps[num] = j;
+                            break;
+                        }
+                    }
+                    if (gaps[num] === undefined) gaps[num] = this.data.length;
+                }
+                return Object.entries(gaps)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, count)
+                    .map(([n]) => parseInt(n))
+                    .sort((a, b) => a - b);
+            }
+        }
+
+        // Digit-Based Game Agent (Spiel 77, Super 6, Glücksspirale)
+        class DigitGameAgent {
+            constructor(gameType, digitCount) {
+                this.gameType = gameType;
+                this.digitCount = digitCount;
+                this.data = [];
+                this.digitFrequency = {};
+                this.positionFrequency = {};
+            }
+
+            async loadData() {
+                // Wenn bereits Daten geladen, nutze diese
+                if (this.data.length > 0) {
+                    return true;
+                }
+                // Sonst Demo-Daten generieren
+                this.generateDemoData();
+                return false;
+            }
+
+            generateDemoData() {
+                this.data = [];
+                const now = new Date();
+                for (let i = 0; i < 200; i++) {
+                    const date = new Date(now);
+                    date.setDate(date.getDate() - i * (this.gameType === 'gluecksspirale' ? 7 : 3));
+                    const number = this.generateRandomDigitNumber();
+                    this.data.push({
+                        date: date.toLocaleDateString('de-DE'),
+                        number: number
+                    });
+                }
+                this.calculateFrequencies();
+            }
+
+            generateRandomDigitNumber() {
+                let result = '';
+                for (let i = 0; i < this.digitCount; i++) {
+                    result += Math.floor(Math.random() * 10);
+                }
+                return result;
+            }
+
+            calculateFrequencies() {
+                this.digitFrequency = {};
+                this.positionFrequency = {};
+
+                for (let i = 0; i <= 9; i++) this.digitFrequency[i] = 0;
+                for (let pos = 0; pos < this.digitCount; pos++) {
+                    this.positionFrequency[pos] = {};
+                    for (let i = 0; i <= 9; i++) this.positionFrequency[pos][i] = 0;
+                }
+
+                this.data.forEach(draw => {
+                    const digits = draw.number.split('');
+                    digits.forEach((d, pos) => {
+                        const digit = parseInt(d);
+                        this.digitFrequency[digit]++;
+                        this.positionFrequency[pos][digit]++;
+                    });
+                });
+            }
+
+            generatePredictions() {
+                const predictions = [
+                    {
+                        number: this.predictByPositionFrequency(),
+                        confidence: 75,
+                        strategy: 'Positionsbasierte Häufigkeit',
+                        source: this.gameType + '_position'
+                    },
+                    {
+                        number: this.predictByOverdue(),
+                        confidence: 70,
+                        strategy: 'Überfällige Ziffern',
+                        source: this.gameType + '_overdue'
+                    },
+                    {
+                        number: this.predictRandom(),
+                        confidence: 65,
+                        strategy: 'Zufallsbasiert mit Gewichtung',
+                        source: this.gameType + '_random'
+                    }
+                ];
+
+                return {
+                    analysis: `${GAME_CONFIG[this.gameType].name}-Analyse basiert auf ${this.data.length} Ziehungen`,
+                    predictions: predictions
+                };
+            }
+
+            predictByPositionFrequency() {
+                let result = '';
+                for (let pos = 0; pos < this.digitCount; pos++) {
+                    const posFreq = this.positionFrequency[pos];
+                    const sorted = Object.entries(posFreq).sort((a, b) => b[1] - a[1]);
+                    // Wähle aus den Top 3 zufällig
+                    const topDigits = sorted.slice(0, 3);
+                    const randomIdx = Math.floor(Math.random() * topDigits.length);
+                    result += topDigits[randomIdx][0];
+                }
+                return result;
+            }
+
+            predictByOverdue() {
+                let result = '';
+                for (let pos = 0; pos < this.digitCount; pos++) {
+                    // Finde Ziffer die an dieser Position am längsten nicht kam
+                    const gaps = {};
+                    for (let digit = 0; digit <= 9; digit++) gaps[digit] = 0;
+
+                    for (let i = 0; i < this.data.length; i++) {
+                        const d = parseInt(this.data[i].number[pos]);
+                        if (gaps[d] === 0) gaps[d] = i;
+                    }
+
+                    const sorted = Object.entries(gaps).sort((a, b) => b[1] - a[1]);
+                    result += sorted[0][0];
+                }
+                return result;
+            }
+
+            predictRandom() {
+                let result = '';
+                const sortedFreq = Object.entries(this.digitFrequency).sort((a, b) => b[1] - a[1]);
+                for (let pos = 0; pos < this.digitCount; pos++) {
+                    // Gewichtete Zufallsauswahl
+                    const weights = sortedFreq.map(([d, f]) => ({ digit: d, weight: f }));
+                    const totalWeight = weights.reduce((sum, w) => sum + w.weight, 0);
+                    let random = Math.random() * totalWeight;
+                    for (const w of weights) {
+                        random -= w.weight;
+                        if (random <= 0) {
+                            result += w.digit;
+                            break;
+                        }
+                    }
+                }
+                return result;
+            }
+        }
+
+        // Initialize Game Agents
+        const eurojackpotAgent = new EurojackpotAgent();
+        const spiel77Agent = new DigitGameAgent('spiel77', 7);
+        const super6Agent = new DigitGameAgent('super6', 6);
+        const gluecksspiraleAgent = new DigitGameAgent('gluecksspirale', 7);
 
         // ========================================
         // UTILITY FUNCTIONS
@@ -4576,6 +5148,343 @@ Antworte NUR mit JSON:
         // EVENT LISTENERS
         // ========================================
 
+        // =====================================================
+        // MULTI-GAME MANAGEMENT
+        // =====================================================
+
+        async function initializeAllGames() {
+            console.log('🎮 Initialisiere alle Spiele...');
+
+            // Lade Server-Daten für alle Spiele
+            await loadAllGameDataFromServer();
+
+            console.log('✅ Alle Spiele initialisiert');
+        }
+
+        async function loadAllGameDataFromServer() {
+            const baseUrl = './data';
+
+            try {
+                // Parallel alle Spieldaten laden
+                const [eurojackpot, spiel77, super6, gluecksspirale] = await Promise.all([
+                    fetch(`${baseUrl}/eurojackpot_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${baseUrl}/spiel77_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${baseUrl}/super6_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${baseUrl}/gluecksspirale_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null)
+                ]);
+
+                if (eurojackpot?.draws) {
+                    eurojackpotAgent.data = eurojackpot.draws.map(d => ({
+                        date: d.date,
+                        numbers: d.numbers,
+                        eurozahlen: d.eurozahlen
+                    }));
+                    eurojackpotAgent.calculateFrequencies();
+                    console.log(`🌟 Eurojackpot: ${eurojackpot.draws.length} Ziehungen geladen`);
+                } else {
+                    await eurojackpotAgent.loadData();
+                }
+
+                if (spiel77?.draws) {
+                    spiel77Agent.data = spiel77.draws;
+                    spiel77Agent.calculateFrequencies();
+                    console.log(`7️⃣ Spiel 77: ${spiel77.draws.length} Ziehungen geladen`);
+                } else {
+                    spiel77Agent.generateDemoData();
+                }
+
+                if (super6?.draws) {
+                    super6Agent.data = super6.draws;
+                    super6Agent.calculateFrequencies();
+                    console.log(`6️⃣ Super 6: ${super6.draws.length} Ziehungen geladen`);
+                } else {
+                    super6Agent.generateDemoData();
+                }
+
+                if (gluecksspirale?.draws) {
+                    gluecksspiraleAgent.data = gluecksspirale.draws;
+                    gluecksspiraleAgent.calculateFrequencies();
+                    console.log(`🌀 Glücksspirale: ${gluecksspirale.draws.length} Ziehungen geladen`);
+                } else {
+                    gluecksspiraleAgent.generateDemoData();
+                }
+
+                showToast('📊 Alle Spieldaten geladen!', '✅');
+            } catch (e) {
+                console.log('Server-Daten nicht verfügbar, nutze lokale Generierung:', e);
+                // Fallback auf Demo-Daten
+                await eurojackpotAgent.loadData();
+                spiel77Agent.generateDemoData();
+                super6Agent.generateDemoData();
+                gluecksspiraleAgent.generateDemoData();
+            }
+        }
+
+        function switchGame(game) {
+            console.log('🔄 Wechsle zu:', game);
+            currentGame = game;
+
+            // Update Header (nächste Ziehung)
+            updateNextDrawForGame(game);
+
+            // Lade und zeige Vorhersagen für das gewählte Spiel
+            generateGamePredictions(game);
+
+            // Update Statistiken
+            updateGameStatistics(game);
+
+            showToast(`${GAME_CONFIG[game].icon} ${GAME_CONFIG[game].name} ausgewählt`, '🎮');
+        }
+
+        function updateNextDrawForGame(game) {
+            const config = GAME_CONFIG[game];
+            const now = new Date();
+            let nextDraw = new Date(now);
+            const dayOfWeek = now.getDay();
+
+            // Finde nächsten Ziehungstag
+            let minDays = 7;
+            let drawDay = null;
+
+            for (const day of config.drawDays) {
+                let daysUntil = (day - dayOfWeek + 7) % 7;
+                if (daysUntil === 0) daysUntil = 7; // Nicht heute
+                if (daysUntil < minDays) {
+                    minDays = daysUntil;
+                    drawDay = day;
+                }
+            }
+
+            nextDraw.setDate(now.getDate() + minDays);
+
+            const dayNames = { 0: 'Sonntag', 1: 'Montag', 2: 'Dienstag', 3: 'Mittwoch', 4: 'Donnerstag', 5: 'Freitag', 6: 'Samstag' };
+            document.getElementById('nextDrawDate').textContent =
+                `${dayNames[drawDay]}, ${nextDraw.toLocaleDateString('de-DE')}`;
+        }
+
+        function getNextDrawDateForGame(game) {
+            const config = GAME_CONFIG[game];
+            const now = new Date();
+            let nextDraw = new Date(now);
+            const dayOfWeek = now.getDay();
+
+            let minDays = 7;
+            for (const day of config.drawDays) {
+                let daysUntil = (day - dayOfWeek + 7) % 7;
+                if (daysUntil === 0) daysUntil = 7;
+                if (daysUntil < minDays) minDays = daysUntil;
+            }
+
+            nextDraw.setDate(now.getDate() + minDays);
+            return nextDraw.toISOString().split('T')[0];
+        }
+
+        async function generateGamePredictions(game) {
+            showLoader(true);
+
+            const nextDrawDate = getNextDrawDateForGame(game);
+            const storageKey = `${game}_predictions_${nextDrawDate}`;
+
+            // Prüfe ob bereits Vorhersagen existieren
+            let savedPredictions = null;
+            try {
+                savedPredictions = await lottoDB.get('predictions', storageKey);
+                if (!savedPredictions) {
+                    const local = localStorage.getItem(storageKey);
+                    if (local) savedPredictions = JSON.parse(local);
+                }
+            } catch (e) {}
+
+            if (savedPredictions) {
+                console.log(`🔒 Lade gesperrte ${game} Tipps für:`, nextDrawDate);
+                renderGamePredictions(game, savedPredictions);
+                showLoader(false);
+                return;
+            }
+
+            // Neue Vorhersagen generieren
+            let result;
+            switch (game) {
+                case 'lotto6aus49':
+                    result = await analyzeWithRealAI(lottoData, frequencyMap, superzahlMap);
+                    break;
+                case 'eurojackpot':
+                    result = eurojackpotAgent.generatePredictions();
+                    break;
+                case 'spiel77':
+                    result = spiel77Agent.generatePredictions();
+                    break;
+                case 'super6':
+                    result = super6Agent.generatePredictions();
+                    break;
+                case 'gluecksspirale':
+                    result = gluecksspiraleAgent.generatePredictions();
+                    break;
+            }
+
+            if (result && result.predictions) {
+                result.generatedFor = nextDrawDate;
+                result.generatedAt = new Date().toISOString();
+                result.game = game;
+
+                // Speichern
+                try {
+                    await lottoDB.save('predictions', { id: storageKey, ...result });
+                } catch (e) {
+                    localStorage.setItem(storageKey, JSON.stringify(result));
+                }
+
+                renderGamePredictions(game, result);
+                showToast(`Neue ${GAME_CONFIG[game].name} Tipps generiert!`, '🔮');
+            }
+
+            showLoader(false);
+        }
+
+        function renderGamePredictions(game, result) {
+            const container = document.getElementById('predictionsContainer');
+            let html = '';
+
+            if (game === 'lotto6aus49') {
+                // Original Lotto 6aus49 Rendering
+                renderAIPredictions(result);
+                return;
+            }
+
+            // Game Info Badge
+            html += `
+                <div class="game-info-badge">
+                    <span class="badge-icon">${GAME_CONFIG[game].icon}</span>
+                    <span>${GAME_CONFIG[game].name} - ${GAME_CONFIG[game].description}</span>
+                </div>
+            `;
+
+            if (game === 'eurojackpot') {
+                result.predictions.forEach((pred, i) => {
+                    const colors = ['gold', 'purple', 'teal'];
+                    const color = colors[i % colors.length];
+
+                    let ballsHTML = '';
+                    pred.numbers.forEach(num => {
+                        ballsHTML += `<div class="lotto-ball small euro-ball">${num}</div>`;
+                    });
+                    pred.eurozahlen.forEach(num => {
+                        ballsHTML += `<div class="lotto-ball small eurozahl">${num}</div>`;
+                    });
+
+                    const numbersStr = pred.numbers.join(', ');
+                    const euroStr = pred.eurozahlen.join(', ');
+                    const copyData = `${numbersStr} | EZ: ${euroStr}`;
+
+                    html += `
+                        <div class="prediction-card" style="animation-delay: ${i * 0.1}s">
+                            <div class="prediction-header">
+                                <span class="prediction-rank">🌟 Tipp #${i + 1}</span>
+                                <span class="prediction-confidence">${pred.confidence}%</span>
+                                <button class="copy-btn" onclick="copyTipp('${copyData}', this)">
+                                    📋 Kopieren
+                                </button>
+                            </div>
+                            <div class="lotto-balls" style="justify-content: flex-start; margin: 15px 0;">
+                                ${ballsHTML}
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>🧠 ${pred.strategy}</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill ${color}" style="width: ${pred.confidence}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                // Digit-basierte Spiele (Spiel 77, Super 6, Glücksspirale)
+                result.predictions.forEach((pred, i) => {
+                    const colors = ['teal', 'pink', 'purple'];
+                    const color = colors[i % colors.length];
+
+                    let digitsHTML = '';
+                    pred.number.split('').forEach((digit, idx) => {
+                        digitsHTML += `<div class="digit-ball">${digit}</div>`;
+                    });
+
+                    html += `
+                        <div class="prediction-card" style="animation-delay: ${i * 0.1}s">
+                            <div class="prediction-header">
+                                <span class="prediction-rank">${GAME_CONFIG[game].icon} Tipp #${i + 1}</span>
+                                <span class="prediction-confidence">${pred.confidence}%</span>
+                                <button class="copy-btn" onclick="copyTipp('${pred.number}', this)">
+                                    📋 Kopieren
+                                </button>
+                            </div>
+                            <div class="digit-balls" style="justify-content: flex-start; margin: 15px 0;">
+                                ${digitsHTML}
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>🧠 ${pred.strategy}</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill ${color}" style="width: ${pred.confidence}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
+
+            // Update AI Message
+            document.getElementById('aiMessage').innerHTML = `
+                <strong>${GAME_CONFIG[game].icon} ${GAME_CONFIG[game].name} Analyse</strong><br><br>
+                ${result.analysis}<br><br>
+                <strong>Spielinfo:</strong><br>
+                • ${GAME_CONFIG[game].description}<br>
+                • Ziehungstage: ${game === 'gluecksspirale' ? 'Samstag' : 'Mittwoch & Samstag'}<br><br>
+                <em>Tipps für: ${result.generatedFor || 'Nächste Ziehung'}</em>
+            `;
+        }
+
+        function updateGameStatistics(game) {
+            let stats = {};
+
+            switch (game) {
+                case 'lotto6aus49':
+                    // Original stats
+                    return;
+                case 'eurojackpot':
+                    stats = {
+                        totalDraws: eurojackpotAgent.data.length,
+                        numberRange: '1-50',
+                        extraRange: '1-12 (2 Eurozahlen)'
+                    };
+                    break;
+                case 'spiel77':
+                    stats = {
+                        totalDraws: spiel77Agent.data.length,
+                        digits: 7,
+                        prizes: '5€ - 177.777€+'
+                    };
+                    break;
+                case 'super6':
+                    stats = {
+                        totalDraws: super6Agent.data.length,
+                        digits: 6,
+                        prizes: '2,50€ - 100.000€'
+                    };
+                    break;
+                case 'gluecksspirale':
+                    stats = {
+                        totalDraws: gluecksspiraleAgent.data.length,
+                        digits: 7,
+                        prizes: '10€ - 1,2 Mio € + Rente'
+                    };
+                    break;
+            }
+        }
 
         // =====================================================
         // GITHUB VORHERSAGEN LADEN (für automatisierte Updates)
@@ -4634,9 +5543,22 @@ Antworte NUR mit JSON:
             await kiAgent.init();
             await multiKI.init();
             await szAnalyzer.loadHistory();
-            
+
+            // Initialisiere alle Spiel-Agenten
+            await initializeAllGames();
+
             // Lade Lotto-Daten
             fetchLottoData();
+
+            // Game Selector
+            document.querySelectorAll('.game-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.game-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentGame = btn.dataset.game;
+                    switchGame(currentGame);
+                });
+            });
 
             // Tab navigation
             document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -4752,8 +5674,11 @@ Antworte NUR mit JSON:
 
             // Generate predictions button
             document.getElementById('generatePredictions').addEventListener('click', async () => {
-                const nextDrawDate = getNextDrawDate();
-                const storageKey = `predictions_${nextDrawDate}`;
+                // Prüfe aktuelles Spiel und generiere entsprechende Tipps
+                const nextDrawDate = getNextDrawDateForGame(currentGame);
+                const storageKey = currentGame === 'lotto6aus49'
+                    ? `predictions_${nextDrawDate}`
+                    : `${currentGame}_predictions_${nextDrawDate}`;
 
                 // Prüfe ob bereits Tipps existieren
                 let hasExisting = false;
@@ -4767,11 +5692,14 @@ Antworte NUR mit JSON:
 
                 if (hasExisting) {
                     // Tipps existieren bereits - GESPERRT, nur anzeigen!
-                    showToast(`🔒 Tipps für ${nextDrawDate} sind gesperrt und werden geladen`, '📋');
-                    await generatePredictions(false); // Nur laden, nicht neu generieren
-                } else {
-                    // Erste Generierung für diese Ziehung
+                    showToast(`🔒 ${GAME_CONFIG[currentGame].name} Tipps sind gesperrt`, '📋');
+                }
+
+                // Lade oder generiere Tipps für aktuelles Spiel
+                if (currentGame === 'lotto6aus49') {
                     await generatePredictions(false);
+                } else {
+                    await generateGamePredictions(currentGame);
                 }
             });
         });

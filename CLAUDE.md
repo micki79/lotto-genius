@@ -26,6 +26,20 @@ Nach jeder Code-Änderung IMMER einen vollständigen Funktionstest durchführen:
 - Kommunikation auf Deutsch
 - Code-Kommentare können auf Englisch sein
 
+### 5. Datendateien aktuell halten
+Bei Änderungen an Spielen oder Datenstrukturen IMMER:
+- Alle Datendateien im `data/` Ordner auf aktuellen Stand bringen
+- fetch_data.py anpassen wenn neue Datenquellen benötigt werden
+- Sicherstellen, dass alle Spiele echte historische Daten haben
+- Verfügbare Datendateien:
+  - `lotto_data.json` - Lotto 6aus49 (3000+ Ziehungen)
+  - `eurojackpot_data.json` - Eurojackpot
+  - `spiel77_data.json` - Spiel 77
+  - `super6_data.json` - Super 6
+  - `gluecksspirale_data.json` - Glücksspirale
+  - `predictions.json` - KI-Vorhersagen
+  - `learning.json` - Lernhistorie
+
 ## Projekt-Info
 - **App-URL:** https://micki79.github.io/lotto-genius/
 - **Repo:** https://github.com/micki79/lotto-genius
