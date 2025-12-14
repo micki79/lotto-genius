@@ -2140,6 +2140,16 @@
                 this.positionFrequency = {};
             }
 
+            async loadData() {
+                // Wenn bereits Daten geladen, nutze diese
+                if (this.data.length > 0) {
+                    return true;
+                }
+                // Sonst Demo-Daten generieren
+                this.generateDemoData();
+                return false;
+            }
+
             generateDemoData() {
                 this.data = [];
                 const now = new Date();
@@ -5145,15 +5155,69 @@ Antworte NUR mit JSON:
         async function initializeAllGames() {
             console.log('🎮 Initialisiere alle Spiele...');
 
-            // Eurojackpot initialisieren
-            await eurojackpotAgent.loadData();
-
-            // Digit-Spiele initialisieren (Demo-Daten)
-            spiel77Agent.generateDemoData();
-            super6Agent.generateDemoData();
-            gluecksspiraleAgent.generateDemoData();
+            // Lade Server-Daten für alle Spiele
+            await loadAllGameDataFromServer();
 
             console.log('✅ Alle Spiele initialisiert');
+        }
+
+        async function loadAllGameDataFromServer() {
+            const baseUrl = './data';
+
+            try {
+                // Parallel alle Spieldaten laden
+                const [eurojackpot, spiel77, super6, gluecksspirale] = await Promise.all([
+                    fetch(`${baseUrl}/eurojackpot_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${baseUrl}/spiel77_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${baseUrl}/super6_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${baseUrl}/gluecksspirale_data.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null)
+                ]);
+
+                if (eurojackpot?.draws) {
+                    eurojackpotAgent.data = eurojackpot.draws.map(d => ({
+                        date: d.date,
+                        numbers: d.numbers,
+                        eurozahlen: d.eurozahlen
+                    }));
+                    eurojackpotAgent.calculateFrequencies();
+                    console.log(`🌟 Eurojackpot: ${eurojackpot.draws.length} Ziehungen geladen`);
+                } else {
+                    await eurojackpotAgent.loadData();
+                }
+
+                if (spiel77?.draws) {
+                    spiel77Agent.data = spiel77.draws;
+                    spiel77Agent.calculateFrequencies();
+                    console.log(`7️⃣ Spiel 77: ${spiel77.draws.length} Ziehungen geladen`);
+                } else {
+                    spiel77Agent.generateDemoData();
+                }
+
+                if (super6?.draws) {
+                    super6Agent.data = super6.draws;
+                    super6Agent.calculateFrequencies();
+                    console.log(`6️⃣ Super 6: ${super6.draws.length} Ziehungen geladen`);
+                } else {
+                    super6Agent.generateDemoData();
+                }
+
+                if (gluecksspirale?.draws) {
+                    gluecksspiraleAgent.data = gluecksspirale.draws;
+                    gluecksspiraleAgent.calculateFrequencies();
+                    console.log(`🌀 Glücksspirale: ${gluecksspirale.draws.length} Ziehungen geladen`);
+                } else {
+                    gluecksspiraleAgent.generateDemoData();
+                }
+
+                showToast('📊 Alle Spieldaten geladen!', '✅');
+            } catch (e) {
+                console.log('Server-Daten nicht verfügbar, nutze lokale Generierung:', e);
+                // Fallback auf Demo-Daten
+                await eurojackpotAgent.loadData();
+                spiel77Agent.generateDemoData();
+                super6Agent.generateDemoData();
+                gluecksspiraleAgent.generateDemoData();
+            }
         }
 
         function switchGame(game) {
