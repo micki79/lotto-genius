@@ -1326,10 +1326,51 @@
     <!-- Main Container -->
     <div class="container">
         <!-- Install PWA Banner -->
-        <div class="install-banner" id="installBanner">
-            <span class="install-text">📱 Installiere die App auf deinem Handy für den besten Zugriff!</span>
-            <button class="btn btn-secondary" id="installBtn" style="padding: 10px 20px;">Installieren</button>
+        <div class="install-banner show" id="installBanner">
+            <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+                <span class="install-text">📱 Installiere die App auf deinem Handy!</span>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-secondary" id="installBtn" style="padding: 10px 20px;">Installieren</button>
+                    <button class="btn" id="showInstallHelp" style="padding: 10px 15px; background: rgba(255,255,255,0.1);">📋 Anleitung</button>
+                </div>
+            </div>
             <button class="install-close" id="closeBanner">×</button>
+        </div>
+
+        <!-- Install Help Modal -->
+        <div class="modal-overlay" id="installHelpModal">
+            <div class="modal" style="max-width: 400px;">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <span>📱</span>
+                        App installieren
+                    </div>
+                    <button class="modal-close" id="closeInstallHelp">×</button>
+                </div>
+                <div style="padding: 20px;">
+                    <div id="installInstructions">
+                        <p style="margin-bottom: 15px; color: var(--text-primary);"><strong>iPhone (Safari):</strong></p>
+                        <ol style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 20px;">
+                            <li>Tippe auf das <strong>Teilen-Symbol</strong> (Quadrat mit Pfeil ⬆️)</li>
+                            <li>Scrolle und tippe auf <strong>"Zum Home-Bildschirm"</strong></li>
+                            <li>Tippe auf <strong>"Hinzufügen"</strong></li>
+                        </ol>
+
+                        <p style="margin-bottom: 15px; color: var(--text-primary);"><strong>Android (Chrome):</strong></p>
+                        <ol style="color: var(--text-secondary); margin-left: 20px;">
+                            <li>Tippe auf die <strong>3 Punkte</strong> (⋮) oben rechts</li>
+                            <li>Wähle <strong>"App installieren"</strong> oder <strong>"Zum Startbildschirm"</strong></li>
+                            <li>Bestätige mit <strong>"Installieren"</strong></li>
+                        </ol>
+
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(0,206,201,0.1); border-radius: 12px;">
+                            <p style="color: var(--secondary); font-size: 13px; margin: 0;">
+                                💡 <strong>Tipp:</strong> Nach der Installation funktioniert die App auch offline!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Navigation Tabs -->
@@ -1416,6 +1457,22 @@
 
         <!-- Statistics Panel -->
         <div class="tab-panel" id="statistics-panel">
+            <!-- KI Lernstatistik Card -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(0, 206, 201, 0.1) 100%); border: 1px solid rgba(108, 92, 231, 0.2);">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon purple">🧠</span>
+                        KI-Lernstatistik
+                    </div>
+                </div>
+                <div class="stats-grid" id="kiLearningStats">
+                    <!-- KI Learning stats will be inserted here -->
+                </div>
+                <div id="kiProviderRanking" style="margin-top: 20px;">
+                    <!-- Provider ranking will be inserted here -->
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
@@ -1423,7 +1480,7 @@
                         Übersicht Statistiken
                     </div>
                 </div>
-                
+
                 <div class="stats-grid" id="statsGrid">
                     <!-- Stats will be inserted here -->
                 </div>
@@ -1437,9 +1494,22 @@
                     </div>
                     <span id="lastDrawDate" style="color: var(--text-secondary); font-family: 'Space Mono', monospace;">--</span>
                 </div>
-                
+
                 <div class="lotto-balls" id="lastDrawBalls">
                     <!-- Last draw balls will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Vorhersage-Verlauf -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon gold">📜</span>
+                        Vorhersage-Verlauf (letzte Ergebnisse)
+                    </div>
+                </div>
+                <div id="predictionHistory">
+                    <p style="color: var(--text-secondary); text-align: center;">Noch keine verifizierten Vorhersagen vorhanden.</p>
                 </div>
             </div>
         </div>
@@ -1750,12 +1820,44 @@
             updateStatistics();
             updateFrequencyGrid();
             updateHistory();
-            
+            updateKILearningStats();
+
             // Analysiere Superzahl-Muster
             szAnalyzer.analyzePatterns(lottoData, superzahlMap);
-            
+
+            // Automatisches Lernen aus neuen Ziehungen
+            autoLearnFromNewDraws();
+
             generatePredictions();
             updateAIMessage();
+        }
+
+        // Automatisches Lernen nach neuen Ziehungen
+        async function autoLearnFromNewDraws() {
+            try {
+                const lastLearnedDraw = localStorage.getItem('last_learned_draw');
+                const currentLastDraw = lottoData[0]?.date;
+
+                if (currentLastDraw && lastLearnedDraw !== currentLastDraw) {
+                    // Neue Ziehung vorhanden - versuche zu lernen
+                    const lastPredictions = localStorage.getItem('last_predictions');
+                    if (lastPredictions) {
+                        const predictions = JSON.parse(lastPredictions);
+                        const actualNumbers = [...lottoData[0].numbers, lottoData[0].superzahl];
+
+                        await kiAgent.learnFromPastPredictions(actualNumbers, predictions);
+                        localStorage.setItem('last_learned_draw', currentLastDraw);
+
+                        console.log('🧠 Automatisches Lernen durchgeführt für Ziehung:', currentLastDraw);
+                        showToast('🧠 KI hat aus der neuen Ziehung gelernt!', '✅');
+
+                        // Statistiken aktualisieren
+                        updateKILearningStats();
+                    }
+                }
+            } catch (e) {
+                console.log('Auto-Learn Fehler:', e);
+            }
         }
 
         function updateNextDraw() {
@@ -1921,6 +2023,117 @@
                 `;
             }
             document.getElementById('superzahlGrid').innerHTML = szHTML;
+        }
+
+        // ========================================
+        // KI-LERNSTATISTIK ANZEIGE
+        // ========================================
+
+        async function updateKILearningStats() {
+            const statsContainer = document.getElementById('kiLearningStats');
+            const rankingContainer = document.getElementById('kiProviderRanking');
+            const historyContainer = document.getElementById('predictionHistory');
+
+            if (!statsContainer) return;
+
+            // Lade gespeicherte Statistiken
+            let learningData = {};
+            let providerScores = {};
+            let predictionHistory = [];
+
+            try {
+                learningData = await lottoDB.get('settings', 'accuracy') || {};
+                const allLearning = await lottoDB.getAll('learningHistory') || [];
+                predictionHistory = allLearning.slice(-20).reverse();
+
+                const providerData = await lottoDB.getAll('providerScores') || [];
+                providerData.forEach(p => providerScores[p.provider] = p);
+            } catch (e) {
+                // Fallback zu localStorage
+                try {
+                    learningData = JSON.parse(localStorage.getItem('ki_accuracy')) || {};
+                    predictionHistory = JSON.parse(localStorage.getItem('ki_learning_history')) || [];
+                    predictionHistory = predictionHistory.slice(-20).reverse();
+                } catch (e2) {}
+            }
+
+            const totalPredictions = kiAgent.predictionAccuracy?.total || 0;
+            const correctPredictions = kiAgent.predictionAccuracy?.correct || 0;
+            const accuracyRate = totalPredictions > 0 ? ((correctPredictions / totalPredictions) * 100).toFixed(1) : 0;
+            const szAccuracy = szAnalyzer.getAccuracy();
+            const learningEntries = kiAgent.learningHistory?.length || 0;
+
+            // KI Lernstatistik HTML
+            statsContainer.innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-icon purple">📊</div>
+                    <div>
+                        <div class="stat-value">${totalPredictions}</div>
+                        <div class="stat-label">Analysierte Vorhersagen</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon gold">🎯</div>
+                    <div>
+                        <div class="stat-value">${accuracyRate}%</div>
+                        <div class="stat-label">Erfolgsquote (3+ Treffer)</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon teal">⭐</div>
+                    <div>
+                        <div class="stat-value">${szAccuracy.rate}%</div>
+                        <div class="stat-label">Superzahl-Trefferquote (${szAccuracy.correct}/${szAccuracy.total})</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon pink">📈</div>
+                    <div>
+                        <div class="stat-value">${learningEntries}</div>
+                        <div class="stat-label">Lern-Einträge gespeichert</div>
+                    </div>
+                </div>
+            `;
+
+            // Provider Ranking
+            const rankings = multiKI.getProviderRankings();
+            if (rankings.length > 0) {
+                let rankingHTML = '<div style="background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px;"><strong style="color: var(--gold);">🏆 KI-Provider Ranking:</strong><div style="margin-top: 10px;">';
+                rankings.slice(0, 5).forEach((r, i) => {
+                    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '•';
+                    rankingHTML += `<div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <span>${medal} ${r.icon} ${r.name}</span>
+                        <span style="font-family: 'Space Mono', monospace; color: var(--secondary);">${r.accuracy}% | SZ: ${r.szAccuracy}%</span>
+                    </div>`;
+                });
+                rankingHTML += '</div></div>';
+                rankingContainer.innerHTML = rankingHTML;
+            } else {
+                rankingContainer.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 15px;">Noch keine KI-Rankings verfügbar. Generiere Vorhersagen und warte auf Ziehungsergebnisse.</p>';
+            }
+
+            // Vorhersage-Verlauf
+            if (predictionHistory.length > 0 && historyContainer) {
+                let histHTML = '<div style="max-height: 400px; overflow-y: auto;">';
+                predictionHistory.forEach(entry => {
+                    const matchColor = entry.matches >= 3 ? 'var(--success)' : entry.matches >= 2 ? 'var(--gold)' : 'var(--text-secondary)';
+                    const szIcon = entry.szMatch ? '✅' : '❌';
+                    histHTML += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 10px; margin-bottom: 8px;">
+                            <div>
+                                <span style="color: var(--text-secondary); font-size: 12px;">${entry.draw_date || entry.date?.split('T')[0] || 'Unbekannt'}</span>
+                                <div style="font-size: 13px; margin-top: 4px;">${entry.method || entry.source || 'Unbekannt'}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="font-family: 'Space Mono', monospace; font-size: 18px; font-weight: 700; color: ${matchColor};">${entry.matches}/6</span>
+                                <div style="font-size: 12px;">SZ: ${szIcon}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                histHTML += '</div>';
+                historyContainer.innerHTML = histHTML;
+            }
         }
 
         function updateHistory(loadMore = false) {
@@ -4083,12 +4296,36 @@ Antworte NUR mit JSON:
                     }
                     deferredPrompt = null;
                     document.getElementById('installBanner').classList.remove('show');
+                } else {
+                    // Wenn kein deferredPrompt, zeige die Anleitung
+                    document.getElementById('installHelpModal').classList.add('show');
                 }
             });
 
             document.getElementById('closeBanner').addEventListener('click', () => {
                 document.getElementById('installBanner').classList.remove('show');
+                localStorage.setItem('install_banner_dismissed', 'true');
             });
+
+            // Install Help Modal
+            document.getElementById('showInstallHelp').addEventListener('click', () => {
+                document.getElementById('installHelpModal').classList.add('show');
+            });
+
+            document.getElementById('closeInstallHelp').addEventListener('click', () => {
+                document.getElementById('installHelpModal').classList.remove('show');
+            });
+
+            document.getElementById('installHelpModal').addEventListener('click', (e) => {
+                if (e.target.id === 'installHelpModal') {
+                    document.getElementById('installHelpModal').classList.remove('show');
+                }
+            });
+
+            // Prüfe ob Banner schon geschlossen wurde
+            if (localStorage.getItem('install_banner_dismissed') === 'true') {
+                document.getElementById('installBanner').classList.remove('show');
+            }
 
             // Auto-refresh data weekly and learn from new draws
             setInterval(() => {
