@@ -2633,7 +2633,7 @@
                         probability: (score).toFixed(1)
                     }));
                 
-                const optimalSuperzahl = rankedSuperzahlen[0].number;
+                const optimalSuperzahl = rankedSuperzahlen[0]?.number ?? Math.floor(Math.random() * 10);
 
                 // Ensemble-Voting: Zahlen die von mehreren KIs gewählt wurden
                 const votedNumbers = Object.entries(allNumbers)
@@ -2660,7 +2660,7 @@
                         superzahl: optimalSuperzahl,
                         confidence: 95,
                         strategy: '🏆 ENSEMBLE CHAMPION - Einstimmige KI-Wahl + Optimale Superzahl',
-                        reasoning: `Alle ${Object.keys(results).length} KIs + Superzahl ${optimalSuperzahl} (${rankedSuperzahlen[0].probability}% Wahrscheinlichkeit)`,
+                        reasoning: `Alle ${Object.keys(results).length} KIs + Superzahl ${optimalSuperzahl} (${rankedSuperzahlen[0]?.probability ?? '?'}% Wahrscheinlichkeit)`,
                         isEnsemble: true,
                         superzahlAnalysis: rankedSuperzahlen.slice(0, 3)
                     });
@@ -2681,8 +2681,8 @@
                             .sort((a, b) => a - b);
                         
                         // Nutze die nächstbeste Superzahl
-                        const szIndex = Math.min(ensemblePredictions.length, rankedSuperzahlen.length - 1);
-                        const tipSuperzahl = rankedSuperzahlen[szIndex].number;
+                        const szIndex = rankedSuperzahlen.length > 0 ? Math.min(ensemblePredictions.length, rankedSuperzahlen.length - 1) : 0;
+                        const tipSuperzahl = rankedSuperzahlen[szIndex]?.number ?? Math.floor(Math.random() * 10);
                         
                         ensemblePredictions.push({
                             numbers: tipNumbers,
@@ -2703,7 +2703,7 @@
                     .map((pred, i) => ({
                         ...pred,
                         // Ersetze Superzahl mit statistisch bester
-                        superzahl: rankedSuperzahlen[Math.min(i, rankedSuperzahlen.length - 1)].number,
+                        superzahl: rankedSuperzahlen.length > 0 ? (rankedSuperzahlen[Math.min(i, rankedSuperzahlen.length - 1)]?.number ?? pred.superzahl) : pred.superzahl,
                         strategy: `${this.providers[pred.source]?.icon || '🤖'} ${this.providers[pred.source]?.name || pred.source}: ${pred.strategy}`,
                         isEnsemble: false,
                         superzahlOptimized: true
@@ -2728,7 +2728,7 @@
                             nextDrawDay: szAnalysis.nextDrawDay
                         }
                     },
-                    analysis: `${Object.keys(results).length} KI-Systeme haben ${allPredictions.length} Vorhersagen generiert. Optimale Superzahl: ${optimalSuperzahl} (${rankedSuperzahlen[0].probability}%)`
+                    analysis: `${Object.keys(results).length} KI-Systeme haben ${allPredictions.length} Vorhersagen generiert. Optimale Superzahl: ${optimalSuperzahl} (${rankedSuperzahlen[0]?.probability ?? '?'}%)`
                 };
 
                 return this.lastEnsembleResult;
@@ -3317,7 +3317,8 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
             strategies.forEach((strat, i) => {
                 const numbers = strat.fn();
                 // Nutze die statistisch beste Superzahl (rotierend durch Top 5)
-                const superzahl = rankedSuperzahlen[i % Math.min(5, rankedSuperzahlen.length)]?.number || Math.floor(Math.random() * 10);
+                const szLength = rankedSuperzahlen.length || 1;
+                const superzahl = rankedSuperzahlen[i % Math.min(5, szLength)]?.number ?? Math.floor(Math.random() * 10);
                 const confidence = 45 + Math.random() * 40;
                 
                 predictions.push({

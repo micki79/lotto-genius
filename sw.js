@@ -211,12 +211,13 @@ self.addEventListener('notificationclick', (event) => {
 // Periodic background sync (if supported)
 self.addEventListener('periodicsync', (event) => {
     if (event.tag === 'update-lotto-data') {
+        const dataUrl = 'https://johannesfriedrich.github.io/LottoNumberArchive/Lottonumbers_tidy_complete.json';
         event.waitUntil(
-            fetch('https://johannesfriedrich.github.io/LottoNumberArchive/Lottonumbers_tidy_complete.json')
+            fetch(dataUrl)
                 .then((response) => {
                     if (response.ok) {
                         return caches.open(DATA_CACHE_NAME)
-                            .then((cache) => cache.put(event.request, response));
+                            .then((cache) => cache.put(dataUrl, response));
                     }
                 })
         );
