@@ -1,12 +1,12 @@
 // LottoGenius Service Worker
-const CACHE_NAME = 'lottogenius-v1.0.0';
-const DATA_CACHE_NAME = 'lottogenius-data-v1.0.0';
+const CACHE_NAME = 'lottogenius-v1.1.0';
+const DATA_CACHE_NAME = 'lottogenius-data-v1.1.0';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/manifest.json',
+    './',
+    './index.html',
+    './manifest.json',
     'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap'
 ];
 
@@ -135,7 +135,7 @@ self.addEventListener('fetch', (event) => {
                     .catch(() => {
                         // Return offline page for navigation requests
                         if (event.request.mode === 'navigate') {
-                            return caches.match('/index.html');
+                            return caches.match('./index.html');
                         }
                     });
             })
@@ -171,8 +171,8 @@ self.addEventListener('push', (event) => {
         const data = event.data.json();
         const options = {
             body: data.body || 'Neue Lottozahlen verfügbar!',
-            icon: '/icon-192.png',
-            badge: '/icon-72.png',
+            icon: './icon-192.png',
+            badge: './icon-72.png',
             vibrate: [100, 50, 100],
             data: {
                 dateOfArrival: Date.now(),
@@ -182,7 +182,7 @@ self.addEventListener('push', (event) => {
                 {
                     action: 'view',
                     title: 'Anzeigen',
-                    icon: '/icon-72.png'
+                    icon: './icon-72.png'
                 },
                 {
                     action: 'close',
@@ -203,7 +203,7 @@ self.addEventListener('notificationclick', (event) => {
     
     if (event.action === 'view' || !event.action) {
         event.waitUntil(
-            clients.openWindow('/')
+            clients.openWindow('./')
         );
     }
 });
