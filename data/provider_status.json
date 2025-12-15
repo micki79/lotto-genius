@@ -1,5 +1,5 @@
 {
-  "last_check": "2024-12-15T08:00:00Z",
+  "last_check": "2024-12-15T09:22:00Z",
   "note": "Status wird durch GitHub Actions aktualisiert",
   "providers": {
     "gemini": {
@@ -13,8 +13,8 @@
     "groq": {
       "name": "Groq (Llama)",
       "icon": "⚡",
-      "status": "no_key",
-      "github_secret": false,
+      "status": "configured",
+      "github_secret": true,
       "last_success": null,
       "error": null
     },
