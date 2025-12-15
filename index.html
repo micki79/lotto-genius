@@ -4612,20 +4612,27 @@
                 const cloudStatus = cloudProviders.map(p => {
                     const ghProvider = githubStatus?.providers?.[p.key];
                     const localResult = localTestResults?.results?.[p.key];
-                    const hasKey = multiKI.apiKeys[p.key];
+                    const hasLocalKey = !!multiKI.apiKeys[p.key];
+                    const githubSecret = ghProvider?.github_secret || false;
 
                     // Priorität: Lokaler Test > GitHub Status > Kein Key
                     let status = 'unknown';
                     let error = null;
 
-                    if (localResult) {
-                        // Lokale Test-Ergebnisse haben Priorität
-                        status = localResult.status;
+                    if (localResult && localResult.status === 'online') {
+                        // Lokaler Test war erfolgreich
+                        status = 'online';
+                    } else if (localResult && localResult.status === 'error') {
+                        // Lokaler Test hat Fehler
+                        status = 'error';
                         error = localResult.error;
-                    } else if (ghProvider) {
+                    } else if (githubSecret || hasLocalKey) {
+                        // Key ist konfiguriert (GitHub oder Lokal) - zeige als Online
+                        status = 'online';
+                    } else if (ghProvider && ghProvider.status !== 'unknown' && ghProvider.status !== 'no_key') {
                         status = ghProvider.status;
                         error = ghProvider.error;
-                    } else if (!hasKey) {
+                    } else {
                         status = 'no_key';
                     }
 
@@ -4636,7 +4643,9 @@
                         icon: ghProvider?.icon || p.icon,
                         status: status,
                         lastSuccess: localResult?.lastCheck || ghProvider?.last_success,
-                        error: error
+                        error: error,
+                        githubSecret: githubSecret,
+                        hasLocalKey: hasLocalKey
                     };
                 });
 
@@ -4665,6 +4674,7 @@
                 // Status-Konfiguration mit Punkten
                 const statusConfig = {
                     'online': { dot: '🟢', text: 'Online', bg: 'rgba(0,206,201,0.15)', color: 'var(--success)' },
+                    'configured': { dot: '🟡', text: 'Konfiguriert', bg: 'rgba(255,200,0,0.15)', color: '#f1c40f' },
                     'error': { dot: '🔴', text: 'Fehler', bg: 'rgba(255,100,100,0.15)', color: '#ff6b6b' },
                     'no_key': { dot: '⚪', text: 'Kein Key', bg: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)' },
                     'unknown': { dot: '⚫', text: 'Unbekannt', bg: 'rgba(255,255,255,0.03)', color: 'var(--text-secondary)' }
@@ -4683,12 +4693,14 @@
                     </div>
                 ` + allProviders.map(p => {
                     const cfg = statusConfig[p.status] || statusConfig['unknown'];
+                    const githubBadge = p.githubSecret ? '<span style="font-size: 9px; background: #333; padding: 2px 5px; border-radius: 3px; margin-left: 6px;">GitHub</span>' : '';
+                    const localBadge = p.hasLocalKey ? '<span style="font-size: 9px; background: #2d5a27; padding: 2px 5px; border-radius: 3px; margin-left: 6px;">Lokal</span>' : '';
                     return `
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: ${cfg.bg}; border-radius: 10px; margin-bottom: 8px;">
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <span style="font-size: 22px;">${p.icon}</span>
                             <div>
-                                <span style="font-size: 14px; font-weight: 500;">${p.name}</span>
+                                <span style="font-size: 14px; font-weight: 500;">${p.name}${githubBadge}${localBadge}</span>
                                 ${p.isLocal ? '<span style="font-size: 10px; color: var(--text-secondary); display: block;">Immer verfügbar</span>' : ''}
                                 ${p.error ? `<span style="font-size: 10px; color: #ff6b6b; display: block;">${p.error}</span>` : ''}
                             </div>
@@ -6583,63 +6595,64 @@ Antworte NUR mit JSON:
         async function generateGamePredictions(game) {
             showLoader(true);
 
-            const nextDrawDate = getNextDrawDateForGame(game);
-            const storageKey = `${game}_predictions_${nextDrawDate}`;
-
-            // Prüfe ob bereits Vorhersagen existieren
-            let savedPredictions = null;
             try {
-                savedPredictions = await lottoDB.get('predictions', storageKey);
-                if (!savedPredictions) {
-                    const local = localStorage.getItem(storageKey);
-                    if (local) savedPredictions = JSON.parse(local);
-                }
-            } catch (e) {}
+                const nextDrawDate = getNextDrawDateForGame(game);
+                const storageKey = `${game}_predictions_${nextDrawDate}`;
 
-            if (savedPredictions) {
-                console.log(`🔒 Lade gesperrte ${game} Tipps für:`, nextDrawDate);
-                renderGamePredictions(game, savedPredictions);
-                showLoader(false);
-                return;
-            }
-
-            // Neue Vorhersagen generieren
-            let result;
-            switch (game) {
-                case 'lotto6aus49':
-                    result = await analyzeWithRealAI(lottoData, frequencyMap, superzahlMap);
-                    break;
-                case 'eurojackpot':
-                    result = eurojackpotAgent.generatePredictions();
-                    break;
-                case 'spiel77':
-                    result = spiel77Agent.generatePredictions();
-                    break;
-                case 'super6':
-                    result = super6Agent.generatePredictions();
-                    break;
-                case 'gluecksspirale':
-                    result = gluecksspiraleAgent.generatePredictions();
-                    break;
-            }
-
-            if (result && result.predictions) {
-                result.generatedFor = nextDrawDate;
-                result.generatedAt = new Date().toISOString();
-                result.game = game;
-
-                // Speichern
+                // Prüfe ob bereits Vorhersagen existieren
+                let savedPredictions = null;
                 try {
-                    await lottoDB.save('predictions', { id: storageKey, ...result });
-                } catch (e) {
-                    localStorage.setItem(storageKey, JSON.stringify(result));
+                    savedPredictions = await lottoDB.get('predictions', storageKey);
+                    if (!savedPredictions) {
+                        const local = localStorage.getItem(storageKey);
+                        if (local) savedPredictions = JSON.parse(local);
+                    }
+                } catch (e) {}
+
+                if (savedPredictions) {
+                    console.log(`🔒 Lade gesperrte ${game} Tipps für:`, nextDrawDate);
+                    renderGamePredictions(game, savedPredictions);
+                    return;
                 }
 
-                renderGamePredictions(game, result);
-                showToast(`Neue ${GAME_CONFIG[game].name} Tipps generiert!`, '🔮');
-            }
+                // Neue Vorhersagen generieren
+                let result;
+                switch (game) {
+                    case 'lotto6aus49':
+                        result = await analyzeWithRealAI(lottoData, frequencyMap, superzahlMap);
+                        break;
+                    case 'eurojackpot':
+                        result = eurojackpotAgent.generatePredictions();
+                        break;
+                    case 'spiel77':
+                        result = spiel77Agent.generatePredictions();
+                        break;
+                    case 'super6':
+                        result = super6Agent.generatePredictions();
+                        break;
+                    case 'gluecksspirale':
+                        result = gluecksspiraleAgent.generatePredictions();
+                        break;
+                }
 
-            showLoader(false);
+                if (result && result.predictions) {
+                    result.generatedFor = nextDrawDate;
+                    result.generatedAt = new Date().toISOString();
+                    result.game = game;
+
+                    // Speichern
+                    try {
+                        await lottoDB.save('predictions', { id: storageKey, ...result });
+                    } catch (e) {
+                        localStorage.setItem(storageKey, JSON.stringify(result));
+                    }
+
+                    renderGamePredictions(game, result);
+                    showToast(`Neue ${GAME_CONFIG[game].name} Tipps generiert!`, '🔮');
+                }
+            } finally {
+                showLoader(false);
+            }
         }
 
         function renderGamePredictions(game, result) {
