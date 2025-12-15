@@ -2147,6 +2147,7 @@
         let historyPage = 0;
         let deferredPrompt = null;
         let currentGame = 'lotto6aus49';
+        let toastTimeout = null;
 
         // Game Data Storage
         const gameData = {
@@ -2560,14 +2561,20 @@
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
             const toastIcon = toast.querySelector('.toast-icon');
-            
+
+            // Vorherigen Timeout löschen
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+            }
+
             toastMessage.textContent = message;
             toastIcon.textContent = icon;
             toast.classList.add('show');
-            
-            setTimeout(() => {
+
+            toastTimeout = setTimeout(() => {
                 toast.classList.remove('show');
-            }, 3000);
+                toastTimeout = null;
+            }, 2500);
         }
 
         // Kopiert Lotto-Tipp in die Zwischenablage
@@ -4164,6 +4171,93 @@
                     }))
                     .sort((a, b) => parseFloat(b.accuracy) - parseFloat(a.accuracy));
             }
+
+            // Testet alle APIs und gibt Status zurück
+            async testAllApis() {
+                const results = {};
+                const activeProviders = Object.keys(this.providers).filter(p => p !== 'claude');
+
+                for (const providerName of activeProviders) {
+                    const apiKey = this.apiKeys[providerName];
+
+                    if (!apiKey) {
+                        results[providerName] = { status: 'no_key' };
+                        continue;
+                    }
+
+                    try {
+                        const provider = this.providers[providerName];
+                        let response;
+                        const controller = new AbortController();
+                        const timeout = setTimeout(() => controller.abort(), 8000);
+
+                        const headers = {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        };
+
+                        if (providerName === 'openrouter') {
+                            headers['HTTP-Referer'] = window.location.href;
+                            headers['X-Title'] = 'LottoGenius';
+                        }
+
+                        if (providerName === 'huggingface') {
+                            response = await fetch(provider.endpoint, {
+                                method: 'POST',
+                                headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ inputs: 'Hi', parameters: { max_new_tokens: 5 } }),
+                                signal: controller.signal
+                            });
+                        } else {
+                            response = await fetch(provider.endpoint, {
+                                method: 'POST',
+                                headers: headers,
+                                body: JSON.stringify({
+                                    model: provider.model,
+                                    messages: [{ role: 'user', content: 'Hi' }],
+                                    max_tokens: 5
+                                }),
+                                signal: controller.signal
+                            });
+                        }
+
+                        clearTimeout(timeout);
+
+                        if (response.ok) {
+                            results[providerName] = { status: 'online', lastCheck: new Date().toISOString() };
+                        } else {
+                            const errData = await response.json().catch(() => ({}));
+                            results[providerName] = {
+                                status: 'error',
+                                error: errData.error?.message || `HTTP ${response.status}`,
+                                lastCheck: new Date().toISOString()
+                            };
+                        }
+                    } catch (e) {
+                        results[providerName] = {
+                            status: 'error',
+                            error: e.name === 'AbortError' ? 'Timeout' : e.message,
+                            lastCheck: new Date().toISOString()
+                        };
+                    }
+                }
+
+                // Speichere Ergebnisse im localStorage
+                localStorage.setItem('api_test_results', JSON.stringify({
+                    results: results,
+                    lastCheck: new Date().toISOString()
+                }));
+
+                return results;
+            }
+
+            getLastTestResults() {
+                try {
+                    return JSON.parse(localStorage.getItem('api_test_results')) || null;
+                } catch {
+                    return null;
+                }
+            }
         }
 
         // Globale Multi-KI-Agent Instanz
@@ -4510,23 +4604,39 @@
                     { key: 'together', name: 'Together AI', icon: '🚀' }
                 ];
 
-                // Zähle aktive Cloud-KIs basierend auf GitHub-Status
+                // Lade lokale Test-Ergebnisse
+                const localTestResults = multiKI.getLastTestResults();
+
+                // Zähle aktive Cloud-KIs basierend auf lokalen Tests oder GitHub-Status
                 let activeCloudCount = 0;
                 const cloudStatus = cloudProviders.map(p => {
                     const ghProvider = githubStatus?.providers?.[p.key];
-                    let status = 'unknown';
+                    const localResult = localTestResults?.results?.[p.key];
+                    const hasKey = multiKI.apiKeys[p.key];
 
-                    if (ghProvider) {
+                    // Priorität: Lokaler Test > GitHub Status > Kein Key
+                    let status = 'unknown';
+                    let error = null;
+
+                    if (localResult) {
+                        // Lokale Test-Ergebnisse haben Priorität
+                        status = localResult.status;
+                        error = localResult.error;
+                    } else if (ghProvider) {
                         status = ghProvider.status;
-                        if (status === 'online') activeCloudCount++;
+                        error = ghProvider.error;
+                    } else if (!hasKey) {
+                        status = 'no_key';
                     }
+
+                    if (status === 'online') activeCloudCount++;
 
                     return {
                         name: ghProvider?.name || p.name,
                         icon: ghProvider?.icon || p.icon,
                         status: status,
-                        lastSuccess: ghProvider?.last_success,
-                        error: ghProvider?.error
+                        lastSuccess: localResult?.lastCheck || ghProvider?.last_success,
+                        error: error
                     };
                 });
 
@@ -4544,8 +4654,8 @@
                     activeStrategiesEl.textContent = activeCloudCount + 1;
                 }
 
-                // Letzte Prüfung
-                const lastCheck = githubStatus?.last_check;
+                // Letzte Prüfung (lokal hat Priorität)
+                const lastCheck = localTestResults?.lastCheck || githubStatus?.last_check;
                 let lastCheckStr = 'Nie geprüft';
                 if (lastCheck) {
                     const d = new Date(lastCheck);
@@ -4563,8 +4673,13 @@
                 const allProviders = [...cloudStatus, localML];
 
                 container.innerHTML = `
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 10px; text-align: right;">
-                        🕐 Letzte Prüfung: ${lastCheckStr}
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 11px; color: var(--text-secondary);">
+                            🕐 Letzte Prüfung: ${lastCheckStr}
+                        </span>
+                        <button onclick="testAllApisNow()" id="testApisBtn" style="padding: 6px 12px; background: var(--primary); border: none; border-radius: 6px; color: white; font-size: 11px; cursor: pointer; font-weight: 600;">
+                            🔄 APIs testen
+                        </button>
                     </div>
                 ` + allProviders.map(p => {
                     const cfg = statusConfig[p.status] || statusConfig['unknown'];
@@ -5690,6 +5805,44 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
 
         // Expose to global scope for onclick
         window.saveApiKey = saveApiKey;
+
+        // Globale Funktion zum Testen aller APIs
+        async function testAllApisNow() {
+            const btn = document.getElementById('testApisBtn');
+            if (btn) {
+                btn.innerHTML = '⏳ Teste...';
+                btn.disabled = true;
+            }
+
+            try {
+                showToast('🔄 Teste API-Verbindungen...', '🔄');
+                const results = await multiKI.testAllApis();
+
+                // Zähle Ergebnisse
+                const online = Object.values(results).filter(r => r.status === 'online').length;
+                const errors = Object.values(results).filter(r => r.status === 'error').length;
+                const noKey = Object.values(results).filter(r => r.status === 'no_key').length;
+
+                if (online > 0) {
+                    showToast(`✅ ${online} API(s) online, ${errors} Fehler`, '🟢');
+                } else if (errors > 0) {
+                    showToast(`⚠️ ${errors} API-Fehler, ${noKey} ohne Key`, '🔴');
+                } else {
+                    showToast('ℹ️ Keine API-Keys konfiguriert', '⚪');
+                }
+
+                // Update die Provider-Anzeige
+                selfLearning.updateProviderPerformance();
+            } catch (e) {
+                showToast('❌ API-Test fehlgeschlagen', '❌');
+            } finally {
+                if (btn) {
+                    btn.innerHTML = '🔄 APIs testen';
+                    btn.disabled = false;
+                }
+            }
+        }
+        window.testAllApisNow = testAllApisNow;
 
         // ========================================
         // DEEP ANALYSIS
@@ -7279,6 +7432,15 @@ Antworte NUR mit JSON:
 
             // Initialisiere alle Spiel-Agenten
             await initializeAllGames();
+
+            // Automatischer API-Test beim Start (im Hintergrund)
+            setTimeout(async () => {
+                const hasAnyKey = Object.values(multiKI.apiKeys).some(k => k);
+                if (hasAnyKey) {
+                    console.log('🔄 Automatischer API-Test...');
+                    await testAllApisNow();
+                }
+            }, 2000);
 
             // Lade Lotto-Daten
             fetchLottoData();
