@@ -4484,75 +4484,106 @@
                 this.updateStrategyTrends();
             }
 
-            updateProviderPerformance() {
+            async updateProviderPerformance() {
                 const container = document.getElementById('providerPerformance');
                 if (!container) return;
 
-                // Prüfe welche Cloud-KIs konfiguriert sind
+                // Lade Provider-Status von GitHub
+                let githubStatus = null;
+                try {
+                    const response = await fetch(`https://raw.githubusercontent.com/micki79/lotto-genius/main/data/provider_status.json?t=${Date.now()}`);
+                    if (response.ok) {
+                        githubStatus = await response.json();
+                        console.log('📡 Provider-Status von GitHub geladen');
+                    }
+                } catch (e) {
+                    console.log('Provider-Status nicht verfügbar:', e);
+                }
+
+                // Provider-Liste
                 const cloudProviders = [
-                    { key: 'gemini', name: 'Google Gemini', icon: '🔮', storageKey: 'gemini_api_key' },
-                    { key: 'groq', name: 'Groq (Llama)', icon: '⚡', storageKey: 'groq_api_key' },
-                    { key: 'deepseek', name: 'DeepSeek', icon: '🧠', storageKey: 'deepseek_api_key' },
-                    { key: 'openrouter', name: 'OpenRouter', icon: '🌐', storageKey: 'openrouter_api_key' },
-                    { key: 'huggingface', name: 'HuggingFace', icon: '🤗', storageKey: 'hf_api_key' },
-                    { key: 'together', name: 'Together AI', icon: '🚀', storageKey: 'together_api_key' }
+                    { key: 'gemini', name: 'Google Gemini', icon: '🔮' },
+                    { key: 'groq', name: 'Groq (Llama)', icon: '⚡' },
+                    { key: 'deepseek', name: 'DeepSeek', icon: '🧠' },
+                    { key: 'openrouter', name: 'OpenRouter', icon: '🌐' },
+                    { key: 'huggingface', name: 'HuggingFace', icon: '🤗' },
+                    { key: 'together', name: 'Together AI', icon: '🚀' }
                 ];
 
-                // Zähle aktive Cloud-KIs
+                // Zähle aktive Cloud-KIs basierend auf GitHub-Status
                 let activeCloudCount = 0;
                 const cloudStatus = cloudProviders.map(p => {
-                    const hasKey = localStorage.getItem(p.storageKey);
-                    if (hasKey) activeCloudCount++;
+                    const ghProvider = githubStatus?.providers?.[p.key];
+                    let status = 'unknown';
+
+                    if (ghProvider) {
+                        status = ghProvider.status;
+                        if (status === 'online') activeCloudCount++;
+                    }
+
                     return {
-                        name: p.name,
-                        icon: p.icon,
-                        status: hasKey ? 'active' : 'inactive',
-                        score: hasKey ? (70 + Math.floor(Math.random() * 25)) : 0
+                        name: ghProvider?.name || p.name,
+                        icon: ghProvider?.icon || p.icon,
+                        status: status,
+                        lastSuccess: ghProvider?.last_success,
+                        error: ghProvider?.error
                     };
                 });
 
-                // Lokale KI-Strategien (immer aktiv)
-                const localStrategies = [
-                    { name: 'Neuronales Netz', icon: '🧠', status: 'active', score: 78 + Math.floor(Math.random() * 15), isLocal: true },
-                    { name: 'Random Forest', icon: '🌲', status: 'active', score: 75 + Math.floor(Math.random() * 15), isLocal: true },
-                    { name: 'Transformer', icon: '⚙️', status: 'active', score: 76 + Math.floor(Math.random() * 15), isLocal: true }
-                ];
+                // Lokale KI (immer online)
+                const localML = {
+                    name: 'Lokale ML-Modelle',
+                    icon: '🖥️',
+                    status: 'online',
+                    isLocal: true
+                };
 
                 // Update aktive Strategien Zähler
                 const activeStrategiesEl = document.getElementById('activeStrategies');
                 if (activeStrategiesEl) {
-                    activeStrategiesEl.textContent = activeCloudCount + localStrategies.length;
+                    activeStrategiesEl.textContent = activeCloudCount + 1;
                 }
 
-                // Kombiniere alle Provider
-                const allProviders = [...cloudStatus, ...localStrategies];
+                // Letzte Prüfung
+                const lastCheck = githubStatus?.last_check;
+                let lastCheckStr = 'Nie geprüft';
+                if (lastCheck) {
+                    const d = new Date(lastCheck);
+                    lastCheckStr = d.toLocaleString('de-DE');
+                }
 
-                container.innerHTML = allProviders.map(p => `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: ${p.status === 'active' ? 'rgba(0,206,201,0.05)' : 'rgba(255,255,255,0.02)'}; border-radius: 8px; ${p.status === 'inactive' ? 'opacity: 0.6;' : ''}">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <span style="font-size: 18px;">${p.icon}</span>
-                            <div>
-                                <span style="font-size: 13px; ${p.isLocal ? 'color: var(--text-secondary);' : ''}">${p.name}</span>
-                                ${p.isLocal ? '<span style="font-size: 9px; color: var(--text-secondary); display: block;">Lokal</span>' : ''}
-                            </div>
-                            <span style="font-size: 10px; padding: 2px 8px; border-radius: 10px; background: ${p.status === 'active' ? 'rgba(0,206,201,0.3)' : 'rgba(255,100,100,0.2)'}; color: ${p.status === 'active' ? 'var(--success)' : '#ff6b6b'};">
-                                ${p.status === 'active' ? '✓ Aktiv' : '✗ Nicht konfiguriert'}
-                            </span>
-                        </div>
-                        ${p.status === 'active' ? `
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <div style="width: 60px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
-                                    <div style="width: ${p.score}%; height: 100%; background: ${p.score > 70 ? 'var(--success)' : p.score > 50 ? 'var(--gold)' : 'var(--pink)'}; border-radius: 3px;"></div>
-                                </div>
-                                <span style="font-size: 12px; font-weight: 600; color: var(--success);">${p.score}%</span>
-                            </div>
-                        ` : `
-                            <button onclick="document.getElementById('settingsBtn').click()" style="font-size: 11px; padding: 4px 10px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">
-                                🔑 Key eingeben
-                            </button>
-                        `}
+                // Status-Konfiguration mit Punkten
+                const statusConfig = {
+                    'online': { dot: '🟢', text: 'Online', bg: 'rgba(0,206,201,0.15)', color: 'var(--success)' },
+                    'error': { dot: '🔴', text: 'Fehler', bg: 'rgba(255,100,100,0.15)', color: '#ff6b6b' },
+                    'no_key': { dot: '⚪', text: 'Kein Key', bg: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)' },
+                    'unknown': { dot: '⚫', text: 'Unbekannt', bg: 'rgba(255,255,255,0.03)', color: 'var(--text-secondary)' }
+                };
+
+                const allProviders = [...cloudStatus, localML];
+
+                container.innerHTML = `
+                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 10px; text-align: right;">
+                        🕐 Letzte Prüfung: ${lastCheckStr}
                     </div>
-                `).join('');
+                ` + allProviders.map(p => {
+                    const cfg = statusConfig[p.status] || statusConfig['unknown'];
+                    return `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: ${cfg.bg}; border-radius: 10px; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 22px;">${p.icon}</span>
+                            <div>
+                                <span style="font-size: 14px; font-weight: 500;">${p.name}</span>
+                                ${p.isLocal ? '<span style="font-size: 10px; color: var(--text-secondary); display: block;">Immer verfügbar</span>' : ''}
+                                ${p.error ? `<span style="font-size: 10px; color: #ff6b6b; display: block;">${p.error}</span>` : ''}
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 18px;">${cfg.dot}</span>
+                            <span style="font-size: 13px; font-weight: 600; color: ${cfg.color};">${cfg.text}</span>
+                        </div>
+                    </div>
+                `}).join('');
             }
 
             updateStrategyTrends() {
@@ -5298,73 +5329,74 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
         async function generatePredictions() {
             showLoader(true);
 
-            const nextDrawDate = getNextDrawDate();
-            const storageKey = `predictions_${nextDrawDate}`;
-
-            // Prüfe ob bereits Tipps für diese Ziehung existieren
-            let savedPredictions = null;
             try {
-                savedPredictions = await lottoDB.get('predictions', storageKey);
-                if (!savedPredictions) {
-                    const local = localStorage.getItem(storageKey);
-                    if (local) savedPredictions = JSON.parse(local);
-                }
-            } catch (e) {
-                console.log('Predictions load error:', e);
-            }
+                const nextDrawDate = getNextDrawDate();
+                const storageKey = `predictions_${nextDrawDate}`;
 
-            // Wenn Tipps existieren: IMMER laden, NIEMALS überschreiben!
-            if (savedPredictions) {
-                console.log('🔒 Lade gesperrte Tipps für:', nextDrawDate);
-                renderAIPredictions(savedPredictions);
-                kiAgent.lastAnalysis = savedPredictions;
-                showLoader(false);
-                return;
-            }
-
-            // Neue Tipps generieren
-            try {
-                console.log('🔮 Generiere neue Tipps für:', nextDrawDate);
-                const aiResult = await analyzeWithRealAI(lottoData, frequencyMap, superzahlMap);
-
-                if (aiResult && aiResult.predictions) {
-                    // Speichere mit Ziehungsdatum
-                    aiResult.generatedFor = nextDrawDate;
-                    aiResult.generatedAt = new Date().toISOString();
-
-                    // In IndexedDB speichern
-                    try {
-                        await lottoDB.save('predictions', {
-                            id: storageKey,
-                            ...aiResult
-                        });
-                    } catch (e) {
-                        localStorage.setItem(storageKey, JSON.stringify(aiResult));
+                // Prüfe ob bereits Tipps für diese Ziehung existieren
+                let savedPredictions = null;
+                try {
+                    savedPredictions = await lottoDB.get('predictions', storageKey);
+                    if (!savedPredictions) {
+                        const local = localStorage.getItem(storageKey);
+                        if (local) savedPredictions = JSON.parse(local);
                     }
-
-                    // Für Lernzwecke speichern
-                    localStorage.setItem('last_predictions', JSON.stringify(aiResult.predictions));
-                    localStorage.setItem('last_prediction_date', nextDrawDate);
-
-                    renderAIPredictions(aiResult);
-                    updateKIStatus(true, aiResult);
-                    kiAgent.lastAnalysis = aiResult;
-
-                    showToast(`Neue Tipps für ${nextDrawDate} generiert!`, '🔮');
+                } catch (e) {
+                    console.log('Predictions load error:', e);
                 }
-            } catch (error) {
-                console.error('Prediction error:', error);
-                const sortedFreq = Object.entries(frequencyMap).sort((a, b) => b[1] - a[1]);
-                const fallbackResult = generateLocalAIPredictions(
-                    sortedFreq.slice(0, 10).map(([n]) => parseInt(n)),
-                    sortedFreq.slice(-10).map(([n]) => parseInt(n)),
-                    [],
-                    {}
-                );
-                renderAIPredictions(fallbackResult);
-            }
 
-            showLoader(false);
+                // Wenn Tipps existieren: IMMER laden, NIEMALS überschreiben!
+                if (savedPredictions) {
+                    console.log('🔒 Lade gesperrte Tipps für:', nextDrawDate);
+                    renderAIPredictions(savedPredictions);
+                    kiAgent.lastAnalysis = savedPredictions;
+                    return;
+                }
+
+                // Neue Tipps generieren
+                try {
+                    console.log('🔮 Generiere neue Tipps für:', nextDrawDate);
+                    const aiResult = await analyzeWithRealAI(lottoData, frequencyMap, superzahlMap);
+
+                    if (aiResult && aiResult.predictions) {
+                        // Speichere mit Ziehungsdatum
+                        aiResult.generatedFor = nextDrawDate;
+                        aiResult.generatedAt = new Date().toISOString();
+
+                        // In IndexedDB speichern
+                        try {
+                            await lottoDB.save('predictions', {
+                                id: storageKey,
+                                ...aiResult
+                            });
+                        } catch (e) {
+                            localStorage.setItem(storageKey, JSON.stringify(aiResult));
+                        }
+
+                        // Für Lernzwecke speichern
+                        localStorage.setItem('last_predictions', JSON.stringify(aiResult.predictions));
+                        localStorage.setItem('last_prediction_date', nextDrawDate);
+
+                        renderAIPredictions(aiResult);
+                        updateKIStatus(true, aiResult);
+                        kiAgent.lastAnalysis = aiResult;
+
+                        showToast(`Neue Tipps für ${nextDrawDate} generiert!`, '🔮');
+                    }
+                } catch (error) {
+                    console.error('Prediction error:', error);
+                    const sortedFreq = Object.entries(frequencyMap).sort((a, b) => b[1] - a[1]);
+                    const fallbackResult = generateLocalAIPredictions(
+                        sortedFreq.slice(0, 10).map(([n]) => parseInt(n)),
+                        sortedFreq.slice(-10).map(([n]) => parseInt(n)),
+                        [],
+                        {}
+                    );
+                    renderAIPredictions(fallbackResult);
+                }
+            } finally {
+                showLoader(false);
+            }
         }
 
         function renderAIPredictions(aiResult) {
