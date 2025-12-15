@@ -916,13 +916,19 @@
             align-items: center;
             gap: 12px;
             z-index: 1000;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
             border: 1px solid rgba(108, 92, 231, 0.3);
             max-width: 90%;
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
         }
 
         .toast.show {
             transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
         }
 
         .toast-icon {
@@ -2559,23 +2565,44 @@
 
         function showToast(message, icon = '✅') {
             const toast = document.getElementById('toast');
+            if (!toast) return;
+
             const toastMessage = document.getElementById('toastMessage');
             const toastIcon = toast.querySelector('.toast-icon');
 
             // Vorherigen Timeout löschen
             if (toastTimeout) {
                 clearTimeout(toastTimeout);
+                toastTimeout = null;
             }
 
-            toastMessage.textContent = message;
-            toastIcon.textContent = icon;
-            toast.classList.add('show');
+            // Erst verstecken, dann neu anzeigen
+            toast.classList.remove('show');
 
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-                toastTimeout = null;
-            }, 2500);
+            // Kurze Verzögerung für Animation
+            requestAnimationFrame(() => {
+                toastMessage.textContent = message;
+                toastIcon.textContent = icon;
+                toast.classList.add('show');
+
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                    toastTimeout = null;
+                }, 2000); // 2 Sekunden
+            });
         }
+
+        // Verstecke Toast beim Tippen irgendwo
+        document.addEventListener('click', () => {
+            const toast = document.getElementById('toast');
+            if (toast && toast.classList.contains('show')) {
+                toast.classList.remove('show');
+                if (toastTimeout) {
+                    clearTimeout(toastTimeout);
+                    toastTimeout = null;
+                }
+            }
+        }, { passive: true });
 
         // Kopiert Lotto-Tipp in die Zwischenablage
         async function copyTipp(text, button) {
