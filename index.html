@@ -2583,26 +2583,53 @@
             requestAnimationFrame(() => {
                 toastMessage.textContent = message;
                 toastIcon.textContent = icon;
+                toast.dataset.showTime = Date.now().toString();
                 toast.classList.add('show');
 
                 toastTimeout = setTimeout(() => {
-                    toast.classList.remove('show');
-                    toastTimeout = null;
+                    hideToast();
                 }, 2000); // 2 Sekunden
             });
         }
 
         // Verstecke Toast beim Tippen irgendwo
         document.addEventListener('click', () => {
+            hideToast();
+        }, { passive: true });
+
+        // Hilfsfunktion zum Verstecken
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.classList.remove('show');
+            }
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toastTimeout = null;
+            }
+        }
+
+        // SICHERHEIT: Toast nach 3 Sekunden IMMER verstecken (Fallback)
+        setInterval(() => {
             const toast = document.getElementById('toast');
             if (toast && toast.classList.contains('show')) {
-                toast.classList.remove('show');
-                if (toastTimeout) {
-                    clearTimeout(toastTimeout);
-                    toastTimeout = null;
+                // Prüfe ob Toast schon länger als 3 Sekunden angezeigt wird
+                const showTime = toast.dataset.showTime;
+                if (showTime && Date.now() - parseInt(showTime) > 3000) {
+                    hideToast();
                 }
             }
-        }, { passive: true });
+
+            // SICHERHEIT: Loader nach 10 Sekunden verstecken
+            const loader = document.getElementById('loader');
+            if (loader && loader.classList.contains('active')) {
+                const loaderTime = loader.dataset.showTime;
+                if (loaderTime && Date.now() - parseInt(loaderTime) > 10000) {
+                    showLoader(false);
+                    console.log('⚠️ Loader Force-Hide nach 10s');
+                }
+            }
+        }, 1000);
 
         // Kopiert Lotto-Tipp in die Zwischenablage
         async function copyTipp(text, button) {
@@ -2643,7 +2670,16 @@
         }
 
         function showLoader(show = true) {
-            document.getElementById('loader').classList.toggle('active', show);
+            const loader = document.getElementById('loader');
+            if (!loader) return;
+
+            if (show) {
+                loader.dataset.showTime = Date.now().toString();
+                loader.classList.add('active');
+            } else {
+                loader.classList.remove('active');
+                delete loader.dataset.showTime;
+            }
         }
 
         function formatDate(dateStr) {
@@ -7483,7 +7519,10 @@ Antworte NUR mit JSON:
             }, 2000);
 
             // Lade Lotto-Daten
-            fetchLottoData();
+            await fetchLottoData();
+
+            // SICHERHEIT: Loader immer verstecken nach Init
+            showLoader(false);
 
             // Game Selector
             document.querySelectorAll('.game-btn').forEach(btn => {
