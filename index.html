@@ -1883,6 +1883,8 @@
                         <span style="color: var(--text-secondary);">Lade...</span>
                     </div>
                 </div>
+                <!-- Treffer-Übersicht Lotto 6aus49 -->
+                <div id="lotto6aus49Hits"></div>
                 <details style="margin-top: 10px;">
                     <summary style="cursor: pointer; color: var(--primary); font-size: 13px;">📊 Letzte 10 Ziehungen anzeigen</summary>
                     <div id="lotto6aus49History" style="margin-top: 10px; font-size: 12px; max-height: 200px; overflow-y: auto;"></div>
@@ -1910,6 +1912,8 @@
                         <span style="color: var(--text-secondary);">Lade...</span>
                     </div>
                 </div>
+                <!-- Treffer-Übersicht Eurojackpot -->
+                <div id="eurojackpotHits"></div>
                 <details style="margin-top: 10px;">
                     <summary style="cursor: pointer; color: var(--primary); font-size: 13px;">📊 Letzte 10 Ziehungen anzeigen</summary>
                     <div id="eurojackpotHistory" style="margin-top: 10px; font-size: 12px; max-height: 200px; overflow-y: auto;"></div>
@@ -1935,6 +1939,8 @@
                     <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Häufigste Ziffern pro Position:</div>
                     <div id="spiel77TopDigits" style="font-family: 'Space Mono', monospace; font-size: 14px; color: var(--text-secondary);">Lade...</div>
                 </div>
+                <!-- Treffer-Übersicht Spiel 77 -->
+                <div id="spiel77Hits"></div>
                 <details style="margin-top: 10px;">
                     <summary style="cursor: pointer; color: var(--primary); font-size: 13px;">📊 Letzte 10 Ziehungen anzeigen</summary>
                     <div id="spiel77History" style="margin-top: 10px; font-size: 12px; max-height: 200px; overflow-y: auto;"></div>
@@ -1960,6 +1966,8 @@
                     <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Häufigste Ziffern pro Position:</div>
                     <div id="super6TopDigits" style="font-family: 'Space Mono', monospace; font-size: 14px; color: var(--text-secondary);">Lade...</div>
                 </div>
+                <!-- Treffer-Übersicht Super 6 -->
+                <div id="super6Hits"></div>
                 <details style="margin-top: 10px;">
                     <summary style="cursor: pointer; color: var(--primary); font-size: 13px;">📊 Letzte 10 Ziehungen anzeigen</summary>
                     <div id="super6History" style="margin-top: 10px; font-size: 12px; max-height: 200px; overflow-y: auto;"></div>
@@ -1989,6 +1997,7 @@
                     <summary style="cursor: pointer; color: var(--primary); font-size: 13px;">📊 Letzte 10 Ziehungen anzeigen</summary>
                     <div id="gluecksspiraleHistory" style="margin-top: 10px; font-size: 12px; max-height: 200px; overflow-y: auto;"></div>
                 </details>
+                <div id="gluecksspiraleHits"></div>
             </div>
         </div>
 
@@ -5539,6 +5548,282 @@
         const selfLearning = new SelfLearningSystem();
 
         // ========================================
+        // MULTI-GAME HIT TRACKING SYSTEM
+        // ========================================
+        const gameHitTracker = {
+            // Treffer-Statistiken für alle Spiele
+            stats: {
+                lotto6aus49: { hits: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }, total: 0, szHits: 0 },
+                eurojackpot: { hits: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, euroHits: { 0: 0, 1: 0, 2: 0 }, total: 0 },
+                spiel77: { hits: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 }, total: 0 },
+                super6: { hits: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }, total: 0 },
+                gluecksspirale: { hits: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 }, total: 0 }
+            },
+            history: [],
+
+            async init() {
+                await this.loadStats();
+                console.log('📊 Game Hit Tracker initialisiert');
+            },
+
+            async loadStats() {
+                try {
+                    const saved = await lottoDB.get('settings', 'gameHitStats');
+                    if (saved?.data) {
+                        Object.assign(this.stats, saved.data);
+                        console.log('📊 Hit-Stats geladen:', this.stats);
+                    }
+                    const history = await lottoDB.get('settings', 'gameHitHistory');
+                    if (history?.data) this.history = history.data;
+                } catch {
+                    const local = localStorage.getItem('game_hit_stats');
+                    if (local) Object.assign(this.stats, JSON.parse(local));
+                    const histLocal = localStorage.getItem('game_hit_history');
+                    if (histLocal) this.history = JSON.parse(histLocal);
+                }
+            },
+
+            async saveStats() {
+                try {
+                    await lottoDB.save('settings', { key: 'gameHitStats', data: this.stats });
+                    await lottoDB.save('settings', { key: 'gameHitHistory', data: this.history.slice(-100) });
+                } catch {
+                    localStorage.setItem('game_hit_stats', JSON.stringify(this.stats));
+                    localStorage.setItem('game_hit_history', JSON.stringify(this.history.slice(-100)));
+                }
+            },
+
+            // Lotto 6aus49 Treffer zählen
+            countLottoHits(predicted, actual, predSZ, actualSZ) {
+                const matches = predicted.filter(n => actual.includes(n)).length;
+                const szMatch = predSZ === actualSZ;
+                this.stats.lotto6aus49.hits[matches]++;
+                this.stats.lotto6aus49.total++;
+                if (szMatch) this.stats.lotto6aus49.szHits++;
+                this.history.push({
+                    game: 'lotto6aus49',
+                    date: new Date().toISOString(),
+                    matches,
+                    szMatch,
+                    predicted,
+                    actual
+                });
+                this.saveStats();
+                return { matches, szMatch };
+            },
+
+            // Eurojackpot Treffer zählen
+            countEurojackpotHits(predicted, actual, predEuro, actualEuro) {
+                const mainMatches = predicted.filter(n => actual.includes(n)).length;
+                const euroMatches = predEuro.filter(n => actualEuro.includes(n)).length;
+                this.stats.eurojackpot.hits[mainMatches]++;
+                this.stats.eurojackpot.euroHits[euroMatches]++;
+                this.stats.eurojackpot.total++;
+                this.history.push({
+                    game: 'eurojackpot',
+                    date: new Date().toISOString(),
+                    mainMatches,
+                    euroMatches,
+                    predicted,
+                    actual
+                });
+                this.saveStats();
+                return { mainMatches, euroMatches };
+            },
+
+            // Digit-Spiele Treffer zählen (Spiel77, Super6, Glücksspirale)
+            countDigitHits(game, predicted, actual) {
+                let matches = 0;
+                const predStr = String(predicted).padStart(game === 'super6' ? 6 : 7, '0');
+                const actStr = String(actual).padStart(game === 'super6' ? 6 : 7, '0');
+
+                // Von rechts nach links vergleichen (wie beim echten Spiel)
+                for (let i = predStr.length - 1; i >= 0; i--) {
+                    if (predStr[i] === actStr[i]) {
+                        matches++;
+                    } else {
+                        break; // Stopp bei erstem Nicht-Treffer
+                    }
+                }
+
+                this.stats[game].hits[matches]++;
+                this.stats[game].total++;
+                this.history.push({
+                    game,
+                    date: new Date().toISOString(),
+                    matches,
+                    predicted: predStr,
+                    actual: actStr
+                });
+                this.saveStats();
+                return matches;
+            },
+
+            // Automatisch lernen wenn neue Ziehung da ist
+            async checkAndLearnFromNewDraws() {
+                console.log('🔄 Prüfe auf neue Ziehungen...');
+
+                // Hole gespeicherte Vorhersagen
+                const savedPredictions = {};
+                for (const game of ['lotto6aus49', 'eurojackpot', 'spiel77', 'super6', 'gluecksspirale']) {
+                    try {
+                        const key = `${game}_last_predictions`;
+                        const pred = localStorage.getItem(key);
+                        if (pred) savedPredictions[game] = JSON.parse(pred);
+                    } catch {}
+                }
+
+                // Vergleiche mit aktuellen Ziehungen
+                // Lotto 6aus49
+                if (savedPredictions.lotto6aus49 && lottoData.length > 0) {
+                    const lastDraw = lottoData[0];
+                    const lastLearnDate = localStorage.getItem('lotto_last_learn_date');
+                    if (lastLearnDate !== lastDraw.date) {
+                        savedPredictions.lotto6aus49.forEach(pred => {
+                            if (pred.numbers) {
+                                this.countLottoHits(pred.numbers, lastDraw.numbers, pred.superzahl, lastDraw.superzahl);
+                            }
+                        });
+                        localStorage.setItem('lotto_last_learn_date', lastDraw.date);
+                        console.log(`✅ Lotto 6aus49: Gelernt aus Ziehung ${lastDraw.date}`);
+                    }
+                }
+
+                // Eurojackpot
+                if (savedPredictions.eurojackpot && eurojackpotAgent?.data?.length > 0) {
+                    const lastDraw = eurojackpotAgent.data[0];
+                    const lastLearnDate = localStorage.getItem('ej_last_learn_date');
+                    if (lastLearnDate !== lastDraw.date) {
+                        savedPredictions.eurojackpot.forEach(pred => {
+                            if (pred.numbers && pred.eurozahlen) {
+                                this.countEurojackpotHits(pred.numbers, lastDraw.numbers, pred.eurozahlen, lastDraw.eurozahlen);
+                            }
+                        });
+                        localStorage.setItem('ej_last_learn_date', lastDraw.date);
+                        console.log(`✅ Eurojackpot: Gelernt aus Ziehung ${lastDraw.date}`);
+                    }
+                }
+
+                // Spiel 77
+                if (savedPredictions.spiel77 && spiel77Agent?.data?.length > 0) {
+                    const lastDraw = spiel77Agent.data[0];
+                    const lastLearnDate = localStorage.getItem('s77_last_learn_date');
+                    if (lastLearnDate !== lastDraw.date) {
+                        savedPredictions.spiel77.forEach(pred => {
+                            if (pred.number) {
+                                this.countDigitHits('spiel77', pred.number, lastDraw.number);
+                            }
+                        });
+                        localStorage.setItem('s77_last_learn_date', lastDraw.date);
+                        console.log(`✅ Spiel 77: Gelernt aus Ziehung ${lastDraw.date}`);
+                    }
+                }
+
+                // Super 6
+                if (savedPredictions.super6 && super6Agent?.data?.length > 0) {
+                    const lastDraw = super6Agent.data[0];
+                    const lastLearnDate = localStorage.getItem('s6_last_learn_date');
+                    if (lastLearnDate !== lastDraw.date) {
+                        savedPredictions.super6.forEach(pred => {
+                            if (pred.number) {
+                                this.countDigitHits('super6', pred.number, lastDraw.number);
+                            }
+                        });
+                        localStorage.setItem('s6_last_learn_date', lastDraw.date);
+                        console.log(`✅ Super 6: Gelernt aus Ziehung ${lastDraw.date}`);
+                    }
+                }
+
+                // Glücksspirale
+                if (savedPredictions.gluecksspirale && gluecksspiraleAgent?.data?.length > 0) {
+                    const lastDraw = gluecksspiraleAgent.data[0];
+                    const lastLearnDate = localStorage.getItem('gs_last_learn_date');
+                    if (lastLearnDate !== lastDraw.date) {
+                        savedPredictions.gluecksspirale.forEach(pred => {
+                            if (pred.number) {
+                                this.countDigitHits('gluecksspirale', pred.number, lastDraw.number);
+                            }
+                        });
+                        localStorage.setItem('gs_last_learn_date', lastDraw.date);
+                        console.log(`✅ Glücksspirale: Gelernt aus Ziehung ${lastDraw.date}`);
+                    }
+                }
+
+                // Aktualisiere UI
+                this.updateHitDisplays();
+            },
+
+            // Treffer-Übersicht UI aktualisieren
+            updateHitDisplays() {
+                // Lotto 6aus49
+                this.renderHitDisplay('lotto6aus49', document.getElementById('lotto6aus49Hits'));
+                // Eurojackpot
+                this.renderHitDisplay('eurojackpot', document.getElementById('eurojackpotHits'));
+                // Spiel 77
+                this.renderHitDisplay('spiel77', document.getElementById('spiel77Hits'));
+                // Super 6
+                this.renderHitDisplay('super6', document.getElementById('super6Hits'));
+                // Glücksspirale
+                this.renderHitDisplay('gluecksspirale', document.getElementById('gluecksspiraleHits'));
+            },
+
+            renderHitDisplay(game, container) {
+                if (!container) return;
+                const stats = this.stats[game];
+                if (!stats || stats.total === 0) {
+                    container.innerHTML = '<div style="color: var(--text-secondary); font-size: 13px;">Noch keine Treffer-Daten</div>';
+                    return;
+                }
+
+                let html = `<div style="background: linear-gradient(135deg, rgba(0,206,201,0.1) 0%, rgba(108,92,231,0.1) 100%); border-radius: 10px; padding: 12px; margin-top: 10px;">`;
+                html += `<div style="font-weight: 600; color: var(--secondary); margin-bottom: 8px;">📈 Treffer (${stats.total} Tipps)</div>`;
+                html += `<div style="display: flex; flex-wrap: wrap; gap: 8px;">`;
+
+                if (game === 'lotto6aus49') {
+                    for (let i = 6; i >= 0; i--) {
+                        const count = stats.hits[i] || 0;
+                        const color = i >= 5 ? '#f1c40f' : i >= 3 ? '#2ecc71' : 'var(--text-secondary)';
+                        html += `<div style="text-align: center; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius: 6px; min-width: 45px;">
+                            <div style="font-size: 11px; color: ${color};">${i}er</div>
+                            <div style="font-family: 'Space Mono'; font-weight: 700;">${count}</div>
+                        </div>`;
+                    }
+                    html += `<div style="text-align: center; padding: 6px 10px; background: rgba(241,196,15,0.2); border-radius: 6px;">
+                        <div style="font-size: 11px; color: #f1c40f;">SZ</div>
+                        <div style="font-family: 'Space Mono'; font-weight: 700;">${stats.szHits || 0}</div>
+                    </div>`;
+                } else if (game === 'eurojackpot') {
+                    for (let i = 5; i >= 0; i--) {
+                        const count = stats.hits[i] || 0;
+                        const color = i >= 4 ? '#f1c40f' : i >= 2 ? '#2ecc71' : 'var(--text-secondary)';
+                        html += `<div style="text-align: center; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius: 6px; min-width: 45px;">
+                            <div style="font-size: 11px; color: ${color};">${i}+</div>
+                            <div style="font-family: 'Space Mono'; font-weight: 700;">${count}</div>
+                        </div>`;
+                    }
+                    html += `<div style="text-align: center; padding: 6px 10px; background: rgba(52,152,219,0.2); border-radius: 6px;">
+                        <div style="font-size: 11px; color: #3498db;">★2</div>
+                        <div style="font-family: 'Space Mono'; font-weight: 700;">${stats.euroHits?.[2] || 0}</div>
+                    </div>`;
+                } else {
+                    // Digit games
+                    const maxDigits = game === 'super6' ? 6 : 7;
+                    for (let i = maxDigits; i >= 0; i--) {
+                        const count = stats.hits[i] || 0;
+                        const color = i >= maxDigits - 1 ? '#f1c40f' : i >= 3 ? '#2ecc71' : 'var(--text-secondary)';
+                        html += `<div style="text-align: center; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius: 6px; min-width: 40px;">
+                            <div style="font-size: 11px; color: ${color};">${i}</div>
+                            <div style="font-family: 'Space Mono'; font-weight: 700;">${count}</div>
+                        </div>`;
+                    }
+                }
+
+                html += `</div></div>`;
+                container.innerHTML = html;
+            }
+        };
+
+        // ========================================
         // ECHTE KI-INTEGRATION MIT CLAUDE API
         // ========================================
 
@@ -6885,7 +7170,11 @@ Antworte NUR mit JSON:
             ensureAllAgentsHaveData();
 
             // Aktualisiere spielspezifische Statistiken
-            setTimeout(() => updateAllGameStatistics(), 500);
+            setTimeout(() => {
+                updateAllGameStatistics();
+                // Treffer-Übersicht aktualisieren
+                gameHitTracker.updateHitDisplays();
+            }, 500);
 
             console.log('✅ Alle Spiele initialisiert');
         }
@@ -8287,11 +8576,18 @@ Antworte NUR mit JSON:
             // Initialisiere alle Spiel-Agenten
             await initializeAllGames();
 
+            // Initialisiere Game Hit Tracker für Treffer-Übersicht
+            await gameHitTracker.init();
+
             // Automatisches Lernen aus vergangenen Ziehungen
             setTimeout(async () => {
                 try {
                     await selfLearning.autoLearnFromNewDraws();
                     console.log('🧠 Selbstlernen abgeschlossen');
+
+                    // Multi-Game Hit Tracking - prüfe alle Spiele auf neue Ziehungen
+                    await gameHitTracker.checkAndLearnFromNewDraws();
+                    console.log('📊 Treffer-Tracking aktualisiert');
                 } catch (e) {
                     console.log('Selbstlernen nicht möglich:', e);
                 }
