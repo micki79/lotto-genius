@@ -1,6 +1,6 @@
 // LottoGenius Service Worker
-const CACHE_NAME = 'lottogenius-v3.6.0';
-const DATA_CACHE_NAME = 'lottogenius-data-v3.6.0';
+const CACHE_NAME = 'lottogenius-v3.7.0';
+const DATA_CACHE_NAME = 'lottogenius-data-v3.7.0';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [

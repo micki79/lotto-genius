@@ -2386,32 +2386,65 @@
                 });
             }
 
-            // ERWEITERTE VORHERSAGEN mit 6 wissenschaftlichen Strategien
+            // ERWEITERTE VORHERSAGEN mit 6 wissenschaftlichen Strategien + Selbstlernen
             generatePredictions() {
-                const predictions = [
-                    this.strategyHotCold(),
-                    this.strategyOddEvenBalance(),
-                    this.strategyDecadeBalance(),
-                    this.strategySumOptimization(),
-                    this.strategyOverdueNumbers(),
-                    this.strategyMathematicalBalance()
+                // Hole gelernte Gewichte wenn verfügbar
+                let strategyWeights = {};
+                try {
+                    if (selfLearning && selfLearning.eurojackpotStrategies) {
+                        for (const [key, s] of Object.entries(selfLearning.eurojackpotStrategies)) {
+                            strategyWeights[key] = s.weight || 1.0;
+                        }
+                    }
+                } catch (e) {
+                    console.log('Lerngewichte nicht verfügbar');
+                }
+
+                // Generiere alle Strategien
+                let predictions = [
+                    { ...this.strategyHotCold(), weight: strategyWeights['ej_hot_cold'] || 1.0 },
+                    { ...this.strategyOddEvenBalance(), weight: strategyWeights['ej_odd_even'] || 1.0 },
+                    { ...this.strategyDecadeBalance(), weight: strategyWeights['ej_decade'] || 1.0 },
+                    { ...this.strategySumOptimization(), weight: strategyWeights['ej_sum'] || 1.0 },
+                    { ...this.strategyOverdueNumbers(), weight: strategyWeights['ej_overdue'] || 1.0 },
+                    { ...this.strategyMathematicalBalance(), weight: strategyWeights['ej_math'] || 1.0 }
                 ];
 
-                // Berechne Bonus-Tipp mit kombinierter Strategie
+                // Sortiere nach gelernten Gewichten (beste zuerst)
+                predictions.sort((a, b) => b.weight - a.weight);
+
+                // Berechne Bonus-Tipp mit kombinierter Strategie (gewichtet)
                 const bonusTip = this.generateBonusTip(predictions);
+                bonusTip.weight = strategyWeights['ej_ensemble'] || 1.2;
                 predictions.unshift(bonusTip);
 
-                return {
-                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen)`,
+                // Speichere Vorhersagen für späteres Lernen
+                const result = {
+                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 Selbstlernend`,
                     predictions: predictions.slice(0, 5), // Top 5 Tipps
                     statistics: {
                         totalDraws: this.data.length,
                         optimalSum: this.sumStats.optimal,
                         bestOddEven: '3-2 oder 2-3',
                         hotNumbers: this.getTopNumbers(10),
-                        coldNumbers: this.getColdNumbers(10)
+                        coldNumbers: this.getColdNumbers(10),
+                        learnedWeights: strategyWeights
                     }
                 };
+
+                // Speichere für Lernzwecke
+                try {
+                    localStorage.setItem('last_ej_predictions', JSON.stringify(result.predictions));
+                    localStorage.setItem('last_ej_prediction_date', new Date().toLocaleDateString('de-DE'));
+
+                    // Log im Selbstlernsystem
+                    if (selfLearning) {
+                        selfLearning.log('prediction', `🌟 Eurojackpot: ${result.predictions.length} Tipps generiert`,
+                            `Beste Strategie: ${predictions[0].strategy}`);
+                    }
+                } catch (e) {}
+
+                return result;
             }
 
             // Strategie 1: Hot/Cold Zahlen Analyse
@@ -4565,6 +4598,7 @@
 
         class SelfLearningSystem {
             constructor() {
+                // Lotto 6aus49 Strategien
                 this.strategies = {
                     'frequency': { name: 'Häufigkeitsanalyse', weight: 1.0, wins: 0, total: 0, icon: '📊' },
                     'overdue': { name: 'Überfällige Zahlen', weight: 1.0, wins: 0, total: 0, icon: '⏰' },
@@ -4575,6 +4609,27 @@
                     'ensemble': { name: 'Ensemble Voting', weight: 1.0, wins: 0, total: 0, icon: '🗳️' },
                     'gradient': { name: 'Gradient Descent', weight: 1.0, wins: 0, total: 0, icon: '📈' }
                 };
+
+                // Eurojackpot Strategien (Selbstlernend)
+                this.eurojackpotStrategies = {
+                    'ej_hot_cold': { name: 'EJ Hot Numbers', weight: 1.0, wins: 0, total: 0, icon: '🔥', accuracy: 0 },
+                    'ej_odd_even': { name: 'EJ Ungerade/Gerade', weight: 1.0, wins: 0, total: 0, icon: '⚖️', accuracy: 0 },
+                    'ej_decade': { name: 'EJ Dekaden-Balance', weight: 1.0, wins: 0, total: 0, icon: '📊', accuracy: 0 },
+                    'ej_sum': { name: 'EJ Summen-Optimierung', weight: 1.0, wins: 0, total: 0, icon: '📈', accuracy: 0 },
+                    'ej_overdue': { name: 'EJ Überfällige', weight: 1.0, wins: 0, total: 0, icon: '⏰', accuracy: 0 },
+                    'ej_math': { name: 'EJ Primzahlen', weight: 1.0, wins: 0, total: 0, icon: '🔢', accuracy: 0 },
+                    'ej_ensemble': { name: 'EJ KI-Ensemble', weight: 1.2, wins: 0, total: 0, icon: '⭐', accuracy: 0 }
+                };
+
+                // Lernhistorie für alle Spiele
+                this.learningHistory = {
+                    lotto6aus49: [],
+                    eurojackpot: [],
+                    spiel77: [],
+                    super6: [],
+                    gluecksspirale: []
+                };
+
                 this.activityLog = [];
                 this.maxLogEntries = 100;
                 this.discoveredPatterns = [];
@@ -4584,6 +4639,7 @@
             async init() {
                 await this.loadStrategies();
                 await this.loadActivityLog();
+                await this.loadEurojackpotStrategies();
                 this.initialized = true;
 
                 // Initiale Log-Einträge
@@ -4780,6 +4836,162 @@
                     if (sorted[i + 1] - sorted[i] === 1) return true;
                 }
                 return false;
+            }
+
+            // ========================================
+            // EUROJACKPOT SELBSTLERNENDES SYSTEM
+            // ========================================
+
+            // Lernt aus Eurojackpot-Ziehungen
+            async learnFromEurojackpotDraw(actualNumbers, actualEurozahlen, predictions) {
+                this.log('learn', `🌟 Eurojackpot Ziehung: ${actualNumbers.join(', ')} | EZ: ${actualEurozahlen.join(', ')}`);
+
+                const strategyMapping = {
+                    'hot_cold_analysis': 'ej_hot_cold',
+                    'odd_even_balance': 'ej_odd_even',
+                    'decade_balance': 'ej_decade',
+                    'sum_optimization': 'ej_sum',
+                    'overdue_analysis': 'ej_overdue',
+                    'math_balance': 'ej_math',
+                    'ensemble_consensus': 'ej_ensemble'
+                };
+
+                let bestStrategy = null;
+                let maxScore = 0;
+
+                for (const pred of predictions) {
+                    const source = pred.source || 'unknown';
+                    const strategyKey = strategyMapping[source];
+
+                    if (strategyKey && this.eurojackpotStrategies[strategyKey]) {
+                        const strategy = this.eurojackpotStrategies[strategyKey];
+                        strategy.total++;
+
+                        // Zähle Treffer (Hauptzahlen + Eurozahlen)
+                        const numberMatches = this.countMatches(pred.numbers, actualNumbers);
+                        const euroMatches = this.countMatches(pred.eurozahlen, actualEurozahlen);
+                        const score = numberMatches + (euroMatches * 2); // Eurozahlen zählen doppelt
+
+                        // Speichere in Lernhistorie
+                        this.learningHistory.eurojackpot.push({
+                            date: new Date().toISOString(),
+                            strategy: strategyKey,
+                            numberMatches,
+                            euroMatches,
+                            score
+                        });
+
+                        // Strategie als erfolgreich markieren wenn >= 2 Treffer
+                        if (numberMatches >= 2 || (numberMatches >= 1 && euroMatches >= 1)) {
+                            strategy.wins++;
+                            this.log('success', `✅ ${strategy.icon} ${strategy.name}: ${numberMatches}+${euroMatches}EZ Treffer!`);
+                        }
+
+                        // Genauigkeit berechnen
+                        strategy.accuracy = strategy.total > 0
+                            ? ((strategy.wins / strategy.total) * 100).toFixed(1)
+                            : 0;
+
+                        if (score > maxScore) {
+                            maxScore = score;
+                            bestStrategy = strategyKey;
+                        }
+                    }
+                }
+
+                // Gewichte anpassen
+                await this.adjustEurojackpotWeights(bestStrategy, maxScore);
+                await this.saveEurojackpotStrategies();
+
+                this.log('analysis', `📊 Beste Strategie: ${bestStrategy ? this.eurojackpotStrategies[bestStrategy].name : 'N/A'} (Score: ${maxScore})`);
+            }
+
+            async adjustEurojackpotWeights(bestStrategy, maxScore) {
+                // Beste Strategie belohnen
+                if (bestStrategy && maxScore >= 3) {
+                    const bonus = 0.05 * (maxScore - 2);
+                    const strategy = this.eurojackpotStrategies[bestStrategy];
+                    strategy.weight = Math.min(2.0, strategy.weight + bonus);
+                    this.log('adjust', `📈 ${strategy.icon} ${strategy.name} Gewicht: ${(strategy.weight * 100).toFixed(0)}%`);
+                }
+
+                // Schlechte Strategien leicht reduzieren
+                for (const [key, strategy] of Object.entries(this.eurojackpotStrategies)) {
+                    if (strategy.total > 10 && strategy.wins / strategy.total < 0.05) {
+                        strategy.weight = Math.max(0.5, strategy.weight - 0.02);
+                    }
+                }
+            }
+
+            async saveEurojackpotStrategies() {
+                try {
+                    await lottoDB.save('settings', { key: 'ejStrategies', data: this.eurojackpotStrategies });
+                    await lottoDB.save('settings', { key: 'learningHistory', data: this.learningHistory });
+                } catch {
+                    localStorage.setItem('ej_strategies', JSON.stringify(this.eurojackpotStrategies));
+                    localStorage.setItem('learning_history', JSON.stringify(this.learningHistory));
+                }
+            }
+
+            async loadEurojackpotStrategies() {
+                try {
+                    const saved = await lottoDB.get('settings', 'ejStrategies');
+                    if (saved?.data) Object.assign(this.eurojackpotStrategies, saved.data);
+
+                    const history = await lottoDB.get('settings', 'learningHistory');
+                    if (history?.data) Object.assign(this.learningHistory, history.data);
+                } catch {
+                    const local = localStorage.getItem('ej_strategies');
+                    if (local) Object.assign(this.eurojackpotStrategies, JSON.parse(local));
+
+                    const historyLocal = localStorage.getItem('learning_history');
+                    if (historyLocal) Object.assign(this.learningHistory, JSON.parse(historyLocal));
+                }
+            }
+
+            // Eurojackpot Strategie-Ranking
+            getEurojackpotRanking() {
+                return Object.entries(this.eurojackpotStrategies)
+                    .map(([key, s]) => ({
+                        key,
+                        ...s,
+                        successRate: s.total > 0 ? (s.wins / s.total * 100).toFixed(1) : 0,
+                        score: s.weight * (s.total > 0 ? s.wins / s.total : 0.5)
+                    }))
+                    .sort((a, b) => b.score - a.score);
+            }
+
+            // Beste Eurojackpot-Strategie basierend auf Lernen
+            getBestEurojackpotStrategy() {
+                const ranking = this.getEurojackpotRanking();
+                return ranking[0]?.key || 'ej_ensemble';
+            }
+
+            // Automatisches Lernen aus neuen Ziehungen
+            async autoLearnFromNewDraws() {
+                this.log('learn', '🔄 Prüfe auf neue Ziehungen zum Lernen...');
+
+                // Hole letzte gespeicherte Vorhersagen
+                const lastPredDate = localStorage.getItem('last_ej_prediction_date');
+                const lastPredictions = localStorage.getItem('last_ej_predictions');
+
+                if (lastPredDate && lastPredictions && eurojackpotAgent.data.length > 0) {
+                    const lastDraw = eurojackpotAgent.data[0];
+
+                    // Prüfe ob die Ziehung nach der Vorhersage stattfand
+                    if (lastDraw.date !== lastPredDate) {
+                        const predictions = JSON.parse(lastPredictions);
+                        await this.learnFromEurojackpotDraw(
+                            lastDraw.numbers,
+                            lastDraw.eurozahlen,
+                            predictions
+                        );
+
+                        // Markiere als gelernt
+                        localStorage.setItem('last_ej_learned_date', lastDraw.date);
+                        this.log('success', `✅ Gelernt aus Ziehung vom ${lastDraw.date}`);
+                    }
+                }
             }
 
             getStrategyRanking() {
@@ -7758,6 +7970,16 @@ Antworte NUR mit JSON:
 
             // Initialisiere alle Spiel-Agenten
             await initializeAllGames();
+
+            // Automatisches Lernen aus vergangenen Ziehungen
+            setTimeout(async () => {
+                try {
+                    await selfLearning.autoLearnFromNewDraws();
+                    console.log('🧠 Selbstlernen abgeschlossen');
+                } catch (e) {
+                    console.log('Selbstlernen nicht möglich:', e);
+                }
+            }, 3000);
 
             // Automatischer API-Test beim Start (im Hintergrund)
             setTimeout(async () => {
