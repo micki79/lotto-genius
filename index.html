@@ -2628,7 +2628,7 @@
 
                 // Speichere für Lernzwecke
                 try {
-                    localStorage.setItem('last_ej_predictions', JSON.stringify(result.predictions));
+                    localStorage.setItem('eurojackpot_last_predictions', JSON.stringify(result.predictions));
                     localStorage.setItem('last_ej_prediction_date', new Date().toLocaleDateString('de-DE'));
 
                     // Log im Selbstlernsystem
@@ -6937,7 +6937,7 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                         }
 
                         // Für Lernzwecke speichern
-                        localStorage.setItem('last_predictions', JSON.stringify(aiResult.predictions));
+                        localStorage.setItem('lotto6aus49_last_predictions', JSON.stringify(aiResult.predictions));
                         localStorage.setItem('last_prediction_date', nextDrawDate);
 
                         renderAIPredictions(aiResult);
@@ -8223,6 +8223,10 @@ Antworte NUR mit JSON:
                     } catch (e) {
                         localStorage.setItem(storageKey, JSON.stringify(result));
                     }
+
+                    // Für Lernzwecke speichern (für Hit Tracking)
+                    const learnKey = `${game}_last_predictions`;
+                    localStorage.setItem(learnKey, JSON.stringify(result.predictions));
 
                     renderGamePredictions(game, result);
                     showToast(`Neue ${GAME_CONFIG[game].name} Tipps generiert!`, '🔮');
