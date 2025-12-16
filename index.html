@@ -6881,10 +6881,87 @@ Antworte NUR mit JSON:
             // Lade Server-Daten für alle Spiele
             await loadAllGameDataFromServer();
 
+            // WICHTIG: Sicherstellen, dass alle Agenten Daten haben (Fallback zu Demo)
+            ensureAllAgentsHaveData();
+
             // Aktualisiere spielspezifische Statistiken
             setTimeout(() => updateAllGameStatistics(), 500);
 
             console.log('✅ Alle Spiele initialisiert');
+        }
+
+        // Stellt sicher, dass alle Agenten Daten haben
+        function ensureAllAgentsHaveData() {
+            console.log('🔍 Prüfe Daten aller Spiele...');
+
+            // Eurojackpot
+            if (!eurojackpotAgent.data || eurojackpotAgent.data.length === 0) {
+                console.log('⚠️ Eurojackpot: Keine Daten, generiere Demo...');
+                eurojackpotAgent.generateDemoData();
+                dataSourceStatus.eurojackpot = { source: 'demo', count: eurojackpotAgent.data.length, lastUpdate: null };
+            }
+
+            // Spiel 77
+            if (!spiel77Agent.data || spiel77Agent.data.length === 0) {
+                console.log('⚠️ Spiel 77: Keine Daten, generiere Demo...');
+                generateDemoSpiel77();
+                dataSourceStatus.spiel77 = { source: 'demo', count: spiel77Agent.data.length, lastUpdate: null };
+            }
+
+            // Super 6
+            if (!super6Agent.data || super6Agent.data.length === 0) {
+                console.log('⚠️ Super 6: Keine Daten, generiere Demo...');
+                generateDemoSuper6();
+                dataSourceStatus.super6 = { source: 'demo', count: super6Agent.data.length, lastUpdate: null };
+            }
+
+            // Glücksspirale
+            if (!gluecksspiraleAgent.data || gluecksspiraleAgent.data.length === 0) {
+                console.log('⚠️ Glücksspirale: Keine Daten, generiere Demo...');
+                generateConsistentGluecksspiraleData();
+            }
+
+            console.log(`📊 Daten-Status: EJ=${eurojackpotAgent.data?.length || 0}, S77=${spiel77Agent.data?.length || 0}, S6=${super6Agent.data?.length || 0}, GS=${gluecksspiraleAgent.data?.length || 0}`);
+        }
+
+        // Demo-Daten Generator für Spiel 77
+        function generateDemoSpiel77() {
+            const seededRandom = (seed) => {
+                const x = Math.sin(seed) * 10000;
+                return x - Math.floor(x);
+            };
+
+            spiel77Agent.data = [];
+            for (let i = 0; i < 200; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i * 3);
+                let number = '';
+                for (let j = 0; j < 7; j++) {
+                    number += Math.floor(seededRandom(i * 300 + j) * 10);
+                }
+                spiel77Agent.data.push({ date: date.toLocaleDateString('de-DE'), number });
+            }
+            spiel77Agent.calculateFrequencies();
+        }
+
+        // Demo-Daten Generator für Super 6
+        function generateDemoSuper6() {
+            const seededRandom = (seed) => {
+                const x = Math.sin(seed) * 10000;
+                return x - Math.floor(x);
+            };
+
+            super6Agent.data = [];
+            for (let i = 0; i < 200; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i * 3);
+                let number = '';
+                for (let j = 0; j < 6; j++) {
+                    number += Math.floor(seededRandom(i * 400 + j) * 10);
+                }
+                super6Agent.data.push({ date: date.toLocaleDateString('de-DE'), number });
+            }
+            super6Agent.calculateFrequencies();
         }
 
         // Globale Datenquelle-Tracking
