@@ -6685,15 +6685,32 @@ Antworte NUR mit JSON:
                         result = await analyzeWithRealAI(lottoData, frequencyMap, superzahlMap);
                         break;
                     case 'eurojackpot':
+                        // Stelle sicher, dass Daten geladen sind
+                        if (!eurojackpotAgent.data || eurojackpotAgent.data.length === 0) {
+                            console.log('⚠️ Eurojackpot: Keine Daten, generiere Demo-Daten');
+                            eurojackpotAgent.generateDemoData();
+                        }
                         result = eurojackpotAgent.generatePredictions();
                         break;
                     case 'spiel77':
+                        if (!spiel77Agent.data || spiel77Agent.data.length === 0) {
+                            console.log('⚠️ Spiel77: Keine Daten, generiere Demo-Daten');
+                            spiel77Agent.generateDemoData();
+                        }
                         result = spiel77Agent.generatePredictions();
                         break;
                     case 'super6':
+                        if (!super6Agent.data || super6Agent.data.length === 0) {
+                            console.log('⚠️ Super6: Keine Daten, generiere Demo-Daten');
+                            super6Agent.generateDemoData();
+                        }
                         result = super6Agent.generatePredictions();
                         break;
                     case 'gluecksspirale':
+                        if (!gluecksspiraleAgent.data || gluecksspiraleAgent.data.length === 0) {
+                            console.log('⚠️ Glücksspirale: Keine Daten, generiere Demo-Daten');
+                            gluecksspiraleAgent.generateDemoData();
+                        }
                         result = gluecksspiraleAgent.generatePredictions();
                         break;
                 }
