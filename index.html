@@ -2386,7 +2386,7 @@
                 });
             }
 
-            // ERWEITERTE VORHERSAGEN mit 6 wissenschaftlichen Strategien + Selbstlernen
+            // ERWEITERTE VORHERSAGEN mit 12+ wissenschaftlichen Strategien + Selbstlernen
             generatePredictions() {
                 // Hole gelernte Gewichte wenn verfügbar
                 let strategyWeights = {};
@@ -2400,14 +2400,20 @@
                     console.log('Lerngewichte nicht verfügbar');
                 }
 
-                // Generiere alle Strategien
+                // Generiere ALLE Strategien (erweitert auf 12+)
                 let predictions = [
                     { ...this.strategyHotCold(), weight: strategyWeights['ej_hot_cold'] || 1.0 },
                     { ...this.strategyOddEvenBalance(), weight: strategyWeights['ej_odd_even'] || 1.0 },
+                    { ...this.strategyOddEvenBalance23(), weight: strategyWeights['ej_odd_even_23'] || 0.95 },
                     { ...this.strategyDecadeBalance(), weight: strategyWeights['ej_decade'] || 1.0 },
                     { ...this.strategySumOptimization(), weight: strategyWeights['ej_sum'] || 1.0 },
                     { ...this.strategyOverdueNumbers(), weight: strategyWeights['ej_overdue'] || 1.0 },
-                    { ...this.strategyMathematicalBalance(), weight: strategyWeights['ej_math'] || 1.0 }
+                    { ...this.strategyMathematicalBalance(), weight: strategyWeights['ej_math'] || 1.0 },
+                    { ...this.strategyColdNumbers(), weight: strategyWeights['ej_cold'] || 0.85 },
+                    { ...this.strategyLowHighBalance(), weight: strategyWeights['ej_low_high'] || 0.9 },
+                    { ...this.strategyLastDigitPattern(), weight: strategyWeights['ej_last_digit'] || 0.8 },
+                    { ...this.strategyNoConsecutive(), weight: strategyWeights['ej_no_consecutive'] || 0.75 },
+                    { ...this.strategyHotColdMix(), weight: strategyWeights['ej_hot_cold_mix'] || 0.88 }
                 ];
 
                 // Sortiere nach gelernten Gewichten (beste zuerst)
@@ -2420,8 +2426,8 @@
 
                 // Speichere Vorhersagen für späteres Lernen
                 const result = {
-                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 Selbstlernend`,
-                    predictions: predictions.slice(0, 5), // Top 5 Tipps
+                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 Selbstlernend - ${predictions.length} Tipps`,
+                    predictions: predictions, // ALLE Tipps zurückgeben (nicht mehr begrenzt)
                     statistics: {
                         totalDraws: this.data.length,
                         optimalSum: this.sumStats.optimal,
@@ -2597,6 +2603,189 @@
                     confidence: 74,
                     strategy: '🔢 Mathematische Zahlen (Primzahlen)',
                     source: 'math_balance'
+                };
+            }
+
+            // Strategie 7: 2-Ungerade/3-Gerade Balance (alternative Variante)
+            strategyOddEvenBalance23() {
+                const oddNumbers = [];
+                const evenNumbers = [];
+
+                for (let i = 1; i <= 50; i++) {
+                    if (i % 2 === 1) oddNumbers.push(i);
+                    else evenNumbers.push(i);
+                }
+
+                oddNumbers.sort((a, b) => this.frequencyMap[b] - this.frequencyMap[a]);
+                evenNumbers.sort((a, b) => this.frequencyMap[b] - this.frequencyMap[a]);
+
+                // 2 ungerade, 3 gerade (zweithäufigste Kombination)
+                const selected = [
+                    ...this.selectFromPool(oddNumbers.slice(0, 10), 2),
+                    ...this.selectFromPool(evenNumbers.slice(0, 10), 3)
+                ].sort((a, b) => a - b);
+
+                return {
+                    numbers: selected,
+                    eurozahlen: this.selectBalancedEuro(),
+                    confidence: 77,
+                    strategy: '⚖️ 2-Ungerade/3-Gerade Balance',
+                    source: 'odd_even_23'
+                };
+            }
+
+            // Strategie 8: Cold Numbers (selten gezogen)
+            strategyColdNumbers() {
+                const cold = this.getColdNumbers(15);
+                const numbers = this.selectFromPool(cold, 5);
+                const coldEuro = Object.entries(this.eurozahlenMap)
+                    .sort((a, b) => a[1] - b[1])
+                    .slice(0, 4)
+                    .map(([n]) => parseInt(n));
+
+                return {
+                    numbers: numbers,
+                    eurozahlen: coldEuro.slice(0, 2),
+                    confidence: 68,
+                    strategy: '❄️ Cold Numbers (selten gezogen)',
+                    source: 'cold_numbers'
+                };
+            }
+
+            // Strategie 9: Low/High Balance (Niedrig/Hoch-Verteilung)
+            strategyLowHighBalance() {
+                const lowNumbers = []; // 1-25
+                const highNumbers = []; // 26-50
+
+                for (let i = 1; i <= 25; i++) lowNumbers.push(i);
+                for (let i = 26; i <= 50; i++) highNumbers.push(i);
+
+                lowNumbers.sort((a, b) => this.frequencyMap[b] - this.frequencyMap[a]);
+                highNumbers.sort((a, b) => this.frequencyMap[b] - this.frequencyMap[a]);
+
+                // 3 niedrig, 2 hoch (statistisch ausgeglichen)
+                const selected = [
+                    ...this.selectFromPool(lowNumbers.slice(0, 10), 3),
+                    ...this.selectFromPool(highNumbers.slice(0, 10), 2)
+                ].sort((a, b) => a - b);
+
+                return {
+                    numbers: selected,
+                    eurozahlen: this.selectBalancedEuro(),
+                    confidence: 75,
+                    strategy: '📉📈 Low/High Balance (3:2)',
+                    source: 'low_high_balance'
+                };
+            }
+
+            // Strategie 10: Last Digit Pattern (Endziffer-Muster)
+            strategyLastDigitPattern() {
+                // Analysiere häufige Endziffern
+                const lastDigitFreq = {};
+                for (let i = 0; i <= 9; i++) lastDigitFreq[i] = 0;
+
+                this.data.forEach(draw => {
+                    draw.numbers.forEach(num => {
+                        lastDigitFreq[num % 10]++;
+                    });
+                });
+
+                // Wähle Zahlen mit den häufigsten Endziffern
+                const topLastDigits = Object.entries(lastDigitFreq)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(([d]) => parseInt(d));
+
+                // Finde Zahlen mit diesen Endziffern
+                const candidates = [];
+                for (let num = 1; num <= 50; num++) {
+                    if (topLastDigits.includes(num % 10)) {
+                        candidates.push(num);
+                    }
+                }
+
+                candidates.sort((a, b) => this.frequencyMap[b] - this.frequencyMap[a]);
+                const selected = this.selectFromPool(candidates.slice(0, 15), 5);
+
+                return {
+                    numbers: selected,
+                    eurozahlen: this.selectBalancedEuro(),
+                    confidence: 72,
+                    strategy: '🔚 Endziffer-Muster',
+                    source: 'last_digit_pattern'
+                };
+            }
+
+            // Strategie 11: No Consecutive (keine aufeinanderfolgenden Zahlen)
+            strategyNoConsecutive() {
+                const hot = this.getTopNumbers(25);
+                let selected = [];
+                let attempts = 0;
+
+                // Versuche Zahlen zu finden ohne aufeinanderfolgende
+                while (selected.length < 5 && attempts < 100) {
+                    const candidate = this.selectFromPool(hot, 5);
+                    candidate.sort((a, b) => a - b);
+
+                    let hasConsecutive = false;
+                    for (let i = 0; i < candidate.length - 1; i++) {
+                        if (candidate[i + 1] - candidate[i] === 1) {
+                            hasConsecutive = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasConsecutive) {
+                        selected = candidate;
+                        break;
+                    }
+                    attempts++;
+                }
+
+                // Fallback
+                if (selected.length === 0) {
+                    selected = this.selectFromPool(hot, 5);
+                }
+
+                return {
+                    numbers: selected.sort((a, b) => a - b),
+                    eurozahlen: this.selectBalancedEuro(),
+                    confidence: 73,
+                    strategy: '🔀 Keine Folge-Zahlen',
+                    source: 'no_consecutive'
+                };
+            }
+
+            // Strategie 12: Hot/Cold Mix (Mischung aus heißen und kalten Zahlen)
+            strategyHotColdMix() {
+                const hot = this.getTopNumbers(10);
+                const cold = this.getColdNumbers(10);
+
+                // 3 heiße, 2 kalte Zahlen
+                const selected = [
+                    ...this.selectFromPool(hot, 3),
+                    ...this.selectFromPool(cold, 2)
+                ].sort((a, b) => a - b);
+
+                // Eurozahlen auch gemischt
+                const hotEuro = Object.entries(this.eurozahlenMap)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 3)
+                    .map(([n]) => parseInt(n));
+                const coldEuro = Object.entries(this.eurozahlenMap)
+                    .sort((a, b) => a[1] - b[1])
+                    .slice(0, 3)
+                    .map(([n]) => parseInt(n));
+
+                return {
+                    numbers: selected,
+                    eurozahlen: [
+                        hotEuro[Math.floor(Math.random() * hotEuro.length)],
+                        coldEuro[Math.floor(Math.random() * coldEuro.length)]
+                    ].sort((a, b) => a - b),
+                    confidence: 76,
+                    strategy: '🔥❄️ Hot/Cold Mix (3:2)',
+                    source: 'hot_cold_mix'
                 };
             }
 
@@ -4610,14 +4799,20 @@
                     'gradient': { name: 'Gradient Descent', weight: 1.0, wins: 0, total: 0, icon: '📈' }
                 };
 
-                // Eurojackpot Strategien (Selbstlernend)
+                // Eurojackpot Strategien (Selbstlernend) - Erweitert auf 13 Strategien
                 this.eurojackpotStrategies = {
                     'ej_hot_cold': { name: 'EJ Hot Numbers', weight: 1.0, wins: 0, total: 0, icon: '🔥', accuracy: 0 },
-                    'ej_odd_even': { name: 'EJ Ungerade/Gerade', weight: 1.0, wins: 0, total: 0, icon: '⚖️', accuracy: 0 },
+                    'ej_odd_even': { name: 'EJ 3-Ungerade/2-Gerade', weight: 1.0, wins: 0, total: 0, icon: '⚖️', accuracy: 0 },
+                    'ej_odd_even_23': { name: 'EJ 2-Ungerade/3-Gerade', weight: 0.95, wins: 0, total: 0, icon: '⚖️', accuracy: 0 },
                     'ej_decade': { name: 'EJ Dekaden-Balance', weight: 1.0, wins: 0, total: 0, icon: '📊', accuracy: 0 },
                     'ej_sum': { name: 'EJ Summen-Optimierung', weight: 1.0, wins: 0, total: 0, icon: '📈', accuracy: 0 },
                     'ej_overdue': { name: 'EJ Überfällige', weight: 1.0, wins: 0, total: 0, icon: '⏰', accuracy: 0 },
                     'ej_math': { name: 'EJ Primzahlen', weight: 1.0, wins: 0, total: 0, icon: '🔢', accuracy: 0 },
+                    'ej_cold': { name: 'EJ Cold Numbers', weight: 0.85, wins: 0, total: 0, icon: '❄️', accuracy: 0 },
+                    'ej_low_high': { name: 'EJ Low/High Balance', weight: 0.9, wins: 0, total: 0, icon: '📉', accuracy: 0 },
+                    'ej_last_digit': { name: 'EJ Endziffer-Muster', weight: 0.8, wins: 0, total: 0, icon: '🔚', accuracy: 0 },
+                    'ej_no_consecutive': { name: 'EJ Keine Folge-Zahlen', weight: 0.75, wins: 0, total: 0, icon: '🔀', accuracy: 0 },
+                    'ej_hot_cold_mix': { name: 'EJ Hot/Cold Mix', weight: 0.88, wins: 0, total: 0, icon: '🔥❄️', accuracy: 0 },
                     'ej_ensemble': { name: 'EJ KI-Ensemble', weight: 1.2, wins: 0, total: 0, icon: '⭐', accuracy: 0 }
                 };
 
