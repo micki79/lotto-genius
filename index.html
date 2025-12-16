@@ -1721,12 +1721,12 @@
 
         <!-- Statistics Panel -->
         <div class="tab-panel" id="statistics-panel">
-            <!-- KI Lernstatistik Card -->
-            <div class="card" style="background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(0, 206, 201, 0.1) 100%); border: 1px solid rgba(108, 92, 231, 0.2);">
+            <!-- KI Lernstatistik Card - Lotto 6aus49 -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%); border: 1px solid rgba(231, 76, 60, 0.2);">
                 <div class="card-header">
                     <div class="card-title">
-                        <span class="icon purple">🧠</span>
-                        KI-Lernstatistik
+                        <span class="icon" style="color: #e74c3c;">🎱</span>
+                        Lotto 6aus49 - KI-Lernstatistik
                     </div>
                 </div>
                 <div class="stats-grid" id="kiLearningStats">
@@ -1734,6 +1734,94 @@
                 </div>
                 <div id="kiProviderRanking" style="margin-top: 20px;">
                     <!-- Provider ranking will be inserted here -->
+                </div>
+            </div>
+
+            <!-- KI Lernstatistik Card - Eurojackpot -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(241, 196, 15, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%); border: 1px solid rgba(241, 196, 15, 0.2);">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon" style="color: #f1c40f;">🌟</span>
+                        Eurojackpot - KI-Lernstatistik
+                    </div>
+                </div>
+                <div class="stats-grid" id="ejLearningStats">
+                    <div class="stat-item">
+                        <div class="stat-icon pink">📈</div>
+                        <div>
+                            <div class="stat-value" id="ejLearningEntries">0</div>
+                            <div class="stat-label">Lern-Einträge</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ejTrefferUebersicht" style="margin-top: 15px;">
+                    <!-- Eurojackpot Treffer-Übersicht -->
+                </div>
+            </div>
+
+            <!-- KI Lernstatistik Card - Spiel 77 -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%); border: 1px solid rgba(155, 89, 182, 0.2);">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon" style="color: #9b59b6;">7️⃣</span>
+                        Spiel 77 - KI-Lernstatistik
+                    </div>
+                </div>
+                <div class="stats-grid" id="s77LearningStats">
+                    <div class="stat-item">
+                        <div class="stat-icon pink">📈</div>
+                        <div>
+                            <div class="stat-value" id="s77LearningEntries">0</div>
+                            <div class="stat-label">Lern-Einträge</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="s77TrefferUebersicht" style="margin-top: 15px;">
+                    <!-- Spiel 77 Treffer-Übersicht -->
+                </div>
+            </div>
+
+            <!-- KI Lernstatistik Card - Super 6 -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(230, 126, 34, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%); border: 1px solid rgba(230, 126, 34, 0.2);">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon" style="color: #e67e22;">6️⃣</span>
+                        Super 6 - KI-Lernstatistik
+                    </div>
+                </div>
+                <div class="stats-grid" id="s6LearningStats">
+                    <div class="stat-item">
+                        <div class="stat-icon pink">📈</div>
+                        <div>
+                            <div class="stat-value" id="s6LearningEntries">0</div>
+                            <div class="stat-label">Lern-Einträge</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="s6TrefferUebersicht" style="margin-top: 15px;">
+                    <!-- Super 6 Treffer-Übersicht -->
+                </div>
+            </div>
+
+            <!-- KI Lernstatistik Card - Glücksspirale -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(26, 188, 156, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%); border: 1px solid rgba(26, 188, 156, 0.2);">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon" style="color: #1abc9c;">🌀</span>
+                        Glücksspirale - KI-Lernstatistik
+                    </div>
+                </div>
+                <div class="stats-grid" id="gsLearningStats">
+                    <div class="stat-item">
+                        <div class="stat-icon pink">📈</div>
+                        <div>
+                            <div class="stat-value" id="gsLearningEntries">0</div>
+                            <div class="stat-label">Lern-Einträge</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="gsTrefferUebersicht" style="margin-top: 15px;">
+                    <!-- Glücksspirale Treffer-Übersicht -->
                 </div>
             </div>
 
@@ -6002,8 +6090,102 @@
         // ========================================
 
         function updateAllGameKIStats() {
+            // Hilfsfunktion für Treffer-Übersicht HTML
+            function generateTrefferHTML(stats, game, color) {
+                if (!stats || stats.total === 0) {
+                    return '<div style="color: var(--text-secondary); font-size: 13px; padding: 10px;">Noch keine Treffer-Daten vorhanden</div>';
+                }
+
+                let html = `<div style="background: linear-gradient(135deg, rgba(0,206,201,0.1) 0%, rgba(108,92,231,0.1) 100%); border-radius: 12px; padding: 15px;">`;
+                html += `<strong style="color: ${color};">📈 Treffer-Übersicht (${stats.total} Tipps)</strong>`;
+
+                if (game === 'eurojackpot') {
+                    html += `<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px;">`;
+                    const labels = ['🏆 5+2', '⭐ 5+1', '✓ 5+0'];
+                    const colors = ['#e74c3c', '#f39c12', '#2ecc71'];
+                    for (let i = 5; i >= 3; i--) {
+                        html += `<div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 18px; font-weight: 700; color: ${colors[5-i]};">${labels[5-i]}</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--secondary);">${stats.hits[i] || 0}</div>
+                        </div>`;
+                    }
+                    html += `</div><div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px;">`;
+                    for (let i = 2; i >= 0; i--) {
+                        html += `<div style="text-align: center; padding: 8px; background: rgba(0,0,0,0.15); border-radius: 8px;">
+                            <div style="font-size: 14px; color: var(--text-secondary);">${i}+</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 18px;">${stats.hits[i] || 0}</div>
+                        </div>`;
+                    }
+                    html += `<div style="text-align: center; padding: 8px; background: rgba(52,152,219,0.2); border-radius: 8px;">
+                        <div style="font-size: 14px; color: #3498db;">★2</div>
+                        <div style="font-family: 'Space Mono', monospace; font-size: 18px;">${stats.euroHits?.[2] || 0}</div>
+                    </div></div>`;
+                } else if (game === 'spiel77') {
+                    html += `<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px;">`;
+                    const labels = ['🏆 7', '⭐ 6', '✓ 5', '• 4'];
+                    const colors = ['#e74c3c', '#f39c12', '#2ecc71', '#3498db'];
+                    for (let i = 7; i >= 4; i--) {
+                        html += `<div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 18px; font-weight: 700; color: ${colors[7-i]};">${labels[7-i]}</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--secondary);">${stats.hits[i] || 0}</div>
+                        </div>`;
+                    }
+                    html += `</div><div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px;">`;
+                    for (let i = 3; i >= 0; i--) {
+                        html += `<div style="text-align: center; padding: 8px; background: rgba(0,0,0,0.15); border-radius: 8px;">
+                            <div style="font-size: 14px; color: var(--text-secondary);">${i}</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 18px;">${stats.hits[i] || 0}</div>
+                        </div>`;
+                    }
+                    html += `</div>`;
+                } else if (game === 'super6') {
+                    html += `<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px;">`;
+                    const labels = ['🏆 6', '⭐ 5', '✓ 4', '• 3'];
+                    const colors = ['#e74c3c', '#f39c12', '#2ecc71', '#3498db'];
+                    for (let i = 6; i >= 3; i--) {
+                        html += `<div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 18px; font-weight: 700; color: ${colors[6-i]};">${labels[6-i]}</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--secondary);">${stats.hits[i] || 0}</div>
+                        </div>`;
+                    }
+                    html += `</div><div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">`;
+                    for (let i = 2; i >= 0; i--) {
+                        html += `<div style="text-align: center; padding: 8px; background: rgba(0,0,0,0.15); border-radius: 8px;">
+                            <div style="font-size: 14px; color: var(--text-secondary);">${i}</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 18px;">${stats.hits[i] || 0}</div>
+                        </div>`;
+                    }
+                    html += `</div>`;
+                } else if (game === 'gluecksspirale') {
+                    html += `<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px;">`;
+                    const labels = ['🏆 7', '⭐ 6', '✓ 5', '• 4'];
+                    const colors = ['#e74c3c', '#f39c12', '#2ecc71', '#3498db'];
+                    for (let i = 7; i >= 4; i--) {
+                        html += `<div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 18px; font-weight: 700; color: ${colors[7-i]};">${labels[7-i]}</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 24px; color: var(--secondary);">${stats.hits[i] || 0}</div>
+                        </div>`;
+                    }
+                    html += `</div><div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px;">`;
+                    for (let i = 3; i >= 0; i--) {
+                        html += `<div style="text-align: center; padding: 8px; background: rgba(0,0,0,0.15); border-radius: 8px;">
+                            <div style="font-size: 14px; color: var(--text-secondary);">${i}</div>
+                            <div style="font-family: 'Space Mono', monospace; font-size: 18px;">${stats.hits[i] || 0}</div>
+                        </div>`;
+                    }
+                    html += `</div>`;
+                }
+                html += `</div>`;
+                return html;
+            }
+
             // Eurojackpot KI Stats
             const ejStats = gameHitTracker.stats.eurojackpot;
+            const ejLearningEl = document.getElementById('ejLearningEntries');
+            const ejTrefferEl = document.getElementById('ejTrefferUebersicht');
+            if (ejLearningEl) ejLearningEl.textContent = ejStats.total;
+            if (ejTrefferEl) ejTrefferEl.innerHTML = generateTrefferHTML(ejStats, 'eurojackpot', '#f1c40f');
+
             const ejEl = {
                 total: document.getElementById('ejTotalPredictions'),
                 matches: document.getElementById('ejTotalMatches'),
@@ -6021,6 +6203,11 @@
 
             // Spiel 77 KI Stats
             const s77Stats = gameHitTracker.stats.spiel77;
+            const s77LearningEl = document.getElementById('s77LearningEntries');
+            const s77TrefferEl = document.getElementById('s77TrefferUebersicht');
+            if (s77LearningEl) s77LearningEl.textContent = s77Stats.total;
+            if (s77TrefferEl) s77TrefferEl.innerHTML = generateTrefferHTML(s77Stats, 'spiel77', '#9b59b6');
+
             const s77El = {
                 total: document.getElementById('s77TotalPredictions'),
                 matches: document.getElementById('s77TotalMatches'),
@@ -6038,6 +6225,11 @@
 
             // Super 6 KI Stats
             const s6Stats = gameHitTracker.stats.super6;
+            const s6LearningEl = document.getElementById('s6LearningEntries');
+            const s6TrefferEl = document.getElementById('s6TrefferUebersicht');
+            if (s6LearningEl) s6LearningEl.textContent = s6Stats.total;
+            if (s6TrefferEl) s6TrefferEl.innerHTML = generateTrefferHTML(s6Stats, 'super6', '#e67e22');
+
             const s6El = {
                 total: document.getElementById('s6TotalPredictions'),
                 matches: document.getElementById('s6TotalMatches'),
@@ -6055,6 +6247,11 @@
 
             // Glücksspirale KI Stats
             const gsStats = gameHitTracker.stats.gluecksspirale;
+            const gsLearningEl = document.getElementById('gsLearningEntries');
+            const gsTrefferEl = document.getElementById('gsTrefferUebersicht');
+            if (gsLearningEl) gsLearningEl.textContent = gsStats.total;
+            if (gsTrefferEl) gsTrefferEl.innerHTML = generateTrefferHTML(gsStats, 'gluecksspirale', '#1abc9c');
+
             const gsEl = {
                 total: document.getElementById('gsTotalPredictions'),
                 matches: document.getElementById('gsTotalMatches'),
