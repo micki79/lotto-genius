@@ -7907,25 +7907,25 @@ Antworte NUR mit JSON:
 
             // === LOTTO 6aus49 ===
             try {
-                const lottoData = allGameData['lotto'] || [];
+                const lotto6aus49Data = lottoData || [];
                 const drawCount = document.getElementById('lotto6aus49DrawCount');
                 const lastDraw = document.getElementById('lotto6aus49LastDraw');
                 const topNumbers = document.getElementById('lotto6aus49TopNumbers');
                 const history = document.getElementById('lotto6aus49History');
 
-                if (drawCount) drawCount.textContent = `${lottoData.length} Ziehungen`;
+                if (drawCount) drawCount.textContent = `${lotto6aus49Data.length} Ziehungen`;
 
-                if (lottoData.length > 0 && lastDraw) {
-                    const latest = lottoData[0];
+                if (lotto6aus49Data.length > 0 && lastDraw) {
+                    const latest = lotto6aus49Data[0];
                     lastDraw.innerHTML = latest.numbers.map(n =>
                         `<div class="ball">${n}</div>`
                     ).join('') + `<div class="ball superzahl">${latest.superzahl || '-'}</div>`;
                 }
 
                 // Top 6 häufigste Zahlen
-                if (lottoData.length > 0 && topNumbers) {
+                if (lotto6aus49Data.length > 0 && topNumbers) {
                     const freq = {};
-                    lottoData.forEach(d => d.numbers.forEach(n => freq[n] = (freq[n] || 0) + 1));
+                    lotto6aus49Data.forEach(d => d.numbers.forEach(n => freq[n] = (freq[n] || 0) + 1));
                     const top6 = Object.entries(freq).sort((a,b) => b[1] - a[1]).slice(0, 6);
                     topNumbers.innerHTML = top6.map(([num, count]) =>
                         `<div class="ball" title="${count}x gezogen" style="background: linear-gradient(135deg, #fd79a8, #e84393);">${num}</div>`
@@ -7933,8 +7933,8 @@ Antworte NUR mit JSON:
                 }
 
                 // Historie
-                if (history && lottoData.length > 0) {
-                    history.innerHTML = lottoData.slice(0, 10).map(d =>
+                if (history && lotto6aus49Data.length > 0) {
+                    history.innerHTML = lotto6aus49Data.slice(0, 10).map(d =>
                         `<div style="padding: 8px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
                             <span style="color: var(--text-secondary);">${formatDate(d.date)}</span>
                             <span style="font-family: 'Space Mono', monospace;">${d.numbers.join(', ')} + SZ ${d.superzahl || '-'}</span>
@@ -7945,7 +7945,7 @@ Antworte NUR mit JSON:
 
             // === EUROJACKPOT ===
             try {
-                const ejData = allGameData['eurojackpot'] || [];
+                const ejData = eurojackpotAgent?.data || [];
                 const drawCount = document.getElementById('eurojackpotDrawCount');
                 const lastDraw = document.getElementById('eurojackpotLastDraw');
                 const topNumbers = document.getElementById('eurojackpotTopNumbers');
@@ -7955,9 +7955,9 @@ Antworte NUR mit JSON:
 
                 if (ejData.length > 0 && lastDraw) {
                     const latest = ejData[0];
-                    lastDraw.innerHTML = latest.numbers.map(n =>
+                    lastDraw.innerHTML = (latest.numbers || []).map(n =>
                         `<div class="ball" style="background: linear-gradient(135deg, #f1c40f, #f39c12);">${n}</div>`
-                    ).join('') + (latest.euroNumbers || []).map(n =>
+                    ).join('') + (latest.eurozahlen || []).map(n =>
                         `<div class="ball" style="background: linear-gradient(135deg, #3498db, #2980b9);">★${n}</div>`
                     ).join('');
                 }
@@ -7966,8 +7966,8 @@ Antworte NUR mit JSON:
                 if (ejData.length > 0 && topNumbers) {
                     const freq = {}, euroFreq = {};
                     ejData.forEach(d => {
-                        d.numbers.forEach(n => freq[n] = (freq[n] || 0) + 1);
-                        (d.euroNumbers || []).forEach(n => euroFreq[n] = (euroFreq[n] || 0) + 1);
+                        (d.numbers || []).forEach(n => freq[n] = (freq[n] || 0) + 1);
+                        (d.eurozahlen || []).forEach(n => euroFreq[n] = (euroFreq[n] || 0) + 1);
                     });
                     const top5 = Object.entries(freq).sort((a,b) => b[1] - a[1]).slice(0, 5);
                     const topEuro = Object.entries(euroFreq).sort((a,b) => b[1] - a[1]).slice(0, 2);
@@ -7983,7 +7983,7 @@ Antworte NUR mit JSON:
                     history.innerHTML = ejData.slice(0, 10).map(d =>
                         `<div style="padding: 8px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
                             <span style="color: var(--text-secondary);">${formatDate(d.date)}</span>
-                            <span style="font-family: 'Space Mono', monospace;">${d.numbers.join(', ')} + ★${(d.euroNumbers || []).join(', ')}</span>
+                            <span style="font-family: 'Space Mono', monospace;">${(d.numbers || []).join(', ')} + ★${(d.eurozahlen || []).join(', ')}</span>
                         </div>`
                     ).join('');
                 }
@@ -7991,7 +7991,7 @@ Antworte NUR mit JSON:
 
             // === SPIEL 77 ===
             try {
-                const s77Data = allGameData['spiel77'] || [];
+                const s77Data = spiel77Agent?.data || [];
                 const drawCount = document.getElementById('spiel77DrawCount');
                 const lastDraw = document.getElementById('spiel77LastDraw');
                 const topDigits = document.getElementById('spiel77TopDigits');
@@ -8033,7 +8033,7 @@ Antworte NUR mit JSON:
 
             // === SUPER 6 ===
             try {
-                const s6Data = allGameData['super6'] || [];
+                const s6Data = super6Agent?.data || [];
                 const drawCount = document.getElementById('super6DrawCount');
                 const lastDraw = document.getElementById('super6LastDraw');
                 const topDigits = document.getElementById('super6TopDigits');
@@ -8075,7 +8075,7 @@ Antworte NUR mit JSON:
 
             // === GLÜCKSSPIRALE ===
             try {
-                const gsData = allGameData['gluecksspirale'] || [];
+                const gsData = gluecksspiraleAgent?.data || [];
                 const drawCount = document.getElementById('gluecksspiraleDrawCount');
                 const lastDraw = document.getElementById('gluecksspiraleLastDraw');
                 const topDigits = document.getElementById('gluecksspiraleTopDigits');
