@@ -2424,10 +2424,13 @@
                 bonusTip.weight = strategyWeights['ej_ensemble'] || 1.2;
                 predictions.unshift(bonusTip);
 
+                // Wähle die TOP 10 besten Tipps (nach Gewicht sortiert)
+                const top10Predictions = predictions.slice(0, 10);
+
                 // Speichere Vorhersagen für späteres Lernen
                 const result = {
-                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 Selbstlernend - ${predictions.length} Tipps`,
-                    predictions: predictions, // ALLE Tipps zurückgeben (nicht mehr begrenzt)
+                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 TOP 10 Selbstlernend`,
+                    predictions: top10Predictions, // Die 10 besten Tipps
                     statistics: {
                         totalDraws: this.data.length,
                         optimalSum: this.sumStats.optimal,
@@ -2445,8 +2448,8 @@
 
                     // Log im Selbstlernsystem
                     if (selfLearning) {
-                        selfLearning.log('prediction', `🌟 Eurojackpot: ${result.predictions.length} Tipps generiert`,
-                            `Beste Strategie: ${predictions[0].strategy}`);
+                        selfLearning.log('prediction', `🌟 Eurojackpot: TOP 10 von ${predictions.length} Strategien`,
+                            `Beste Strategie: ${top10Predictions[0].strategy}`);
                     }
                 } catch (e) {}
 
@@ -7313,9 +7316,20 @@ Antworte NUR mit JSON:
                 } catch (e) {}
 
                 if (savedPredictions) {
-                    console.log(`🔒 Lade gesperrte ${game} Tipps für:`, nextDrawDate);
-                    renderGamePredictions(game, savedPredictions);
-                    return;
+                    // Prüfe ob genug Tipps vorhanden sind (Eurojackpot braucht mindestens 10)
+                    const minPredictions = game === 'eurojackpot' ? 10 : 3;
+                    if (savedPredictions.predictions && savedPredictions.predictions.length >= minPredictions) {
+                        console.log(`🔒 Lade gesperrte ${game} Tipps für:`, nextDrawDate);
+                        renderGamePredictions(game, savedPredictions);
+                        return;
+                    } else {
+                        console.log(`🔄 Alte ${game} Tipps haben nur ${savedPredictions.predictions?.length || 0} Tipps, regeneriere...`);
+                        // Lösche alte Predictions
+                        try {
+                            await lottoDB.delete('predictions', storageKey);
+                            localStorage.removeItem(storageKey);
+                        } catch (e) {}
+                    }
                 }
 
                 // Neue Vorhersagen generieren
