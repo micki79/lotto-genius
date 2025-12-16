@@ -8228,11 +8228,88 @@ Antworte NUR mit JSON:
                     const learnKey = `${game}_last_predictions`;
                     localStorage.setItem(learnKey, JSON.stringify(result.predictions));
 
+                    // SOFORT Treffer mit letzter Ziehung vergleichen
+                    compareWithLastDraw(game, result.predictions);
+
                     renderGamePredictions(game, result);
                     showToast(`Neue ${GAME_CONFIG[game].name} Tipps generiert!`, '🔮');
                 }
             } finally {
                 showLoader(false);
+            }
+        }
+
+        // Sofort Treffer mit letzter Ziehung vergleichen
+        function compareWithLastDraw(game, predictions) {
+            if (!predictions || predictions.length === 0) return;
+
+            let lastDraw = null;
+            let gameData = null;
+
+            // Hole letzte Ziehung für das Spiel
+            switch (game) {
+                case 'lotto6aus49':
+                    gameData = lottoData;
+                    if (gameData && gameData.length > 0) {
+                        lastDraw = gameData[0];
+                        predictions.forEach(pred => {
+                            if (pred.numbers) {
+                                gameHitTracker.countLottoHits(pred.numbers, lastDraw.numbers, pred.superzahl, lastDraw.superzahl);
+                            }
+                        });
+                    }
+                    break;
+                case 'eurojackpot':
+                    gameData = eurojackpotAgent?.data;
+                    if (gameData && gameData.length > 0) {
+                        lastDraw = gameData[0];
+                        predictions.forEach(pred => {
+                            if (pred.numbers && pred.eurozahlen) {
+                                gameHitTracker.countEurojackpotHits(pred.numbers, lastDraw.numbers, pred.eurozahlen, lastDraw.eurozahlen);
+                            }
+                        });
+                    }
+                    break;
+                case 'spiel77':
+                    gameData = spiel77Agent?.data;
+                    if (gameData && gameData.length > 0) {
+                        lastDraw = gameData[0];
+                        predictions.forEach(pred => {
+                            if (pred.number) {
+                                gameHitTracker.countDigitHits('spiel77', pred.number, lastDraw.number);
+                            }
+                        });
+                    }
+                    break;
+                case 'super6':
+                    gameData = super6Agent?.data;
+                    if (gameData && gameData.length > 0) {
+                        lastDraw = gameData[0];
+                        predictions.forEach(pred => {
+                            if (pred.number) {
+                                gameHitTracker.countDigitHits('super6', pred.number, lastDraw.number);
+                            }
+                        });
+                    }
+                    break;
+                case 'gluecksspirale':
+                    gameData = gluecksspiraleAgent?.data;
+                    if (gameData && gameData.length > 0) {
+                        lastDraw = gameData[0];
+                        predictions.forEach(pred => {
+                            if (pred.number) {
+                                gameHitTracker.countDigitHits('gluecksspirale', pred.number, lastDraw.number);
+                            }
+                        });
+                    }
+                    break;
+            }
+
+            // UI sofort aktualisieren
+            if (lastDraw) {
+                gameHitTracker.updateHitDisplays();
+                updateAllGameKIStats();
+                console.log(`✅ ${game}: Treffer mit Ziehung vom ${lastDraw.date} verglichen`);
             }
         }
 
