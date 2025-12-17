@@ -1951,7 +1951,7 @@
             <!-- ===== SPIEL-SPEZIFISCHE STATISTIKEN ===== -->
 
             <!-- Lotto 6aus49 Statistiken -->
-            <div class="card" style="border-left: 4px solid #e74c3c;">
+            <div class="card game-stats-card" data-game="lotto6aus49" style="border-left: 4px solid #e74c3c;">
                 <div class="card-header">
                     <div class="card-title">
                         <span class="icon" style="color: #e74c3c;">🎱</span>
@@ -1980,7 +1980,7 @@
             </div>
 
             <!-- Eurojackpot Statistiken -->
-            <div class="card" style="border-left: 4px solid #f1c40f;">
+            <div class="card game-stats-card" data-game="eurojackpot" style="border-left: 4px solid #f1c40f;">
                 <div class="card-header">
                     <div class="card-title">
                         <span class="icon" style="color: #f1c40f;">🌟</span>
@@ -2031,7 +2031,7 @@
             </div>
 
             <!-- Spiel 77 Statistiken -->
-            <div class="card" style="border-left: 4px solid #9b59b6;">
+            <div class="card game-stats-card" data-game="spiel77" style="border-left: 4px solid #9b59b6;">
                 <div class="card-header">
                     <div class="card-title">
                         <span class="icon" style="color: #9b59b6;">7️⃣</span>
@@ -2080,7 +2080,7 @@
             </div>
 
             <!-- Super 6 Statistiken -->
-            <div class="card" style="border-left: 4px solid #e67e22;">
+            <div class="card game-stats-card" data-game="super6" style="border-left: 4px solid #e67e22;">
                 <div class="card-header">
                     <div class="card-title">
                         <span class="icon" style="color: #e67e22;">6️⃣</span>
@@ -2129,7 +2129,7 @@
             </div>
 
             <!-- Glücksspirale Statistiken -->
-            <div class="card" style="border-left: 4px solid #1abc9c;">
+            <div class="card game-stats-card" data-game="gluecksspirale" style="border-left: 4px solid #1abc9c;">
                 <div class="card-header">
                     <div class="card-title">
                         <span class="icon" style="color: #1abc9c;">🌀</span>
@@ -8128,7 +8128,22 @@ Antworte NUR mit JSON:
             // Update Statistiken
             updateGameStatistics(game);
 
+            // Zeige nur die Statistik-Karte des ausgewählten Spiels
+            filterGameStatsCards(game);
+
             showToast(`${GAME_CONFIG[game].icon} ${GAME_CONFIG[game].name} ausgewählt`, '🎮');
+        }
+
+        // Filtert die spielspezifischen Statistik-Karten
+        function filterGameStatsCards(game) {
+            const allGameCards = document.querySelectorAll('.game-stats-card');
+            allGameCards.forEach(card => {
+                if (card.dataset.game === game) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
         function updateNextDrawForGame(game) {
@@ -9173,6 +9188,9 @@ Antworte NUR mit JSON:
 
             // SICHERHEIT: Loader immer verstecken nach Init
             showLoader(false);
+
+            // Zeige nur Statistiken für das aktuelle Spiel (Standard: lotto6aus49)
+            filterGameStatsCards(currentGame);
 
             // Game Selector
             document.querySelectorAll('.game-btn').forEach(btn => {
