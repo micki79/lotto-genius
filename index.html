@@ -3356,14 +3356,18 @@
                 showToast('Fehler beim Laden der Daten', '❌');
                 
                 // Try loading from localStorage cache
-                const cached = localStorage.getItem('lottoDataCache');
-                if (cached) {
-                    const { data, timestamp } = JSON.parse(cached);
-                    if (Date.now() - timestamp < 7 * 24 * 60 * 60 * 1000) {
-                        processData(data);
-                        showToast('Cached Daten geladen', 'ℹ️');
-                        return true;
+                try {
+                    const cached = localStorage.getItem('lottoDataCache');
+                    if (cached) {
+                        const { data, timestamp } = JSON.parse(cached);
+                        if (data && timestamp && Date.now() - timestamp < 7 * 24 * 60 * 60 * 1000) {
+                            processData(data);
+                            showToast('Cached Daten geladen', 'ℹ️');
+                            return true;
+                        }
                     }
+                } catch (cacheError) {
+                    console.error('Cache-Fehler:', cacheError);
                 }
                 return false;
             } finally {
@@ -3372,10 +3376,18 @@
         }
 
         function processData(rawData) {
+            // Validate input
+            if (!rawData || !Array.isArray(rawData)) {
+                console.error('processData: Invalid rawData', rawData);
+                showToast('Fehler: Ungültige Daten', '❌');
+                return;
+            }
+
             // Group by date
             const grouped = {};
-            
+
             rawData.forEach(item => {
+                if (!item || !item.date) return;
                 if (!grouped[item.date]) {
                     grouped[item.date] = {
                         date: item.date,
@@ -3469,9 +3481,10 @@
                 if (currentLastDraw && lastLearnedDraw !== currentLastDraw) {
                     // Neue Ziehung vorhanden - versuche zu lernen
                     const lastPredictions = localStorage.getItem('last_predictions');
-                    if (lastPredictions) {
+                    const lastDraw = lottoData[0];
+                    if (lastPredictions && lastDraw?.numbers?.length === 6 && lastDraw?.superzahl !== undefined) {
                         const predictions = JSON.parse(lastPredictions);
-                        const actualNumbers = [...lottoData[0].numbers, lottoData[0].superzahl];
+                        const actualNumbers = [...lastDraw.numbers, lastDraw.superzahl];
 
                         await kiAgent.learnFromPastPredictions(actualNumbers, predictions);
                         localStorage.setItem('last_learned_draw', currentLastDraw);
@@ -6360,11 +6373,11 @@
                         pred.actualSuperzahl = actualSuperzahl;
                         
                         // Berechne Treffer
-                        pred.results = pred.predictions.map(p => ({
-                            numbers: p.numbers,
-                            matches: p.numbers.filter(n => actualNumbers.includes(n)).length,
-                            szMatch: p.superzahl === actualSuperzahl,
-                            source: p.source
+                        pred.results = (pred.predictions || []).map(p => ({
+                            numbers: p?.numbers || [],
+                            matches: (p?.numbers || []).filter(n => actualNumbers.includes(n)).length,
+                            szMatch: p?.superzahl === actualSuperzahl,
+                            source: p?.source
                         }));
                         
                         await lottoDB.save('predictions', pred);
@@ -6379,11 +6392,13 @@
 
             // Lernt aus verifizierten Vorhersagen
             async learnFromVerifiedPredictions(pred) {
+                if (!pred || !pred.results || !Array.isArray(pred.results)) return;
                 for (const result of pred.results) {
+                    if (!result) continue;
                     const entry = {
                         date: pred.timestamp,
-                        predicted: result.numbers,
-                        actual: pred.actualNumbers,
+                        predicted: result.numbers || [],
+                        actual: pred.actualNumbers || [],
                         matches: result.matches,
                         szMatch: result.szMatch,
                         source: result.source || 'local'
@@ -6406,7 +6421,12 @@
 
             // Lernt aus vergangenen Vorhersagen (manuelle Eingabe)
             async learnFromPastPredictions(actualNumbers, predictions) {
+                if (!predictions || !Array.isArray(predictions) || !actualNumbers || actualNumbers.length < 6) {
+                    console.log('learnFromPastPredictions: Invalid input');
+                    return;
+                }
                 for (const pred of predictions) {
+                    if (!pred || !pred.numbers || !Array.isArray(pred.numbers)) continue;
                     const matches = pred.numbers.filter(n => actualNumbers.slice(0, 6).includes(n)).length;
                     const szMatch = pred.superzahl === actualNumbers[6];
                     
@@ -6963,10 +6983,14 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
         }
 
         function renderAIPredictions(aiResult) {
+            if (!aiResult) {
+                console.error('renderAIPredictions: No aiResult');
+                return;
+            }
             let html = '';
-            
+
             // Superzahl-Analyse anzeigen (wenn vorhanden)
-            if (aiResult.votingStats?.superzahlAnalysis) {
+            if (aiResult.votingStats?.superzahlAnalysis?.best) {
                 const szA = aiResult.votingStats.superzahlAnalysis;
                 html += `
                     <div class="superzahl-analysis-card">
@@ -7026,21 +7050,30 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     </div>
                 `;
             }
-            
-            aiResult.predictions.forEach((pred, i) => {
+
+            // Predictions anzeigen
+            const predictions = aiResult.predictions || [];
+            if (!Array.isArray(predictions) || predictions.length === 0) {
+                document.getElementById('predictionsContainer').innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Keine Vorhersagen verfügbar</p>';
+                return;
+            }
+
+            predictions.forEach((pred, i) => {
+                if (!pred || !pred.numbers || !Array.isArray(pred.numbers)) return;
                 const colors = ['purple', 'teal', 'pink', 'gold'];
                 const color = colors[i % colors.length];
                 const isEnsemble = pred.isEnsemble;
-                
+
                 let ballsHTML = '';
                 pred.numbers.forEach(num => {
                     ballsHTML += `<div class="lotto-ball small">${num}</div>`;
                 });
-                
+
                 // Superzahl mit Highlight wenn optimiert
                 const szOptimized = pred.superzahlOptimized || pred.isEnsemble;
-                ballsHTML += `<div class="lotto-ball small superzahl ${szOptimized ? 'optimized' : ''}" title="${szOptimized ? 'KI-optimierte Superzahl' : ''}">${pred.superzahl}</div>`;
-                
+                const superzahl = pred.superzahl ?? 0;
+                ballsHTML += `<div class="lotto-ball small superzahl ${szOptimized ? 'optimized' : ''}" title="${szOptimized ? 'KI-optimierte Superzahl' : ''}">${superzahl}</div>`;
+
                 const numbersStr = pred.numbers.join(', ');
                 const copyData = `${numbersStr} | SZ: ${pred.superzahl}`;
 
@@ -8333,6 +8366,7 @@ Antworte NUR mit JSON:
 
             if (game === 'eurojackpot') {
                 result.predictions.forEach((pred, i) => {
+                    if (!pred || !pred.numbers || !Array.isArray(pred.numbers)) return;
                     const colors = ['gold', 'purple', 'teal'];
                     const color = colors[i % colors.length];
 
@@ -8340,12 +8374,12 @@ Antworte NUR mit JSON:
                     pred.numbers.forEach(num => {
                         ballsHTML += `<div class="lotto-ball small euro-ball">${num}</div>`;
                     });
-                    pred.eurozahlen.forEach(num => {
+                    (pred.eurozahlen || []).forEach(num => {
                         ballsHTML += `<div class="lotto-ball small eurozahl">${num}</div>`;
                     });
 
                     const numbersStr = pred.numbers.join(', ');
-                    const euroStr = pred.eurozahlen.join(', ');
+                    const euroStr = (pred.eurozahlen || []).join(', ');
                     const copyData = `${numbersStr} | EZ: ${euroStr}`;
 
                     html += `
@@ -8374,11 +8408,12 @@ Antworte NUR mit JSON:
             } else {
                 // Digit-basierte Spiele (Spiel 77, Super 6, Glücksspirale)
                 result.predictions.forEach((pred, i) => {
+                    if (!pred || !pred.number) return;
                     const colors = ['teal', 'pink', 'purple'];
                     const color = colors[i % colors.length];
 
                     let digitsHTML = '';
-                    pred.number.split('').forEach((digit, idx) => {
+                    String(pred.number).split('').forEach((digit, idx) => {
                         digitsHTML += `<div class="digit-ball">${digit}</div>`;
                     });
 
