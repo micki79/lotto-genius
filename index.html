@@ -8137,13 +8137,18 @@ Antworte NUR mit JSON:
         // Filtert die spielspezifischen Statistik-Karten
         function filterGameStatsCards(game) {
             const allGameCards = document.querySelectorAll('.game-stats-card');
+            console.log(`🎮 Filter für Spiel: ${game}, gefunden: ${allGameCards.length} Karten`);
+            let shown = 0, hidden = 0;
             allGameCards.forEach(card => {
                 if (card.dataset.game === game) {
                     card.style.display = 'block';
+                    shown++;
                 } else {
                     card.style.display = 'none';
+                    hidden++;
                 }
             });
+            console.log(`✅ Angezeigt: ${shown}, Versteckt: ${hidden}`);
         }
 
         function updateNextDrawForGame(game) {
