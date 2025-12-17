@@ -1,53 +1,60 @@
 {
-  "last_check": "2024-12-15T09:22:00Z",
+  "last_check": "2025-12-17T18:58:05.271269",
   "note": "Status wird durch GitHub Actions aktualisiert",
   "providers": {
     "gemini": {
       "name": "Google Gemini",
-      "icon": "🔮",
-      "status": "configured",
+      "icon": "\ud83d\udd2e",
+      "status": "error",
       "github_secret": true,
       "last_success": null,
-      "error": null
+      "error": "API-Aufruf fehlgeschlagen"
     },
     "groq": {
       "name": "Groq (Llama)",
-      "icon": "⚡",
-      "status": "configured",
+      "icon": "\u26a1",
+      "status": "error",
       "github_secret": true,
       "last_success": null,
-      "error": null
+      "error": "API-Aufruf fehlgeschlagen"
     },
     "deepseek": {
       "name": "DeepSeek",
-      "icon": "🧠",
-      "status": "configured",
+      "icon": "\ud83e\udde0",
+      "status": "error",
       "github_secret": true,
       "last_success": null,
-      "error": null
+      "error": "API-Aufruf fehlgeschlagen"
     },
     "openrouter": {
       "name": "OpenRouter",
-      "icon": "🌐",
-      "status": "configured",
+      "icon": "\ud83c\udf10",
+      "status": "error",
       "github_secret": true,
       "last_success": null,
-      "error": null
+      "error": "API-Aufruf fehlgeschlagen"
     },
     "huggingface": {
       "name": "HuggingFace",
-      "icon": "🤗",
-      "status": "no_key",
+      "icon": "\ud83e\udd17",
+      "status": "error",
       "github_secret": false,
       "last_success": null,
-      "error": null
+      "error": "API-Aufruf fehlgeschlagen"
     },
     "together": {
       "name": "Together AI",
-      "icon": "🚀",
+      "icon": "\ud83d\ude80",
       "status": "no_key",
       "github_secret": false,
       "last_success": null,
+      "error": "Kein API-Key konfiguriert"
+    },
+    "local_ml": {
+      "name": "Lokale ML-Modelle",
+      "icon": "\ud83d\udda5\ufe0f",
+      "status": "online",
+      "last_success": "2025-12-17T18:58:05.271314",
       "error": null
     }
   }

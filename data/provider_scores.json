@@ -1,16 +1,16 @@
 {
   "ensemble": {
-    "total_predictions": 3,
-    "total_matches": 5,
-    "sz_correct": 0,
-    "accuracy": 27.78,
-    "sz_accuracy": 0.0
+    "total_predictions": 4,
+    "total_matches": 7,
+    "sz_correct": 1,
+    "accuracy": 29.17,
+    "sz_accuracy": 25.0
   },
   "local_ml": {
-    "total_predictions": 18,
-    "total_matches": 23,
-    "sz_correct": 0,
-    "accuracy": 21.3,
-    "sz_accuracy": 0.0
+    "total_predictions": 24,
+    "total_matches": 30,
+    "sz_correct": 1,
+    "accuracy": 20.83,
+    "sz_accuracy": 4.17
   }
 }
