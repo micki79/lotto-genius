@@ -1,0 +1,313 @@
+{
+  "predictions": [
+    {
+      "number": "532770",
+      "method": "ensemble_champion",
+      "strategy": "Gewichtetes Voting",
+      "strategy_weight": 3.0,
+      "confidence": 95,
+      "timestamp": "2025-12-19T11:23:30.401299",
+      "verified": true,
+      "is_champion": true,
+      "quality_score": 118.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "607723",
+      "method": "s6_cold",
+      "strategy": "Kalte Ziffern",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392542",
+      "verified": true,
+      "quality_score": 68.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "138807",
+      "method": "s6_sum",
+      "strategy": "Quersumme ~27",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.393689",
+      "verified": true,
+      "quality_score": 66.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "538610",
+      "method": "s6_position_top3",
+      "strategy": "Zufällig aus Top 3",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392484",
+      "verified": true,
+      "quality_score": 64.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "923674",
+      "method": "s6_odd_even",
+      "strategy": "Gerade/Ungerade Balance",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392577",
+      "verified": true,
+      "quality_score": 64.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "582572",
+      "method": "s6_overdue",
+      "strategy": "Überfällige + Hot",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392560",
+      "verified": true,
+      "quality_score": 62.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "469512",
+      "method": "s6_no_doubles",
+      "strategy": "Keine Doppel",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.393736",
+      "verified": true,
+      "quality_score": 60.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "666921",
+      "method": "s6_delta",
+      "strategy": "Delta-Muster",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401078",
+      "verified": true,
+      "quality_score": 60.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "212548",
+      "method": "s6_last_var",
+      "strategy": "Letzte Variation",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401136",
+      "verified": true,
+      "quality_score": 60.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "317713",
+      "method": "s6_symmetry",
+      "strategy": "Symmetrisch",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401154",
+      "verified": true,
+      "quality_score": 53.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    }
+  ],
+  "history": [],
+  "all_predictions": [
+    {
+      "number": "532770",
+      "method": "ensemble_champion",
+      "strategy": "Gewichtetes Voting",
+      "strategy_weight": 3.0,
+      "confidence": 95,
+      "timestamp": "2025-12-19T11:23:30.401299",
+      "verified": false,
+      "is_champion": true
+    },
+    {
+      "number": "532770",
+      "method": "s6_position_hot",
+      "strategy": "Häufigste pro Position",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392408",
+      "verified": false
+    },
+    {
+      "number": "538610",
+      "method": "s6_position_top3",
+      "strategy": "Zufällig aus Top 3",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392484",
+      "verified": false
+    },
+    {
+      "number": "151855",
+      "method": "s6_hot",
+      "strategy": "Heiße Ziffern",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392522",
+      "verified": false
+    },
+    {
+      "number": "607723",
+      "method": "s6_cold",
+      "strategy": "Kalte Ziffern",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392542",
+      "verified": false
+    },
+    {
+      "number": "582572",
+      "method": "s6_overdue",
+      "strategy": "Überfällige + Hot",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392560",
+      "verified": false
+    },
+    {
+      "number": "923674",
+      "method": "s6_odd_even",
+      "strategy": "Gerade/Ungerade Balance",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.392577",
+      "verified": false
+    },
+    {
+      "number": "138807",
+      "method": "s6_sum",
+      "strategy": "Quersumme ~27",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.393689",
+      "verified": false
+    },
+    {
+      "number": "469512",
+      "method": "s6_no_doubles",
+      "strategy": "Keine Doppel",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.393736",
+      "verified": false
+    },
+    {
+      "number": "094844",
+      "method": "s6_markov",
+      "strategy": "Markov-Ketten",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.393764",
+      "verified": false
+    },
+    {
+      "number": "532710",
+      "method": "s6_monte_carlo",
+      "strategy": "Monte-Carlo",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.400940",
+      "verified": false
+    },
+    {
+      "number": "532770",
+      "method": "s6_bayesian",
+      "strategy": "Bayesian",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401038",
+      "verified": false
+    },
+    {
+      "number": "666921",
+      "method": "s6_delta",
+      "strategy": "Delta-Muster",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401078",
+      "verified": false
+    },
+    {
+      "number": "680290",
+      "method": "s6_fibonacci",
+      "strategy": "Fibonacci",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401098",
+      "verified": false
+    },
+    {
+      "number": "907395",
+      "method": "s6_prime",
+      "strategy": "Primziffern",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401116",
+      "verified": false
+    },
+    {
+      "number": "212548",
+      "method": "s6_last_var",
+      "strategy": "Letzte Variation",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401136",
+      "verified": false
+    },
+    {
+      "number": "317713",
+      "method": "s6_symmetry",
+      "strategy": "Symmetrisch",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401154",
+      "verified": false
+    },
+    {
+      "number": "558858",
+      "method": "s6_neural",
+      "strategy": "Neuronales Netz",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-19T11:23:30.401206",
+      "verified": false
+    }
+  ],
+  "last_update": "2025-12-19T11:23:30.401573",
+  "next_draw": "20.12.2025"
+}
