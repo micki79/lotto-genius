@@ -244,12 +244,383 @@
       "actual": 3,
       "correct": false,
       "method": "ensemble_ml"
+    },
+    {
+      "date": "2025-12-19T10:43:59.817546",
+      "predicted": 9,
+      "ranking": [
+        [
+          9,
+          77.0
+        ],
+        [
+          7,
+          66.6
+        ],
+        [
+          0,
+          63.4
+        ],
+        [
+          6,
+          55.7
+        ],
+        [
+          1,
+          51.3
+        ]
+      ],
+      "actual": null
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 9,
+      "actual": 3,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 7,
+      "actual": 3,
+      "correct": false,
+      "method": "cold_numbers"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 0,
+      "actual": 3,
+      "correct": false,
+      "method": "overdue"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 6,
+      "actual": 3,
+      "correct": false,
+      "method": "odd_even_33"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 6,
+      "actual": 3,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 9,
+      "actual": 3,
+      "correct": false,
+      "method": "hot_cold"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 1,
+      "actual": 3,
+      "correct": false,
+      "method": "odd_even_42"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 4,
+      "actual": 3,
+      "correct": false,
+      "method": "decade_balance"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 8,
+      "actual": 3,
+      "correct": false,
+      "method": "no_consecutive"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 9,
+      "actual": 3,
+      "correct": false,
+      "method": "random_forest"
     }
   ],
   "stats": {
-    "total": 35,
+    "total": 46,
     "correct": 2,
-    "accuracy": 5.71,
-    "last_update": "2025-12-17T19:23:31.728313"
-  }
+    "accuracy": 4.35,
+    "last_update": "2025-12-19T10:44:08.471891"
+  },
+  "history": [
+    {
+      "date": "06.12.2025",
+      "predicted": 1,
+      "actual": 2,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "06.12.2025",
+      "predicted": 1,
+      "actual": 2,
+      "correct": false,
+      "method": "neural_network"
+    },
+    {
+      "date": "06.12.2025",
+      "predicted": 7,
+      "actual": 2,
+      "correct": false,
+      "method": "lstm"
+    },
+    {
+      "date": "06.12.2025",
+      "predicted": 3,
+      "actual": 2,
+      "correct": false,
+      "method": "random_forest"
+    },
+    {
+      "date": "06.12.2025",
+      "predicted": 6,
+      "actual": 2,
+      "correct": false,
+      "method": "bayesian"
+    },
+    {
+      "date": "06.12.2025",
+      "predicted": 5,
+      "actual": 2,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "06.12.2025",
+      "predicted": 0,
+      "actual": 2,
+      "correct": false,
+      "method": "ensemble_ml"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 1,
+      "actual": 8,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 1,
+      "actual": 8,
+      "correct": false,
+      "method": "neural_network"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 7,
+      "actual": 8,
+      "correct": false,
+      "method": "lstm"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 0,
+      "actual": 8,
+      "correct": false,
+      "method": "random_forest"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 6,
+      "actual": 8,
+      "correct": false,
+      "method": "bayesian"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 3,
+      "actual": 8,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 5,
+      "actual": 8,
+      "correct": false,
+      "method": "ensemble_ml"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 3,
+      "actual": 8,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 3,
+      "actual": 8,
+      "correct": false,
+      "method": "neural_network"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 9,
+      "actual": 8,
+      "correct": false,
+      "method": "lstm"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 0,
+      "actual": 8,
+      "correct": false,
+      "method": "random_forest"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 5,
+      "actual": 8,
+      "correct": false,
+      "method": "bayesian"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 2,
+      "actual": 8,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "10.12.2025",
+      "predicted": 6,
+      "actual": 8,
+      "correct": false,
+      "method": "ensemble_ml"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 3,
+      "actual": 3,
+      "correct": true,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 3,
+      "actual": 3,
+      "correct": true,
+      "method": "neural_network"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 6,
+      "actual": 3,
+      "correct": false,
+      "method": "lstm"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 0,
+      "actual": 3,
+      "correct": false,
+      "method": "random_forest"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 5,
+      "actual": 3,
+      "correct": false,
+      "method": "bayesian"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 9,
+      "actual": 3,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 7,
+      "actual": 3,
+      "correct": false,
+      "method": "ensemble_ml"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 7,
+      "actual": 3,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 7,
+      "actual": 3,
+      "correct": false,
+      "method": "neural_network"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 9,
+      "actual": 3,
+      "correct": false,
+      "method": "lstm"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 6,
+      "actual": 3,
+      "correct": false,
+      "method": "random_forest"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 0,
+      "actual": 3,
+      "correct": false,
+      "method": "bayesian"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 1,
+      "actual": 3,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "13.12.2025",
+      "predicted": 4,
+      "actual": 3,
+      "correct": false,
+      "method": "ensemble_ml"
+    },
+    {
+      "date": "2025-12-19T10:43:59.817546",
+      "predicted": 9,
+      "ranking": [
+        [
+          9,
+          77.0
+        ],
+        [
+          7,
+          66.6
+        ],
+        [
+          0,
+          63.4
+        ],
+        [
+          6,
+          55.7
+        ],
+        [
+          1,
+          51.3
+        ]
+      ],
+      "actual": null
+    }
+  ]
 }
