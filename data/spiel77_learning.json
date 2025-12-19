@@ -1,0 +1,123 @@
+{
+  "entries": [
+    {
+      "date": "2025-12-19T11:23:46.100732",
+      "draw_date": "17.12.2025",
+      "predicted": "3482180",
+      "actual": "6311312",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "ensemble_champion",
+      "gewinnklasse": null,
+      "new_weight": 0.85
+    },
+    {
+      "date": "2025-12-19T11:23:46.100772",
+      "draw_date": "17.12.2025",
+      "predicted": "4497130",
+      "actual": "6311312",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "sp77_markov",
+      "gewinnklasse": null,
+      "new_weight": 0.85
+    },
+    {
+      "date": "2025-12-19T11:23:46.100795",
+      "draw_date": "17.12.2025",
+      "predicted": "3482924",
+      "actual": "6311312",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "sp77_monte_carlo",
+      "gewinnklasse": null,
+      "new_weight": 0.85
+    },
+    {
+      "date": "2025-12-19T11:23:46.100815",
+      "draw_date": "17.12.2025",
+      "predicted": "9256923",
+      "actual": "6311312",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "sp77_odd_even",
+      "gewinnklasse": null,
+      "new_weight": 0.85
+    },
+    {
+      "date": "2025-12-19T11:23:46.100845",
+      "draw_date": "17.12.2025",
+      "predicted": "8422522",
+      "actual": "6311312",
+      "end_matches": 1,
+      "exact_matches": 1,
+      "method": "sp77_position_top3",
+      "gewinnklasse": 7,
+      "new_weight": 1.1485714285714284
+    },
+    {
+      "date": "2025-12-19T11:23:46.100889",
+      "draw_date": "17.12.2025",
+      "predicted": "7453661",
+      "actual": "6311312",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "sp77_sum_optimized",
+      "gewinnklasse": null,
+      "new_weight": 0.85
+    },
+    {
+      "date": "2025-12-19T11:23:46.100914",
+      "draw_date": "17.12.2025",
+      "predicted": "7202590",
+      "actual": "6311312",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "sp77_last_variation",
+      "gewinnklasse": null,
+      "new_weight": 0.85
+    },
+    {
+      "date": "2025-12-19T11:23:46.100957",
+      "draw_date": "17.12.2025",
+      "predicted": "2561354",
+      "actual": "6311312",
+      "end_matches": 0,
+      "exact_matches": 2,
+      "method": "sp77_delta",
+      "gewinnklasse": null,
+      "new_weight": 0.85
+    },
+    {
+      "date": "2025-12-19T11:23:46.101006",
+      "draw_date": "17.12.2025",
+      "predicted": "3882160",
+      "actual": "6311312",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "sp77_position_hot",
+      "gewinnklasse": null,
+      "new_weight": 0.85
+    },
+    {
+      "date": "2025-12-19T11:23:46.101039",
+      "draw_date": "17.12.2025",
+      "predicted": "8567202",
+      "actual": "6311312",
+      "end_matches": 1,
+      "exact_matches": 1,
+      "method": "sp77_prime",
+      "gewinnklasse": 7,
+      "new_weight": 1.1485714285714284
+    }
+  ],
+  "stats": {
+    "total_entries": 10,
+    "avg_end_matches": 0.2,
+    "avg_exact_matches": 0.4,
+    "gewinnklassen": {
+      "7": 2
+    },
+    "last_update": "2025-12-19T11:23:46.101717"
+  }
+}

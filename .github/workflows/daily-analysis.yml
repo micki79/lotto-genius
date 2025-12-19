@@ -2,8 +2,9 @@ name: 🍀 LottoGenius Multi-KI Analyse
 
 on:
   schedule:
-    # Lotto 6aus49: Mi 20:00 UTC (nach 18:25 Ziehung), Sa 21:00 UTC (nach 19:25)
+    # Lotto 6aus49 + Spiel 77 + Super 6: Mi 20:00 UTC (nach 18:25 Ziehung)
     - cron: '0 19 * * 3'
+    # Lotto 6aus49 + Spiel 77 + Super 6 + Glücksspirale: Sa 21:00 UTC (nach 19:25)
     - cron: '0 20 * * 6'
     # Eurojackpot: Di 21:00 UTC (nach 20:00 Ziehung), Fr 21:00 UTC (nach 20:00)
     - cron: '0 20 * * 2'
@@ -40,10 +41,11 @@ jobs:
       - name: 📦 Dependencies installieren
         run: pip install requests numpy
 
-      # ===== LOTTO 6aus49 =====
-      - name: 🎰 Lotto-Daten aktualisieren
+      # ===== DATEN AKTUALISIEREN =====
+      - name: 🎰 Alle Lotto-Daten aktualisieren
         run: python scripts/fetch_data.py
 
+      # ===== LOTTO 6aus49 =====
       - name: 📊 Lotto 6aus49 KI-Analyse durchführen
         run: python scripts/analyze.py
 
@@ -63,6 +65,37 @@ jobs:
       - name: 🔮 Eurojackpot - Neue Multi-KI Vorhersagen generieren
         run: python scripts/predict_eurojackpot.py
 
+      # ===== SPIEL 77 =====
+      - name: 🎲 Spiel 77 KI-Analyse durchführen
+        run: python scripts/analyze_spiel77.py
+
+      - name: 🧠 Spiel 77 - Aus Vorhersagen lernen
+        run: python scripts/learn_spiel77.py
+
+      - name: 🔮 Spiel 77 - Neue Multi-KI Vorhersagen generieren
+        run: python scripts/predict_spiel77.py
+
+      # ===== SUPER 6 =====
+      - name: 🎯 Super 6 KI-Analyse durchführen
+        run: python scripts/analyze_super6.py
+
+      - name: 🧠 Super 6 - Aus Vorhersagen lernen
+        run: python scripts/learn_super6.py
+
+      - name: 🔮 Super 6 - Neue Multi-KI Vorhersagen generieren
+        run: python scripts/predict_super6.py
+
+      # ===== GLÜCKSSPIRALE =====
+      - name: 🌀 Glücksspirale KI-Analyse durchführen
+        run: python scripts/analyze_gluecksspirale.py
+
+      - name: 🧠 Glücksspirale - Aus Vorhersagen lernen
+        run: python scripts/learn_gluecksspirale.py
+
+      - name: 🔮 Glücksspirale - Neue Multi-KI Vorhersagen generieren
+        run: python scripts/predict_gluecksspirale.py
+
+      # ===== COMMIT =====
       - name: 📤 Änderungen committen
         run: |
           git config --local user.email "lotto-genius-bot@github.com"

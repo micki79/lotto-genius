@@ -1,0 +1,76 @@
+{
+  "strategies": {
+    "ensemble_champion": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242243"
+    },
+    "s6_cold": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242310"
+    },
+    "s6_sum": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242358"
+    },
+    "s6_position_top3": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242443"
+    },
+    "s6_odd_even": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242483"
+    },
+    "s6_overdue": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242507"
+    },
+    "s6_no_doubles": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242528"
+    },
+    "s6_delta": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242563"
+    },
+    "s6_last_var": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242592"
+    },
+    "s6_symmetry": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:50.242624"
+    }
+  },
+  "last_update": "2025-12-19T11:23:50.242657",
+  "learning_rate": 0.15
+}

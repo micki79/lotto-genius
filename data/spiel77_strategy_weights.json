@@ -1,0 +1,81 @@
+{
+  "strategies": {
+    "ensemble_champion": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:46.100730"
+    },
+    "sp77_markov": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:46.100771"
+    },
+    "sp77_monte_carlo": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:46.100794"
+    },
+    "sp77_odd_even": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:46.100813"
+    },
+    "sp77_position_top3": {
+      "weight": 1.1485714285714284,
+      "total_matches": 1,
+      "total_predictions": 1,
+      "gewinnklassen": {
+        "7": 1
+      },
+      "last_updated": "2025-12-19T11:23:46.100844"
+    },
+    "sp77_sum_optimized": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:46.100883"
+    },
+    "sp77_last_variation": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:46.100913"
+    },
+    "sp77_delta": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:46.100943"
+    },
+    "sp77_position_hot": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-19T11:23:46.101004"
+    },
+    "sp77_prime": {
+      "weight": 1.1485714285714284,
+      "total_matches": 1,
+      "total_predictions": 1,
+      "gewinnklassen": {
+        "7": 1
+      },
+      "last_updated": "2025-12-19T11:23:46.101037"
+    }
+  },
+  "last_update": "2025-12-19T11:23:46.101084",
+  "total_predictions": 10,
+  "learning_rate": 0.15
+}
