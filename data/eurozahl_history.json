@@ -1,0 +1,219 @@
+{
+  "entries": [
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        11,
+        7
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 1,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        8,
+        2
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 1,
+      "method": "ej_hot_cold"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        6,
+        7
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_cold"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        4,
+        7
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_overdue"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        9,
+        11
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 1,
+      "method": "ej_odd_even_32"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        11,
+        3
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 1,
+      "method": "ej_odd_even_23"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        10,
+        12
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_sum_optimized"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        2,
+        11
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 2,
+      "method": "ej_decade_balance"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        12,
+        5
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_delta"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        9,
+        10
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_position"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        10,
+        5
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_no_consecutive"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        2,
+        11
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 2,
+      "method": "ej_prime_mix"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        12,
+        5
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_low_high"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        8,
+        7
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_hot_cold_mix"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        9,
+        5
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 0,
+      "method": "ej_monte_carlo"
+    },
+    {
+      "date": "17.12.2025",
+      "predicted": [
+        11,
+        7
+      ],
+      "actual": [
+        2,
+        11
+      ],
+      "matches": 1,
+      "method": "ej_bayesian"
+    }
+  ],
+  "stats": {
+    "total": 16,
+    "total_matches": 9,
+    "avg_matches": 0.56,
+    "perfect_matches": 2,
+    "last_update": "2025-12-19T10:23:36.375488"
+  }
+}

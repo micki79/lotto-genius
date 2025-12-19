@@ -1,0 +1,16 @@
+{
+  "ensemble": {
+    "total_predictions": 1,
+    "total_main_matches": 1,
+    "total_euro_matches": 1,
+    "main_accuracy": 20.0,
+    "euro_accuracy": 50.0
+  },
+  "local_ml": {
+    "total_predictions": 15,
+    "total_main_matches": 9,
+    "total_euro_matches": 8,
+    "main_accuracy": 12.0,
+    "euro_accuracy": 26.67
+  }
+}
