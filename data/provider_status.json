@@ -1,46 +1,46 @@
 {
-  "last_check": "2025-12-17T19:23:32.967258",
+  "last_check": "2025-12-19T10:43:59.813213",
   "note": "Status wird durch GitHub Actions aktualisiert",
   "providers": {
     "gemini": {
       "name": "Google Gemini",
       "icon": "\ud83d\udd2e",
-      "status": "error",
+      "status": "no_key",
       "github_secret": true,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "groq": {
       "name": "Groq (Llama)",
       "icon": "\u26a1",
-      "status": "error",
+      "status": "no_key",
       "github_secret": true,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "deepseek": {
       "name": "DeepSeek",
       "icon": "\ud83e\udde0",
-      "status": "error",
+      "status": "no_key",
       "github_secret": true,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "openrouter": {
       "name": "OpenRouter",
       "icon": "\ud83c\udf10",
-      "status": "error",
+      "status": "no_key",
       "github_secret": true,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "huggingface": {
       "name": "HuggingFace",
       "icon": "\ud83e\udd17",
-      "status": "error",
+      "status": "no_key",
       "github_secret": false,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "together": {
       "name": "Together AI",
@@ -55,6 +55,13 @@
       "icon": "\ud83d\udda5\ufe0f",
       "status": "online",
       "last_success": "2025-12-17T19:23:32.967305",
+      "error": null
+    },
+    "local_strategies": {
+      "name": "Lokale Strategien (21)",
+      "icon": "\ud83d\udda5\ufe0f",
+      "status": "online",
+      "last_success": "2025-12-19T10:43:59.813820",
       "error": null
     }
   }
