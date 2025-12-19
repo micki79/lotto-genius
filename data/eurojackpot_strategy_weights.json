@@ -1,0 +1,166 @@
+{
+  "strategies": {
+    "ensemble_champion": {
+      "weight": 0.95,
+      "total_predictions": 1,
+      "total_main_matches": 1,
+      "total_euro_matches": 1,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_hot_cold": {
+      "weight": 0.95,
+      "total_predictions": 1,
+      "total_main_matches": 1,
+      "total_euro_matches": 1,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_cold": {
+      "weight": 0.92,
+      "total_predictions": 1,
+      "total_main_matches": 1,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_overdue": {
+      "weight": 0.9,
+      "total_predictions": 1,
+      "total_main_matches": 0,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_odd_even_32": {
+      "weight": 1.03,
+      "total_predictions": 1,
+      "total_main_matches": 2,
+      "total_euro_matches": 1,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 1
+    },
+    "ej_odd_even_23": {
+      "weight": 0.93,
+      "total_predictions": 1,
+      "total_main_matches": 0,
+      "total_euro_matches": 1,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_sum_optimized": {
+      "weight": 0.92,
+      "total_predictions": 1,
+      "total_main_matches": 1,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_decade_balance": {
+      "weight": 1.06,
+      "total_predictions": 1,
+      "total_main_matches": 2,
+      "total_euro_matches": 2,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 1
+    },
+    "ej_delta": {
+      "weight": 0.9,
+      "total_predictions": 1,
+      "total_main_matches": 0,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_position": {
+      "weight": 0.9,
+      "total_predictions": 1,
+      "total_main_matches": 0,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_no_consecutive": {
+      "weight": 0.9,
+      "total_predictions": 1,
+      "total_main_matches": 0,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_prime_mix": {
+      "weight": 1.04,
+      "total_predictions": 1,
+      "total_main_matches": 1,
+      "total_euro_matches": 2,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 1
+    },
+    "ej_low_high": {
+      "weight": 0.9,
+      "total_predictions": 1,
+      "total_main_matches": 0,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_hot_cold_mix": {
+      "weight": 0.9,
+      "total_predictions": 1,
+      "total_main_matches": 0,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_monte_carlo": {
+      "weight": 0.9,
+      "total_predictions": 1,
+      "total_main_matches": 0,
+      "total_euro_matches": 0,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
+    "ej_bayesian": {
+      "weight": 0.95,
+      "total_predictions": 1,
+      "total_main_matches": 1,
+      "total_euro_matches": 1,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    }
+  },
+  "last_update": "2025-12-19T10:23:36.375502",
+  "total_predictions": 0
+}
