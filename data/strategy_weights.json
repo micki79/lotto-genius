@@ -1,16 +1,24 @@
 {
   "strategies": {
     "hot_cold": {
-      "weight": 2.35,
-      "hits": 2,
-      "total": 1,
-      "last_updated": "2025-12-19T10:44:08.470832"
+      "weight": 3.1225,
+      "hits": 3,
+      "total": 2,
+      "last_updated": "2025-12-20T21:04:51.118324",
+      "three_plus": 0,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {}
     },
     "cold_numbers": {
-      "weight": 1.6,
-      "hits": 1,
-      "total": 1,
-      "last_updated": "2025-12-19T10:44:08.470690"
+      "weight": 2.1100000000000003,
+      "hits": 2,
+      "total": 2,
+      "last_updated": "2025-12-20T21:04:51.118526",
+      "three_plus": 0,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {}
     },
     "overdue": {
       "weight": 0.85,
@@ -19,10 +27,14 @@
       "last_updated": "2025-12-19T10:44:08.470721"
     },
     "odd_even_33": {
-      "weight": 0.85,
+      "weight": 0.7224999999999999,
       "hits": 0,
-      "total": 1,
-      "last_updated": "2025-12-19T10:44:08.470753"
+      "total": 2,
+      "last_updated": "2025-12-20T21:04:51.118655",
+      "three_plus": 0,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {}
     },
     "odd_even_42": {
       "weight": 0.85,
@@ -37,10 +49,14 @@
       "last_updated": null
     },
     "decade_balance": {
-      "weight": 0.85,
-      "hits": 0,
-      "total": 1,
-      "last_updated": "2025-12-19T10:44:08.470902"
+      "weight": 1.4725,
+      "hits": 2,
+      "total": 2,
+      "last_updated": "2025-12-20T21:04:51.118624",
+      "three_plus": 0,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {}
     },
     "delta_pattern": {
       "weight": 1.0,
@@ -55,10 +71,14 @@
       "last_updated": null
     },
     "no_consecutive": {
-      "weight": 2.35,
+      "weight": 2.7475,
       "hits": 2,
-      "total": 1,
-      "last_updated": "2025-12-19T10:44:08.470946"
+      "total": 2,
+      "last_updated": "2025-12-20T21:04:51.118394",
+      "three_plus": 0,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {}
     },
     "prime_mix": {
       "weight": 1.0,
@@ -73,10 +93,16 @@
       "last_updated": null
     },
     "hot_cold_mix": {
-      "weight": 1.0,
-      "hits": 0,
-      "total": 0,
-      "last_updated": null
+      "weight": 3.7199999999999998,
+      "hits": 3,
+      "total": 1,
+      "last_updated": "2025-12-20T21:04:51.118574",
+      "three_plus": 1,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {
+        "8": 1
+      }
     },
     "monte_carlo": {
       "weight": 1.6,
@@ -127,17 +153,47 @@
       "last_updated": null
     },
     "ensemble_champion": {
-      "weight": 1.6,
+      "weight": 1.735,
       "hits": 1,
+      "total": 2,
+      "three_plus": 0,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-20T21:04:51.118450"
+    },
+    "ensemble_ml_real": {
+      "weight": 0.85,
+      "hits": 0,
       "total": 1,
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "last_updated": "2025-12-19T10:44:08.470629"
+      "last_updated": "2025-12-20T21:04:51.118426"
+    },
+    "neural_network_real": {
+      "weight": 0.85,
+      "hits": 0,
+      "total": 1,
+      "three_plus": 0,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-20T21:04:51.118472"
+    },
+    "thompson_sampling_real": {
+      "weight": 0.85,
+      "hits": 0,
+      "total": 1,
+      "three_plus": 0,
+      "four_plus": 0,
+      "sz_correct": 0,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-20T21:04:51.118504"
     }
   },
-  "last_update": "2025-12-19T10:44:08.471004",
-  "total_predictions": 10,
+  "last_update": "2025-12-20T21:04:51.118693",
+  "total_predictions": 20,
   "learning_rate": 0.15
 }
