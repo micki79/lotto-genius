@@ -1,0 +1,27 @@
+{
+  "last_full_training": "2025-12-20T21:25:52.741892",
+  "results": {
+    "lotto_6aus49": {
+      "status": "success",
+      "draws": 3082
+    },
+    "eurojackpot": {
+      "status": "success",
+      "draws": 300
+    },
+    "spiel77": {
+      "status": "success",
+      "draws": 500
+    },
+    "super6": {
+      "status": "success",
+      "draws": 500
+    },
+    "gluecksspirale": {
+      "status": "success",
+      "draws": 200
+    }
+  },
+  "success_count": 5,
+  "total_draws": 4582
+}
