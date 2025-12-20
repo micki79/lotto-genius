@@ -17,10 +17,21 @@ SELBSTLERNSYSTEM:
 """
 import json
 import os
+import sys
 from datetime import datetime
 from collections import Counter
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
+
+# Importiere echte ML-Modelle
+try:
+    from ml_models import (
+        train_eurojackpot_ml,
+        EurojackpotEnsembleML
+    )
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
 
 # Eurojackpot Gewinnklassen
 GEWINNKLASSEN = {
@@ -434,6 +445,13 @@ def learn_from_results():
     print("=" * 60)
     print("✅ Lernen abgeschlossen - Strategie-Gewichte aktualisiert!")
     print("=" * 60)
+
+    # ML-Training wenn angefordert
+    if ML_AVAILABLE and ('--full-train' in sys.argv or '--train-ml' in sys.argv):
+        print("\n" + "=" * 60)
+        print("🧠 EUROJACKPOT ML-TRAINING")
+        print("=" * 60)
+        train_eurojackpot_ml(draws)
 
 if __name__ == "__main__":
     learn_from_results()

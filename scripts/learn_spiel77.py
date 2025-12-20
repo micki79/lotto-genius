@@ -10,11 +10,19 @@ Lernt aus jeder Ziehung:
 """
 import json
 import os
+import sys
 from datetime import datetime
 from collections import Counter
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 NUM_DIGITS = 7
+
+# Importiere echte ML-Modelle
+try:
+    from ml_models import train_digit_game_ml
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
 
 # Spiel 77 Gewinnklassen (von hinten gezählt)
 GEWINNKLASSEN = {
@@ -296,6 +304,13 @@ def learn_from_results():
     print("=" * 60)
     print("✅ Spiel 77 Lernen abgeschlossen!")
     print("=" * 60)
+
+    # ML-Training wenn angefordert
+    if ML_AVAILABLE and ('--full-train' in sys.argv or '--train-ml' in sys.argv):
+        print("\n" + "=" * 60)
+        print("🧠 SPIEL 77 ML-TRAINING")
+        print("=" * 60)
+        train_digit_game_ml('spiel77', NUM_DIGITS, draws)
 
 if __name__ == "__main__":
     learn_from_results()
