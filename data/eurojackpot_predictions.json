@@ -2,419 +2,172 @@
   "predictions": [
     {
       "numbers": [
-        11,
-        22,
+        12,
+        13,
+        20,
         25,
-        34,
-        44
+        50
       ],
       "eurozahlen": [
         6,
-        11
+        9
       ],
-      "method": "ensemble_champion",
-      "method_name": "🏆 CHAMPION (Alle KIs)",
-      "provider": "ensemble",
-      "strategy": "Gewichtetes Voting aus 15 KI-Vorhersagen",
-      "confidence": 90,
-      "timestamp": "2025-12-20T21:20:07.201664",
-      "verified": true,
+      "method": "ml_ensemble_real",
+      "method_name": "\ud83c\udfc6 ML Ensemble (Alle Modelle)",
+      "provider": "ml_real",
+      "strategy": "Gewichtetes Voting aus Neural Network, Markov & Bayesian",
+      "confidence": 85,
+      "is_real_ml": true,
       "is_champion": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 1,
-        "score": 1.5
-      }
+      "timestamp": "2025-12-20T21:45:00.198861",
+      "verified": false
     },
     {
       "numbers": [
-        14,
+        21,
+        22,
         25,
-        29,
-        38,
-        44
+        26,
+        50
       ],
       "eurozahlen": [
         2,
-        8
+        9
       ],
-      "method": "ej_hot_cold",
-      "method_name": "🔥 Hot Numbers",
-      "provider": "local_ml",
-      "strategy": "Basiert auf den häufigsten Zahlen",
-      "confidence": 78.5,
-      "weight": 0.95,
-      "timestamp": "2025-12-20T21:20:07.201081",
-      "verified": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 1,
-        "score": 1.5
-      }
+      "method": "ensemble_champion",
+      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "provider": "ensemble",
+      "strategy": "Gewichtetes Voting aus 19 KI-Vorhersagen",
+      "confidence": 90,
+      "timestamp": "2025-12-20T21:45:00.202926",
+      "verified": false,
+      "is_champion": true
     },
     {
       "numbers": [
+        25,
+        26,
+        38,
+        45,
+        50
+      ],
+      "eurozahlen": [
+        2,
+        11
+      ],
+      "method": "ml_bayesian_real",
+      "method_name": "\ud83d\udcca Bayesian Thompson",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: bayesian",
+      "confidence": 75,
+      "is_real_ml": true,
+      "timestamp": "2025-12-20T21:45:00.198975",
+      "verified": false
+    },
+    {
+      "numbers": [
+        22,
+        25,
+        29,
+        39,
+        50
+      ],
+      "eurozahlen": [
+        1,
+        3
+      ],
+      "method": "ml_markov_real",
+      "method_name": "\ud83d\udd17 Markov-Kette",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: markov",
+      "confidence": 31.774911457975705,
+      "is_real_ml": true,
+      "timestamp": "2025-12-20T21:45:00.198958",
+      "verified": false
+    },
+    {
+      "numbers": [
+        12,
+        13,
+        20,
+        46,
+        49
+      ],
+      "eurozahlen": [
+        6,
+        9
+      ],
+      "method": "ml_neural_network_real",
+      "method_name": "\ud83e\udde0 Neuronales Netz",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: neural_network",
+      "confidence": 3.1828054425777954,
+      "is_real_ml": true,
+      "timestamp": "2025-12-20T21:45:00.198935",
+      "verified": false
+    },
+    {
+      "numbers": [
+        4,
+        14,
+        21,
+        25,
+        50
+      ],
+      "eurozahlen": [
+        1,
+        10
+      ],
+      "method": "ej_decade_balance",
+      "method_name": "\ud83d\udcc8 Dekaden-Balance",
+      "provider": "local_ml",
+      "strategy": "Verteilt \u00fcber alle 10er-Gruppen",
+      "confidence": 81.8,
+      "weight": 1.06,
+      "timestamp": "2025-12-20T21:45:00.202584",
+      "verified": false
+    },
+    {
+      "numbers": [
+        13,
         16,
-        19,
         31,
-        32,
-        46
+        44,
+        45
       ],
       "eurozahlen": [
         5,
-        7
-      ],
-      "method": "ej_cold",
-      "method_name": "❄️ Cold Numbers",
-      "provider": "local_ml",
-      "strategy": "Seltener gezogene Zahlen",
-      "confidence": 77.6,
-      "weight": 0.92,
-      "timestamp": "2025-12-20T21:20:07.201143",
-      "verified": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 0,
-        "score": 1.0
-      }
-    },
-    {
-      "numbers": [
-        19,
-        26,
-        44,
-        45,
-        46
-      ],
-      "eurozahlen": [
-        3,
-        7
-      ],
-      "method": "ej_overdue",
-      "method_name": "⏰ Überfällige Zahlen",
-      "provider": "local_ml",
-      "strategy": "Zahlen die lange nicht kamen",
-      "confidence": 77.0,
-      "weight": 0.9,
-      "timestamp": "2025-12-20T21:20:07.201161",
-      "verified": true,
-      "result": {
-        "main_matches": 0,
-        "euro_matches": 0,
-        "score": 0.0
-      }
-    },
-    {
-      "numbers": [
-        11,
-        18,
-        21,
-        25,
-        34
-      ],
-      "eurozahlen": [
-        2,
-        7
-      ],
-      "method": "ej_odd_even_32",
-      "method_name": "⚖️ 3-Ungerade/2-Gerade",
-      "provider": "local_ml",
-      "strategy": "Optimale Gerade/Ungerade-Balance",
-      "confidence": 80.9,
-      "weight": 1.03,
-      "timestamp": "2025-12-20T21:20:07.201187",
-      "verified": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 1,
-        "score": 1.5
-      }
-    },
-    {
-      "numbers": [
-        11,
-        24,
-        25,
-        34,
-        50
-      ],
-      "eurozahlen": [
-        3,
-        6
-      ],
-      "method": "ej_odd_even_23",
-      "method_name": "⚖️ 2-Ungerade/3-Gerade",
-      "provider": "local_ml",
-      "strategy": "Alternative Gerade/Ungerade-Balance",
-      "confidence": 77.9,
-      "weight": 0.93,
-      "timestamp": "2025-12-20T21:20:07.201203",
-      "verified": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 0,
-        "score": 1.0
-      }
-    },
-    {
-      "numbers": [
-        11,
-        22,
-        25,
-        34,
-        44
-      ],
-      "eurozahlen": [
-        4,
-        11
-      ],
-      "method": "ej_sum_optimized",
-      "method_name": "📊 Summen-Optimierung (Σ=136)",
-      "provider": "local_ml",
-      "strategy": "Optimiert auf typische Summen",
-      "confidence": 77.6,
-      "weight": 0.92,
-      "timestamp": "2025-12-20T21:20:07.201224",
-      "verified": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 1,
-        "score": 1.5
-      }
-    },
-    {
-      "numbers": [
-        2,
-        11,
-        18,
-        34,
-        44
-      ],
-      "eurozahlen": [
-        1,
-        6
-      ],
-      "method": "ej_decade_balance",
-      "method_name": "📈 Dekaden-Balance",
-      "provider": "local_ml",
-      "strategy": "Verteilt über alle 10er-Gruppen",
-      "confidence": 81.8,
-      "weight": 1.06,
-      "timestamp": "2025-12-20T21:20:07.201253",
-      "verified": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 0,
-        "score": 1.0
-      }
-    },
-    {
-      "numbers": [
-        8,
-        11,
-        19,
-        29,
-        33
-      ],
-      "eurozahlen": [
-        8,
-        11
-      ],
-      "method": "ej_delta",
-      "method_name": "🔢 Delta-Muster",
-      "provider": "local_ml",
-      "strategy": "Basiert auf typischen Abständen",
-      "confidence": 77.0,
-      "weight": 0.9,
-      "timestamp": "2025-12-20T21:20:07.201289",
-      "verified": true,
-      "result": {
-        "main_matches": 0,
-        "euro_matches": 1,
-        "score": 0.5
-      }
-    },
-    {
-      "numbers": [
-        9,
-        13,
-        28,
-        31,
-        44
-      ],
-      "eurozahlen": [
-        4,
-        11
-      ],
-      "method": "ej_position",
-      "method_name": "📍 Positions-Optimierung",
-      "provider": "local_ml",
-      "strategy": "Typische Bereiche pro Position",
-      "confidence": 77.0,
-      "weight": 0.9,
-      "timestamp": "2025-12-20T21:20:07.201310",
-      "verified": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 1,
-        "score": 1.5
-      }
-    },
-    {
-      "numbers": [
-        22,
-        25,
-        38,
-        45,
-        50
-      ],
-      "eurozahlen": [
-        1,
-        4
-      ],
-      "method": "ej_no_consecutive",
-      "method_name": "🔀 Keine Folge-Zahlen",
-      "provider": "local_ml",
-      "strategy": "Vermeidet aufeinanderfolgende",
-      "confidence": 77.0,
-      "weight": 0.9,
-      "timestamp": "2025-12-20T21:20:07.201327",
-      "verified": true,
-      "result": {
-        "main_matches": 0,
-        "euro_matches": 0,
-        "score": 0.0
-      }
-    },
-    {
-      "numbers": [
-        31,
-        36,
-        38,
-        40,
-        43
-      ],
-      "eurozahlen": [
-        3,
-        6
+        8
       ],
       "method": "ej_prime_mix",
-      "method_name": "🔢 Primzahlen-Mix",
+      "method_name": "\ud83d\udd22 Primzahlen-Mix",
       "provider": "local_ml",
       "strategy": "2 Primzahlen + 3 andere",
       "confidence": 81.2,
       "weight": 1.04,
-      "timestamp": "2025-12-20T21:20:07.201349",
-      "verified": true,
-      "result": {
-        "main_matches": 0,
-        "euro_matches": 0,
-        "score": 0.0
-      }
+      "timestamp": "2025-12-20T21:45:00.202667",
+      "verified": false
     },
     {
       "numbers": [
-        18,
+        11,
+        12,
         21,
-        22,
         29,
-        45
-      ],
-      "eurozahlen": [
-        1,
-        5
-      ],
-      "method": "ej_low_high",
-      "method_name": "📉📈 Low/High Balance",
-      "provider": "local_ml",
-      "strategy": "3 niedrige + 2 hohe Zahlen",
-      "confidence": 77.0,
-      "weight": 0.9,
-      "timestamp": "2025-12-20T21:20:07.201366",
-      "verified": true,
-      "result": {
-        "main_matches": 0,
-        "euro_matches": 0,
-        "score": 0.0
-      }
-    },
-    {
-      "numbers": [
-        4,
-        18,
-        24,
-        32,
-        34
+        38
       ],
       "eurozahlen": [
         2,
         11
       ],
-      "method": "ej_hot_cold_mix",
-      "method_name": "🔥❄️ Hot/Cold Mix",
+      "method": "ej_odd_even_32",
+      "method_name": "\u2696\ufe0f 3-Ungerade/2-Gerade",
       "provider": "local_ml",
-      "strategy": "3 heiße + 2 kalte Zahlen",
-      "confidence": 77.0,
-      "weight": 0.9,
-      "timestamp": "2025-12-20T21:20:07.201385",
-      "verified": true,
-      "result": {
-        "main_matches": 2,
-        "euro_matches": 2,
-        "score": 3.0
-      }
-    },
-    {
-      "numbers": [
-        22,
-        24,
-        29,
-        44,
-        50
-      ],
-      "eurozahlen": [
-        10,
-        11
-      ],
-      "method": "ej_monte_carlo",
-      "method_name": "🎲 Monte-Carlo",
-      "provider": "local_ml",
-      "strategy": "1000 Simulationen",
-      "confidence": 77.0,
-      "weight": 0.9,
-      "timestamp": "2025-12-20T21:20:07.201403",
-      "verified": true,
-      "result": {
-        "main_matches": 0,
-        "euro_matches": 1,
-        "score": 0.5
-      }
-    },
-    {
-      "numbers": [
-        14,
-        21,
-        22,
-        25,
-        33
-      ],
-      "eurozahlen": [
-        8,
-        11
-      ],
-      "method": "ej_bayesian",
-      "method_name": "📊 Bayesian Inference",
-      "provider": "local_ml",
-      "strategy": "Wahrscheinlichkeitsberechnung",
-      "confidence": 78.5,
-      "weight": 0.95,
-      "timestamp": "2025-12-20T21:20:07.201417",
-      "verified": true,
-      "result": {
-        "main_matches": 1,
-        "euro_matches": 1,
-        "score": 1.5
-      }
+      "strategy": "Optimale Gerade/Ungerade-Balance",
+      "confidence": 80.9,
+      "weight": 1.03,
+      "timestamp": "2025-12-20T21:45:00.202505",
+      "verified": false
     }
   ],
   "history": [
@@ -431,7 +184,7 @@
         11
       ],
       "method": "ensemble_champion",
-      "method_name": "🏆 CHAMPION (Alle KIs)",
+      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 15 KI-Vorhersagen",
       "confidence": 90,
@@ -459,9 +212,9 @@
         8
       ],
       "method": "ej_hot_cold",
-      "method_name": "🔥 Hot Numbers",
+      "method_name": "\ud83d\udd25 Hot Numbers",
       "provider": "local_ml",
-      "strategy": "Basiert auf den häufigsten Zahlen",
+      "strategy": "Basiert auf den h\u00e4ufigsten Zahlen",
       "confidence": 80.0,
       "weight": 1.0,
       "timestamp": "2025-12-19T10:23:25.986094",
@@ -487,7 +240,7 @@
         7
       ],
       "method": "ej_cold",
-      "method_name": "❄️ Cold Numbers",
+      "method_name": "\u2744\ufe0f Cold Numbers",
       "provider": "local_ml",
       "strategy": "Seltener gezogene Zahlen",
       "confidence": 80.0,
@@ -515,7 +268,7 @@
         7
       ],
       "method": "ej_overdue",
-      "method_name": "⏰ Überfällige Zahlen",
+      "method_name": "\u23f0 \u00dcberf\u00e4llige Zahlen",
       "provider": "local_ml",
       "strategy": "Zahlen die lange nicht kamen",
       "confidence": 80.0,
@@ -543,7 +296,7 @@
         11
       ],
       "method": "ej_odd_even_32",
-      "method_name": "⚖️ 3-Ungerade/2-Gerade",
+      "method_name": "\u2696\ufe0f 3-Ungerade/2-Gerade",
       "provider": "local_ml",
       "strategy": "Optimale Gerade/Ungerade-Balance",
       "confidence": 80.0,
@@ -556,7 +309,7 @@
         "gewinnklasse": {
           "klasse": 12,
           "name": "2+1",
-          "quote": "6-10 €"
+          "quote": "6-10 \u20ac"
         },
         "draw_date": "17.12.2025",
         "new_weight": 1.03
@@ -575,7 +328,7 @@
         11
       ],
       "method": "ej_odd_even_23",
-      "method_name": "⚖️ 2-Ungerade/3-Gerade",
+      "method_name": "\u2696\ufe0f 2-Ungerade/3-Gerade",
       "provider": "local_ml",
       "strategy": "Alternative Gerade/Ungerade-Balance",
       "confidence": 80.0,
@@ -603,7 +356,7 @@
         12
       ],
       "method": "ej_sum_optimized",
-      "method_name": "📊 Summen-Optimierung (Σ=117)",
+      "method_name": "\ud83d\udcca Summen-Optimierung (\u03a3=117)",
       "provider": "local_ml",
       "strategy": "Optimiert auf typische Summen",
       "confidence": 80.0,
@@ -631,9 +384,9 @@
         11
       ],
       "method": "ej_decade_balance",
-      "method_name": "📈 Dekaden-Balance",
+      "method_name": "\ud83d\udcc8 Dekaden-Balance",
       "provider": "local_ml",
-      "strategy": "Verteilt über alle 10er-Gruppen",
+      "strategy": "Verteilt \u00fcber alle 10er-Gruppen",
       "confidence": 80.0,
       "weight": 1.0,
       "timestamp": "2025-12-19T10:23:25.986234",
@@ -644,7 +397,7 @@
         "gewinnklasse": {
           "klasse": 8,
           "name": "2+2",
-          "quote": "15-25 €"
+          "quote": "15-25 \u20ac"
         },
         "draw_date": "17.12.2025",
         "new_weight": 1.06
@@ -663,9 +416,9 @@
         12
       ],
       "method": "ej_delta",
-      "method_name": "🔢 Delta-Muster",
+      "method_name": "\ud83d\udd22 Delta-Muster",
       "provider": "local_ml",
-      "strategy": "Basiert auf typischen Abständen",
+      "strategy": "Basiert auf typischen Abst\u00e4nden",
       "confidence": 80.0,
       "weight": 1.0,
       "timestamp": "2025-12-19T10:23:25.986275",
@@ -691,7 +444,7 @@
         10
       ],
       "method": "ej_position",
-      "method_name": "📍 Positions-Optimierung",
+      "method_name": "\ud83d\udccd Positions-Optimierung",
       "provider": "local_ml",
       "strategy": "Typische Bereiche pro Position",
       "confidence": 80.0,
@@ -719,7 +472,7 @@
         10
       ],
       "method": "ej_no_consecutive",
-      "method_name": "🔀 Keine Folge-Zahlen",
+      "method_name": "\ud83d\udd00 Keine Folge-Zahlen",
       "provider": "local_ml",
       "strategy": "Vermeidet aufeinanderfolgende",
       "confidence": 80.0,
@@ -747,7 +500,7 @@
         11
       ],
       "method": "ej_prime_mix",
-      "method_name": "🔢 Primzahlen-Mix",
+      "method_name": "\ud83d\udd22 Primzahlen-Mix",
       "provider": "local_ml",
       "strategy": "2 Primzahlen + 3 andere",
       "confidence": 80.0,
@@ -760,7 +513,7 @@
         "gewinnklasse": {
           "klasse": 11,
           "name": "1+2",
-          "quote": "8-12 €"
+          "quote": "8-12 \u20ac"
         },
         "draw_date": "17.12.2025",
         "new_weight": 1.04
@@ -779,7 +532,7 @@
         12
       ],
       "method": "ej_low_high",
-      "method_name": "📉📈 Low/High Balance",
+      "method_name": "\ud83d\udcc9\ud83d\udcc8 Low/High Balance",
       "provider": "local_ml",
       "strategy": "3 niedrige + 2 hohe Zahlen",
       "confidence": 80.0,
@@ -807,9 +560,9 @@
         8
       ],
       "method": "ej_hot_cold_mix",
-      "method_name": "🔥❄️ Hot/Cold Mix",
+      "method_name": "\ud83d\udd25\u2744\ufe0f Hot/Cold Mix",
       "provider": "local_ml",
-      "strategy": "3 heiße + 2 kalte Zahlen",
+      "strategy": "3 hei\u00dfe + 2 kalte Zahlen",
       "confidence": 80.0,
       "weight": 1.0,
       "timestamp": "2025-12-19T10:23:25.986357",
@@ -835,7 +588,7 @@
         9
       ],
       "method": "ej_monte_carlo",
-      "method_name": "🎲 Monte-Carlo",
+      "method_name": "\ud83c\udfb2 Monte-Carlo",
       "provider": "local_ml",
       "strategy": "1000 Simulationen",
       "confidence": 80.0,
@@ -863,7 +616,7 @@
         11
       ],
       "method": "ej_bayesian",
-      "method_name": "📊 Bayesian Inference",
+      "method_name": "\ud83d\udcca Bayesian Inference",
       "provider": "local_ml",
       "strategy": "Wahrscheinlichkeitsberechnung",
       "confidence": 80.0,
@@ -891,7 +644,7 @@
         6
       ],
       "method": "ensemble_champion",
-      "method_name": "🏆 CHAMPION (Alle KIs)",
+      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 15 KI-Vorhersagen",
       "confidence": 90,
@@ -912,9 +665,9 @@
         8
       ],
       "method": "ej_hot_cold",
-      "method_name": "🔥 Hot Numbers",
+      "method_name": "\ud83d\udd25 Hot Numbers",
       "provider": "local_ml",
-      "strategy": "Basiert auf den häufigsten Zahlen",
+      "strategy": "Basiert auf den h\u00e4ufigsten Zahlen",
       "confidence": 78.5,
       "weight": 0.95,
       "timestamp": "2025-12-19T10:44:19.331528",
@@ -933,7 +686,7 @@
         6
       ],
       "method": "ej_cold",
-      "method_name": "❄️ Cold Numbers",
+      "method_name": "\u2744\ufe0f Cold Numbers",
       "provider": "local_ml",
       "strategy": "Seltener gezogene Zahlen",
       "confidence": 77.6,
@@ -954,7 +707,7 @@
         10
       ],
       "method": "ej_overdue",
-      "method_name": "⏰ Überfällige Zahlen",
+      "method_name": "\u23f0 \u00dcberf\u00e4llige Zahlen",
       "provider": "local_ml",
       "strategy": "Zahlen die lange nicht kamen",
       "confidence": 77.0,
@@ -975,7 +728,7 @@
         7
       ],
       "method": "ej_odd_even_32",
-      "method_name": "⚖️ 3-Ungerade/2-Gerade",
+      "method_name": "\u2696\ufe0f 3-Ungerade/2-Gerade",
       "provider": "local_ml",
       "strategy": "Optimale Gerade/Ungerade-Balance",
       "confidence": 80.9,
@@ -996,7 +749,7 @@
         12
       ],
       "method": "ej_odd_even_23",
-      "method_name": "⚖️ 2-Ungerade/3-Gerade",
+      "method_name": "\u2696\ufe0f 2-Ungerade/3-Gerade",
       "provider": "local_ml",
       "strategy": "Alternative Gerade/Ungerade-Balance",
       "confidence": 77.9,
@@ -1017,7 +770,7 @@
         6
       ],
       "method": "ej_sum_optimized",
-      "method_name": "📊 Summen-Optimierung (Σ=123)",
+      "method_name": "\ud83d\udcca Summen-Optimierung (\u03a3=123)",
       "provider": "local_ml",
       "strategy": "Optimiert auf typische Summen",
       "confidence": 77.6,
@@ -1038,9 +791,9 @@
         12
       ],
       "method": "ej_decade_balance",
-      "method_name": "📈 Dekaden-Balance",
+      "method_name": "\ud83d\udcc8 Dekaden-Balance",
       "provider": "local_ml",
-      "strategy": "Verteilt über alle 10er-Gruppen",
+      "strategy": "Verteilt \u00fcber alle 10er-Gruppen",
       "confidence": 81.8,
       "weight": 1.06,
       "timestamp": "2025-12-19T10:44:19.331669",
@@ -1059,9 +812,9 @@
         6
       ],
       "method": "ej_delta",
-      "method_name": "🔢 Delta-Muster",
+      "method_name": "\ud83d\udd22 Delta-Muster",
       "provider": "local_ml",
-      "strategy": "Basiert auf typischen Abständen",
+      "strategy": "Basiert auf typischen Abst\u00e4nden",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-19T10:44:19.331694",
@@ -1080,7 +833,7 @@
         12
       ],
       "method": "ej_position",
-      "method_name": "📍 Positions-Optimierung",
+      "method_name": "\ud83d\udccd Positions-Optimierung",
       "provider": "local_ml",
       "strategy": "Typische Bereiche pro Position",
       "confidence": 77.0,
@@ -1101,7 +854,7 @@
         3
       ],
       "method": "ej_no_consecutive",
-      "method_name": "🔀 Keine Folge-Zahlen",
+      "method_name": "\ud83d\udd00 Keine Folge-Zahlen",
       "provider": "local_ml",
       "strategy": "Vermeidet aufeinanderfolgende",
       "confidence": 77.0,
@@ -1122,7 +875,7 @@
         10
       ],
       "method": "ej_prime_mix",
-      "method_name": "🔢 Primzahlen-Mix",
+      "method_name": "\ud83d\udd22 Primzahlen-Mix",
       "provider": "local_ml",
       "strategy": "2 Primzahlen + 3 andere",
       "confidence": 81.2,
@@ -1143,7 +896,7 @@
         7
       ],
       "method": "ej_low_high",
-      "method_name": "📉📈 Low/High Balance",
+      "method_name": "\ud83d\udcc9\ud83d\udcc8 Low/High Balance",
       "provider": "local_ml",
       "strategy": "3 niedrige + 2 hohe Zahlen",
       "confidence": 77.0,
@@ -1164,9 +917,9 @@
         8
       ],
       "method": "ej_hot_cold_mix",
-      "method_name": "🔥❄️ Hot/Cold Mix",
+      "method_name": "\ud83d\udd25\u2744\ufe0f Hot/Cold Mix",
       "provider": "local_ml",
-      "strategy": "3 heiße + 2 kalte Zahlen",
+      "strategy": "3 hei\u00dfe + 2 kalte Zahlen",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-19T10:44:19.331784",
@@ -1185,7 +938,7 @@
         3
       ],
       "method": "ej_monte_carlo",
-      "method_name": "🎲 Monte-Carlo",
+      "method_name": "\ud83c\udfb2 Monte-Carlo",
       "provider": "local_ml",
       "strategy": "1000 Simulationen",
       "confidence": 77.0,
@@ -1206,42 +959,460 @@
         5
       ],
       "method": "ej_bayesian",
-      "method_name": "📊 Bayesian Inference",
+      "method_name": "\ud83d\udcca Bayesian Inference",
       "provider": "local_ml",
       "strategy": "Wahrscheinlichkeitsberechnung",
       "confidence": 78.5,
       "weight": 0.95,
       "timestamp": "2025-12-19T10:44:19.331808",
       "verified": false
+    },
+    {
+      "numbers": [
+        11,
+        22,
+        25,
+        34,
+        44
+      ],
+      "eurozahlen": [
+        6,
+        11
+      ],
+      "method": "ensemble_champion",
+      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "provider": "ensemble",
+      "strategy": "Gewichtetes Voting aus 15 KI-Vorhersagen",
+      "confidence": 90,
+      "timestamp": "2025-12-20T21:20:07.201664",
+      "verified": true,
+      "is_champion": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
+    },
+    {
+      "numbers": [
+        14,
+        25,
+        29,
+        38,
+        44
+      ],
+      "eurozahlen": [
+        2,
+        8
+      ],
+      "method": "ej_hot_cold",
+      "method_name": "\ud83d\udd25 Hot Numbers",
+      "provider": "local_ml",
+      "strategy": "Basiert auf den h\u00e4ufigsten Zahlen",
+      "confidence": 78.5,
+      "weight": 0.95,
+      "timestamp": "2025-12-20T21:20:07.201081",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
+    },
+    {
+      "numbers": [
+        16,
+        19,
+        31,
+        32,
+        46
+      ],
+      "eurozahlen": [
+        5,
+        7
+      ],
+      "method": "ej_cold",
+      "method_name": "\u2744\ufe0f Cold Numbers",
+      "provider": "local_ml",
+      "strategy": "Seltener gezogene Zahlen",
+      "confidence": 77.6,
+      "weight": 0.92,
+      "timestamp": "2025-12-20T21:20:07.201143",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "score": 1.0
+      }
+    },
+    {
+      "numbers": [
+        19,
+        26,
+        44,
+        45,
+        46
+      ],
+      "eurozahlen": [
+        3,
+        7
+      ],
+      "method": "ej_overdue",
+      "method_name": "\u23f0 \u00dcberf\u00e4llige Zahlen",
+      "provider": "local_ml",
+      "strategy": "Zahlen die lange nicht kamen",
+      "confidence": 77.0,
+      "weight": 0.9,
+      "timestamp": "2025-12-20T21:20:07.201161",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "score": 0.0
+      }
+    },
+    {
+      "numbers": [
+        11,
+        18,
+        21,
+        25,
+        34
+      ],
+      "eurozahlen": [
+        2,
+        7
+      ],
+      "method": "ej_odd_even_32",
+      "method_name": "\u2696\ufe0f 3-Ungerade/2-Gerade",
+      "provider": "local_ml",
+      "strategy": "Optimale Gerade/Ungerade-Balance",
+      "confidence": 80.9,
+      "weight": 1.03,
+      "timestamp": "2025-12-20T21:20:07.201187",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
+    },
+    {
+      "numbers": [
+        11,
+        24,
+        25,
+        34,
+        50
+      ],
+      "eurozahlen": [
+        3,
+        6
+      ],
+      "method": "ej_odd_even_23",
+      "method_name": "\u2696\ufe0f 2-Ungerade/3-Gerade",
+      "provider": "local_ml",
+      "strategy": "Alternative Gerade/Ungerade-Balance",
+      "confidence": 77.9,
+      "weight": 0.93,
+      "timestamp": "2025-12-20T21:20:07.201203",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "score": 1.0
+      }
+    },
+    {
+      "numbers": [
+        11,
+        22,
+        25,
+        34,
+        44
+      ],
+      "eurozahlen": [
+        4,
+        11
+      ],
+      "method": "ej_sum_optimized",
+      "method_name": "\ud83d\udcca Summen-Optimierung (\u03a3=136)",
+      "provider": "local_ml",
+      "strategy": "Optimiert auf typische Summen",
+      "confidence": 77.6,
+      "weight": 0.92,
+      "timestamp": "2025-12-20T21:20:07.201224",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
+    },
+    {
+      "numbers": [
+        2,
+        11,
+        18,
+        34,
+        44
+      ],
+      "eurozahlen": [
+        1,
+        6
+      ],
+      "method": "ej_decade_balance",
+      "method_name": "\ud83d\udcc8 Dekaden-Balance",
+      "provider": "local_ml",
+      "strategy": "Verteilt \u00fcber alle 10er-Gruppen",
+      "confidence": 81.8,
+      "weight": 1.06,
+      "timestamp": "2025-12-20T21:20:07.201253",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "score": 1.0
+      }
+    },
+    {
+      "numbers": [
+        8,
+        11,
+        19,
+        29,
+        33
+      ],
+      "eurozahlen": [
+        8,
+        11
+      ],
+      "method": "ej_delta",
+      "method_name": "\ud83d\udd22 Delta-Muster",
+      "provider": "local_ml",
+      "strategy": "Basiert auf typischen Abst\u00e4nden",
+      "confidence": 77.0,
+      "weight": 0.9,
+      "timestamp": "2025-12-20T21:20:07.201289",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 1,
+        "score": 0.5
+      }
+    },
+    {
+      "numbers": [
+        9,
+        13,
+        28,
+        31,
+        44
+      ],
+      "eurozahlen": [
+        4,
+        11
+      ],
+      "method": "ej_position",
+      "method_name": "\ud83d\udccd Positions-Optimierung",
+      "provider": "local_ml",
+      "strategy": "Typische Bereiche pro Position",
+      "confidence": 77.0,
+      "weight": 0.9,
+      "timestamp": "2025-12-20T21:20:07.201310",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
+    },
+    {
+      "numbers": [
+        22,
+        25,
+        38,
+        45,
+        50
+      ],
+      "eurozahlen": [
+        1,
+        4
+      ],
+      "method": "ej_no_consecutive",
+      "method_name": "\ud83d\udd00 Keine Folge-Zahlen",
+      "provider": "local_ml",
+      "strategy": "Vermeidet aufeinanderfolgende",
+      "confidence": 77.0,
+      "weight": 0.9,
+      "timestamp": "2025-12-20T21:20:07.201327",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "score": 0.0
+      }
+    },
+    {
+      "numbers": [
+        31,
+        36,
+        38,
+        40,
+        43
+      ],
+      "eurozahlen": [
+        3,
+        6
+      ],
+      "method": "ej_prime_mix",
+      "method_name": "\ud83d\udd22 Primzahlen-Mix",
+      "provider": "local_ml",
+      "strategy": "2 Primzahlen + 3 andere",
+      "confidence": 81.2,
+      "weight": 1.04,
+      "timestamp": "2025-12-20T21:20:07.201349",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "score": 0.0
+      }
+    },
+    {
+      "numbers": [
+        18,
+        21,
+        22,
+        29,
+        45
+      ],
+      "eurozahlen": [
+        1,
+        5
+      ],
+      "method": "ej_low_high",
+      "method_name": "\ud83d\udcc9\ud83d\udcc8 Low/High Balance",
+      "provider": "local_ml",
+      "strategy": "3 niedrige + 2 hohe Zahlen",
+      "confidence": 77.0,
+      "weight": 0.9,
+      "timestamp": "2025-12-20T21:20:07.201366",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "score": 0.0
+      }
+    },
+    {
+      "numbers": [
+        4,
+        18,
+        24,
+        32,
+        34
+      ],
+      "eurozahlen": [
+        2,
+        11
+      ],
+      "method": "ej_hot_cold_mix",
+      "method_name": "\ud83d\udd25\u2744\ufe0f Hot/Cold Mix",
+      "provider": "local_ml",
+      "strategy": "3 hei\u00dfe + 2 kalte Zahlen",
+      "confidence": 77.0,
+      "weight": 0.9,
+      "timestamp": "2025-12-20T21:20:07.201385",
+      "verified": true,
+      "result": {
+        "main_matches": 2,
+        "euro_matches": 2,
+        "score": 3.0
+      }
+    },
+    {
+      "numbers": [
+        22,
+        24,
+        29,
+        44,
+        50
+      ],
+      "eurozahlen": [
+        10,
+        11
+      ],
+      "method": "ej_monte_carlo",
+      "method_name": "\ud83c\udfb2 Monte-Carlo",
+      "provider": "local_ml",
+      "strategy": "1000 Simulationen",
+      "confidence": 77.0,
+      "weight": 0.9,
+      "timestamp": "2025-12-20T21:20:07.201403",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 1,
+        "score": 0.5
+      }
+    },
+    {
+      "numbers": [
+        14,
+        21,
+        22,
+        25,
+        33
+      ],
+      "eurozahlen": [
+        8,
+        11
+      ],
+      "method": "ej_bayesian",
+      "method_name": "\ud83d\udcca Bayesian Inference",
+      "provider": "local_ml",
+      "strategy": "Wahrscheinlichkeitsberechnung",
+      "confidence": 78.5,
+      "weight": 0.95,
+      "timestamp": "2025-12-20T21:20:07.201417",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
     }
   ],
-  "last_update": "2025-12-20T21:20:07.203177",
+  "last_update": "2025-12-20T21:45:00.204669",
   "next_draw": "23.12.2025",
   "ki_stats": {
     "providers_used": [
+      "ml_real",
       "local_ml"
     ],
-    "total_predictions": 16,
+    "total_analyzed": 20,
+    "top_8_saved": 8,
     "best_eurozahlen": [
       2,
       9
     ],
     "eurozahl_ranking": [
       [
-        9,
-        75.0
-      ],
-      [
         2,
-        70.8
+        68.1
       ],
       [
-        12,
-        62.7
+        9,
+        67.2
       ],
       [
         1,
-        61.6
+        65.3
+      ],
+      [
+        12,
+        63.0
       ],
       [
         10,
@@ -1270,5 +1441,6 @@
         0.95
       ]
     ]
-  }
+  },
+  "all_predictions_count": 20
 }
