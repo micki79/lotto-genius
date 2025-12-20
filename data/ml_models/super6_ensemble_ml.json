@@ -1,0 +1,10 @@
+{
+  "model_weights": {
+    "neural_network": 1.0,
+    "markov": 1.0,
+    "bayesian": 1.0
+  },
+  "game_name": "super6",
+  "num_digits": 6,
+  "last_updated": "2025-12-20T21:25:52.581868"
+}
