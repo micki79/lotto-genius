@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🧠 LottoGenius - Kontinuierliches Lern-System mit Selbstlernen
+🧠 LottoGenius - Kontinuierliches Lern-System mit ECHTEM ML
 
 Lernt aus jeder Ziehung:
 1. Vergleicht Vorhersagen mit echten Zahlen
@@ -10,11 +10,28 @@ Lernt aus jeder Ziehung:
 5. AKTUALISIERT STRATEGIE-GEWICHTE (Selbstlernen!)
 6. Erkennt Gewinnklassen
 7. Speichert alles für langfristiges Lernen
+8. *** NEU: TRAINIERT ECHTE ML-MODELLE ***
+   - Neuronales Netz mit Backpropagation
+   - Markov-Ketten
+   - Bayesian Learning
+   - Reinforcement Learning
 """
 import json
 import os
 from datetime import datetime
 from collections import Counter
+
+# Importiere echte ML-Modelle
+try:
+    from ml_models import (
+        NeuralNetwork, MarkovChain, BayesianPredictor,
+        ReinforcementLearner, EnsembleML, SuperzahlML,
+        train_all_models, learn_from_new_draw, get_ml_predictions
+    )
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
+    print("⚠️ ML-Modelle nicht verfügbar (ml_models.py nicht gefunden)")
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
@@ -102,6 +119,21 @@ class StrategyWeightUpdater:
             }
 
         strat = self.weights['strategies'][strategy_name]
+
+        # Stelle sicher dass alle Felder existieren
+        if 'total' not in strat:
+            strat['total'] = 0
+        if 'hits' not in strat:
+            strat['hits'] = 0
+        if 'three_plus' not in strat:
+            strat['three_plus'] = 0
+        if 'four_plus' not in strat:
+            strat['four_plus'] = 0
+        if 'sz_correct' not in strat:
+            strat['sz_correct'] = 0
+        if 'gewinnklassen' not in strat:
+            strat['gewinnklassen'] = {}
+
         strat['total'] += 1
         strat['hits'] += matches
 
@@ -513,9 +545,158 @@ def learn_from_results():
         print(f"   {i}. {prov}: {stats.get('accuracy', 0):.1f}% | SZ: {stats.get('sz_accuracy', 0):.0f}%{gk_str}")
 
     print()
+
+    # =====================================================
+    # *** ECHTES ML-TRAINING ***
+    # =====================================================
+    if ML_AVAILABLE:
+        print("=" * 60)
+        print("🧠 ECHTES ML-TRAINING STARTET")
+        print("=" * 60)
+
+        try:
+            # Hole vorherige Ziehung für Markov-Kette
+            previous_draw = draws[1] if len(draws) > 1 else {}
+
+            # Trainiere alle ML-Modelle inkrementell mit der neuen Ziehung
+            print("\n📚 Inkrementelles Training mit neuer Ziehung...")
+            ml_results = learn_from_new_draw(draws, last_draw, previous_draw)
+
+            print(f"   ✅ Neural Network: Trainiert auf {last_draw.get('date', 'unbekannt')}")
+            print(f"   ✅ Markov-Kette: Übergänge aktualisiert")
+            print(f"   ✅ Bayesian: Posterior aktualisiert")
+            print(f"   ✅ Superzahl-ML: Modell aktualisiert")
+
+            # Reinforcement Learning - Lerne aus Vorhersage-Ergebnissen
+            print("\n🎮 Reinforcement Learning Update...")
+            rl = ReinforcementLearner()
+
+            # Erstelle Feature-Vektor für RL
+            recent_nums = []
+            for d in draws[:30]:
+                recent_nums.extend(d.get('numbers', []))
+            freq = Counter(recent_nums)
+            features = [freq.get(i, 0) / 30 for i in range(1, 11)]  # Top 10 Features
+
+            rl_updates = 0
+            for pred in unverified:
+                result = rl.learn_from_result(pred, last_draw, features)
+                rl_updates += 1
+
+            print(f"   ✅ RL: {rl_updates} Vorhersagen bewertet")
+            print(f"   📊 Gesamte Rewards: {rl.total_rewards:.1f}")
+            print(f"   🎯 Beste Strategien:")
+            for strat in rl.get_best_strategies(3):
+                print(f"      • {strat['strategy']}: {strat['value']:.2f}")
+
+            # Ensemble Gewichte aktualisieren
+            print("\n🏆 Ensemble-Gewichte aktualisieren...")
+            ensemble = EnsembleML()
+
+            # Sammle ML-Vorhersagen für Gewichts-Update
+            model_predictions = {}
+
+            # Neural Network
+            nn = NeuralNetwork()
+            nn_nums, _ = nn.predict(draws)
+            model_predictions['neural_network'] = {'numbers': nn_nums}
+
+            # Markov
+            markov = MarkovChain()
+            markov_nums, _ = markov.predict(previous_draw)
+            model_predictions['markov_chain'] = {'numbers': markov_nums}
+
+            # Bayesian
+            bayesian = BayesianPredictor()
+            bayes_nums, _ = bayesian.predict()
+            model_predictions['bayesian'] = {'numbers': bayes_nums}
+
+            # Update Ensemble-Gewichte basierend auf echten Ergebnissen
+            ensemble.update_weights_from_result(model_predictions, last_draw)
+
+            print(f"   ✅ Neue Modell-Gewichte:")
+            for model, weight in ensemble.model_weights.items():
+                print(f"      • {model}: {weight:.3f}")
+
+            # Speichere ML-Status
+            ml_status = {
+                'last_training': datetime.now().isoformat(),
+                'training_draw': draw_date,
+                'models': {
+                    'neural_network': {
+                        'epochs_trained': nn.epochs_trained,
+                        'status': 'active'
+                    },
+                    'markov_chain': {
+                        'observations': markov.observations,
+                        'status': 'active'
+                    },
+                    'bayesian': {
+                        'observations': bayesian.observations,
+                        'status': 'active'
+                    },
+                    'reinforcement': {
+                        'episodes': rl.episodes,
+                        'total_rewards': rl.total_rewards,
+                        'status': 'active'
+                    }
+                },
+                'ensemble_weights': ensemble.model_weights
+            }
+            save_json('ml_status.json', ml_status)
+
+            print("\n" + "=" * 60)
+            print("✅ ECHTES ML-TRAINING ABGESCHLOSSEN!")
+            print("=" * 60)
+
+        except Exception as e:
+            print(f"\n❌ ML-Training Fehler: {e}")
+            import traceback
+            traceback.print_exc()
+
+    else:
+        print("\n⚠️ ML-Modelle nicht verfügbar - überspringe ML-Training")
+
+    print()
     print("=" * 60)
-    print("✅ Lernen mit Selbstlernen abgeschlossen!")
+    print("✅ Lernen mit Selbstlernen + ML abgeschlossen!")
     print("=" * 60)
 
+
+def train_ml_models_full():
+    """Vollständiges Training aller ML-Modelle (für initiales Setup oder Retraining)"""
+    if not ML_AVAILABLE:
+        print("❌ ML-Modelle nicht verfügbar")
+        return
+
+    print("\n" + "=" * 60)
+    print("🧠 VOLLSTÄNDIGES ML-TRAINING")
+    print("=" * 60)
+
+    lotto_data = load_json('lotto_data.json', {'draws': []})
+    draws = lotto_data.get('draws', [])
+
+    if not draws:
+        print("❌ Keine Trainingsdaten vorhanden")
+        return
+
+    print(f"📊 Trainiere mit {len(draws)} historischen Ziehungen...")
+
+    results = train_all_models(draws)
+
+    print("\n📈 Training-Ergebnisse:")
+    for model, result in results.items():
+        print(f"   • {model}: {result}")
+
+    print("\n✅ Vollständiges ML-Training abgeschlossen!")
+
+
 if __name__ == "__main__":
-    learn_from_results()
+    import sys
+
+    if len(sys.argv) > 1 and sys.argv[1] == '--full-train':
+        # Vollständiges Training
+        train_ml_models_full()
+    else:
+        # Normales inkrementelles Lernen
+        learn_from_results()

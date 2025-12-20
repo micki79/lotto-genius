@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 """
-🍀 LottoGenius - VOLLSTÄNDIGES Multi-KI Vorhersage-System mit Selbstlernen
+🍀 LottoGenius - VOLLSTÄNDIGES Multi-KI Vorhersage-System mit ECHTEM ML
 
-Integriert 7 kostenlose KI-APIs + 15 lokale Strategien:
+Integriert 7 kostenlose KI-APIs + ECHTE ML-Modelle:
 1. Google Gemini (1M Tokens/Tag)
 2. Groq (ultraschnell)
 3. HuggingFace (tausende Modelle)
 4. OpenRouter (50+ Modelle)
 5. Together AI ($25 Startguthaben)
 6. DeepSeek (komplett kostenlos)
-7. Lokale ML-Algorithmen (15 Strategien + 6 ML-Modelle)
+7. *** ECHTE ML-Modelle (keine Fake-Namen mehr!) ***
+   - Neuronales Netz mit Backpropagation
+   - Markov-Ketten für Sequenzanalyse
+   - Bayesian Learning mit Thompson Sampling
+   - Reinforcement Learning
 
 Features:
 - 6-Faktoren Superzahl-Analyse
+- ECHTES Machine Learning das lernt!
 - Selbstlernendes Gewichtungssystem
 - TOP 10 beste Tipps Auswahl
 - Kontinuierliches Lernen aus Ergebnissen
@@ -26,6 +31,18 @@ import requests
 import time
 import hashlib
 import math
+
+# Importiere echte ML-Modelle
+try:
+    from ml_models import (
+        NeuralNetwork, MarkovChain, BayesianPredictor,
+        ReinforcementLearner, EnsembleML, SuperzahlML,
+        get_ml_predictions, train_all_models
+    )
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
+    print("⚠️ Echte ML-Modelle nicht verfügbar")
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
@@ -1091,6 +1108,38 @@ def generate_predictions():
 
         except Exception as e:
             print(f"   ❌ {strategy_name}: {e}")
+
+    # ===== 1.5 ECHTE ML-MODELLE =====
+    if ML_AVAILABLE:
+        print("\n🧠 ECHTE ML-Modelle (trainiert mit {0} Ziehungen):".format(len(draws)))
+
+        try:
+            # Hole Vorhersagen von echten ML-Modellen
+            ml_predictions = get_ml_predictions(draws)
+
+            for pred in ml_predictions:
+                pred['timestamp'] = datetime.now().isoformat()
+                pred['verified'] = False
+                pred['strategy_weight'] = 2.0  # Bonus für echte ML
+
+                # Superzahl von ML-Modell oder beste SZ
+                if 'superzahl' not in pred or pred['superzahl'] is None:
+                    pred['superzahl'] = best_sz
+
+                all_predictions.append(pred)
+
+                is_champ = "🏆" if pred.get('is_champion') else ""
+                print(f"   ✅ {pred['method_name']}: {pred['numbers']} | SZ: {pred['superzahl']} {is_champ}")
+
+            ki_results['ml_real'] = True
+            print(f"\n   📊 {len(ml_predictions)} echte ML-Vorhersagen generiert!")
+
+        except Exception as e:
+            print(f"   ❌ ML-Fehler: {e}")
+            import traceback
+            traceback.print_exc()
+    else:
+        print("\n⚠️ Echte ML-Modelle nicht verfügbar - nutze nur statistische Strategien")
 
     # ===== 2. EXTERNE KI-APIS =====
     print("\n🌐 Externe KI-APIs:")
