@@ -12,11 +12,19 @@ Hauptgewinn: 10.000€ monatliche Rente (20 Jahre) oder 2,1 Mio € einmalig
 """
 import json
 import os
+import sys
 from datetime import datetime
 from collections import Counter
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 NUM_DIGITS = 7
+
+# Importiere echte ML-Modelle
+try:
+    from ml_models import train_digit_game_ml
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
 
 GEWINNKLASSEN = {
     1: {'endziffern': 7, 'name': 'Hauptgewinn (alle 7)', 'weight_boost': 6.0},
@@ -209,6 +217,13 @@ def learn_from_results():
     print(f"✅ Glücksspirale Lernen abgeschlossen!")
     print(f"🎁 Hauptgewinn: 10.000€/Monat für 20 Jahre!")
     print(f"{'='*60}")
+
+    # ML-Training wenn angefordert
+    if ML_AVAILABLE and ('--full-train' in sys.argv or '--train-ml' in sys.argv):
+        print("\n" + "=" * 60)
+        print("🧠 GLÜCKSSPIRALE ML-TRAINING")
+        print("=" * 60)
+        train_digit_game_ml('gluecksspirale', NUM_DIGITS, draws)
 
 if __name__ == "__main__":
     learn_from_results()

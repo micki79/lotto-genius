@@ -1240,12 +1240,16 @@ def learn_from_new_draw(draws, new_draw, previous_draw):
     return results
 
 def to_python_types(obj):
-    """Konvertiert numpy-Typen zu Python-nativen Typen für JSON"""
+    """Konvertiert numpy-Typen zu Python-nativen Typen für JSON (NumPy 2.0 kompatibel)"""
     if isinstance(obj, np.ndarray):
         return obj.tolist()
-    elif isinstance(obj, (np.int64, np.int32, np.int_)):
+    elif hasattr(np, 'integer') and isinstance(obj, np.integer):
         return int(obj)
-    elif isinstance(obj, (np.float64, np.float32, np.float_)):
+    elif hasattr(np, 'floating') and isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, (np.int64, np.int32, np.intc)):
+        return int(obj)
+    elif isinstance(obj, (np.float64, np.float32)):
         return float(obj)
     elif isinstance(obj, list):
         return [to_python_types(i) for i in obj]
@@ -1334,6 +1338,988 @@ def get_ml_predictions(draws):
     })
 
     return predictions
+
+
+# =====================================================
+# EUROJACKPOT ML-MODELLE
+# =====================================================
+
+class EurojackpotNeuralNetwork:
+    """
+    Neuronales Netz für Eurojackpot (5 aus 50 + 2 aus 12).
+
+    Architektur:
+    - Input: 50 Neuronen (Häufigkeit Hauptzahlen) + 12 (Eurozahlen)
+    - Hidden 1: 64 Neuronen (ReLU)
+    - Hidden 2: 32 Neuronen (ReLU)
+    - Output: 50 Neuronen (Hauptzahlen) + 12 (Eurozahlen)
+    """
+
+    MODEL_FILE = 'eurojackpot_neural_network.json'
+
+    def __init__(self):
+        saved = load_model(self.MODEL_FILE)
+
+        if saved and 'weights' in saved:
+            self.W1_main = np.array(saved['weights']['W1_main'])
+            self.b1_main = np.array(saved['weights']['b1_main'])
+            self.W2_main = np.array(saved['weights']['W2_main'])
+            self.b2_main = np.array(saved['weights']['b2_main'])
+            self.W3_main = np.array(saved['weights']['W3_main'])
+            self.b3_main = np.array(saved['weights']['b3_main'])
+
+            self.W1_euro = np.array(saved['weights']['W1_euro'])
+            self.b1_euro = np.array(saved['weights']['b1_euro'])
+            self.W2_euro = np.array(saved['weights']['W2_euro'])
+            self.b2_euro = np.array(saved['weights']['b2_euro'])
+
+            self.epochs_trained = saved.get('epochs_trained', 0)
+            self.learning_rate = saved.get('learning_rate', 0.01)
+        else:
+            # Hauptzahlen Netzwerk (50 -> 64 -> 32 -> 50)
+            self.W1_main = np.random.randn(50, 64) * np.sqrt(2.0 / 50)
+            self.b1_main = np.zeros((1, 64))
+            self.W2_main = np.random.randn(64, 32) * np.sqrt(2.0 / 64)
+            self.b2_main = np.zeros((1, 32))
+            self.W3_main = np.random.randn(32, 50) * np.sqrt(2.0 / 32)
+            self.b3_main = np.zeros((1, 50))
+
+            # Eurozahlen Netzwerk (12 -> 24 -> 12)
+            self.W1_euro = np.random.randn(12, 24) * np.sqrt(2.0 / 12)
+            self.b1_euro = np.zeros((1, 24))
+            self.W2_euro = np.random.randn(24, 12) * np.sqrt(2.0 / 24)
+            self.b2_euro = np.zeros((1, 12))
+
+            self.epochs_trained = 0
+            self.learning_rate = 0.01
+
+    def relu(self, x):
+        return np.clip(np.maximum(0, x), 0, 100)
+
+    def softmax(self, x):
+        x_clipped = np.clip(x, -100, 100)
+        x_shifted = x_clipped - np.max(x_clipped, axis=1, keepdims=True)
+        exp_x = np.exp(x_shifted)
+        return exp_x / (np.sum(exp_x, axis=1, keepdims=True) + 1e-10)
+
+    def forward_main(self, X):
+        z1 = np.dot(X, self.W1_main) + self.b1_main
+        a1 = self.relu(z1)
+        z2 = np.dot(a1, self.W2_main) + self.b2_main
+        a2 = self.relu(z2)
+        z3 = np.dot(a2, self.W3_main) + self.b3_main
+        return self.softmax(z3)
+
+    def forward_euro(self, X):
+        z1 = np.dot(X, self.W1_euro) + self.b1_euro
+        a1 = self.relu(z1)
+        z2 = np.dot(a1, self.W2_euro) + self.b2_euro
+        return self.softmax(z2)
+
+    def create_features(self, draws, num_draws=100):
+        """Erstellt Feature-Vektoren für Hauptzahlen und Eurozahlen"""
+        main_features = []
+        euro_features = []
+
+        for i in range(min(num_draws, len(draws) - 1)):
+            # Hauptzahlen-Features
+            main_freq = np.zeros(50)
+            euro_freq = np.zeros(12)
+
+            for j in range(i, min(i + 20, len(draws))):
+                for num in draws[j].get('numbers', []):
+                    if 1 <= num <= 50:
+                        main_freq[num - 1] += 1
+                for ez in draws[j].get('eurozahlen', []):
+                    if 1 <= ez <= 12:
+                        euro_freq[ez - 1] += 1
+
+            if np.max(main_freq) > 0:
+                main_freq = main_freq / np.max(main_freq)
+            if np.max(euro_freq) > 0:
+                euro_freq = euro_freq / np.max(euro_freq)
+
+            main_features.append(main_freq)
+            euro_features.append(euro_freq)
+
+        return (np.array(main_features) if main_features else np.zeros((1, 50)),
+                np.array(euro_features) if euro_features else np.zeros((1, 12)))
+
+    def train(self, draws, epochs=100):
+        """Trainiert das Netzwerk"""
+        X_main, X_euro = self.create_features(draws, num_draws=300)
+
+        if len(X_main) < 2:
+            return {'error': 'Nicht genug Daten'}
+
+        # Erstelle Labels
+        y_main = np.zeros((len(X_main), 50))
+        y_euro = np.zeros((len(X_euro), 12))
+
+        for i in range(len(X_main) - 1):
+            for num in draws[i].get('numbers', []):
+                if 1 <= num <= 50:
+                    y_main[i + 1, num - 1] = 1
+            for ez in draws[i].get('eurozahlen', []):
+                if 1 <= ez <= 12:
+                    y_euro[i + 1, ez - 1] = 1
+
+        for epoch in range(epochs):
+            # Forward + Backward für Hauptzahlen
+            output_main = self.forward_main(X_main)
+            dz3 = output_main - y_main
+            dW3 = np.clip(np.dot(self.relu(np.dot(self.relu(np.dot(X_main, self.W1_main) + self.b1_main), self.W2_main) + self.b2_main).T, dz3) / len(X_main), -1, 1)
+
+            self.W3_main -= self.learning_rate * dW3
+            self.W3_main = np.clip(self.W3_main, -5, 5)
+
+            # Forward + Backward für Eurozahlen
+            output_euro = self.forward_euro(X_euro)
+            dz2 = output_euro - y_euro
+            dW2 = np.clip(np.dot(self.relu(np.dot(X_euro, self.W1_euro) + self.b1_euro).T, dz2) / len(X_euro), -1, 1)
+
+            self.W2_euro -= self.learning_rate * dW2
+            self.W2_euro = np.clip(self.W2_euro, -5, 5)
+
+            if epoch % 20 == 0:
+                self.learning_rate *= 0.95
+
+        self.epochs_trained += epochs
+        self.save()
+
+        return {'epochs': epochs, 'total_epochs': self.epochs_trained}
+
+    def predict(self, draws):
+        """Vorhersage für Eurojackpot"""
+        X_main, X_euro = self.create_features(draws[:30], num_draws=1)
+
+        main_probs = self.forward_main(X_main)[0]
+        euro_probs = self.forward_euro(X_euro)[0]
+
+        # Top 5 Hauptzahlen
+        top_main = np.argsort(main_probs)[-5:]
+        main_numbers = sorted([i + 1 for i in top_main])
+
+        # Top 2 Eurozahlen
+        top_euro = np.argsort(euro_probs)[-2:]
+        euro_numbers = sorted([i + 1 for i in top_euro])
+
+        confidence = float(np.mean(main_probs[top_main]) * 100)
+
+        return main_numbers, euro_numbers, confidence
+
+    def save(self):
+        data = {
+            'weights': {
+                'W1_main': self.W1_main, 'b1_main': self.b1_main,
+                'W2_main': self.W2_main, 'b2_main': self.b2_main,
+                'W3_main': self.W3_main, 'b3_main': self.b3_main,
+                'W1_euro': self.W1_euro, 'b1_euro': self.b1_euro,
+                'W2_euro': self.W2_euro, 'b2_euro': self.b2_euro,
+            },
+            'epochs_trained': self.epochs_trained,
+            'learning_rate': self.learning_rate,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+
+class EurojackpotBayesian:
+    """Bayesian Predictor für Eurojackpot"""
+
+    MODEL_FILE = 'eurojackpot_bayesian.json'
+
+    def __init__(self):
+        saved = load_model(self.MODEL_FILE)
+
+        if saved and 'alpha_main' in saved:
+            self.alpha_main = np.array(saved['alpha_main'])
+            self.beta_main = np.array(saved['beta_main'])
+            self.alpha_euro = np.array(saved['alpha_euro'])
+            self.beta_euro = np.array(saved['beta_euro'])
+            self.observations = saved.get('observations', 0)
+        else:
+            self.alpha_main = np.ones(50)
+            self.beta_main = np.ones(50)
+            self.alpha_euro = np.ones(12)
+            self.beta_euro = np.ones(12)
+            self.observations = 0
+
+    def train(self, draws):
+        """Trainiert mit historischen Daten"""
+        for draw in draws:
+            main_nums = draw.get('numbers', [])
+            euro_nums = draw.get('eurozahlen', [])
+
+            for i in range(50):
+                if (i + 1) in main_nums:
+                    self.alpha_main[i] += 1
+                else:
+                    self.beta_main[i] += 1
+
+            for i in range(12):
+                if (i + 1) in euro_nums:
+                    self.alpha_euro[i] += 1
+                else:
+                    self.beta_euro[i] += 1
+
+        self.observations = len(draws)
+        self.save()
+        return {'observations': self.observations}
+
+    def predict(self, method='thompson'):
+        """Vorhersage mit Thompson Sampling"""
+        if method == 'thompson':
+            main_samples = [np.random.beta(self.alpha_main[i], self.beta_main[i]) for i in range(50)]
+            euro_samples = [np.random.beta(self.alpha_euro[i], self.beta_euro[i]) for i in range(12)]
+
+            main_indices = np.argsort(main_samples)[-5:]
+            euro_indices = np.argsort(euro_samples)[-2:]
+
+            main_numbers = sorted([i + 1 for i in main_indices])
+            euro_numbers = sorted([i + 1 for i in euro_indices])
+            confidence = 75
+        else:  # MAP
+            main_probs = self.alpha_main / (self.alpha_main + self.beta_main)
+            euro_probs = self.alpha_euro / (self.alpha_euro + self.beta_euro)
+
+            main_indices = np.argsort(main_probs)[-5:]
+            euro_indices = np.argsort(euro_probs)[-2:]
+
+            main_numbers = sorted([i + 1 for i in main_indices])
+            euro_numbers = sorted([i + 1 for i in euro_indices])
+            confidence = float(np.mean(main_probs[main_indices]) * 100)
+
+        return main_numbers, euro_numbers, confidence
+
+    def save(self):
+        data = {
+            'alpha_main': self.alpha_main,
+            'beta_main': self.beta_main,
+            'alpha_euro': self.alpha_euro,
+            'beta_euro': self.beta_euro,
+            'observations': self.observations,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+
+class EurojackpotMarkov:
+    """Markov-Kette für Eurojackpot"""
+
+    MODEL_FILE = 'eurojackpot_markov.json'
+
+    def __init__(self):
+        saved = load_model(self.MODEL_FILE)
+
+        if saved and 'transition_main' in saved:
+            self.transition_main = np.array(saved['transition_main'])
+            self.transition_euro = np.array(saved['transition_euro'])
+            self.observations = saved.get('observations', 0)
+        else:
+            self.transition_main = np.ones((50, 50)) / 50
+            self.transition_euro = np.ones((12, 12)) / 12
+            self.observations = 0
+
+    def train(self, draws):
+        """Trainiert Übergangswahrscheinlichkeiten"""
+        main_counts = np.ones((50, 50))
+        euro_counts = np.ones((12, 12))
+
+        for i in range(len(draws) - 1):
+            current_main = draws[i].get('numbers', [])
+            next_main = draws[i + 1].get('numbers', [])
+            current_euro = draws[i].get('eurozahlen', [])
+            next_euro = draws[i + 1].get('eurozahlen', [])
+
+            for cm in current_main:
+                for nm in next_main:
+                    if 1 <= cm <= 50 and 1 <= nm <= 50:
+                        main_counts[cm - 1][nm - 1] += 1
+
+            for ce in current_euro:
+                for ne in next_euro:
+                    if 1 <= ce <= 12 and 1 <= ne <= 12:
+                        euro_counts[ce - 1][ne - 1] += 1
+
+        self.transition_main = main_counts / main_counts.sum(axis=1, keepdims=True)
+        self.transition_euro = euro_counts / euro_counts.sum(axis=1, keepdims=True)
+
+        self.observations = len(draws)
+        self.save()
+        return {'observations': self.observations}
+
+    def predict(self, last_draw):
+        """Vorhersage basierend auf letzter Ziehung"""
+        last_main = last_draw.get('numbers', [])
+        last_euro = last_draw.get('eurozahlen', [])
+
+        # Kombiniere Übergangswahrscheinlichkeiten
+        main_probs = np.zeros(50)
+        for num in last_main:
+            if 1 <= num <= 50:
+                main_probs += self.transition_main[num - 1]
+
+        # Reduziere Wahrscheinlichkeit der letzten Zahlen
+        for num in last_main:
+            if 1 <= num <= 50:
+                main_probs[num - 1] *= 0.5
+
+        euro_probs = np.zeros(12)
+        for ez in last_euro:
+            if 1 <= ez <= 12:
+                euro_probs += self.transition_euro[ez - 1]
+
+        for ez in last_euro:
+            if 1 <= ez <= 12:
+                euro_probs[ez - 1] *= 0.5
+
+        main_indices = np.argsort(main_probs)[-5:]
+        euro_indices = np.argsort(euro_probs)[-2:]
+
+        main_numbers = sorted([i + 1 for i in main_indices])
+        euro_numbers = sorted([i + 1 for i in euro_indices])
+        confidence = float(np.mean(main_probs[main_indices]) / np.sum(main_probs) * 100)
+
+        return main_numbers, euro_numbers, min(confidence * 10, 90)
+
+    def save(self):
+        data = {
+            'transition_main': self.transition_main,
+            'transition_euro': self.transition_euro,
+            'observations': self.observations,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+
+class EurojackpotEnsembleML:
+    """Ensemble aller Eurojackpot ML-Modelle"""
+
+    MODEL_FILE = 'eurojackpot_ensemble_ml.json'
+
+    def __init__(self):
+        saved = load_model(self.MODEL_FILE)
+
+        if saved and 'model_weights' in saved:
+            self.model_weights = saved['model_weights']
+            self.model_performance = saved.get('model_performance', {})
+        else:
+            self.model_weights = {
+                'neural_network': 1.0,
+                'markov': 1.0,
+                'bayesian': 1.0
+            }
+            self.model_performance = {}
+
+        self.nn = EurojackpotNeuralNetwork()
+        self.markov = EurojackpotMarkov()
+        self.bayesian = EurojackpotBayesian()
+
+    def train_all(self, draws):
+        """Trainiert alle Modelle"""
+        results = {}
+
+        print("   🧠 Training Eurojackpot Neural Network...")
+        results['neural_network'] = self.nn.train(draws)
+
+        print("   🔗 Training Eurojackpot Markov Chain...")
+        results['markov'] = self.markov.train(draws)
+
+        print("   📊 Training Eurojackpot Bayesian...")
+        results['bayesian'] = self.bayesian.train(draws)
+
+        self.save()
+        return results
+
+    def predict(self, draws):
+        """Kombinierte Vorhersage"""
+        predictions = {}
+
+        # Neural Network
+        nn_main, nn_euro, nn_conf = self.nn.predict(draws)
+        predictions['neural_network'] = {
+            'numbers': nn_main, 'eurozahlen': nn_euro,
+            'confidence': nn_conf, 'weight': self.model_weights.get('neural_network', 1.0)
+        }
+
+        # Markov
+        markov_main, markov_euro, markov_conf = self.markov.predict(draws[0] if draws else {})
+        predictions['markov'] = {
+            'numbers': markov_main, 'eurozahlen': markov_euro,
+            'confidence': markov_conf, 'weight': self.model_weights.get('markov', 1.0)
+        }
+
+        # Bayesian
+        bayes_main, bayes_euro, bayes_conf = self.bayesian.predict('thompson')
+        predictions['bayesian'] = {
+            'numbers': bayes_main, 'eurozahlen': bayes_euro,
+            'confidence': bayes_conf, 'weight': self.model_weights.get('bayesian', 1.0)
+        }
+
+        # Gewichtetes Voting
+        main_votes = Counter()
+        euro_votes = Counter()
+
+        for model_name, pred in predictions.items():
+            weight = pred['weight']
+            for num in pred['numbers']:
+                main_votes[num] += weight
+            for ez in pred['eurozahlen']:
+                euro_votes[ez] += weight
+
+        ensemble_main = sorted([num for num, _ in main_votes.most_common(5)])
+        ensemble_euro = sorted([ez for ez, _ in euro_votes.most_common(2)])
+
+        return {
+            'ensemble': {'numbers': ensemble_main, 'eurozahlen': ensemble_euro},
+            'individual': predictions,
+            'model_weights': self.model_weights
+        }
+
+    def save(self):
+        data = {
+            'model_weights': self.model_weights,
+            'model_performance': self.model_performance,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+
+# =====================================================
+# ZIFFERN-BASIERTE SPIELE ML (Spiel 77, Super 6, Glücksspirale)
+# =====================================================
+
+class DigitNeuralNetwork:
+    """
+    Neuronales Netz für ziffernbasierte Spiele.
+
+    Arbeitet pro Position: Jede Position hat ihr eigenes Mini-Netz.
+    """
+
+    def __init__(self, game_name, num_digits):
+        self.game_name = game_name
+        self.num_digits = num_digits
+        self.MODEL_FILE = f'{game_name}_neural_network.json'
+
+        saved = load_model(self.MODEL_FILE)
+
+        if saved and 'weights' in saved:
+            self.position_weights = {}
+            for pos in range(num_digits):
+                pos_key = f'pos_{pos}'
+                if pos_key in saved['weights']:
+                    self.position_weights[pos] = {
+                        'W1': np.array(saved['weights'][pos_key]['W1']),
+                        'b1': np.array(saved['weights'][pos_key]['b1']),
+                        'W2': np.array(saved['weights'][pos_key]['W2']),
+                        'b2': np.array(saved['weights'][pos_key]['b2'])
+                    }
+                else:
+                    self._init_position_weights(pos)
+            self.epochs_trained = saved.get('epochs_trained', 0)
+            self.learning_rate = saved.get('learning_rate', 0.01)
+        else:
+            self.position_weights = {}
+            for pos in range(num_digits):
+                self._init_position_weights(pos)
+            self.epochs_trained = 0
+            self.learning_rate = 0.01
+
+    def _init_position_weights(self, pos):
+        """Initialisiert Gewichte für eine Position (10 -> 16 -> 10)"""
+        self.position_weights[pos] = {
+            'W1': np.random.randn(10, 16) * np.sqrt(2.0 / 10),
+            'b1': np.zeros((1, 16)),
+            'W2': np.random.randn(16, 10) * np.sqrt(2.0 / 16),
+            'b2': np.zeros((1, 10))
+        }
+
+    def relu(self, x):
+        return np.clip(np.maximum(0, x), 0, 100)
+
+    def softmax(self, x):
+        x_clipped = np.clip(x, -100, 100)
+        x_shifted = x_clipped - np.max(x_clipped, axis=1, keepdims=True)
+        exp_x = np.exp(x_shifted)
+        return exp_x / (np.sum(exp_x, axis=1, keepdims=True) + 1e-10)
+
+    def forward(self, X, pos):
+        """Forward pass für eine Position"""
+        w = self.position_weights[pos]
+        z1 = np.dot(X, w['W1']) + w['b1']
+        a1 = self.relu(z1)
+        z2 = np.dot(a1, w['W2']) + w['b2']
+        return self.softmax(z2)
+
+    def get_digits(self, number_str):
+        """Konvertiert Zahl in Ziffern-Liste"""
+        return [int(d) for d in str(number_str).zfill(self.num_digits)]
+
+    def train(self, draws, epochs=100):
+        """Trainiert das Netzwerk"""
+        if len(draws) < 10:
+            return {'error': 'Nicht genug Daten'}
+
+        # Erstelle Features pro Position
+        for pos in range(self.num_digits):
+            X = []  # Häufigkeiten der letzten N Ziehungen
+            y = []  # Nächste Ziffer
+
+            for i in range(len(draws) - 1):
+                # Feature: Häufigkeit der Ziffern in letzten 20 Ziehungen für diese Position
+                freq = np.zeros(10)
+                for j in range(i, min(i + 20, len(draws))):
+                    digits = self.get_digits(draws[j]['number'])
+                    freq[digits[pos]] += 1
+
+                if np.sum(freq) > 0:
+                    freq = freq / np.sum(freq)
+                X.append(freq)
+
+                # Label: Ziffer der nächsten Ziehung
+                next_digits = self.get_digits(draws[i]['number'])
+                y_vec = np.zeros(10)
+                y_vec[next_digits[pos]] = 1
+                y.append(y_vec)
+
+            X = np.array(X)
+            y = np.array(y)
+
+            if len(X) < 2:
+                continue
+
+            # Training
+            w = self.position_weights[pos]
+            for epoch in range(epochs):
+                # Forward
+                z1 = np.dot(X, w['W1']) + w['b1']
+                a1 = self.relu(z1)
+                z2 = np.dot(a1, w['W2']) + w['b2']
+                output = self.softmax(z2)
+
+                # Backward
+                dz2 = output - y
+                dW2 = np.clip(np.dot(a1.T, dz2) / len(X), -1, 1)
+                db2 = np.clip(np.sum(dz2, axis=0, keepdims=True) / len(X), -1, 1)
+
+                dz1 = np.dot(dz2, w['W2'].T) * (z1 > 0).astype(float)
+                dW1 = np.clip(np.dot(X.T, dz1) / len(X), -1, 1)
+                db1 = np.clip(np.sum(dz1, axis=0, keepdims=True) / len(X), -1, 1)
+
+                w['W2'] -= self.learning_rate * dW2
+                w['b2'] -= self.learning_rate * db2
+                w['W1'] -= self.learning_rate * dW1
+                w['b1'] -= self.learning_rate * db1
+
+                # Clip weights
+                w['W1'] = np.clip(w['W1'], -5, 5)
+                w['W2'] = np.clip(w['W2'], -5, 5)
+
+        self.epochs_trained += epochs
+        self.save()
+
+        return {'epochs': epochs, 'total_epochs': self.epochs_trained}
+
+    def predict(self, draws):
+        """Vorhersage der nächsten Zahl"""
+        predicted_digits = []
+        confidences = []
+
+        for pos in range(self.num_digits):
+            # Feature für diese Position
+            freq = np.zeros(10)
+            for j in range(min(20, len(draws))):
+                digits = self.get_digits(draws[j]['number'])
+                freq[digits[pos]] += 1
+
+            if np.sum(freq) > 0:
+                freq = freq / np.sum(freq)
+
+            X = freq.reshape(1, -1)
+            probs = self.forward(X, pos)[0]
+
+            best_digit = np.argmax(probs)
+            predicted_digits.append(best_digit)
+            confidences.append(float(probs[best_digit]))
+
+        number = ''.join(str(d) for d in predicted_digits)
+        confidence = float(np.mean(confidences) * 100)
+
+        return number, confidence
+
+    def save(self):
+        weights_data = {}
+        for pos in range(self.num_digits):
+            weights_data[f'pos_{pos}'] = self.position_weights[pos]
+
+        data = {
+            'weights': weights_data,
+            'epochs_trained': self.epochs_trained,
+            'learning_rate': self.learning_rate,
+            'game_name': self.game_name,
+            'num_digits': self.num_digits,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+
+class DigitBayesian:
+    """Bayesian Predictor für ziffernbasierte Spiele"""
+
+    def __init__(self, game_name, num_digits):
+        self.game_name = game_name
+        self.num_digits = num_digits
+        self.MODEL_FILE = f'{game_name}_bayesian.json'
+
+        saved = load_model(self.MODEL_FILE)
+
+        if saved and 'alpha' in saved:
+            self.alpha = {int(k): np.array(v) for k, v in saved['alpha'].items()}
+            self.beta = {int(k): np.array(v) for k, v in saved['beta'].items()}
+            self.observations = saved.get('observations', 0)
+        else:
+            self.alpha = {pos: np.ones(10) for pos in range(num_digits)}
+            self.beta = {pos: np.ones(10) for pos in range(num_digits)}
+            self.observations = 0
+
+    def get_digits(self, number_str):
+        return [int(d) for d in str(number_str).zfill(self.num_digits)]
+
+    def train(self, draws):
+        """Trainiert mit historischen Daten"""
+        for draw in draws:
+            digits = self.get_digits(draw['number'])
+            for pos, digit in enumerate(digits):
+                self.alpha[pos][digit] += 1
+                for d in range(10):
+                    if d != digit:
+                        self.beta[pos][d] += 0.1
+
+        self.observations = len(draws)
+        self.save()
+        return {'observations': self.observations}
+
+    def predict(self, method='thompson'):
+        """Vorhersage mit Thompson Sampling"""
+        predicted_digits = []
+
+        for pos in range(self.num_digits):
+            if method == 'thompson':
+                samples = [np.random.beta(self.alpha[pos][d], self.beta[pos][d]) for d in range(10)]
+                best_digit = np.argmax(samples)
+            else:  # MAP
+                probs = self.alpha[pos] / (self.alpha[pos] + self.beta[pos])
+                best_digit = np.argmax(probs)
+
+            predicted_digits.append(best_digit)
+
+        number = ''.join(str(d) for d in predicted_digits)
+        confidence = 70 if method == 'thompson' else 75
+
+        return number, confidence
+
+    def save(self):
+        data = {
+            'alpha': {str(k): v.tolist() for k, v in self.alpha.items()},
+            'beta': {str(k): v.tolist() for k, v in self.beta.items()},
+            'observations': self.observations,
+            'game_name': self.game_name,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+
+class DigitMarkov:
+    """Markov-Kette für ziffernbasierte Spiele"""
+
+    def __init__(self, game_name, num_digits):
+        self.game_name = game_name
+        self.num_digits = num_digits
+        self.MODEL_FILE = f'{game_name}_markov.json'
+
+        saved = load_model(self.MODEL_FILE)
+
+        if saved and 'transitions' in saved:
+            self.transitions = {int(k): np.array(v) for k, v in saved['transitions'].items()}
+            self.observations = saved.get('observations', 0)
+        else:
+            self.transitions = {pos: np.ones((10, 10)) / 10 for pos in range(num_digits)}
+            self.observations = 0
+
+    def get_digits(self, number_str):
+        return [int(d) for d in str(number_str).zfill(self.num_digits)]
+
+    def train(self, draws):
+        """Trainiert Übergangswahrscheinlichkeiten pro Position"""
+        counts = {pos: np.ones((10, 10)) for pos in range(self.num_digits)}
+
+        for i in range(len(draws) - 1):
+            current_digits = self.get_digits(draws[i + 1]['number'])
+            next_digits = self.get_digits(draws[i]['number'])
+
+            for pos in range(self.num_digits):
+                counts[pos][current_digits[pos]][next_digits[pos]] += 1
+
+        for pos in range(self.num_digits):
+            row_sums = counts[pos].sum(axis=1, keepdims=True)
+            self.transitions[pos] = counts[pos] / row_sums
+
+        self.observations = len(draws)
+        self.save()
+        return {'observations': self.observations}
+
+    def predict(self, last_draw):
+        """Vorhersage basierend auf letzter Ziehung"""
+        last_digits = self.get_digits(last_draw['number'])
+        predicted_digits = []
+
+        for pos in range(self.num_digits):
+            probs = self.transitions[pos][last_digits[pos]]
+            # Reduziere Wahrscheinlichkeit für gleiche Ziffer
+            probs[last_digits[pos]] *= 0.7
+            probs = probs / np.sum(probs)
+
+            best_digit = np.argmax(probs)
+            predicted_digits.append(best_digit)
+
+        number = ''.join(str(d) for d in predicted_digits)
+        confidence = 65
+
+        return number, confidence
+
+    def save(self):
+        data = {
+            'transitions': {str(k): v.tolist() for k, v in self.transitions.items()},
+            'observations': self.observations,
+            'game_name': self.game_name,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+
+class DigitGameEnsembleML:
+    """Ensemble ML für ziffernbasierte Spiele"""
+
+    def __init__(self, game_name, num_digits):
+        self.game_name = game_name
+        self.num_digits = num_digits
+        self.MODEL_FILE = f'{game_name}_ensemble_ml.json'
+
+        saved = load_model(self.MODEL_FILE)
+
+        if saved and 'model_weights' in saved:
+            self.model_weights = saved['model_weights']
+        else:
+            self.model_weights = {
+                'neural_network': 1.0,
+                'markov': 1.0,
+                'bayesian': 1.0
+            }
+
+        self.nn = DigitNeuralNetwork(game_name, num_digits)
+        self.markov = DigitMarkov(game_name, num_digits)
+        self.bayesian = DigitBayesian(game_name, num_digits)
+
+    def train_all(self, draws):
+        """Trainiert alle Modelle"""
+        results = {}
+
+        print(f"   🧠 Training {self.game_name} Neural Network...")
+        results['neural_network'] = self.nn.train(draws)
+
+        print(f"   🔗 Training {self.game_name} Markov Chain...")
+        results['markov'] = self.markov.train(draws)
+
+        print(f"   📊 Training {self.game_name} Bayesian...")
+        results['bayesian'] = self.bayesian.train(draws)
+
+        self.save()
+        return results
+
+    def predict(self, draws):
+        """Kombinierte Vorhersage"""
+        predictions = {}
+
+        # Neural Network
+        nn_num, nn_conf = self.nn.predict(draws)
+        predictions['neural_network'] = {
+            'number': nn_num, 'confidence': nn_conf,
+            'weight': self.model_weights.get('neural_network', 1.0)
+        }
+
+        # Markov
+        markov_num, markov_conf = self.markov.predict(draws[0] if draws else {'number': '0' * self.num_digits})
+        predictions['markov'] = {
+            'number': markov_num, 'confidence': markov_conf,
+            'weight': self.model_weights.get('markov', 1.0)
+        }
+
+        # Bayesian
+        bayes_num, bayes_conf = self.bayesian.predict('thompson')
+        predictions['bayesian'] = {
+            'number': bayes_num, 'confidence': bayes_conf,
+            'weight': self.model_weights.get('bayesian', 1.0)
+        }
+
+        # Gewichtetes Voting pro Position
+        ensemble_digits = []
+        for pos in range(self.num_digits):
+            votes = Counter()
+            for model_name, pred in predictions.items():
+                weight = pred['weight']
+                digit = int(pred['number'][pos])
+                votes[digit] += weight
+
+            best_digit = votes.most_common(1)[0][0]
+            ensemble_digits.append(best_digit)
+
+        ensemble_number = ''.join(str(d) for d in ensemble_digits)
+
+        return {
+            'ensemble': ensemble_number,
+            'individual': predictions,
+            'model_weights': self.model_weights
+        }
+
+    def save(self):
+        data = {
+            'model_weights': self.model_weights,
+            'game_name': self.game_name,
+            'num_digits': self.num_digits,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+
+# =====================================================
+# HELPER FUNKTIONEN FÜR ALLE SPIELE
+# =====================================================
+
+def to_native_types(obj):
+    """Konvertiert numpy Typen zu Python nativen Typen"""
+    # NumPy 2.0 kompatibel - np.float_ und np.int_ wurden entfernt
+    if hasattr(np, 'integer') and isinstance(obj, np.integer):
+        return int(obj)
+    elif hasattr(np, 'floating') and isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, (np.int64, np.int32, np.intc)):
+        return int(obj)
+    elif isinstance(obj, (np.float64, np.float32)):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return [to_native_types(x) for x in obj.tolist()]
+    elif isinstance(obj, list):
+        return [to_native_types(x) for x in obj]
+    elif isinstance(obj, dict):
+        return {k: to_native_types(v) for k, v in obj.items()}
+    return obj
+
+
+def get_eurojackpot_ml_predictions(draws):
+    """Holt ML-Vorhersagen für Eurojackpot"""
+    ensemble = EurojackpotEnsembleML()
+    result = ensemble.predict(draws)
+
+    predictions = []
+
+    # Ensemble Champion - Konvertiere zu nativen Python-Typen
+    predictions.append({
+        'numbers': to_native_types(result['ensemble']['numbers']),
+        'eurozahlen': to_native_types(result['ensemble']['eurozahlen']),
+        'method': 'ml_ensemble_real',
+        'method_name': '🏆 ML Ensemble (Alle Modelle)',
+        'provider': 'ml_real',
+        'strategy': 'Gewichtetes Voting aus Neural Network, Markov & Bayesian',
+        'confidence': 85,
+        'is_real_ml': True,
+        'is_champion': True
+    })
+
+    # Einzelne Modelle
+    for model_name, pred in result['individual'].items():
+        name_map = {
+            'neural_network': '🧠 Neuronales Netz',
+            'markov': '🔗 Markov-Kette',
+            'bayesian': '📊 Bayesian Thompson'
+        }
+        predictions.append({
+            'numbers': to_native_types(pred['numbers']),
+            'eurozahlen': to_native_types(pred['eurozahlen']),
+            'method': f'ml_{model_name}_real',
+            'method_name': name_map.get(model_name, model_name),
+            'provider': 'ml_real',
+            'strategy': f'Echtes ML: {model_name}',
+            'confidence': to_native_types(pred['confidence']),
+            'is_real_ml': True
+        })
+
+    return predictions
+
+
+def get_digit_game_ml_predictions(game_name, num_digits, draws):
+    """Holt ML-Vorhersagen für ziffernbasierte Spiele"""
+    ensemble = DigitGameEnsembleML(game_name, num_digits)
+    result = ensemble.predict(draws)
+
+    predictions = []
+
+    # Ensemble Champion
+    predictions.append({
+        'number': to_native_types(result['ensemble']),
+        'method': 'ml_ensemble_real',
+        'method_name': '🏆 ML Ensemble',
+        'provider': 'ml_real',
+        'strategy': 'Gewichtetes Voting aus Neural Network, Markov & Bayesian',
+        'confidence': 85,
+        'is_real_ml': True,
+        'is_champion': True
+    })
+
+    # Einzelne Modelle
+    name_map = {
+        'neural_network': '🧠 Neuronales Netz',
+        'markov': '🔗 Markov-Kette',
+        'bayesian': '📊 Bayesian'
+    }
+    for model_name, pred in result['individual'].items():
+        predictions.append({
+            'number': to_native_types(pred['number']),
+            'method': f'ml_{model_name}_real',
+            'method_name': name_map.get(model_name, model_name),
+            'provider': 'ml_real',
+            'strategy': f'Echtes ML: {model_name}',
+            'confidence': to_native_types(pred['confidence']),
+            'is_real_ml': True
+        })
+
+    return predictions
+
+
+def train_eurojackpot_ml(draws):
+    """Trainiert alle Eurojackpot ML-Modelle"""
+    print("\n" + "=" * 60)
+    print("🌟 EUROJACKPOT ML-TRAINING")
+    print("=" * 60)
+
+    ensemble = EurojackpotEnsembleML()
+    results = ensemble.train_all(draws)
+
+    print("✅ Eurojackpot ML-Training abgeschlossen")
+    return results
+
+
+def train_digit_game_ml(game_name, num_digits, draws):
+    """Trainiert alle ML-Modelle für ziffernbasierte Spiele"""
+    print(f"\n{'=' * 60}")
+    print(f"🎰 {game_name.upper()} ML-TRAINING")
+    print("=" * 60)
+
+    ensemble = DigitGameEnsembleML(game_name, num_digits)
+    results = ensemble.train_all(draws)
+
+    print(f"✅ {game_name} ML-Training abgeschlossen")
+    return results
 
 
 if __name__ == "__main__":

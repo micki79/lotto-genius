@@ -18,6 +18,17 @@ from collections import Counter, defaultdict
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 NUM_DIGITS = 7  # Spiel 77 hat 7 Ziffern
 
+# Importiere echte ML-Modelle
+try:
+    from ml_models import (
+        get_digit_game_ml_predictions,
+        train_digit_game_ml,
+        DigitGameEnsembleML
+    )
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
+
 def load_json(filename, default=None):
     path = os.path.join(DATA_DIR, filename)
     if os.path.exists(path):
@@ -454,6 +465,20 @@ def generate_predictions():
     # Strategien
     strategies = Spiel77Strategies(draws, analysis, weight_manager)
     all_predictions = []
+
+    # ===== ECHTE ML-MODELLE =====
+    if ML_AVAILABLE:
+        print("\n🧠 ECHTE ML-Modelle (Neural Network, Markov, Bayesian):")
+        try:
+            ml_predictions = get_digit_game_ml_predictions('spiel77', NUM_DIGITS, draws)
+            for pred in ml_predictions:
+                pred['strategy_weight'] = 2.5 if pred.get('is_champion') else 2.0
+                pred['timestamp'] = datetime.now().isoformat()
+                pred['verified'] = False
+                all_predictions.append(pred)
+                print(f"   ✅ {pred['method_name']}: {pred['number']}")
+        except Exception as e:
+            print(f"   ❌ ML-Fehler: {e}")
 
     print("\n🎰 Lokale Strategien (17 Methoden):")
 

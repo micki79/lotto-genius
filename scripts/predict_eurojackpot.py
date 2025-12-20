@@ -26,6 +26,18 @@ import math
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
+# Importiere echte ML-Modelle
+try:
+    from ml_models import (
+        get_eurojackpot_ml_predictions,
+        train_eurojackpot_ml,
+        EurojackpotEnsembleML
+    )
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
+    print("⚠️ ML-Modelle nicht verfügbar")
+
 # Primzahlen bis 50
 PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
 
@@ -989,8 +1001,24 @@ Generiere 2 verschiedene Tipps. Antworte NUR mit diesem JSON-Format:
     new_predictions = []
     ki_results = {}
 
+    # ===== 0. ECHTE ML-MODELLE =====
+    if ML_AVAILABLE:
+        print("\n🧠 ECHTE ML-Modelle (Neural Network, Markov, Bayesian):")
+        try:
+            ml_predictions = get_eurojackpot_ml_predictions(draws)
+            for pred in ml_predictions:
+                pred['timestamp'] = datetime.now().isoformat()
+                pred['verified'] = False
+                new_predictions.append(pred)
+                print(f"   ✅ {pred['method_name']}: {pred['numbers']} | Euro: {pred['eurozahlen']}")
+            ki_results['ml_real'] = True
+        except Exception as e:
+            print(f"   ❌ ML-Fehler: {e}")
+    else:
+        print("\n⚠️ Echte ML-Modelle nicht verfügbar")
+
     # ===== 1. LOKALE ML-MODELLE (15 Strategien) =====
-    print("\n🖥️ Lokale ML-Modelle (15 Strategien):")
+    print("\n🖥️ Lokale Strategien (15 Methoden):")
 
     local_predictions = ml_models.get_all_predictions()
 
