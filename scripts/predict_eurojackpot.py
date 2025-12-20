@@ -1186,12 +1186,36 @@ Generiere 2 verschiedene Tipps. Antworte NUR mit diesem JSON-Format:
     next_draw = now + timedelta(days=next_days)
     next_draw_str = next_draw.strftime('%d.%m.%Y')
 
-    predictions['predictions'] = new_predictions
+    # ===== NUR DIE BESTEN 8 TIPPS BEHALTEN =====
+    # Sortiere nach: 1. is_champion, 2. confidence, 3. weight
+    def sort_key(pred):
+        is_champ = 1 if pred.get('is_champion') else 0
+        conf = pred.get('confidence', 50)
+        weight = pred.get('weight', 1.0)
+        # ML-Modelle bekommen Bonus
+        is_ml = 1 if 'ml_' in pred.get('method', '') or '_real' in pred.get('method', '') else 0
+        return (is_champ, is_ml, conf, weight)
+
+    sorted_predictions = sorted(new_predictions, key=sort_key, reverse=True)
+    top_8_predictions = sorted_predictions[:8]
+
+    print(f"\n🏆 TOP 8 BESTE TIPPS (aus {len(new_predictions)} analysiert):")
+    for i, pred in enumerate(top_8_predictions, 1):
+        nums = pred.get('numbers', [])
+        euro = pred.get('eurozahlen', [])
+        method = pred.get('method_name', pred.get('method', 'unknown'))
+        conf = pred.get('confidence', 0)
+        champ = " 👑" if pred.get('is_champion') else ""
+        print(f"   {i}. {nums} | Euro: {euro} - {method} ({conf:.0f}%){champ}")
+
+    predictions['predictions'] = top_8_predictions
+    predictions['all_predictions_count'] = len(new_predictions)
     predictions['last_update'] = datetime.now().isoformat()
     predictions['next_draw'] = next_draw_str
     predictions['ki_stats'] = {
         'providers_used': list(ki_results.keys()),
-        'total_predictions': len(new_predictions),
+        'total_analyzed': len(new_predictions),
+        'top_8_saved': len(top_8_predictions),
         'best_eurozahlen': best_euro,
         'eurozahl_ranking': [(ez, round(score, 1)) for ez, score in euro_ranking[:5]],
         'top_strategies': [(s, stats.get('weight', 1.0)) for s, stats in ml_models.weight_manager.get_top_strategies(5)]
@@ -1201,7 +1225,7 @@ Generiere 2 verschiedene Tipps. Antworte NUR mit diesem JSON-Format:
     ml_models.weight_manager.save()
 
     print("\n" + "=" * 60)
-    print(f"✅ {len(new_predictions)} Eurojackpot-Vorhersagen generiert!")
+    print(f"✅ TOP 8 Eurojackpot-Tipps gespeichert! (aus {len(new_predictions)} analysiert)")
     print(f"📅 Nächste Ziehung: {next_draw_str}")
     print(f"🌟 Beste Eurozahlen: {best_euro}")
     print(f"🤖 KI-Provider verwendet: {len(ki_results)}")
