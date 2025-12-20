@@ -13,13 +13,18 @@
         11
       ],
       "method": "ensemble_champion",
-      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "method_name": "🏆 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 15 KI-Vorhersagen",
       "confidence": 90,
       "timestamp": "2025-12-20T21:20:07.201664",
-      "verified": false,
-      "is_champion": true
+      "verified": true,
+      "is_champion": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
     },
     {
       "numbers": [
@@ -34,13 +39,18 @@
         8
       ],
       "method": "ej_hot_cold",
-      "method_name": "\ud83d\udd25 Hot Numbers",
+      "method_name": "🔥 Hot Numbers",
       "provider": "local_ml",
-      "strategy": "Basiert auf den h\u00e4ufigsten Zahlen",
+      "strategy": "Basiert auf den häufigsten Zahlen",
       "confidence": 78.5,
       "weight": 0.95,
       "timestamp": "2025-12-20T21:20:07.201081",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
     },
     {
       "numbers": [
@@ -55,13 +65,18 @@
         7
       ],
       "method": "ej_cold",
-      "method_name": "\u2744\ufe0f Cold Numbers",
+      "method_name": "❄️ Cold Numbers",
       "provider": "local_ml",
       "strategy": "Seltener gezogene Zahlen",
       "confidence": 77.6,
       "weight": 0.92,
       "timestamp": "2025-12-20T21:20:07.201143",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "score": 1.0
+      }
     },
     {
       "numbers": [
@@ -76,13 +91,18 @@
         7
       ],
       "method": "ej_overdue",
-      "method_name": "\u23f0 \u00dcberf\u00e4llige Zahlen",
+      "method_name": "⏰ Überfällige Zahlen",
       "provider": "local_ml",
       "strategy": "Zahlen die lange nicht kamen",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-20T21:20:07.201161",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "score": 0.0
+      }
     },
     {
       "numbers": [
@@ -97,13 +117,18 @@
         7
       ],
       "method": "ej_odd_even_32",
-      "method_name": "\u2696\ufe0f 3-Ungerade/2-Gerade",
+      "method_name": "⚖️ 3-Ungerade/2-Gerade",
       "provider": "local_ml",
       "strategy": "Optimale Gerade/Ungerade-Balance",
       "confidence": 80.9,
       "weight": 1.03,
       "timestamp": "2025-12-20T21:20:07.201187",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
     },
     {
       "numbers": [
@@ -118,13 +143,18 @@
         6
       ],
       "method": "ej_odd_even_23",
-      "method_name": "\u2696\ufe0f 2-Ungerade/3-Gerade",
+      "method_name": "⚖️ 2-Ungerade/3-Gerade",
       "provider": "local_ml",
       "strategy": "Alternative Gerade/Ungerade-Balance",
       "confidence": 77.9,
       "weight": 0.93,
       "timestamp": "2025-12-20T21:20:07.201203",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "score": 1.0
+      }
     },
     {
       "numbers": [
@@ -139,13 +169,18 @@
         11
       ],
       "method": "ej_sum_optimized",
-      "method_name": "\ud83d\udcca Summen-Optimierung (\u03a3=136)",
+      "method_name": "📊 Summen-Optimierung (Σ=136)",
       "provider": "local_ml",
       "strategy": "Optimiert auf typische Summen",
       "confidence": 77.6,
       "weight": 0.92,
       "timestamp": "2025-12-20T21:20:07.201224",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
     },
     {
       "numbers": [
@@ -160,13 +195,18 @@
         6
       ],
       "method": "ej_decade_balance",
-      "method_name": "\ud83d\udcc8 Dekaden-Balance",
+      "method_name": "📈 Dekaden-Balance",
       "provider": "local_ml",
-      "strategy": "Verteilt \u00fcber alle 10er-Gruppen",
+      "strategy": "Verteilt über alle 10er-Gruppen",
       "confidence": 81.8,
       "weight": 1.06,
       "timestamp": "2025-12-20T21:20:07.201253",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "score": 1.0
+      }
     },
     {
       "numbers": [
@@ -181,13 +221,18 @@
         11
       ],
       "method": "ej_delta",
-      "method_name": "\ud83d\udd22 Delta-Muster",
+      "method_name": "🔢 Delta-Muster",
       "provider": "local_ml",
-      "strategy": "Basiert auf typischen Abst\u00e4nden",
+      "strategy": "Basiert auf typischen Abständen",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-20T21:20:07.201289",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 1,
+        "score": 0.5
+      }
     },
     {
       "numbers": [
@@ -202,13 +247,18 @@
         11
       ],
       "method": "ej_position",
-      "method_name": "\ud83d\udccd Positions-Optimierung",
+      "method_name": "📍 Positions-Optimierung",
       "provider": "local_ml",
       "strategy": "Typische Bereiche pro Position",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-20T21:20:07.201310",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
     },
     {
       "numbers": [
@@ -223,13 +273,18 @@
         4
       ],
       "method": "ej_no_consecutive",
-      "method_name": "\ud83d\udd00 Keine Folge-Zahlen",
+      "method_name": "🔀 Keine Folge-Zahlen",
       "provider": "local_ml",
       "strategy": "Vermeidet aufeinanderfolgende",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-20T21:20:07.201327",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "score": 0.0
+      }
     },
     {
       "numbers": [
@@ -244,13 +299,18 @@
         6
       ],
       "method": "ej_prime_mix",
-      "method_name": "\ud83d\udd22 Primzahlen-Mix",
+      "method_name": "🔢 Primzahlen-Mix",
       "provider": "local_ml",
       "strategy": "2 Primzahlen + 3 andere",
       "confidence": 81.2,
       "weight": 1.04,
       "timestamp": "2025-12-20T21:20:07.201349",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "score": 0.0
+      }
     },
     {
       "numbers": [
@@ -265,13 +325,18 @@
         5
       ],
       "method": "ej_low_high",
-      "method_name": "\ud83d\udcc9\ud83d\udcc8 Low/High Balance",
+      "method_name": "📉📈 Low/High Balance",
       "provider": "local_ml",
       "strategy": "3 niedrige + 2 hohe Zahlen",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-20T21:20:07.201366",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "score": 0.0
+      }
     },
     {
       "numbers": [
@@ -286,13 +351,18 @@
         11
       ],
       "method": "ej_hot_cold_mix",
-      "method_name": "\ud83d\udd25\u2744\ufe0f Hot/Cold Mix",
+      "method_name": "🔥❄️ Hot/Cold Mix",
       "provider": "local_ml",
-      "strategy": "3 hei\u00dfe + 2 kalte Zahlen",
+      "strategy": "3 heiße + 2 kalte Zahlen",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-20T21:20:07.201385",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 2,
+        "euro_matches": 2,
+        "score": 3.0
+      }
     },
     {
       "numbers": [
@@ -307,13 +377,18 @@
         11
       ],
       "method": "ej_monte_carlo",
-      "method_name": "\ud83c\udfb2 Monte-Carlo",
+      "method_name": "🎲 Monte-Carlo",
       "provider": "local_ml",
       "strategy": "1000 Simulationen",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-20T21:20:07.201403",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 1,
+        "score": 0.5
+      }
     },
     {
       "numbers": [
@@ -328,13 +403,18 @@
         11
       ],
       "method": "ej_bayesian",
-      "method_name": "\ud83d\udcca Bayesian Inference",
+      "method_name": "📊 Bayesian Inference",
       "provider": "local_ml",
       "strategy": "Wahrscheinlichkeitsberechnung",
       "confidence": 78.5,
       "weight": 0.95,
       "timestamp": "2025-12-20T21:20:07.201417",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "score": 1.5
+      }
     }
   ],
   "history": [
@@ -351,7 +431,7 @@
         11
       ],
       "method": "ensemble_champion",
-      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "method_name": "🏆 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 15 KI-Vorhersagen",
       "confidence": 90,
@@ -379,9 +459,9 @@
         8
       ],
       "method": "ej_hot_cold",
-      "method_name": "\ud83d\udd25 Hot Numbers",
+      "method_name": "🔥 Hot Numbers",
       "provider": "local_ml",
-      "strategy": "Basiert auf den h\u00e4ufigsten Zahlen",
+      "strategy": "Basiert auf den häufigsten Zahlen",
       "confidence": 80.0,
       "weight": 1.0,
       "timestamp": "2025-12-19T10:23:25.986094",
@@ -407,7 +487,7 @@
         7
       ],
       "method": "ej_cold",
-      "method_name": "\u2744\ufe0f Cold Numbers",
+      "method_name": "❄️ Cold Numbers",
       "provider": "local_ml",
       "strategy": "Seltener gezogene Zahlen",
       "confidence": 80.0,
@@ -435,7 +515,7 @@
         7
       ],
       "method": "ej_overdue",
-      "method_name": "\u23f0 \u00dcberf\u00e4llige Zahlen",
+      "method_name": "⏰ Überfällige Zahlen",
       "provider": "local_ml",
       "strategy": "Zahlen die lange nicht kamen",
       "confidence": 80.0,
@@ -463,7 +543,7 @@
         11
       ],
       "method": "ej_odd_even_32",
-      "method_name": "\u2696\ufe0f 3-Ungerade/2-Gerade",
+      "method_name": "⚖️ 3-Ungerade/2-Gerade",
       "provider": "local_ml",
       "strategy": "Optimale Gerade/Ungerade-Balance",
       "confidence": 80.0,
@@ -476,7 +556,7 @@
         "gewinnklasse": {
           "klasse": 12,
           "name": "2+1",
-          "quote": "6-10 \u20ac"
+          "quote": "6-10 €"
         },
         "draw_date": "17.12.2025",
         "new_weight": 1.03
@@ -495,7 +575,7 @@
         11
       ],
       "method": "ej_odd_even_23",
-      "method_name": "\u2696\ufe0f 2-Ungerade/3-Gerade",
+      "method_name": "⚖️ 2-Ungerade/3-Gerade",
       "provider": "local_ml",
       "strategy": "Alternative Gerade/Ungerade-Balance",
       "confidence": 80.0,
@@ -523,7 +603,7 @@
         12
       ],
       "method": "ej_sum_optimized",
-      "method_name": "\ud83d\udcca Summen-Optimierung (\u03a3=117)",
+      "method_name": "📊 Summen-Optimierung (Σ=117)",
       "provider": "local_ml",
       "strategy": "Optimiert auf typische Summen",
       "confidence": 80.0,
@@ -551,9 +631,9 @@
         11
       ],
       "method": "ej_decade_balance",
-      "method_name": "\ud83d\udcc8 Dekaden-Balance",
+      "method_name": "📈 Dekaden-Balance",
       "provider": "local_ml",
-      "strategy": "Verteilt \u00fcber alle 10er-Gruppen",
+      "strategy": "Verteilt über alle 10er-Gruppen",
       "confidence": 80.0,
       "weight": 1.0,
       "timestamp": "2025-12-19T10:23:25.986234",
@@ -564,7 +644,7 @@
         "gewinnklasse": {
           "klasse": 8,
           "name": "2+2",
-          "quote": "15-25 \u20ac"
+          "quote": "15-25 €"
         },
         "draw_date": "17.12.2025",
         "new_weight": 1.06
@@ -583,9 +663,9 @@
         12
       ],
       "method": "ej_delta",
-      "method_name": "\ud83d\udd22 Delta-Muster",
+      "method_name": "🔢 Delta-Muster",
       "provider": "local_ml",
-      "strategy": "Basiert auf typischen Abst\u00e4nden",
+      "strategy": "Basiert auf typischen Abständen",
       "confidence": 80.0,
       "weight": 1.0,
       "timestamp": "2025-12-19T10:23:25.986275",
@@ -611,7 +691,7 @@
         10
       ],
       "method": "ej_position",
-      "method_name": "\ud83d\udccd Positions-Optimierung",
+      "method_name": "📍 Positions-Optimierung",
       "provider": "local_ml",
       "strategy": "Typische Bereiche pro Position",
       "confidence": 80.0,
@@ -639,7 +719,7 @@
         10
       ],
       "method": "ej_no_consecutive",
-      "method_name": "\ud83d\udd00 Keine Folge-Zahlen",
+      "method_name": "🔀 Keine Folge-Zahlen",
       "provider": "local_ml",
       "strategy": "Vermeidet aufeinanderfolgende",
       "confidence": 80.0,
@@ -667,7 +747,7 @@
         11
       ],
       "method": "ej_prime_mix",
-      "method_name": "\ud83d\udd22 Primzahlen-Mix",
+      "method_name": "🔢 Primzahlen-Mix",
       "provider": "local_ml",
       "strategy": "2 Primzahlen + 3 andere",
       "confidence": 80.0,
@@ -680,7 +760,7 @@
         "gewinnklasse": {
           "klasse": 11,
           "name": "1+2",
-          "quote": "8-12 \u20ac"
+          "quote": "8-12 €"
         },
         "draw_date": "17.12.2025",
         "new_weight": 1.04
@@ -699,7 +779,7 @@
         12
       ],
       "method": "ej_low_high",
-      "method_name": "\ud83d\udcc9\ud83d\udcc8 Low/High Balance",
+      "method_name": "📉📈 Low/High Balance",
       "provider": "local_ml",
       "strategy": "3 niedrige + 2 hohe Zahlen",
       "confidence": 80.0,
@@ -727,9 +807,9 @@
         8
       ],
       "method": "ej_hot_cold_mix",
-      "method_name": "\ud83d\udd25\u2744\ufe0f Hot/Cold Mix",
+      "method_name": "🔥❄️ Hot/Cold Mix",
       "provider": "local_ml",
-      "strategy": "3 hei\u00dfe + 2 kalte Zahlen",
+      "strategy": "3 heiße + 2 kalte Zahlen",
       "confidence": 80.0,
       "weight": 1.0,
       "timestamp": "2025-12-19T10:23:25.986357",
@@ -755,7 +835,7 @@
         9
       ],
       "method": "ej_monte_carlo",
-      "method_name": "\ud83c\udfb2 Monte-Carlo",
+      "method_name": "🎲 Monte-Carlo",
       "provider": "local_ml",
       "strategy": "1000 Simulationen",
       "confidence": 80.0,
@@ -783,7 +863,7 @@
         11
       ],
       "method": "ej_bayesian",
-      "method_name": "\ud83d\udcca Bayesian Inference",
+      "method_name": "📊 Bayesian Inference",
       "provider": "local_ml",
       "strategy": "Wahrscheinlichkeitsberechnung",
       "confidence": 80.0,
@@ -811,7 +891,7 @@
         6
       ],
       "method": "ensemble_champion",
-      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "method_name": "🏆 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 15 KI-Vorhersagen",
       "confidence": 90,
@@ -832,9 +912,9 @@
         8
       ],
       "method": "ej_hot_cold",
-      "method_name": "\ud83d\udd25 Hot Numbers",
+      "method_name": "🔥 Hot Numbers",
       "provider": "local_ml",
-      "strategy": "Basiert auf den h\u00e4ufigsten Zahlen",
+      "strategy": "Basiert auf den häufigsten Zahlen",
       "confidence": 78.5,
       "weight": 0.95,
       "timestamp": "2025-12-19T10:44:19.331528",
@@ -853,7 +933,7 @@
         6
       ],
       "method": "ej_cold",
-      "method_name": "\u2744\ufe0f Cold Numbers",
+      "method_name": "❄️ Cold Numbers",
       "provider": "local_ml",
       "strategy": "Seltener gezogene Zahlen",
       "confidence": 77.6,
@@ -874,7 +954,7 @@
         10
       ],
       "method": "ej_overdue",
-      "method_name": "\u23f0 \u00dcberf\u00e4llige Zahlen",
+      "method_name": "⏰ Überfällige Zahlen",
       "provider": "local_ml",
       "strategy": "Zahlen die lange nicht kamen",
       "confidence": 77.0,
@@ -895,7 +975,7 @@
         7
       ],
       "method": "ej_odd_even_32",
-      "method_name": "\u2696\ufe0f 3-Ungerade/2-Gerade",
+      "method_name": "⚖️ 3-Ungerade/2-Gerade",
       "provider": "local_ml",
       "strategy": "Optimale Gerade/Ungerade-Balance",
       "confidence": 80.9,
@@ -916,7 +996,7 @@
         12
       ],
       "method": "ej_odd_even_23",
-      "method_name": "\u2696\ufe0f 2-Ungerade/3-Gerade",
+      "method_name": "⚖️ 2-Ungerade/3-Gerade",
       "provider": "local_ml",
       "strategy": "Alternative Gerade/Ungerade-Balance",
       "confidence": 77.9,
@@ -937,7 +1017,7 @@
         6
       ],
       "method": "ej_sum_optimized",
-      "method_name": "\ud83d\udcca Summen-Optimierung (\u03a3=123)",
+      "method_name": "📊 Summen-Optimierung (Σ=123)",
       "provider": "local_ml",
       "strategy": "Optimiert auf typische Summen",
       "confidence": 77.6,
@@ -958,9 +1038,9 @@
         12
       ],
       "method": "ej_decade_balance",
-      "method_name": "\ud83d\udcc8 Dekaden-Balance",
+      "method_name": "📈 Dekaden-Balance",
       "provider": "local_ml",
-      "strategy": "Verteilt \u00fcber alle 10er-Gruppen",
+      "strategy": "Verteilt über alle 10er-Gruppen",
       "confidence": 81.8,
       "weight": 1.06,
       "timestamp": "2025-12-19T10:44:19.331669",
@@ -979,9 +1059,9 @@
         6
       ],
       "method": "ej_delta",
-      "method_name": "\ud83d\udd22 Delta-Muster",
+      "method_name": "🔢 Delta-Muster",
       "provider": "local_ml",
-      "strategy": "Basiert auf typischen Abst\u00e4nden",
+      "strategy": "Basiert auf typischen Abständen",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-19T10:44:19.331694",
@@ -1000,7 +1080,7 @@
         12
       ],
       "method": "ej_position",
-      "method_name": "\ud83d\udccd Positions-Optimierung",
+      "method_name": "📍 Positions-Optimierung",
       "provider": "local_ml",
       "strategy": "Typische Bereiche pro Position",
       "confidence": 77.0,
@@ -1021,7 +1101,7 @@
         3
       ],
       "method": "ej_no_consecutive",
-      "method_name": "\ud83d\udd00 Keine Folge-Zahlen",
+      "method_name": "🔀 Keine Folge-Zahlen",
       "provider": "local_ml",
       "strategy": "Vermeidet aufeinanderfolgende",
       "confidence": 77.0,
@@ -1042,7 +1122,7 @@
         10
       ],
       "method": "ej_prime_mix",
-      "method_name": "\ud83d\udd22 Primzahlen-Mix",
+      "method_name": "🔢 Primzahlen-Mix",
       "provider": "local_ml",
       "strategy": "2 Primzahlen + 3 andere",
       "confidence": 81.2,
@@ -1063,7 +1143,7 @@
         7
       ],
       "method": "ej_low_high",
-      "method_name": "\ud83d\udcc9\ud83d\udcc8 Low/High Balance",
+      "method_name": "📉📈 Low/High Balance",
       "provider": "local_ml",
       "strategy": "3 niedrige + 2 hohe Zahlen",
       "confidence": 77.0,
@@ -1084,9 +1164,9 @@
         8
       ],
       "method": "ej_hot_cold_mix",
-      "method_name": "\ud83d\udd25\u2744\ufe0f Hot/Cold Mix",
+      "method_name": "🔥❄️ Hot/Cold Mix",
       "provider": "local_ml",
-      "strategy": "3 hei\u00dfe + 2 kalte Zahlen",
+      "strategy": "3 heiße + 2 kalte Zahlen",
       "confidence": 77.0,
       "weight": 0.9,
       "timestamp": "2025-12-19T10:44:19.331784",
@@ -1105,7 +1185,7 @@
         3
       ],
       "method": "ej_monte_carlo",
-      "method_name": "\ud83c\udfb2 Monte-Carlo",
+      "method_name": "🎲 Monte-Carlo",
       "provider": "local_ml",
       "strategy": "1000 Simulationen",
       "confidence": 77.0,
@@ -1126,7 +1206,7 @@
         5
       ],
       "method": "ej_bayesian",
-      "method_name": "\ud83d\udcca Bayesian Inference",
+      "method_name": "📊 Bayesian Inference",
       "provider": "local_ml",
       "strategy": "Wahrscheinlichkeitsberechnung",
       "confidence": 78.5,
