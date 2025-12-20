@@ -1,0 +1,115 @@
+{
+  "initialized": "2025-12-20T21:31:58.053202",
+  "last_update": "2025-12-20T21:31:58.367653",
+  "total_predictions": 21,
+  "total_correct": 0,
+  "games": {},
+  "global_strategy_weights": {
+    "ensemble_champion": 0.975,
+    "ej_hot_cold": 0.975,
+    "ej_cold": 0.9666666666666667,
+    "ej_overdue": 0.95,
+    "ej_odd_even_32": 0.975,
+    "ej_odd_even_23": 0.9666666666666667,
+    "ej_sum_optimized": 0.975,
+    "ej_decade_balance": 0.9666666666666667,
+    "ej_delta": 0.9583333333333334,
+    "ej_position": 0.975,
+    "ej_no_consecutive": 0.95,
+    "ej_prime_mix": 0.95,
+    "ej_low_high": 0.95,
+    "ej_hot_cold_mix": 1.0,
+    "ej_monte_carlo": 0.9583333333333334,
+    "ej_bayesian": 0.975
+  },
+  "model_performance": {
+    "neural_network": {
+      "score": 1.0,
+      "predictions": 0,
+      "hits": 0
+    },
+    "markov": {
+      "score": 1.0,
+      "predictions": 0,
+      "hits": 0
+    },
+    "bayesian": {
+      "score": 0.75,
+      "predictions": 1,
+      "hits": 1.5
+    },
+    "ensemble": {
+      "score": 0.75,
+      "predictions": 1,
+      "hits": 1.5
+    }
+  },
+  "learning_rate": 0.1,
+  "best_strategies": [
+    {
+      "name": "ej_hot_cold_mix",
+      "score": 1.0
+    },
+    {
+      "name": "ensemble_champion",
+      "score": 0.975
+    },
+    {
+      "name": "ej_hot_cold",
+      "score": 0.975
+    },
+    {
+      "name": "ej_odd_even_32",
+      "score": 0.975
+    },
+    {
+      "name": "ej_sum_optimized",
+      "score": 0.975
+    },
+    {
+      "name": "ej_position",
+      "score": 0.975
+    },
+    {
+      "name": "ej_bayesian",
+      "score": 0.975
+    },
+    {
+      "name": "ej_cold",
+      "score": 0.9666666666666667
+    },
+    {
+      "name": "ej_odd_even_23",
+      "score": 0.9666666666666667
+    },
+    {
+      "name": "ej_decade_balance",
+      "score": 0.9666666666666667
+    },
+    {
+      "name": "ej_delta",
+      "score": 0.9583333333333334
+    },
+    {
+      "name": "ej_monte_carlo",
+      "score": 0.9583333333333334
+    },
+    {
+      "name": "ej_overdue",
+      "score": 0.95
+    },
+    {
+      "name": "ej_no_consecutive",
+      "score": 0.95
+    },
+    {
+      "name": "ej_prime_mix",
+      "score": 0.95
+    },
+    {
+      "name": "ej_low_high",
+      "score": 0.95
+    }
+  ],
+  "version": "2.0"
+}
