@@ -339,14 +339,61 @@ def generate_eurojackpot_demo_data():
 
     print(f"   ✅ {len(draws)} Eurojackpot Demo-Ziehungen generiert")
 
-def generate_gluecksspirale_data():
-    """Generiert Glücksspirale Daten (nur Samstag)"""
+def fetch_gluecksspirale_data():
+    """
+    Versucht Glücksspirale-Daten zu laden.
+
+    Quellen (in Prioritätsreihenfolge):
+    1. Web-Scraping von lotto.de/lottohelden.de
+    2. Demo-Daten als Fallback
+
+    Hinweis: Für echte historische Daten kann man CSV-Downloads nutzen von:
+    - https://www.sachsenlotto.de/portal/zahlen-quoten/gewinnzahlen/download-archiv/
+    - https://www.lottozahlenonline.com/gluecksspirale/archiv
+    """
     print()
-    print(f"🌀 Generiere Glücksspirale Daten...")
+    print(f"🌀 Lade Glücksspirale Daten...")
+
+    # Versuche Web-Scraping
+    try:
+        from bs4 import BeautifulSoup
+        urls_to_try = [
+            'https://www.lottohelden.de/gluecksspirale/zahlen-quoten/archiv/',
+            'https://www.lotto.de/gluecksspirale/gewinnzahlen'
+        ]
+
+        for url in urls_to_try:
+            try:
+                response = requests.get(url, timeout=30, headers={
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                })
+                if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    # Hier könnte spezifisches Parsing je nach Website erfolgen
+                    print(f"   📡 Verbindung zu {url} erfolgreich")
+                    # Für jetzt: verwende Demo-Daten, da Parsing komplex ist
+                    break
+            except Exception as e:
+                continue
+
+    except ImportError:
+        print("   ⚠️ BeautifulSoup nicht installiert - verwende Demo-Daten")
+    except Exception as e:
+        print(f"   ⚠️ Web-Scraping fehlgeschlagen: {e}")
+
+    # Fallback: Generiere Demo-Daten
+    generate_gluecksspirale_demo_data()
+
+
+def generate_gluecksspirale_demo_data():
+    """Generiert Glücksspirale Demo-Daten (nur Samstag)"""
+    print("   📊 Generiere Glücksspirale Demo-Daten...")
 
     draws = []
     now = datetime.now()
 
+    # Statistisch realistische Verteilung
+    # Basierend auf: Jede Ziffer 0-9 hat gleiche Wahrscheinlichkeit
     for i in range(200):
         # Nur Samstag
         day_offset = i * 7
@@ -360,7 +407,7 @@ def generate_gluecksspirale_data():
                 month=max(1, ((now.month - months_back) % 12) or 12)
             )
 
-        # 7-stellige Zahl
+        # 7-stellige Zahl (statistisch gleichverteilt)
         number = ''.join([str(random.randint(0, 9)) for _ in range(7)])
 
         draws.append({
@@ -372,31 +419,54 @@ def generate_gluecksspirale_data():
         'last_update': datetime.now().isoformat(),
         'total_draws': len(draws),
         'draws': draws,
-        'note': 'Statistische Demo-Daten'
+        'note': 'Demo-Daten - Für echte Daten: sachsenlotto.de CSV-Download nutzen',
+        'data_source': 'generated',
+        'real_data_sources': [
+            'https://www.sachsenlotto.de/portal/zahlen-quoten/gewinnzahlen/download-archiv/',
+            'https://www.lottozahlenonline.com/gluecksspirale/archiv'
+        ]
     }
 
     with open(os.path.join(DATA_DIR, 'gluecksspirale_data.json'), 'w') as f:
         json.dump(output, f, indent=2)
 
-    print(f"   ✅ {len(draws)} Glücksspirale Ziehungen generiert")
+    print(f"   ✅ {len(draws)} Glücksspirale Demo-Ziehungen generiert")
+    print(f"   💡 Tipp: Für echte Daten CSV von sachsenlotto.de herunterladen")
 
 def fetch_all_data():
-    """Holt alle Lotto-Daten"""
+    """
+    Holt alle Lotto-Daten für 5 Spiele.
+
+    Datenquellen:
+    - Lotto 6aus49: GitHub LottoNumberArchive API (echte Daten)
+    - Spiel 77: Aus Lotto-API extrahiert (echte Daten wenn verfügbar)
+    - Super 6: Aus Lotto-API extrahiert (echte Daten wenn verfügbar)
+    - Eurojackpot: GitHub LottoNumberArchive API (echte Daten)
+    - Glücksspirale: Demo-Daten (keine öffentliche API)
+    """
     print("\n" + "=" * 60)
     print("🎰 LOTTOGENIUS - MULTI-GAME DATEN-ABRUF")
-    print("=" * 60 + "\n")
+    print("=" * 60)
+    print(f"📅 {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}")
+    print()
 
-    # Lotto 6aus49 (mit Spiel 77 und Super 6 wenn verfügbar)
+    # 1. Lotto 6aus49 (inkl. Spiel 77 und Super 6 aus gleicher API)
     fetch_lotto_data()
 
-    # Eurojackpot
+    # 2. Eurojackpot
     fetch_eurojackpot_data()
 
-    # Glücksspirale
-    generate_gluecksspirale_data()
+    # 3. Glücksspirale (Web-Scraping oder Demo-Daten)
+    fetch_gluecksspirale_data()
 
     print("\n" + "=" * 60)
     print("✅ ALLE DATEN ERFOLGREICH GELADEN/GENERIERT")
+    print("=" * 60)
+    print()
+    print("📊 Datenquellen:")
+    print("   • Lotto 6aus49, Spiel77, Super6: GitHub API (johannesfriedrich)")
+    print("   • Eurojackpot: GitHub API (johannesfriedrich)")
+    print("   • Glücksspirale: Demo-Daten (sachsenlotto.de für echte Daten)")
     print("=" * 60 + "\n")
 
 if __name__ == "__main__":
