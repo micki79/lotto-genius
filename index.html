@@ -3156,6 +3156,37 @@
             }
 
             generatePredictions() {
+                // 🧠 PRIORITÄT: Nutze GitHub ML-Vorhersagen (Markov, Monte-Carlo, Bayesian, Neural Network)
+                try {
+                    const storageKey = `github_${this.gameType}_predictions`;
+                    const githubData = localStorage.getItem(storageKey);
+                    if (githubData) {
+                        const mlData = JSON.parse(githubData);
+                        if (mlData?.predictions?.length >= 5) {
+                            console.log(`🧠 Nutze echte ML-Vorhersagen für ${this.gameType}:`, mlData.predictions.length);
+
+                            // Nimm die TOP 10 ML-Vorhersagen
+                            const mlPredictions = mlData.predictions.slice(0, 10).map((pred, i) => ({
+                                number: pred.number,
+                                confidence: pred.confidence || 70,
+                                strategy: `🧠 ${pred.strategy || pred.method || 'ML-Modell'}`,
+                                source: pred.provider || 'ml_real',
+                                isRealML: true,
+                                isChampion: pred.is_champion || i === 0
+                            }));
+
+                            return {
+                                analysis: `${GAME_CONFIG[this.gameType].name} ML-Analyse 🧠 (Markov, Monte-Carlo, Neural Network, Bayesian)`,
+                                predictions: mlPredictions,
+                                mlSource: 'GitHub ML-Modelle'
+                            };
+                        }
+                    }
+                } catch (e) {
+                    console.log(`ML-Vorhersagen für ${this.gameType} nicht verfügbar, nutze lokale Strategien`);
+                }
+
+                // Fallback: Lokale Strategien
                 const predictions = [
                     {
                         number: this.predictByPositionFrequency(),
