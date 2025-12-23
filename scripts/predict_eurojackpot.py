@@ -2,19 +2,29 @@
 """
 🌟 LottoGenius - EUROJACKPOT Multi-KI Vorhersage-System
 
-Integriert 7 kostenlose KI-APIs + 15 lokale Strategien:
+Integriert 7 kostenlose KI-APIs + 6 echte ML-Algorithmen + 15 lokale Strategien:
+
+EXTERNE KI-APIs:
 1. Google Gemini (1M Tokens/Tag)
 2. Groq (ultraschnell)
 3. HuggingFace (Mixtral-8x7B)
 4. OpenRouter (50+ Modelle)
 5. Together AI ($25 Startguthaben)
 6. DeepSeek (komplett kostenlos)
-7. Lokale ML-Algorithmen (15 Strategien)
+
+ECHTE ML-ALGORITHMEN:
+1. Neural Network (Backpropagation, 50→64→32→50)
+2. Markov Chain (Übergangswahrscheinlichkeiten)
+3. Bayesian Predictor (Thompson Sampling)
+4. Reinforcement Learner (Q-Learning)
+5. Eurozahl ML (Spezialisiert auf 2 aus 12)
+6. Ensemble ML (Kombiniert alle Modelle)
 
 SELBSTLERNENDES SYSTEM:
 - Gewichtet Strategien basierend auf historischer Performance
-- Passt Strategie-Auswahl automatisch an
-- Wählt die besten Vorhersagen basierend auf Erfolgsquote
+- Q-Learning lernt optimale Strategie-Auswahl
+- Eurozahl ML analysiert Paar-Muster
+- Wählt die besten 8 Vorhersagen basierend auf Erfolgsquote
 """
 import json
 import os
@@ -26,12 +36,14 @@ import math
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
-# Importiere echte ML-Modelle
+# Importiere echte ML-Modelle (6 Algorithmen)
 try:
     from ml_models import (
         get_eurojackpot_ml_predictions,
         train_eurojackpot_ml,
-        EurojackpotEnsembleML
+        EurojackpotEnsembleML,
+        EurojackpotReinforcementLearner,
+        EurozahlML
     )
     ML_AVAILABLE = True
 except ImportError:
