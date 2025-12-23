@@ -1013,9 +1013,10 @@ Generiere 2 verschiedene Tipps. Antworte NUR mit diesem JSON-Format:
     new_predictions = []
     ki_results = {}
 
-    # ===== 0. ECHTE ML-MODELLE =====
+    # ===== 0. ECHTE ML-MODELLE (6 Algorithmen) =====
     if ML_AVAILABLE:
-        print("\n🧠 ECHTE ML-Modelle (Neural Network, Markov, Bayesian):")
+        print("\n🧠 ECHTE ML-Modelle (6 Algorithmen):")
+        print("   Neural Network | Markov | Bayesian | Q-Learning | EurozahlML | Ensemble")
         try:
             ml_predictions = get_eurojackpot_ml_predictions(draws)
             for pred in ml_predictions:
@@ -1024,6 +1025,7 @@ Generiere 2 verschiedene Tipps. Antworte NUR mit diesem JSON-Format:
                 new_predictions.append(pred)
                 print(f"   ✅ {pred['method_name']}: {pred['numbers']} | Euro: {pred['eurozahlen']}")
             ki_results['ml_real'] = True
+            print(f"   📊 {len(ml_predictions)} ML-Vorhersagen generiert")
         except Exception as e:
             print(f"   ❌ ML-Fehler: {e}")
     else:
