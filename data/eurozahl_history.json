@@ -207,13 +207,117 @@
       ],
       "matches": 1,
       "method": "ej_bayesian"
+    },
+    {
+      "date": "23.12.2025",
+      "predicted": [
+        9,
+        6
+      ],
+      "actual": [
+        3,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_ensemble_real"
+    },
+    {
+      "date": "23.12.2025",
+      "predicted": [
+        9,
+        2
+      ],
+      "actual": [
+        3,
+        12
+      ],
+      "matches": 0,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "23.12.2025",
+      "predicted": [
+        2,
+        11
+      ],
+      "actual": [
+        3,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_bayesian_real"
+    },
+    {
+      "date": "23.12.2025",
+      "predicted": [
+        1,
+        3
+      ],
+      "actual": [
+        3,
+        12
+      ],
+      "matches": 1,
+      "method": "ml_markov_real"
+    },
+    {
+      "date": "23.12.2025",
+      "predicted": [
+        9,
+        6
+      ],
+      "actual": [
+        3,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_neural_network_real"
+    },
+    {
+      "date": "23.12.2025",
+      "predicted": [
+        1,
+        10
+      ],
+      "actual": [
+        3,
+        12
+      ],
+      "matches": 0,
+      "method": "ej_decade_balance"
+    },
+    {
+      "date": "23.12.2025",
+      "predicted": [
+        8,
+        5
+      ],
+      "actual": [
+        3,
+        12
+      ],
+      "matches": 0,
+      "method": "ej_prime_mix"
+    },
+    {
+      "date": "23.12.2025",
+      "predicted": [
+        2,
+        11
+      ],
+      "actual": [
+        3,
+        12
+      ],
+      "matches": 0,
+      "method": "ej_odd_even_32"
     }
   ],
   "stats": {
-    "total": 16,
-    "total_matches": 9,
-    "avg_matches": 0.56,
+    "total": 24,
+    "total_matches": 10,
+    "avg_matches": 0.42,
     "perfect_matches": 2,
-    "last_update": "2025-12-19T10:23:36.375488"
+    "last_update": "2025-12-23T20:19:08.485314"
   }
 }

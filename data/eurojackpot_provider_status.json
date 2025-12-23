@@ -3,28 +3,28 @@
     "gemini": {
       "name": "Google Gemini",
       "icon": "\ud83d\udd2e",
-      "status": "no_key",
+      "status": "error",
       "last_success": null,
       "error": null
     },
     "groq": {
       "name": "Groq (Llama)",
       "icon": "\u26a1",
-      "status": "no_key",
+      "status": "error",
       "last_success": null,
       "error": null
     },
     "huggingface": {
       "name": "HuggingFace",
       "icon": "\ud83e\udd17",
-      "status": "no_key",
+      "status": "error",
       "last_success": null,
       "error": null
     },
     "openrouter": {
       "name": "OpenRouter",
       "icon": "\ud83c\udf10",
-      "status": "no_key",
+      "status": "error",
       "last_success": null,
       "error": null
     },
@@ -38,7 +38,7 @@
     "deepseek": {
       "name": "DeepSeek",
       "icon": "\ud83e\udde0",
-      "status": "no_key",
+      "status": "error",
       "last_success": null,
       "error": null
     },
@@ -46,8 +46,8 @@
       "name": "Lokale ML-Modelle",
       "icon": "\ud83d\udda5\ufe0f",
       "status": "online",
-      "last_success": "2025-12-20T21:45:00.203605"
+      "last_success": "2025-12-23T20:19:09.049548"
     }
   },
-  "last_check": "2025-12-20T21:45:00.203567"
+  "last_check": "2025-12-23T20:19:09.049519"
 }

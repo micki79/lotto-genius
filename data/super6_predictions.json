@@ -1,6 +1,125 @@
 {
   "predictions": [
     {
+      "number": "587030",
+      "method": "ml_ensemble_real",
+      "method_name": "🏆 ML Ensemble",
+      "provider": "ml_real",
+      "strategy": "Gewichtetes Voting aus Neural Network, Markov, Bayesian & Q-Learning",
+      "confidence": 85,
+      "is_real_ml": true,
+      "is_champion": true,
+      "strategy_weight": 2.5,
+      "timestamp": "2025-12-23T20:19:09.773493",
+      "verified": false,
+      "quality_score": 101.5
+    },
+    {
+      "number": "437030",
+      "method": "ensemble_champion",
+      "strategy": "Gewichtetes Voting",
+      "strategy_weight": 3.0,
+      "confidence": 95,
+      "timestamp": "2025-12-23T20:19:09.791878",
+      "verified": false,
+      "is_champion": true,
+      "quality_score": 96.0
+    },
+    {
+      "number": "587730",
+      "method": "ml_neural_network_real",
+      "method_name": "🧠 Neuronales Netz",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: neural_network",
+      "confidence": 11.821494464021647,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2025-12-23T20:19:09.773520",
+      "verified": false,
+      "quality_score": 91.0
+    },
+    {
+      "number": "357078",
+      "method": "ml_bayesian_real",
+      "method_name": "📊 Bayesian",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: bayesian",
+      "confidence": 70,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2025-12-23T20:19:09.773528",
+      "verified": false,
+      "quality_score": 91.0
+    },
+    {
+      "number": "092074",
+      "method": "ml_markov_real",
+      "method_name": "🔗 Markov-Kette",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: markov",
+      "confidence": 65,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2025-12-23T20:19:09.773525",
+      "verified": false,
+      "quality_score": 89.0
+    },
+    {
+      "number": "430330",
+      "method": "ml_reinforcement_real",
+      "method_name": "🎯 Q-Learning",
+      "provider": "ml_real",
+      "strategy": "Q-Learning: hot_digits",
+      "confidence": 70,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2025-12-23T20:19:09.773532",
+      "verified": false,
+      "quality_score": 71.0
+    },
+    {
+      "number": "347419",
+      "method": "s6_prime",
+      "strategy": "Primziffern",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-23T20:19:09.789610",
+      "verified": false,
+      "quality_score": 66.0
+    },
+    {
+      "number": "430867",
+      "method": "s6_position_hot",
+      "strategy": "Häufigste pro Position",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-23T20:19:09.773583",
+      "verified": false,
+      "quality_score": 64.0
+    },
+    {
+      "number": "736652",
+      "method": "s6_hot",
+      "strategy": "Heiße Ziffern",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-23T20:19:09.773611",
+      "verified": false,
+      "quality_score": 64.0
+    },
+    {
+      "number": "672209",
+      "method": "s6_markov",
+      "strategy": "Markov-Ketten",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2025-12-23T20:19:09.773638",
+      "verified": false,
+      "quality_score": 64.0
+    }
+  ],
+  "history": [
+    {
       "number": "532770",
       "method": "ensemble_champion",
       "strategy": "Gewichtetes Voting",
@@ -142,172 +261,232 @@
       }
     }
   ],
-  "history": [],
   "all_predictions": [
     {
-      "number": "532770",
+      "number": "437030",
       "method": "ensemble_champion",
       "strategy": "Gewichtetes Voting",
       "strategy_weight": 3.0,
       "confidence": 95,
-      "timestamp": "2025-12-19T11:23:30.401299",
+      "timestamp": "2025-12-23T20:19:09.791878",
       "verified": false,
       "is_champion": true
     },
     {
-      "number": "532770",
+      "number": "587030",
+      "method": "ml_ensemble_real",
+      "method_name": "🏆 ML Ensemble",
+      "provider": "ml_real",
+      "strategy": "Gewichtetes Voting aus Neural Network, Markov, Bayesian & Q-Learning",
+      "confidence": 85,
+      "is_real_ml": true,
+      "is_champion": true,
+      "strategy_weight": 2.5,
+      "timestamp": "2025-12-23T20:19:09.773493",
+      "verified": false
+    },
+    {
+      "number": "587730",
+      "method": "ml_neural_network_real",
+      "method_name": "🧠 Neuronales Netz",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: neural_network",
+      "confidence": 11.821494464021647,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2025-12-23T20:19:09.773520",
+      "verified": false
+    },
+    {
+      "number": "092074",
+      "method": "ml_markov_real",
+      "method_name": "🔗 Markov-Kette",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: markov",
+      "confidence": 65,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2025-12-23T20:19:09.773525",
+      "verified": false
+    },
+    {
+      "number": "357078",
+      "method": "ml_bayesian_real",
+      "method_name": "📊 Bayesian",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: bayesian",
+      "confidence": 70,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2025-12-23T20:19:09.773528",
+      "verified": false
+    },
+    {
+      "number": "430330",
+      "method": "ml_reinforcement_real",
+      "method_name": "🎯 Q-Learning",
+      "provider": "ml_real",
+      "strategy": "Q-Learning: hot_digits",
+      "confidence": 70,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2025-12-23T20:19:09.773532",
+      "verified": false
+    },
+    {
+      "number": "430867",
       "method": "s6_position_hot",
       "strategy": "Häufigste pro Position",
       "strategy_weight": 1.0,
       "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.392408",
+      "timestamp": "2025-12-23T20:19:09.773583",
       "verified": false
     },
     {
-      "number": "538610",
-      "method": "s6_position_top3",
-      "strategy": "Zufällig aus Top 3",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.392484",
-      "verified": false
-    },
-    {
-      "number": "151855",
+      "number": "736652",
       "method": "s6_hot",
       "strategy": "Heiße Ziffern",
       "strategy_weight": 1.0,
       "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.392522",
+      "timestamp": "2025-12-23T20:19:09.773611",
       "verified": false
     },
     {
-      "number": "607723",
-      "method": "s6_cold",
-      "strategy": "Kalte Ziffern",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.392542",
-      "verified": false
-    },
-    {
-      "number": "582572",
-      "method": "s6_overdue",
-      "strategy": "Überfällige + Hot",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.392560",
-      "verified": false
-    },
-    {
-      "number": "923674",
-      "method": "s6_odd_even",
-      "strategy": "Gerade/Ungerade Balance",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.392577",
-      "verified": false
-    },
-    {
-      "number": "138807",
-      "method": "s6_sum",
-      "strategy": "Quersumme ~27",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.393689",
-      "verified": false
-    },
-    {
-      "number": "469512",
-      "method": "s6_no_doubles",
-      "strategy": "Keine Doppel",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.393736",
-      "verified": false
-    },
-    {
-      "number": "094844",
+      "number": "672209",
       "method": "s6_markov",
       "strategy": "Markov-Ketten",
       "strategy_weight": 1.0,
       "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.393764",
+      "timestamp": "2025-12-23T20:19:09.773638",
       "verified": false
     },
     {
-      "number": "532710",
+      "number": "440960",
       "method": "s6_monte_carlo",
       "strategy": "Monte-Carlo",
       "strategy_weight": 1.0,
       "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.400940",
+      "timestamp": "2025-12-23T20:19:09.786459",
       "verified": false
     },
     {
-      "number": "532770",
+      "number": "430863",
       "method": "s6_bayesian",
       "strategy": "Bayesian",
       "strategy_weight": 1.0,
       "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.401038",
+      "timestamp": "2025-12-23T20:19:09.789569",
       "verified": false
     },
     {
-      "number": "666921",
-      "method": "s6_delta",
-      "strategy": "Delta-Muster",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.401078",
-      "verified": false
-    },
-    {
-      "number": "680290",
+      "number": "636510",
       "method": "s6_fibonacci",
       "strategy": "Fibonacci",
       "strategy_weight": 1.0,
       "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.401098",
+      "timestamp": "2025-12-23T20:19:09.789595",
       "verified": false
     },
     {
-      "number": "907395",
+      "number": "347419",
       "method": "s6_prime",
       "strategy": "Primziffern",
       "strategy_weight": 1.0,
       "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.401116",
+      "timestamp": "2025-12-23T20:19:09.789610",
       "verified": false
     },
     {
-      "number": "212548",
-      "method": "s6_last_var",
-      "strategy": "Letzte Variation",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.401136",
-      "verified": false
-    },
-    {
-      "number": "317713",
-      "method": "s6_symmetry",
-      "strategy": "Symmetrisch",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.401154",
-      "verified": false
-    },
-    {
-      "number": "558858",
+      "number": "737763",
       "method": "s6_neural",
       "strategy": "Neuronales Netz",
       "strategy_weight": 1.0,
       "confidence": 60.0,
-      "timestamp": "2025-12-19T11:23:30.401206",
+      "timestamp": "2025-12-23T20:19:09.789681",
+      "verified": false
+    },
+    {
+      "number": "737863",
+      "method": "s6_position_top3",
+      "strategy": "Zufällig aus Top 3",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.789741",
+      "verified": false
+    },
+    {
+      "number": "148144",
+      "method": "s6_cold",
+      "strategy": "Kalte Ziffern",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.789753",
+      "verified": false
+    },
+    {
+      "number": "233603",
+      "method": "s6_overdue",
+      "strategy": "Überfällige + Hot",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.789765",
+      "verified": false
+    },
+    {
+      "number": "527834",
+      "method": "s6_odd_even",
+      "strategy": "Gerade/Ungerade Balance",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.789776",
+      "verified": false
+    },
+    {
+      "number": "177453",
+      "method": "s6_sum",
+      "strategy": "Quersumme ~27",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.791687",
+      "verified": false
+    },
+    {
+      "number": "308194",
+      "method": "s6_no_doubles",
+      "strategy": "Keine Doppel",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.791711",
+      "verified": false
+    },
+    {
+      "number": "421484",
+      "method": "s6_delta",
+      "strategy": "Delta-Muster",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.791728",
+      "verified": false
+    },
+    {
+      "number": "156299",
+      "method": "s6_last_var",
+      "strategy": "Letzte Variation",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.791742",
+      "verified": false
+    },
+    {
+      "number": "624426",
+      "method": "s6_symmetry",
+      "strategy": "Symmetrisch",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2025-12-23T20:19:09.791753",
       "verified": false
     }
   ],
-  "last_update": "2025-12-19T11:23:30.401573",
-  "next_draw": "20.12.2025"
+  "last_update": "2025-12-23T20:19:09.792087",
+  "next_draw": "24.12.2025"
 }
