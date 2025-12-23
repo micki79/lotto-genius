@@ -2573,7 +2573,45 @@
 
             // ERWEITERTE VORHERSAGEN mit 12+ wissenschaftlichen Strategien + Selbstlernen
             generatePredictions() {
-                // Hole gelernte Gewichte wenn verfügbar
+                // 🧠 PRIORITÄT: Nutze GitHub ML-Vorhersagen (Neural Network, Markov, Bayesian) wenn verfügbar
+                try {
+                    const githubData = localStorage.getItem('github_eurojackpot_predictions');
+                    if (githubData) {
+                        const mlData = JSON.parse(githubData);
+                        if (mlData?.predictions?.length >= 8) {
+                            console.log('🧠 Nutze echte ML-Vorhersagen für Eurojackpot:', mlData.predictions.length);
+
+                            // Nimm die TOP 8 ML-Vorhersagen
+                            const mlPredictions = mlData.predictions.slice(0, 8).map((pred, i) => ({
+                                numbers: pred.numbers,
+                                eurozahlen: pred.eurozahlen,
+                                confidence: pred.confidence || 80,
+                                strategy: `🧠 ${pred.method_name || pred.strategy || 'ML-Modell'}`,
+                                source: pred.provider || 'ml_real',
+                                isRealML: pred.is_real_ml || true,
+                                isChampion: pred.is_champion || i === 0,
+                                weight: 1.5 - (i * 0.05) // Höchste Gewichtung für ML
+                            }));
+
+                            return {
+                                analysis: `Eurojackpot ML-Analyse 🧠 TOP 8 (Neural Network, Markov, Bayesian)`,
+                                predictions: mlPredictions,
+                                statistics: {
+                                    totalDraws: this.data.length,
+                                    optimalSum: this.sumStats?.optimal || [95, 160],
+                                    bestOddEven: '3-2 oder 2-3',
+                                    hotNumbers: this.getTopNumbers(10),
+                                    coldNumbers: this.getColdNumbers(10),
+                                    mlSource: 'GitHub ML-Modelle'
+                                }
+                            };
+                        }
+                    }
+                } catch (e) {
+                    console.log('ML-Vorhersagen nicht verfügbar, nutze lokale Strategien');
+                }
+
+                // Fallback: Hole gelernte Gewichte wenn verfügbar
                 let strategyWeights = {};
                 try {
                     if (selfLearning && selfLearning.eurojackpotStrategies) {
@@ -2585,7 +2623,7 @@
                     console.log('Lerngewichte nicht verfügbar');
                 }
 
-                // Generiere ALLE Strategien (erweitert auf 12+)
+                // Fallback: Generiere ALLE Strategien (erweitert auf 12+)
                 let predictions = [
                     { ...this.strategyHotCold(), weight: strategyWeights['ej_hot_cold'] || 1.0 },
                     { ...this.strategyOddEvenBalance(), weight: strategyWeights['ej_odd_even'] || 1.0 },
@@ -2609,13 +2647,13 @@
                 bonusTip.weight = strategyWeights['ej_ensemble'] || 1.2;
                 predictions.unshift(bonusTip);
 
-                // Wähle die TOP 10 besten Tipps (nach Gewicht sortiert)
-                const top10Predictions = predictions.slice(0, 10);
+                // Wähle die TOP 8 besten Tipps (nach Gewicht sortiert)
+                const top8Predictions = predictions.slice(0, 8);
 
                 // Speichere Vorhersagen für späteres Lernen
                 const result = {
-                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 TOP 10 Selbstlernend`,
-                    predictions: top10Predictions, // Die 10 besten Tipps
+                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 TOP 8 Selbstlernend`,
+                    predictions: top8Predictions, // Die 8 besten Tipps
                     statistics: {
                         totalDraws: this.data.length,
                         optimalSum: this.sumStats.optimal,
@@ -2633,8 +2671,8 @@
 
                     // Log im Selbstlernsystem
                     if (selfLearning) {
-                        selfLearning.log('prediction', `🌟 Eurojackpot: TOP 10 von ${predictions.length} Strategien`,
-                            `Beste Strategie: ${top10Predictions[0].strategy}`);
+                        selfLearning.log('prediction', `🌟 Eurojackpot: TOP 8 von ${predictions.length} Strategien`,
+                            `Beste Strategie: ${top8Predictions[0].strategy}`);
                     }
                 } catch (e) {}
 
@@ -4689,6 +4727,43 @@
 
             // Kombiniert die Ergebnisse aller KIs zu einem Ensemble
             combineResults(results, frequencyMap) {
+                // 🧠 PRIORITÄT: Nutze GitHub ML-Vorhersagen (Neural Network, Markov, Bayesian) wenn verfügbar
+                try {
+                    const githubData = localStorage.getItem('github_predictions');
+                    if (githubData) {
+                        const mlData = JSON.parse(githubData);
+                        if (mlData?.predictions?.length >= 10) {
+                            console.log('🧠 Nutze echte ML-Vorhersagen für Lotto 6aus49:', mlData.predictions.length);
+
+                            // Nimm die TOP 10 ML-Vorhersagen
+                            const mlPredictions = mlData.predictions.slice(0, 10).map((pred, i) => ({
+                                numbers: pred.numbers,
+                                superzahl: pred.superzahl,
+                                confidence: pred.confidence || 80,
+                                strategy: `🧠 ${pred.method_name || pred.strategy || 'ML-Modell'}`,
+                                source: pred.provider || 'ml_real',
+                                isRealML: pred.is_real_ml || true,
+                                isEnsemble: pred.is_champion || i === 0,
+                                superzahlOptimized: true
+                            }));
+
+                            this.lastEnsembleResult = {
+                                predictions: mlPredictions,
+                                votingStats: {
+                                    providersUsed: mlPredictions.length,
+                                    mlSource: 'GitHub ML-Modelle (Neural Network, Markov, Bayesian)'
+                                },
+                                analysis: `🧠 ${mlPredictions.length} echte ML-Vorhersagen geladen (Neural Network, Markov-Kette, Bayesian Thompson)`
+                            };
+
+                            return this.lastEnsembleResult;
+                        }
+                    }
+                } catch (e) {
+                    console.log('ML-Vorhersagen nicht verfügbar, nutze KI-Ensemble');
+                }
+
+                // Fallback: Kombiniere KI-Ergebnisse
                 const allPredictions = [];
                 const allNumbers = {};
                 const allSuperzahlen = {};
@@ -9106,18 +9181,59 @@ Antworte NUR mit JSON:
         
         async function loadGitHubPredictions() {
             try {
-                const response = await fetch(`${GITHUB_DATA_URL}/predictions.json?t=${Date.now()}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.predictions && data.predictions.length > 0) {
-                        console.log('🤖 GitHub-Vorhersagen geladen:', data.predictions.length);
-                        showToast(`🤖 ${data.predictions.length} Auto-KI-Tipps geladen!`, '🍀');
-                        localStorage.setItem('github_predictions', JSON.stringify(data));
-                        return data;
-                    }
+                // Lade ALLE Spiele-Vorhersagen parallel (mit echten ML-Modellen)
+                const [lotto, eurojackpot, spiel77, super6, gluecksspirale] = await Promise.all([
+                    fetch(`${GITHUB_DATA_URL}/predictions.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${GITHUB_DATA_URL}/eurojackpot_predictions.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${GITHUB_DATA_URL}/spiel77_predictions.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${GITHUB_DATA_URL}/super6_predictions.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null),
+                    fetch(`${GITHUB_DATA_URL}/gluecksspirale_predictions.json?t=${Date.now()}`).then(r => r.ok ? r.json() : null).catch(() => null)
+                ]);
+
+                let totalLoaded = 0;
+
+                // Lotto 6aus49
+                if (lotto?.predictions?.length > 0) {
+                    console.log('🤖 Lotto 6aus49 ML-Vorhersagen geladen:', lotto.predictions.length);
+                    localStorage.setItem('github_predictions', JSON.stringify(lotto));
+                    totalLoaded += lotto.predictions.length;
                 }
+
+                // Eurojackpot
+                if (eurojackpot?.predictions?.length > 0) {
+                    console.log('🌟 Eurojackpot ML-Vorhersagen geladen:', eurojackpot.predictions.length);
+                    localStorage.setItem('github_eurojackpot_predictions', JSON.stringify(eurojackpot));
+                    totalLoaded += eurojackpot.predictions.length;
+                }
+
+                // Spiel 77
+                if (spiel77?.predictions?.length > 0) {
+                    console.log('7️⃣ Spiel 77 ML-Vorhersagen geladen:', spiel77.predictions.length);
+                    localStorage.setItem('github_spiel77_predictions', JSON.stringify(spiel77));
+                    totalLoaded += spiel77.predictions.length;
+                }
+
+                // Super 6
+                if (super6?.predictions?.length > 0) {
+                    console.log('6️⃣ Super 6 ML-Vorhersagen geladen:', super6.predictions.length);
+                    localStorage.setItem('github_super6_predictions', JSON.stringify(super6));
+                    totalLoaded += super6.predictions.length;
+                }
+
+                // Glücksspirale
+                if (gluecksspirale?.predictions?.length > 0) {
+                    console.log('🌀 Glücksspirale ML-Vorhersagen geladen:', gluecksspirale.predictions.length);
+                    localStorage.setItem('github_gluecksspirale_predictions', JSON.stringify(gluecksspirale));
+                    totalLoaded += gluecksspirale.predictions.length;
+                }
+
+                if (totalLoaded > 0) {
+                    showToast(`🧠 ${totalLoaded} ML-KI-Tipps geladen!`, '🍀');
+                }
+
+                return { lotto, eurojackpot, spiel77, super6, gluecksspirale };
             } catch (e) {
-                console.log('GitHub-Vorhersagen nicht verfügbar');
+                console.log('GitHub-Vorhersagen nicht verfügbar:', e);
             }
             return null;
         }
