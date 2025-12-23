@@ -2693,6 +2693,407 @@ class DigitGameEnsembleML:
 
 
 # =====================================================
+# GLOBAL META-LEARNER - LERNT VON ALLEN SPIELEN
+# =====================================================
+
+class GlobalMetaLearner:
+    """
+    Globaler Meta-Learner der von ALLEN Spielen lernt.
+
+    Dieses Modell analysiert die Performance aller Strategien und ML-Modelle
+    über alle 5 Spiele hinweg und identifiziert globale Muster.
+
+    Features:
+    - Cross-Game Learning: Erkenntnisse von einem Spiel auf andere übertragen
+    - Globale Strategie-Bewertung: Welche Ansätze funktionieren am besten?
+    - Adaptive Gewichtung: Modelle die gut performen bekommen mehr Gewicht
+    - Meta-Statistiken: Globale Trends und Muster erkennen
+
+    Unterstützte Spiele:
+    1. Lotto 6aus49 (6 ML-Modelle + 15 Strategien)
+    2. Eurojackpot (5 ML-Modelle + 18 Strategien)
+    3. Spiel 77 (Ziffernbasiert)
+    4. Super 6 (Ziffernbasiert)
+    5. Glücksspirale (Ziffernbasiert)
+    """
+
+    MODEL_FILE = 'global_meta_learner.json'
+
+    def __init__(self):
+        """Initialisiert den GlobalMetaLearner."""
+        # Alle unterstützten Spiele
+        self.games = ['lotto_6aus49', 'eurojackpot', 'spiel77', 'super6', 'gluecksspirale']
+
+        # ML-Modelle pro Spiel
+        self.ml_models = {
+            'lotto_6aus49': ['neural_network', 'markov', 'bayesian', 'reinforcement', 'ensemble', 'superzahl_ml'],
+            'eurojackpot': ['neural_network', 'markov', 'bayesian', 'reinforcement', 'eurozahl_ml', 'ensemble'],
+            'spiel77': ['digit_frequency', 'pattern_analyzer'],
+            'super6': ['digit_frequency', 'pattern_analyzer'],
+            'gluecksspirale': ['digit_frequency', 'pattern_analyzer']
+        }
+
+        # Strategie-Kategorien (spielübergreifend)
+        self.strategy_categories = {
+            'frequency_based': ['hot', 'cold', 'hot_cold', 'hot_cold_mix', 'overdue'],
+            'pattern_based': ['odd_even', 'low_high', 'decade_balance', 'no_consecutive'],
+            'mathematical': ['sum_optimized', 'delta', 'prime_mix', 'position'],
+            'stochastic': ['monte_carlo', 'bayesian', 'markov'],
+            'learning': ['neural_network', 'reinforcement', 'ensemble']
+        }
+
+        # Performance-Tracking pro Spiel und Modell
+        self.model_performance = {game: {} for game in self.games}
+
+        # Globale Kategorie-Performance
+        self.category_performance = {cat: {
+            'total_predictions': 0,
+            'successful_predictions': 0,
+            'average_matches': 0.0,
+            'trend': 0.0,  # Positiv = verbessernd, Negativ = verschlechternd
+            'confidence': 0.5
+        } for cat in self.strategy_categories}
+
+        # Cross-Game Transfer Learning
+        self.transfer_weights = np.ones((len(self.games), len(self.games))) / len(self.games)
+
+        # Globale Meta-Statistiken
+        self.global_stats = {
+            'total_predictions': 0,
+            'total_matches': 0,
+            'best_performing_game': None,
+            'best_performing_category': None,
+            'learning_rate': 0.1,
+            'last_update': None
+        }
+
+        # Lade gespeicherte Daten
+        self._load_model()
+
+    def _load_model(self):
+        """Lädt das Modell aus der Datei."""
+        data = load_model(self.MODEL_FILE)
+        if data:
+            self.model_performance = data.get('model_performance', self.model_performance)
+            self.category_performance = data.get('category_performance', self.category_performance)
+            self.global_stats = data.get('global_stats', self.global_stats)
+
+            # Transfer-Gewichte wiederherstellen
+            if 'transfer_weights' in data:
+                tw = data['transfer_weights']
+                self.transfer_weights = np.array(tw) if isinstance(tw, list) else tw
+
+    def save_model(self):
+        """Speichert das Modell."""
+        data = {
+            'model_performance': self.model_performance,
+            'category_performance': self.category_performance,
+            'transfer_weights': self.transfer_weights.tolist(),
+            'global_stats': self.global_stats,
+            'last_update': datetime.now().isoformat()
+        }
+        save_model(self.MODEL_FILE, data)
+
+    def record_prediction(self, game: str, model_name: str, prediction: dict,
+                          actual_result: dict = None, matches: int = 0):
+        """
+        Zeichnet eine Vorhersage auf und lernt daraus.
+
+        Args:
+            game: Name des Spiels (z.B. 'lotto_6aus49')
+            model_name: Name des Modells/Strategie
+            prediction: Die Vorhersage
+            actual_result: Das tatsächliche Ergebnis (optional)
+            matches: Anzahl der Treffer
+        """
+        if game not in self.games:
+            return
+
+        # Initialisiere Modell-Entry falls nicht vorhanden
+        if model_name not in self.model_performance[game]:
+            self.model_performance[game][model_name] = {
+                'predictions': 0,
+                'total_matches': 0,
+                'average_matches': 0.0,
+                'wins': 0,
+                'weight': 1.0,
+                'recent_performance': []  # Letzte 10 Ergebnisse
+            }
+
+        perf = self.model_performance[game][model_name]
+        perf['predictions'] += 1
+        perf['total_matches'] += matches
+        perf['recent_performance'].append(matches)
+
+        # Nur letzte 10 behalten
+        if len(perf['recent_performance']) > 10:
+            perf['recent_performance'] = perf['recent_performance'][-10:]
+
+        # Average aktualisieren
+        perf['average_matches'] = perf['total_matches'] / perf['predictions']
+
+        # Gewicht anpassen basierend auf Performance
+        if matches >= 3:  # Gewinnklasse erreicht
+            perf['wins'] += 1
+            perf['weight'] = min(2.0, perf['weight'] * 1.05)
+        elif matches == 0:
+            perf['weight'] = max(0.5, perf['weight'] * 0.98)
+
+        # Globale Stats aktualisieren
+        self.global_stats['total_predictions'] += 1
+        self.global_stats['total_matches'] += matches
+
+        # Kategorie-Performance aktualisieren
+        self._update_category_performance(model_name, matches)
+
+        # Transfer-Learning anwenden
+        self._update_transfer_weights(game, model_name, matches)
+
+    def _update_category_performance(self, model_name: str, matches: int):
+        """Aktualisiert die Kategorie-Performance."""
+        for category, models in self.strategy_categories.items():
+            # Prüfe ob Modellname zur Kategorie passt
+            if any(m in model_name.lower() for m in models):
+                cat_perf = self.category_performance[category]
+                cat_perf['total_predictions'] += 1
+
+                # Gewichteter Durchschnitt für average_matches
+                old_avg = cat_perf['average_matches']
+                n = cat_perf['total_predictions']
+                cat_perf['average_matches'] = (old_avg * (n - 1) + matches) / n
+
+                if matches >= 3:
+                    cat_perf['successful_predictions'] += 1
+
+                # Trend berechnen (Exponentieller Moving Average)
+                trend_factor = 0.1
+                expected = cat_perf['average_matches']
+                cat_perf['trend'] = cat_perf['trend'] * (1 - trend_factor) + (matches - expected) * trend_factor
+
+                # Confidence basierend auf Datenmenge
+                cat_perf['confidence'] = min(1.0, 0.5 + cat_perf['total_predictions'] / 100)
+                break
+
+    def _update_transfer_weights(self, source_game: str, model_name: str, matches: int):
+        """
+        Aktualisiert Transfer-Gewichte zwischen Spielen.
+
+        Wenn ein Modell bei einem Spiel gut funktioniert, könnte das
+        gleiche Prinzip auch bei anderen Spielen funktionieren.
+        """
+        if source_game not in self.games:
+            return
+
+        source_idx = self.games.index(source_game)
+
+        # Gute Performance erhöht Transfer-Gewichte
+        if matches >= 2:
+            learning_rate = self.global_stats['learning_rate']
+
+            # Erhöhe Gewichte von diesem Spiel zu allen anderen
+            for target_idx in range(len(self.games)):
+                if target_idx != source_idx:
+                    # Ähnliche Spiele bekommen mehr Transfer
+                    similarity = self._game_similarity(source_game, self.games[target_idx])
+                    update = learning_rate * similarity * (matches / 5.0)
+                    self.transfer_weights[source_idx, target_idx] += update
+
+            # Normalisieren
+            row_sum = self.transfer_weights[source_idx].sum()
+            if row_sum > 0:
+                self.transfer_weights[source_idx] /= row_sum
+
+    def _game_similarity(self, game1: str, game2: str) -> float:
+        """
+        Berechnet Ähnlichkeit zwischen zwei Spielen.
+
+        Ähnliche Spieltypen (z.B. beide zahlenbasiert) haben höhere Ähnlichkeit.
+        """
+        # Spieltypen definieren
+        number_games = {'lotto_6aus49', 'eurojackpot'}
+        digit_games = {'spiel77', 'super6', 'gluecksspirale'}
+
+        if game1 in number_games and game2 in number_games:
+            return 0.9  # Sehr ähnlich
+        elif game1 in digit_games and game2 in digit_games:
+            return 0.8  # Ähnlich
+        else:
+            return 0.3  # Unterschiedlich
+
+    def get_best_strategy_for_game(self, game: str) -> dict:
+        """
+        Gibt die beste Strategie für ein Spiel zurück.
+
+        Berücksichtigt:
+        1. Lokale Performance (bei diesem Spiel)
+        2. Transfer-Learning (von anderen Spielen)
+        3. Kategorie-Trends
+        """
+        if game not in self.games:
+            return {'strategy': None, 'confidence': 0}
+
+        game_perf = self.model_performance.get(game, {})
+
+        if not game_perf:
+            # Keine Daten - empfehle basierend auf Kategorie-Trends
+            best_cat = max(self.category_performance.items(),
+                          key=lambda x: x[1]['average_matches'] * x[1]['confidence'])
+            return {
+                'strategy': best_cat[0],
+                'confidence': best_cat[1]['confidence'] * 0.5,
+                'reason': 'Basierend auf globalen Kategorie-Trends'
+            }
+
+        # Finde beste Strategie für dieses Spiel
+        best_model = max(game_perf.items(),
+                        key=lambda x: x[1]['weight'] * x[1]['average_matches'])
+
+        # Transfer-Wissen einbeziehen
+        game_idx = self.games.index(game)
+        transfer_boost = 0
+        for other_idx, other_game in enumerate(self.games):
+            if other_idx != game_idx:
+                other_perf = self.model_performance.get(other_game, {})
+                for model, perf in other_perf.items():
+                    if model == best_model[0]:
+                        transfer_boost += self.transfer_weights[other_idx, game_idx] * perf['average_matches']
+
+        confidence = min(1.0, (best_model[1]['predictions'] / 50) + 0.3)
+
+        return {
+            'strategy': best_model[0],
+            'weight': best_model[1]['weight'],
+            'average_matches': best_model[1]['average_matches'],
+            'transfer_boost': transfer_boost,
+            'confidence': confidence,
+            'reason': 'Basierend auf lokaler Performance und Transfer-Learning'
+        }
+
+    def get_global_insights(self) -> dict:
+        """
+        Liefert globale Erkenntnisse über alle Spiele hinweg.
+        """
+        insights = {
+            'total_predictions': self.global_stats['total_predictions'],
+            'overall_average_matches': 0,
+            'best_game': None,
+            'best_category': None,
+            'trending_up': [],
+            'trending_down': [],
+            'recommendations': []
+        }
+
+        if self.global_stats['total_predictions'] > 0:
+            insights['overall_average_matches'] = (
+                self.global_stats['total_matches'] / self.global_stats['total_predictions']
+            )
+
+        # Bestes Spiel finden
+        best_game_score = 0
+        for game, models in self.model_performance.items():
+            if models:
+                avg_weight = sum(m['weight'] for m in models.values()) / len(models)
+                if avg_weight > best_game_score:
+                    best_game_score = avg_weight
+                    insights['best_game'] = game
+
+        # Beste Kategorie finden
+        best_cat = max(self.category_performance.items(),
+                      key=lambda x: x[1]['average_matches'] * x[1]['confidence'])
+        insights['best_category'] = best_cat[0]
+
+        # Trends analysieren
+        for cat, perf in self.category_performance.items():
+            if perf['trend'] > 0.1:
+                insights['trending_up'].append(cat)
+            elif perf['trend'] < -0.1:
+                insights['trending_down'].append(cat)
+
+        # Empfehlungen generieren
+        if insights['trending_up']:
+            insights['recommendations'].append(
+                f"Fokussiere auf {', '.join(insights['trending_up'])} - aktuell positive Trends"
+            )
+        if insights['trending_down']:
+            insights['recommendations'].append(
+                f"Reduziere Gewichtung von {', '.join(insights['trending_down'])} - negative Trends"
+            )
+
+        return insights
+
+    def apply_transfer_learning(self, target_game: str) -> dict:
+        """
+        Wendet Transfer-Learning auf ein Zielspiel an.
+
+        Returns Gewichtsanpassungen basierend auf Erkenntnissen anderer Spiele.
+        """
+        if target_game not in self.games:
+            return {}
+
+        target_idx = self.games.index(target_game)
+        adjustments = {}
+
+        for source_idx, source_game in enumerate(self.games):
+            if source_idx == target_idx:
+                continue
+
+            source_perf = self.model_performance.get(source_game, {})
+            transfer_weight = self.transfer_weights[source_idx, target_idx]
+
+            for model, perf in source_perf.items():
+                if model not in adjustments:
+                    adjustments[model] = {
+                        'base_weight': 1.0,
+                        'transfer_adjustment': 0.0,
+                        'sources': []
+                    }
+
+                # Übertrage gelernte Gewichte
+                adjustment = (perf['weight'] - 1.0) * transfer_weight * 0.5
+                adjustments[model]['transfer_adjustment'] += adjustment
+                adjustments[model]['sources'].append(source_game)
+
+        # Finale Gewichte berechnen
+        for model, adj in adjustments.items():
+            adj['final_weight'] = adj['base_weight'] + adj['transfer_adjustment']
+            adj['final_weight'] = max(0.5, min(2.0, adj['final_weight']))
+
+        return adjustments
+
+    def get_model_ranking(self) -> list:
+        """
+        Gibt ein globales Ranking aller Modelle zurück.
+        """
+        rankings = []
+
+        for game, models in self.model_performance.items():
+            for model, perf in models.items():
+                score = perf['weight'] * perf['average_matches'] * (1 + perf['wins'] * 0.1)
+                rankings.append({
+                    'game': game,
+                    'model': model,
+                    'score': round(score, 3),
+                    'predictions': perf['predictions'],
+                    'average_matches': round(perf['average_matches'], 2),
+                    'wins': perf['wins']
+                })
+
+        # Sortiere nach Score
+        rankings.sort(key=lambda x: x['score'], reverse=True)
+
+        return rankings
+
+
+def get_global_meta_learner() -> GlobalMetaLearner:
+    """
+    Factory-Funktion für den GlobalMetaLearner.
+
+    Gibt eine initialisierte Instanz zurück.
+    """
+    return GlobalMetaLearner()
+
+
+# =====================================================
 # HELPER FUNKTIONEN FÜR ALLE SPIELE
 # =====================================================
 

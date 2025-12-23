@@ -1,0 +1,103 @@
+{
+  "model_performance": {
+    "lotto_6aus49": {
+      "neural_network": {
+        "predictions": 1,
+        "total_matches": 3,
+        "average_matches": 3.0,
+        "wins": 1,
+        "weight": 1.05,
+        "recent_performance": [
+          3
+        ]
+      }
+    },
+    "eurojackpot": {},
+    "spiel77": {},
+    "super6": {},
+    "gluecksspirale": {}
+  },
+  "category_performance": {
+    "frequency_based": {
+      "total_predictions": 0,
+      "successful_predictions": 0,
+      "average_matches": 0.0,
+      "trend": 0.0,
+      "confidence": 0.5
+    },
+    "pattern_based": {
+      "total_predictions": 0,
+      "successful_predictions": 0,
+      "average_matches": 0.0,
+      "trend": 0.0,
+      "confidence": 0.5
+    },
+    "mathematical": {
+      "total_predictions": 0,
+      "successful_predictions": 0,
+      "average_matches": 0.0,
+      "trend": 0.0,
+      "confidence": 0.5
+    },
+    "stochastic": {
+      "total_predictions": 0,
+      "successful_predictions": 0,
+      "average_matches": 0.0,
+      "trend": 0.0,
+      "confidence": 0.5
+    },
+    "learning": {
+      "total_predictions": 1,
+      "successful_predictions": 1,
+      "average_matches": 3.0,
+      "trend": 0.0,
+      "confidence": 0.51
+    }
+  },
+  "transfer_weights": [
+    [
+      0.18050541516245486,
+      0.22924187725631767,
+      0.1967509025270758,
+      0.1967509025270758,
+      0.1967509025270758
+    ],
+    [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ]
+  ],
+  "global_stats": {
+    "total_predictions": 1,
+    "total_matches": 3,
+    "best_performing_game": null,
+    "best_performing_category": null,
+    "learning_rate": 0.1,
+    "last_update": null
+  },
+  "last_update": "2025-12-23T09:05:44.404707"
+}
