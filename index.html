@@ -8318,8 +8318,8 @@ Antworte NUR mit JSON:
                 } catch (e) {}
 
                 if (savedPredictions) {
-                    // Prüfe ob genug Tipps vorhanden sind (Eurojackpot braucht mindestens 10)
-                    const minPredictions = game === 'eurojackpot' ? 10 : 3;
+                    // Prüfe ob genug Tipps vorhanden sind (Eurojackpot braucht mindestens 8)
+                    const minPredictions = game === 'eurojackpot' ? 8 : 3;
                     if (savedPredictions.predictions && savedPredictions.predictions.length >= minPredictions) {
                         console.log(`🔒 Lade gesperrte ${game} Tipps für:`, nextDrawDate);
                         renderGamePredictions(game, savedPredictions);
