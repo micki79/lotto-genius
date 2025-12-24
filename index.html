@@ -2586,11 +2586,11 @@
                     const githubData = localStorage.getItem('github_eurojackpot_predictions');
                     if (githubData) {
                         const mlData = JSON.parse(githubData);
-                        if (mlData?.predictions?.length >= 8) {
+                        if (mlData?.predictions?.length >= 6) {
                             console.log('🧠 Nutze echte ML-Vorhersagen für Eurojackpot:', mlData.predictions.length);
 
-                            // Nimm die TOP 8 ML-Vorhersagen
-                            const mlPredictions = mlData.predictions.slice(0, 8).map((pred, i) => ({
+                            // Nimm die TOP 6 ML-Vorhersagen
+                            const mlPredictions = mlData.predictions.slice(0, 6).map((pred, i) => ({
                                 numbers: pred.numbers,
                                 eurozahlen: pred.eurozahlen,
                                 confidence: pred.confidence || 80,
@@ -2598,11 +2598,11 @@
                                 source: pred.provider || 'ml_real',
                                 isRealML: pred.is_real_ml || true,
                                 isChampion: pred.is_champion || i === 0,
-                                weight: 1.5 - (i * 0.05) // Höchste Gewichtung für ML
+                                weight: 1.5 - (i * 0.05)
                             }));
 
                             return {
-                                analysis: `Eurojackpot ML-Analyse 🧠 TOP 8 (Neural Network, Markov, Bayesian)`,
+                                analysis: `Eurojackpot ML-Analyse 🧠 TOP 6 (Neural Network, Markov, Bayesian)`,
                                 predictions: mlPredictions,
                                 statistics: {
                                     totalDraws: this.data.length,
@@ -2631,20 +2631,14 @@
                     console.log('Lerngewichte nicht verfügbar');
                 }
 
-                // Fallback: Generiere ALLE Strategien (erweitert auf 12+)
+                // DIE 6 BESTEN Eurojackpot-Strategien (reduziert von 12)
                 let predictions = [
                     { ...this.strategyHotCold(), weight: strategyWeights['ej_hot_cold'] || 1.0 },
                     { ...this.strategyOddEvenBalance(), weight: strategyWeights['ej_odd_even'] || 1.0 },
-                    { ...this.strategyOddEvenBalance23(), weight: strategyWeights['ej_odd_even_23'] || 0.95 },
                     { ...this.strategyDecadeBalance(), weight: strategyWeights['ej_decade'] || 1.0 },
                     { ...this.strategySumOptimization(), weight: strategyWeights['ej_sum'] || 1.0 },
                     { ...this.strategyOverdueNumbers(), weight: strategyWeights['ej_overdue'] || 1.0 },
-                    { ...this.strategyMathematicalBalance(), weight: strategyWeights['ej_math'] || 1.0 },
-                    { ...this.strategyColdNumbers(), weight: strategyWeights['ej_cold'] || 0.85 },
-                    { ...this.strategyLowHighBalance(), weight: strategyWeights['ej_low_high'] || 0.9 },
-                    { ...this.strategyLastDigitPattern(), weight: strategyWeights['ej_last_digit'] || 0.8 },
-                    { ...this.strategyNoConsecutive(), weight: strategyWeights['ej_no_consecutive'] || 0.75 },
-                    { ...this.strategyHotColdMix(), weight: strategyWeights['ej_hot_cold_mix'] || 0.88 }
+                    { ...this.strategyHotColdMix(), weight: strategyWeights['ej_hot_cold_mix'] || 0.95 }
                 ];
 
                 // Sortiere nach gelernten Gewichten (beste zuerst)
@@ -2655,13 +2649,13 @@
                 bonusTip.weight = strategyWeights['ej_ensemble'] || 1.2;
                 predictions.unshift(bonusTip);
 
-                // Wähle die TOP 8 besten Tipps (nach Gewicht sortiert)
-                const top8Predictions = predictions.slice(0, 8);
+                // Wähle die TOP 6 besten Tipps (nach Gewicht sortiert)
+                const top6Predictions = predictions.slice(0, 6);
 
                 // Speichere Vorhersagen für späteres Lernen
                 const result = {
-                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 TOP 8 Selbstlernend`,
-                    predictions: top8Predictions, // Die 8 besten Tipps
+                    analysis: `Eurojackpot Multi-Strategie-Analyse (${this.data.length} Ziehungen) 🧠 TOP 6`,
+                    predictions: top6Predictions, // Die 6 besten Tipps
                     statistics: {
                         totalDraws: this.data.length,
                         optimalSum: this.sumStats.optimal,
@@ -2679,8 +2673,8 @@
 
                     // Log im Selbstlernsystem
                     if (selfLearning) {
-                        selfLearning.log('prediction', `🌟 Eurojackpot: TOP 8 von ${predictions.length} Strategien`,
-                            `Beste Strategie: ${top8Predictions[0].strategy}`);
+                        selfLearning.log('prediction', `🌟 Eurojackpot: TOP 6 beste Strategien`,
+                            `Beste Strategie: ${top6Predictions[0].strategy}`);
                     }
                 } catch (e) {}
 
@@ -3201,8 +3195,8 @@
                         if (mlData?.predictions?.length >= 5) {
                             console.log(`🧠 Nutze echte ML-Vorhersagen für ${this.gameType}:`, mlData.predictions.length);
 
-                            // Nimm die TOP 10 ML-Vorhersagen
-                            const mlPredictions = mlData.predictions.slice(0, 10).map((pred, i) => ({
+                            // Nimm die TOP 6 ML-Vorhersagen
+                            const mlPredictions = mlData.predictions.slice(0, 6).map((pred, i) => ({
                                 number: pred.number,
                                 confidence: pred.confidence || 70,
                                 strategy: `🧠 ${pred.strategy || pred.method || 'ML-Modell'}`,
@@ -3212,7 +3206,7 @@
                             }));
 
                             return {
-                                analysis: `${GAME_CONFIG[this.gameType].name} ML-Analyse 🧠 (Markov, Monte-Carlo, Neural Network, Bayesian)`,
+                                analysis: `${GAME_CONFIG[this.gameType].name} ML-Analyse 🧠 TOP 6`,
                                 predictions: mlPredictions,
                                 mlSource: 'GitHub ML-Modelle'
                             };
@@ -3222,32 +3216,88 @@
                     console.log(`ML-Vorhersagen für ${this.gameType} nicht verfügbar, nutze lokale Strategien`);
                 }
 
-                // Fallback: Lokale Strategien
+                // Fallback: DIE 6 BESTEN lokalen Strategien
                 const predictions = [
                     {
                         number: this.predictByPositionFrequency(),
-                        confidence: 75,
-                        strategy: 'Positionsbasierte Häufigkeit',
+                        confidence: 78,
+                        strategy: '⭐ Ensemble: Positionshäufigkeit',
                         source: this.gameType + '_position'
                     },
                     {
                         number: this.predictByOverdue(),
-                        confidence: 70,
-                        strategy: 'Überfällige Ziffern',
+                        confidence: 74,
+                        strategy: '❄️ Überfällige Ziffern',
                         source: this.gameType + '_overdue'
                     },
                     {
                         number: this.predictRandom(),
-                        confidence: 65,
-                        strategy: 'Zufallsbasiert mit Gewichtung',
+                        confidence: 70,
+                        strategy: '🔥 Hot Digits: Gewichtete Auswahl',
                         source: this.gameType + '_random'
+                    },
+                    {
+                        number: this.predictByTrend(),
+                        confidence: 72,
+                        strategy: '📈 Trend: Letzte Ziehungen',
+                        source: this.gameType + '_trend'
+                    },
+                    {
+                        number: this.predictAlternating(),
+                        confidence: 68,
+                        strategy: '📊 Balance: Gerade/Ungerade',
+                        source: this.gameType + '_alternating'
+                    },
+                    {
+                        number: this.predictPure(),
+                        confidence: 65,
+                        strategy: '🎲 Zufall: Reine Wahrscheinlichkeit',
+                        source: this.gameType + '_pure'
                     }
                 ];
 
                 return {
-                    analysis: `${GAME_CONFIG[this.gameType].name}-Analyse basiert auf ${this.data.length} Ziehungen`,
+                    analysis: `${GAME_CONFIG[this.gameType].name}-Analyse 🧠 TOP 6 (${this.data.length} Ziehungen)`,
                     predictions: predictions
                 };
+            }
+
+            predictByTrend() {
+                // Analysiere Trend der letzten 10 Ziehungen
+                let result = '';
+                const recent = this.data.slice(0, 10);
+                for (let pos = 0; pos < this.digitCount; pos++) {
+                    const freq = {};
+                    for (let d = 0; d <= 9; d++) freq[d] = 0;
+                    recent.forEach((draw, i) => {
+                        const digit = parseInt(draw.number[pos] || '0');
+                        freq[digit] += (10 - i); // Gewichtung: neuere Ziehungen zählen mehr
+                    });
+                    const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+                    result += sorted[0][0];
+                }
+                return result;
+            }
+
+            predictAlternating() {
+                // Wechsel zwischen geraden und ungeraden Ziffern
+                let result = '';
+                const even = [0, 2, 4, 6, 8];
+                const odd = [1, 3, 5, 7, 9];
+                for (let pos = 0; pos < this.digitCount; pos++) {
+                    const pool = pos % 2 === 0 ? even : odd;
+                    result += pool[Math.floor(Math.random() * pool.length)];
+                }
+                return result;
+            }
+
+            predictPure() {
+                // Rein zufällig
+                let result = '';
+                for (let pos = 0; pos < this.digitCount; pos++) {
+                    result += Math.floor(Math.random() * 10);
+                }
+                return result;
             }
 
             predictByPositionFrequency() {
@@ -6824,20 +6874,32 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
         function generateLocalAIPredictions(hotNumbers, coldNumbers, overdueNumbers, gaps) {
             const bestStrategies = kiAgent.getBestStrategies();
             const predictions = [];
-            
+
             // Analysiere Superzahl-Muster für lokale Vorhersagen
             const szAnalysis = szAnalyzer.predictBestSuperzahl(lottoData);
             const rankedSuperzahlen = szAnalysis.all;
-            
+
             // Log: Start der lokalen KI-Analyse
             if (selfLearning?.initialized) {
-                selfLearning.log('analysis', '🚀 Lokales Multi-KI-System gestartet', '10 Strategien werden aktiviert');
+                selfLearning.log('analysis', '🚀 Lokales Multi-KI-System gestartet', '6 beste Strategien werden aktiviert');
             }
 
-            // Verschiedene ML-inspirierte Strategien
+            // DIE 6 BESTEN ML-Strategien (reduziert von 10)
             const strategies = [
                 {
-                    name: 'Neuronales Netz: Hot-Cold Balance',
+                    name: '⭐ Ensemble: Multi-Strategie-Konsens',
+                    fn: () => {
+                        // Kombiniert Hot + Cold + Cluster für beste Diversität
+                        const allNums = [...hotNumbers.slice(0, 4), ...coldNumbers.slice(0, 4)];
+                        const nums = new Set(allNums);
+                        while (nums.size < 6) {
+                            nums.add(Math.floor(Math.random() * 49) + 1);
+                        }
+                        return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
+                    }
+                },
+                {
+                    name: '🔥 Hot Numbers: Häufigkeitsanalyse',
                     fn: () => {
                         const nums = [];
                         nums.push(...hotNumbers.slice(0, 3));
@@ -6850,36 +6912,27 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     }
                 },
                 {
-                    name: 'Gradient Descent: Optimierte Häufigkeit',
+                    name: '❄️ Cold Numbers: Überfällige Zahlen',
                     fn: () => {
-                        const scores = {};
-                        const freqValues = Object.values(frequencyMap);
-                        const maxFreq = freqValues.length > 0 ? Math.max(...freqValues) : 1;
-                        for (let i = 1; i <= 49; i++) {
-                            const freqScore = (frequencyMap[i] || 0) / (maxFreq || 1);
-                            scores[i] = freqScore + Math.random() * 0.3;
+                        const bestStrat = bestStrategies[0];
+                        const pool = (bestStrat && bestStrat.avgMatches > 1) ? coldNumbers : hotNumbers;
+                        const nums = new Set();
+                        pool.forEach(n => { if (nums.size < 6) nums.add(n); });
+                        while (nums.size < 6) {
+                            nums.add(Math.floor(Math.random() * 49) + 1);
                         }
-                        return Object.entries(scores)
-                            .sort((a, b) => b[1] - a[1])
-                            .slice(0, 6)
-                            .map(([n]) => parseInt(n))
-                            .sort((a, b) => a - b);
+                        return Array.from(nums).sort((a, b) => a - b);
                     }
                 },
                 {
-                    name: 'Random Forest: Ensemble-Methode',
+                    name: '📊 Cluster: Dekaden-Balance',
                     fn: () => {
-                        const votes = {};
-                        for (let tree = 0; tree < 10; tree++) {
-                            const pool = tree % 2 === 0 ? hotNumbers : coldNumbers;
-                            pool.slice(0, 5).forEach(n => votes[n] = (votes[n] || 0) + 1);
-                        }
-                        const result = Object.entries(votes)
-                            .sort((a, b) => b[1] - a[1])
-                            .slice(0, 6)
-                            .map(([n]) => parseInt(n));
-                        // Falls nicht genug Zahlen, mit zufälligen auffüllen
-                        const nums = new Set(result);
+                        const clusters = [[1,10], [11,20], [21,30], [31,40], [41,49]];
+                        const nums = new Set();
+                        clusters.forEach(([min, max]) => {
+                            const n = Math.floor(Math.random() * (max - min + 1)) + min;
+                            nums.add(n);
+                        });
                         while (nums.size < 6) {
                             nums.add(Math.floor(Math.random() * 49) + 1);
                         }
@@ -6887,7 +6940,7 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     }
                 },
                 {
-                    name: 'LSTM: Sequenz-Vorhersage',
+                    name: '📈 Trend: Sequenz-Vorhersage',
                     fn: () => {
                         const recent = lottoData.slice(0, 20);
                         const freq = {};
@@ -6901,7 +6954,6 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                             .sort((a, b) => b[1] - a[1])
                             .slice(0, 6)
                             .map(([n]) => parseInt(n));
-                        // Falls nicht genug Zahlen (leere lottoData), auffüllen
                         const nums = new Set(result);
                         while (nums.size < 6) {
                             nums.add(Math.floor(Math.random() * 49) + 1);
@@ -6910,121 +6962,38 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     }
                 },
                 {
-                    name: 'Bayesian: Wahrscheinlichkeitsmaximierung',
+                    name: '🎲 Zufall: Gewichtete Auswahl',
                     fn: () => {
                         const nums = new Set();
                         const weighted = hotNumbers.concat(coldNumbers);
-                        // Sicherheitscheck: Falls keine Zahlen verfügbar, mit zufälligen arbeiten
                         if (weighted.length === 0) {
                             while (nums.size < 6) {
                                 nums.add(Math.floor(Math.random() * 49) + 1);
                             }
                         } else {
-                            // Aus Pool wählen
                             while (nums.size < 6 && nums.size < weighted.length) {
                                 const pick = weighted[Math.floor(Math.random() * weighted.length)];
                                 nums.add(pick);
                             }
-                            // Falls Pool zu klein, mit zufälligen auffüllen
                             while (nums.size < 6) {
                                 nums.add(Math.floor(Math.random() * 49) + 1);
                             }
                         }
                         return Array.from(nums).sort((a, b) => a - b);
-                    }
-                },
-                {
-                    name: 'K-Means: Cluster-Analyse',
-                    fn: () => {
-                        const clusters = [[1,10], [11,20], [21,30], [31,40], [41,49]];
-                        const nums = new Set();
-                        clusters.forEach(([min, max]) => {
-                            const n = Math.floor(Math.random() * (max - min + 1)) + min;
-                            nums.add(n);
-                        });
-                        // Sicherstellen dass wir 6 eindeutige Zahlen haben
-                        while (nums.size < 6) {
-                            nums.add(Math.floor(Math.random() * 49) + 1);
-                        }
-                        return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
-                    }
-                },
-                {
-                    name: 'Reinforcement Learning: Belohnungsoptimiert',
-                    fn: () => {
-                        const bestStrat = bestStrategies[0];
-                        const pool = (bestStrat && bestStrat.avgMatches > 1) ? hotNumbers : coldNumbers;
-                        const nums = new Set();
-                        // Zuerst aus dem Pool nehmen
-                        pool.forEach(n => { if (nums.size < 6) nums.add(n); });
-                        // Falls nicht genug, mit zufälligen auffüllen
-                        while (nums.size < 6) {
-                            nums.add(Math.floor(Math.random() * 49) + 1);
-                        }
-                        return Array.from(nums).sort((a, b) => a - b);
-                    }
-                },
-                {
-                    name: 'GAN: Generative Zahlensequenz',
-                    fn: () => {
-                        if (lottoData.length > 0) {
-                            const template = lottoData[Math.floor(Math.random() * Math.min(20, lottoData.length))].numbers;
-                            const nums = new Set();
-                            // Template-Zahlen mit Delta modifizieren
-                            template.forEach(n => {
-                                const delta = Math.floor(Math.random() * 5) - 2;
-                                const modified = Math.max(1, Math.min(49, n + delta));
-                                nums.add(modified);
-                            });
-                            // Falls Duplikate entstanden sind, mit zufälligen auffüllen
-                            while (nums.size < 6) {
-                                nums.add(Math.floor(Math.random() * 49) + 1);
-                            }
-                            return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
-                        }
-                        return [3, 12, 25, 33, 41, 47];
-                    }
-                },
-                {
-                    name: 'Transformer: Attention-Mechanismus',
-                    fn: () => {
-                        const attention = {};
-                        for (let i = 1; i <= 49; i++) {
-                            const inRecent = lottoData.slice(0, 10).filter(d => d.numbers.includes(i)).length;
-                            attention[i] = inRecent * 2 + Math.random();
-                        }
-                        return Object.entries(attention)
-                            .sort((a, b) => b[1] - a[1])
-                            .slice(0, 6)
-                            .map(([n]) => parseInt(n))
-                            .sort((a, b) => a - b);
-                    }
-                },
-                {
-                    name: 'Hybrid: Multi-Model Ensemble',
-                    fn: () => {
-                        const allNums = [...hotNumbers.slice(0, 4), ...coldNumbers.slice(0, 4)];
-                        const nums = new Set(allNums);
-                        // Mit zufälligen Zahlen auffüllen (ohne Duplikate)
-                        while (nums.size < 6) {
-                            nums.add(Math.floor(Math.random() * 49) + 1);
-                        }
-                        return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
                     }
                 }
             ];
 
             strategies.forEach((strat, i) => {
                 const numbers = strat.fn();
-                // Nutze die statistisch beste Superzahl (rotierend durch Top 5)
+                // Nutze die statistisch beste Superzahl (rotierend durch Top 6)
                 const szLength = rankedSuperzahlen.length || 1;
-                const superzahl = rankedSuperzahlen[i % Math.min(5, szLength)]?.number ?? Math.floor(Math.random() * 10);
-                const confidence = 45 + Math.random() * 40;
+                const superzahl = rankedSuperzahlen[i % Math.min(6, szLength)]?.number ?? Math.floor(Math.random() * 10);
+                const confidence = 55 + Math.random() * 30;
 
                 // Log: Jede Strategie
                 if (selfLearning?.initialized && i < 3) {
-                    const icons = ['🧠', '📈', '🌲', '📊', '🎲', '🔷', '🎯', '🎨', '⚡', '🔮'];
-                    selfLearning.log('prediction', `${icons[i]} ${strat.name.split(':')[0]} generiert Tipp`, `Zahlen: ${numbers.join(', ')} | Konfidenz: ${confidence.toFixed(0)}%`);
+                    selfLearning.log('prediction', `${strat.name.split(':')[0]} generiert Tipp`, `Zahlen: ${numbers.join(', ')} | Konfidenz: ${confidence.toFixed(0)}%`);
                 }
 
                 predictions.push({
@@ -7040,12 +7009,12 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
 
             // Log: Abschluss
             if (selfLearning?.initialized) {
-                selfLearning.log('success', `✅ ${predictions.length} KI-Tipps generiert`, `Alle 10 Strategien haben Vorhersagen erstellt`);
+                selfLearning.log('success', `✅ ${predictions.length} KI-Tipps generiert`, `Die 6 besten Strategien haben Vorhersagen erstellt`);
                 selfLearning.updateSystemOverview();
             }
 
             return {
-                analysis: `🧠 Lokales Multi-KI-System hat ${lottoData.length} Ziehungen analysiert. 10 KI-Strategien haben zusammengearbeitet!`,
+                analysis: `🧠 Lokales Multi-KI-System hat ${lottoData.length} Ziehungen analysiert. Die 6 besten Strategien!`,
                 predictions: predictions,
                 multiKI: true,  // Zeige als Multi-KI an
                 insights: {
@@ -7054,8 +7023,8 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     warning: 'Für Cloud-KIs: Konfiguriere externe APIs in den Einstellungen'
                 },
                 votingStats: {
-                    providersUsed: 10,  // 10 lokale Strategien
-                    providerNames: ['Neuronales Netz', 'Gradient Descent', 'Random Forest', 'LSTM', 'Bayesian', 'K-Means', 'Reinforcement Learning', 'GAN', 'Transformer', 'Hybrid Ensemble'],
+                    providersUsed: 6,  // 6 beste Strategien
+                    providerNames: ['Ensemble', 'Hot Numbers', 'Cold Numbers', 'Cluster', 'Trend', 'Zufall'],
                     superzahlAnalysis: {
                         best: rankedSuperzahlen[0],
                         top3: rankedSuperzahlen.slice(0, 3),
@@ -8393,8 +8362,8 @@ Antworte NUR mit JSON:
                 } catch (e) {}
 
                 if (savedPredictions) {
-                    // Prüfe ob genug Tipps vorhanden sind (Eurojackpot braucht mindestens 8)
-                    const minPredictions = game === 'eurojackpot' ? 8 : 3;
+                    // Prüfe ob genug Tipps vorhanden sind (mindestens 6 für alle Spiele)
+                    const minPredictions = 6;
                     if (savedPredictions.predictions && savedPredictions.predictions.length >= minPredictions) {
                         console.log(`🔒 Lade gesperrte ${game} Tipps für:`, nextDrawDate);
                         renderGamePredictions(game, savedPredictions);
