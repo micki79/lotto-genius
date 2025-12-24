@@ -3651,7 +3651,9 @@
                             if (strategyKey && selfLearning.strategies[strategyKey]) {
                                 const matches = (pred.numbers || []).filter(n => lastDraw.numbers.includes(n)).length;
                                 selfLearning.strategies[strategyKey].total++;
-                                if (matches >= 3) {
+                                selfLearning.strategies[strategyKey].totalMatches = (selfLearning.strategies[strategyKey].totalMatches || 0) + matches;
+                                // 2+ Treffer als Erfolg
+                                if (matches >= 2) {
                                     selfLearning.strategies[strategyKey].wins++;
                                 }
                             }
@@ -3691,8 +3693,11 @@
                     for (const entry of existingData) {
                         const strategyKey = selfLearning.findStrategyKey(entry.method || entry.strategy || entry.source || 'unknown');
                         if (strategyKey && selfLearning.strategies[strategyKey]) {
+                            const matches = entry.matches || 0;
                             selfLearning.strategies[strategyKey].total++;
-                            if ((entry.matches || 0) >= 3) {
+                            selfLearning.strategies[strategyKey].totalMatches = (selfLearning.strategies[strategyKey].totalMatches || 0) + matches;
+                            // 2+ Treffer als Erfolg
+                            if (matches >= 2) {
                                 selfLearning.strategies[strategyKey].wins++;
                             }
                         }
@@ -3710,8 +3715,8 @@
 
                 const testResults = [];
 
-                // Teste die letzten 20 Ziehungen
-                for (let i = 0; i < 20; i++) {
+                // Teste die letzten 50 Ziehungen für bessere Statistik
+                for (let i = 0; i < 50; i++) {
                     const targetDraw = lottoData[i];
                     const historyForPrediction = lottoData.slice(i + 1); // Nur ältere Daten verwenden
 
@@ -3814,7 +3819,9 @@
                         const strategyKey = selfLearning.findStrategyKey(pred.method);
                         if (strategyKey && selfLearning.strategies[strategyKey]) {
                             selfLearning.strategies[strategyKey].total++;
-                            if (matches >= 3) {
+                            selfLearning.strategies[strategyKey].totalMatches = (selfLearning.strategies[strategyKey].totalMatches || 0) + matches;
+                            // 2+ Treffer als Erfolg werten (zeigt Trend besser)
+                            if (matches >= 2) {
                                 selfLearning.strategies[strategyKey].wins++;
                             }
                         }
@@ -5240,16 +5247,16 @@
 
         class SelfLearningSystem {
             constructor() {
-                // Lotto 6aus49 Strategien
+                // Lotto 6aus49 Strategien - mit totalMatches für Durchschnittsberechnung
                 this.strategies = {
-                    'frequency': { name: 'Häufigkeitsanalyse', weight: 1.0, wins: 0, total: 0, icon: '📊' },
-                    'overdue': { name: 'Überfällige Zahlen', weight: 1.0, wins: 0, total: 0, icon: '⏰' },
-                    'hot_cold': { name: 'Hot/Cold Balance', weight: 1.0, wins: 0, total: 0, icon: '🔥' },
-                    'position': { name: 'Positionsanalyse', weight: 1.0, wins: 0, total: 0, icon: '📍' },
-                    'pattern': { name: 'Mustererkennung', weight: 1.0, wins: 0, total: 0, icon: '🔮' },
-                    'neural': { name: 'Neuronales Netz', weight: 1.0, wins: 0, total: 0, icon: '🧠' },
-                    'ensemble': { name: 'Ensemble Voting', weight: 1.0, wins: 0, total: 0, icon: '🗳️' },
-                    'gradient': { name: 'Gradient Descent', weight: 1.0, wins: 0, total: 0, icon: '📈' }
+                    'frequency': { name: 'Häufigkeitsanalyse', weight: 1.0, wins: 0, total: 0, totalMatches: 0, icon: '📊' },
+                    'overdue': { name: 'Überfällige Zahlen', weight: 1.0, wins: 0, total: 0, totalMatches: 0, icon: '⏰' },
+                    'hot_cold': { name: 'Hot/Cold Balance', weight: 1.0, wins: 0, total: 0, totalMatches: 0, icon: '🔥' },
+                    'position': { name: 'Positionsanalyse', weight: 1.0, wins: 0, total: 0, totalMatches: 0, icon: '📍' },
+                    'pattern': { name: 'Mustererkennung', weight: 1.0, wins: 0, total: 0, totalMatches: 0, icon: '🔮' },
+                    'neural': { name: 'Neuronales Netz', weight: 1.0, wins: 0, total: 0, totalMatches: 0, icon: '🧠' },
+                    'ensemble': { name: 'Ensemble Voting', weight: 1.0, wins: 0, total: 0, totalMatches: 0, icon: '🗳️' },
+                    'gradient': { name: 'Gradient Descent', weight: 1.0, wins: 0, total: 0, totalMatches: 0, icon: '📈' }
                 };
 
                 // Eurojackpot Strategien (Selbstlernend) - Erweitert auf 13 Strategien
@@ -5320,11 +5327,24 @@
                 try {
                     const saved = await lottoDB.get('settings', 'strategies');
                     if (saved?.data) {
-                        Object.assign(this.strategies, saved.data);
+                        // Prüfe ob neues Format (mit totalMatches)
+                        const hasNewFormat = Object.values(saved.data).some(s => s.totalMatches !== undefined);
+                        if (hasNewFormat) {
+                            Object.assign(this.strategies, saved.data);
+                        } else {
+                            // Altes Format - zurücksetzen für Neuberechnung
+                            console.log('🔄 Strategie-Format veraltet, wird neu berechnet...');
+                        }
                     }
                 } catch {
                     const local = localStorage.getItem('ki_strategies');
-                    if (local) Object.assign(this.strategies, JSON.parse(local));
+                    if (local) {
+                        const data = JSON.parse(local);
+                        const hasNewFormat = Object.values(data).some(s => s.totalMatches !== undefined);
+                        if (hasNewFormat) {
+                            Object.assign(this.strategies, data);
+                        }
+                    }
                 }
             }
 
@@ -5385,8 +5405,10 @@
                     if (strategyKey && this.strategies[strategyKey]) {
                         const matches = this.countMatches(pred.numbers || pred, actualNumbers);
                         this.strategies[strategyKey].total++;
+                        this.strategies[strategyKey].totalMatches = (this.strategies[strategyKey].totalMatches || 0) + matches;
 
-                        if (matches >= 3) {
+                        // 2+ Treffer als Erfolg (realistischer für Lotto)
+                        if (matches >= 2) {
                             this.strategies[strategyKey].wins++;
                             this.log('success', `✅ ${this.strategies[strategyKey].icon} ${this.strategies[strategyKey].name}: ${matches} Treffer!`);
                         }
@@ -5433,9 +5455,9 @@
                     this.log('adjust', `📈 ${this.strategies[bestStrategy].icon} ${this.strategies[bestStrategy].name} Gewicht erhöht auf ${(this.strategies[bestStrategy].weight * 100).toFixed(0)}%`);
                 }
 
-                // Schlechte Strategien leicht reduzieren
+                // Schlechte Strategien leicht reduzieren (unter 10% Erfolg bei 2+ Treffern)
                 for (const [key, strategy] of Object.entries(this.strategies)) {
-                    if (strategy.total > 10 && strategy.wins / strategy.total < 0.1) {
+                    if (strategy.total > 10 && strategy.wins / strategy.total < 0.05) {
                         strategy.weight = Math.max(0.5, strategy.weight - 0.02);
                         this.log('adjust', `📉 ${strategy.icon} ${strategy.name} Gewicht reduziert auf ${(strategy.weight * 100).toFixed(0)}%`);
                     }
@@ -5650,6 +5672,7 @@
                         key,
                         ...s,
                         successRate: s.total > 0 ? (s.wins / s.total * 100).toFixed(1) : 0,
+                        avgMatches: s.total > 0 ? ((s.totalMatches || 0) / s.total).toFixed(2) : '0.00',
                         score: s.weight * (s.total > 0 ? s.wins / s.total : 0.5)
                     }))
                     .sort((a, b) => b.score - a.score);
@@ -5685,15 +5708,15 @@
                             <div>
                                 <div style="font-weight: 600;">${s.name}${s.discovered ? ' <span style="color: var(--gold); font-size: 10px;">NEU</span>' : ''}</div>
                                 <div style="font-size: 11px; color: var(--text-secondary);">
-                                    ${s.wins}/${s.total} Erfolge | Gewicht: ${(s.weight * 100).toFixed(0)}%
+                                    ${s.wins}/${s.total} (2+ Treffer) | Ø ${s.avgMatches} Treffer
                                 </div>
                             </div>
                         </div>
                         <div style="text-align: right;">
-                            <div style="font-size: 18px; font-weight: 700; color: ${parseFloat(s.successRate) > 20 ? 'var(--success)' : 'var(--text-secondary)'};">
+                            <div style="font-size: 18px; font-weight: 700; color: ${parseFloat(s.successRate) > 10 ? 'var(--success)' : parseFloat(s.avgMatches) > 0.73 ? 'var(--gold)' : 'var(--text-secondary)'};">
                                 ${s.successRate}%
                             </div>
-                            <div style="font-size: 10px; color: var(--text-secondary);">Erfolgsrate</div>
+                            <div style="font-size: 10px; color: var(--text-secondary);">Erfolgsrate (2+)</div>
                         </div>
                     </div>
                 `).join('');
