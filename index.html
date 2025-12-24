@@ -2484,8 +2484,11 @@
 
             generateRandomNumbers(count, min, max) {
                 const numbers = new Set();
-                while (numbers.size < count) {
-                    numbers.add(Math.floor(Math.random() * (max - min + 1)) + min);
+                const range = max - min + 1;
+                // Sicherheitscheck: count darf nicht größer als der mögliche Bereich sein
+                const safeCount = Math.min(count, range);
+                while (numbers.size < safeCount) {
+                    numbers.add(Math.floor(Math.random() * range) + min);
                 }
                 return Array.from(numbers);
             }
@@ -2542,6 +2545,11 @@
             // Summen-Analyse: Optimaler Summenbereich 95-160 (lotterycodex.com)
             calculateSumStatistics() {
                 const sums = this.data.map(d => d.numbers.reduce((a, b) => a + b, 0));
+                // Fallback wenn keine Daten vorhanden
+                if (sums.length === 0) {
+                    this.sumStats = { min: 95, max: 160, avg: 127, optimal: [95, 160] };
+                    return;
+                }
                 this.sumStats = {
                     min: Math.min(...sums),
                     max: Math.max(...sums),
@@ -2736,22 +2744,29 @@
                     { min: 41, max: 50 }
                 ];
 
-                const selected = [];
+                const selected = new Set();
 
                 // Wähle aus jeder Dekade die beste Zahl
                 decades.forEach(decade => {
                     const pool = [];
                     for (let i = decade.min; i <= decade.max; i++) {
-                        pool.push({ num: i, freq: this.frequencyMap[i] });
+                        pool.push({ num: i, freq: this.frequencyMap[i] || 0 });
                     }
                     pool.sort((a, b) => b.freq - a.freq);
-                    if (selected.length < 5) {
-                        selected.push(pool[Math.floor(Math.random() * 3)].num);
+                    if (selected.size < 5 && pool.length > 0) {
+                        // Sicherer Zugriff: Nimm aus den Top 3, aber max pool.length
+                        const idx = Math.floor(Math.random() * Math.min(3, pool.length));
+                        selected.add(pool[idx].num);
                     }
                 });
 
+                // Falls nicht genug Zahlen, auffüllen
+                while (selected.size < 5) {
+                    selected.add(Math.floor(Math.random() * 50) + 1);
+                }
+
                 return {
-                    numbers: selected.sort((a, b) => a - b),
+                    numbers: Array.from(selected).slice(0, 5).sort((a, b) => a - b),
                     eurozahlen: this.selectBalancedEuro(),
                     confidence: 76,
                     strategy: '📊 Dekaden-Balance (alle Bereiche)',
@@ -2993,7 +3008,7 @@
                     ...this.selectFromPool(cold, 2)
                 ].sort((a, b) => a - b);
 
-                // Eurozahlen auch gemischt
+                // Eurozahlen auch gemischt - mit Fallback
                 const hotEuro = Object.entries(this.eurozahlenMap)
                     .sort((a, b) => b[1] - a[1])
                     .slice(0, 3)
@@ -3003,12 +3018,19 @@
                     .slice(0, 3)
                     .map(([n]) => parseInt(n));
 
+                // Sichere Eurozahlen-Auswahl mit Fallback
+                const euro1 = hotEuro.length > 0 ? hotEuro[Math.floor(Math.random() * hotEuro.length)] : Math.floor(Math.random() * 12) + 1;
+                const euro2 = coldEuro.length > 0 ? coldEuro[Math.floor(Math.random() * coldEuro.length)] : Math.floor(Math.random() * 12) + 1;
+
+                // Stelle sicher dass beide unterschiedlich sind
+                const euroSet = new Set([euro1, euro2]);
+                while (euroSet.size < 2) {
+                    euroSet.add(Math.floor(Math.random() * 12) + 1);
+                }
+
                 return {
                     numbers: selected,
-                    eurozahlen: [
-                        hotEuro[Math.floor(Math.random() * hotEuro.length)],
-                        coldEuro[Math.floor(Math.random() * coldEuro.length)]
-                    ].sort((a, b) => a - b),
+                    eurozahlen: Array.from(euroSet).slice(0, 2).sort((a, b) => a - b),
                     confidence: 76,
                     strategy: '🔥❄️ Hot/Cold Mix (3:2)',
                     source: 'hot_cold_mix'
@@ -3067,13 +3089,17 @@
                     .map(([n]) => parseInt(n));
             }
 
-            selectFromPool(pool, count) {
+            selectFromPool(pool, count, maxNum = 50) {
                 const selected = new Set();
                 const shuffled = [...pool].sort(() => Math.random() - 0.5);
                 for (let i = 0; i < shuffled.length && selected.size < count; i++) {
                     selected.add(shuffled[i]);
                 }
-                return Array.from(selected).sort((a, b) => a - b);
+                // Falls Pool zu klein, mit zufälligen Zahlen auffüllen
+                while (selected.size < count) {
+                    selected.add(Math.floor(Math.random() * maxNum) + 1);
+                }
+                return Array.from(selected).slice(0, count).sort((a, b) => a - b);
             }
 
             selectBalancedEuro() {
@@ -3082,13 +3108,23 @@
                     .sort((a, b) => b[1] - a[1])
                     .map(([n]) => parseInt(n));
 
-                const hot = sorted.slice(0, 6);
+                // Fallback wenn keine Daten verfügbar
+                if (sorted.length === 0) {
+                    return [Math.floor(Math.random() * 12) + 1, Math.floor(Math.random() * 12) + 1].sort((a, b) => a - b);
+                }
+
+                const hot = sorted.slice(0, Math.min(6, sorted.length));
                 const cold = sorted.slice(6);
 
-                return [
-                    hot[Math.floor(Math.random() * hot.length)],
-                    cold.length > 0 ? cold[Math.floor(Math.random() * cold.length)] : hot[Math.floor(Math.random() * hot.length)]
-                ].sort((a, b) => a - b);
+                const euro1 = hot.length > 0 ? hot[Math.floor(Math.random() * hot.length)] : Math.floor(Math.random() * 12) + 1;
+                const euro2 = cold.length > 0 ? cold[Math.floor(Math.random() * cold.length)] : hot[Math.floor(Math.random() * hot.length)];
+
+                // Stelle sicher dass beide Eurozahlen unterschiedlich sind
+                const nums = new Set([euro1, euro2]);
+                while (nums.size < 2) {
+                    nums.add(Math.floor(Math.random() * 12) + 1);
+                }
+                return Array.from(nums).slice(0, 2).sort((a, b) => a - b);
             }
         }
 
@@ -6817,8 +6853,10 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     name: 'Gradient Descent: Optimierte Häufigkeit',
                     fn: () => {
                         const scores = {};
+                        const freqValues = Object.values(frequencyMap);
+                        const maxFreq = freqValues.length > 0 ? Math.max(...freqValues) : 1;
                         for (let i = 1; i <= 49; i++) {
-                            const freqScore = (frequencyMap[i] || 0) / Math.max(...Object.values(frequencyMap));
+                            const freqScore = (frequencyMap[i] || 0) / (maxFreq || 1);
                             scores[i] = freqScore + Math.random() * 0.3;
                         }
                         return Object.entries(scores)
@@ -6836,11 +6874,16 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                             const pool = tree % 2 === 0 ? hotNumbers : coldNumbers;
                             pool.slice(0, 5).forEach(n => votes[n] = (votes[n] || 0) + 1);
                         }
-                        return Object.entries(votes)
+                        const result = Object.entries(votes)
                             .sort((a, b) => b[1] - a[1])
                             .slice(0, 6)
-                            .map(([n]) => parseInt(n))
-                            .sort((a, b) => a - b);
+                            .map(([n]) => parseInt(n));
+                        // Falls nicht genug Zahlen, mit zufälligen auffüllen
+                        const nums = new Set(result);
+                        while (nums.size < 6) {
+                            nums.add(Math.floor(Math.random() * 49) + 1);
+                        }
+                        return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
                     }
                 },
                 {
@@ -6854,23 +6897,40 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                                 freq[n] = (freq[n] || 0) + weight;
                             });
                         });
-                        return Object.entries(freq)
+                        const result = Object.entries(freq)
                             .sort((a, b) => b[1] - a[1])
                             .slice(0, 6)
-                            .map(([n]) => parseInt(n))
-                            .sort((a, b) => a - b);
+                            .map(([n]) => parseInt(n));
+                        // Falls nicht genug Zahlen (leere lottoData), auffüllen
+                        const nums = new Set(result);
+                        while (nums.size < 6) {
+                            nums.add(Math.floor(Math.random() * 49) + 1);
+                        }
+                        return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
                     }
                 },
                 {
                     name: 'Bayesian: Wahrscheinlichkeitsmaximierung',
                     fn: () => {
-                        const nums = [];
-                        while (nums.length < 6) {
-                            const weighted = hotNumbers.concat(coldNumbers);
-                            const pick = weighted[Math.floor(Math.random() * weighted.length)];
-                            if (!nums.includes(pick)) nums.push(pick);
+                        const nums = new Set();
+                        const weighted = hotNumbers.concat(coldNumbers);
+                        // Sicherheitscheck: Falls keine Zahlen verfügbar, mit zufälligen arbeiten
+                        if (weighted.length === 0) {
+                            while (nums.size < 6) {
+                                nums.add(Math.floor(Math.random() * 49) + 1);
+                            }
+                        } else {
+                            // Aus Pool wählen
+                            while (nums.size < 6 && nums.size < weighted.length) {
+                                const pick = weighted[Math.floor(Math.random() * weighted.length)];
+                                nums.add(pick);
+                            }
+                            // Falls Pool zu klein, mit zufälligen auffüllen
+                            while (nums.size < 6) {
+                                nums.add(Math.floor(Math.random() * 49) + 1);
+                            }
                         }
-                        return nums.sort((a, b) => a - b);
+                        return Array.from(nums).sort((a, b) => a - b);
                     }
                 },
                 {
