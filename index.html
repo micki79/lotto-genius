@@ -3635,7 +3635,8 @@
 
                 if (currentLastDraw && lastLearnedDraw !== currentLastDraw) {
                     // Neue Ziehung vorhanden - versuche zu lernen
-                    const lastPredictions = localStorage.getItem('last_predictions');
+                    // Prüfe beide möglichen Schlüssel für Vorhersagen
+                    const lastPredictions = localStorage.getItem('lotto6aus49_last_predictions') || localStorage.getItem('last_predictions');
                     const lastDraw = lottoData[0];
                     if (lastPredictions && lastDraw?.numbers?.length === 6 && lastDraw?.superzahl !== undefined) {
                         const predictions = JSON.parse(lastPredictions);
@@ -3643,6 +3644,20 @@
 
                         await kiAgent.learnFromPastPredictions(actualNumbers, predictions);
                         localStorage.setItem('last_learned_draw', currentLastDraw);
+
+                        // Update auch SelfLearningSystem direkt
+                        for (const pred of predictions) {
+                            const strategyKey = selfLearning.findStrategyKey(pred.strategy || pred.source || 'unknown');
+                            if (strategyKey && selfLearning.strategies[strategyKey]) {
+                                const matches = (pred.numbers || []).filter(n => lastDraw.numbers.includes(n)).length;
+                                selfLearning.strategies[strategyKey].total++;
+                                if (matches >= 3) {
+                                    selfLearning.strategies[strategyKey].wins++;
+                                }
+                            }
+                        }
+                        await selfLearning.saveStrategies();
+                        selfLearning.updateUI();
 
                         console.log('🧠 Automatisches Lernen durchgeführt für Ziehung:', currentLastDraw);
                         showToast('🧠 KI hat aus der neuen Ziehung gelernt!', '✅');
@@ -3661,8 +3676,30 @@
             try {
                 // Prüfe ob bereits Lern-Daten vorhanden
                 const existingData = await lottoDB.getAll('learningHistory') || [];
-                if (existingData.length > 0) {
+
+                // Prüfe ob SelfLearningSystem initialisiert ist
+                const selfLearningNeedsInit = Object.values(selfLearning.strategies).every(s => s.total === 0);
+
+                if (existingData.length > 0 && !selfLearningNeedsInit) {
                     console.log('📊 Lern-Daten bereits vorhanden:', existingData.length);
+                    return;
+                }
+
+                // Wenn SelfLearning nicht initialisiert, aber Lern-Daten existieren: Übertrage Daten
+                if (existingData.length > 0 && selfLearningNeedsInit) {
+                    console.log('🔄 Übertrage vorhandene Lern-Daten ins SelfLearningSystem...');
+                    for (const entry of existingData) {
+                        const strategyKey = selfLearning.findStrategyKey(entry.method || entry.strategy || entry.source || 'unknown');
+                        if (strategyKey && selfLearning.strategies[strategyKey]) {
+                            selfLearning.strategies[strategyKey].total++;
+                            if ((entry.matches || 0) >= 3) {
+                                selfLearning.strategies[strategyKey].wins++;
+                            }
+                        }
+                    }
+                    await selfLearning.saveStrategies();
+                    selfLearning.updateUI();
+                    console.log('✅ SelfLearningSystem aus vorhandenen Daten initialisiert');
                     return;
                 }
 
@@ -3725,16 +3762,26 @@
 
                     // Vergleiche mit echten Zahlen
                     const actual = new Set(targetDraw.numbers);
+                    const actualSuperzahl = targetDraw.superzahl;
+
+                    // Berechne Superzahl-Vorhersage basierend auf Häufigkeit
+                    const szFreq = {};
+                    historyForPrediction.slice(0, 50).forEach(d => {
+                        if (d.superzahl !== undefined) szFreq[d.superzahl] = (szFreq[d.superzahl] || 0) + 1;
+                    });
+                    const predictedSZ = Object.entries(szFreq).sort((a, b) => b[1] - a[1])[0]?.[0] || Math.floor(Math.random() * 10);
+
                     const predictions = [
-                        { numbers: freqPrediction, method: 'frequency', source: 'local_freq' },
-                        { numbers: overduePrediction, method: 'overdue', source: 'local_overdue' },
-                        { numbers: trendPrediction, method: 'trend', source: 'local_trend' },
-                        { numbers: mixedPrediction, method: 'mixed', source: 'local_mixed' }
+                        { numbers: freqPrediction, method: 'frequency', source: 'local_freq', superzahl: parseInt(predictedSZ) },
+                        { numbers: overduePrediction, method: 'overdue', source: 'local_overdue', superzahl: (parseInt(predictedSZ) + 1) % 10 },
+                        { numbers: trendPrediction, method: 'trend', source: 'local_trend', superzahl: (parseInt(predictedSZ) + 2) % 10 },
+                        { numbers: mixedPrediction, method: 'mixed', source: 'local_mixed', superzahl: Math.floor(Math.random() * 10) }
                     ];
 
                     for (const pred of predictions) {
                         const matches = pred.numbers.filter(n => actual.has(n)).length;
-                        const szMatch = Math.random() < 0.1; // ~10% für Superzahl
+                        // ECHTE Superzahl-Prüfung statt Zufall!
+                        const szMatch = pred.superzahl === actualSuperzahl;
 
                         const entry = {
                             id: `init_${targetDraw.date}_${pred.method}`,
@@ -3746,7 +3793,9 @@
                             szMatch: szMatch,
                             method: pred.method,
                             source: pred.source,
-                            strategy: pred.method
+                            strategy: pred.method,
+                            superzahl: pred.superzahl,
+                            actualSuperzahl: actualSuperzahl
                         };
 
                         testResults.push(entry);
@@ -3760,17 +3809,28 @@
                         kiAgent.learningHistory.push(entry);
                         kiAgent.predictionAccuracy.total++;
                         if (matches >= 3) kiAgent.predictionAccuracy.correct++;
+
+                        // Update SelfLearningSystem - WICHTIG für Strategy-Ranking!
+                        const strategyKey = selfLearning.findStrategyKey(pred.method);
+                        if (strategyKey && selfLearning.strategies[strategyKey]) {
+                            selfLearning.strategies[strategyKey].total++;
+                            if (matches >= 3) {
+                                selfLearning.strategies[strategyKey].wins++;
+                            }
+                        }
                     }
                 }
 
-                // Speichere Accuracy
+                // Speichere Accuracy und Strategien
                 await kiAgent.saveAccuracy();
+                await selfLearning.saveStrategies();
 
                 console.log('✅ Lern-Statistiken initialisiert:', testResults.length, 'Einträge');
                 showToast('📊 KI-Statistiken initialisiert!', '✅');
 
                 // Update UI
                 updateKILearningStats();
+                selfLearning.updateUI();
 
             } catch (e) {
                 console.log('Init Learning Error:', e);
@@ -5347,14 +5407,16 @@
 
             findStrategyKey(name) {
                 const lower = name.toLowerCase();
-                if (lower.includes('frequen') || lower.includes('häufig')) return 'frequency';
+                if (lower.includes('frequen') || lower.includes('häufig') || lower.includes('freq')) return 'frequency';
                 if (lower.includes('überfällig') || lower.includes('overdue')) return 'overdue';
                 if (lower.includes('hot') || lower.includes('cold') || lower.includes('heiß')) return 'hot_cold';
                 if (lower.includes('position')) return 'position';
                 if (lower.includes('muster') || lower.includes('pattern')) return 'pattern';
                 if (lower.includes('neural') || lower.includes('netz')) return 'neural';
-                if (lower.includes('ensemble') || lower.includes('voting')) return 'ensemble';
-                if (lower.includes('gradient')) return 'gradient';
+                if (lower.includes('ensemble') || lower.includes('voting') || lower.includes('konsens')) return 'ensemble';
+                if (lower.includes('gradient') || lower.includes('trend')) return 'gradient';
+                if (lower.includes('cluster') || lower.includes('dekad') || lower.includes('mixed')) return 'position';
+                if (lower.includes('zufall') || lower.includes('random') || lower.includes('gewichtet')) return 'pattern';
                 return null;
             }
 
