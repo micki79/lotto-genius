@@ -6877,25 +6877,31 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     name: 'K-Means: Cluster-Analyse',
                     fn: () => {
                         const clusters = [[1,10], [11,20], [21,30], [31,40], [41,49]];
-                        const nums = [];
+                        const nums = new Set();
                         clusters.forEach(([min, max]) => {
                             const n = Math.floor(Math.random() * (max - min + 1)) + min;
-                            nums.push(n);
+                            nums.add(n);
                         });
-                        while (nums.length < 6) {
-                            nums.push(Math.floor(Math.random() * 49) + 1);
+                        // Sicherstellen dass wir 6 eindeutige Zahlen haben
+                        while (nums.size < 6) {
+                            nums.add(Math.floor(Math.random() * 49) + 1);
                         }
-                        return [...new Set(nums)].slice(0, 6).sort((a, b) => a - b);
+                        return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
                     }
                 },
                 {
                     name: 'Reinforcement Learning: Belohnungsoptimiert',
                     fn: () => {
                         const bestStrat = bestStrategies[0];
-                        if (bestStrat && bestStrat.avgMatches > 1) {
-                            return hotNumbers.slice(0, 6).sort((a, b) => a - b);
+                        const pool = (bestStrat && bestStrat.avgMatches > 1) ? hotNumbers : coldNumbers;
+                        const nums = new Set();
+                        // Zuerst aus dem Pool nehmen
+                        pool.forEach(n => { if (nums.size < 6) nums.add(n); });
+                        // Falls nicht genug, mit zufälligen auffüllen
+                        while (nums.size < 6) {
+                            nums.add(Math.floor(Math.random() * 49) + 1);
                         }
-                        return coldNumbers.slice(0, 6).sort((a, b) => a - b);
+                        return Array.from(nums).sort((a, b) => a - b);
                     }
                 },
                 {
@@ -6903,10 +6909,18 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     fn: () => {
                         if (lottoData.length > 0) {
                             const template = lottoData[Math.floor(Math.random() * Math.min(20, lottoData.length))].numbers;
-                            return template.map(n => {
+                            const nums = new Set();
+                            // Template-Zahlen mit Delta modifizieren
+                            template.forEach(n => {
                                 const delta = Math.floor(Math.random() * 5) - 2;
-                                return Math.max(1, Math.min(49, n + delta));
-                            }).sort((a, b) => a - b);
+                                const modified = Math.max(1, Math.min(49, n + delta));
+                                nums.add(modified);
+                            });
+                            // Falls Duplikate entstanden sind, mit zufälligen auffüllen
+                            while (nums.size < 6) {
+                                nums.add(Math.floor(Math.random() * 49) + 1);
+                            }
+                            return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
                         }
                         return [3, 12, 25, 33, 41, 47];
                     }
@@ -6930,11 +6944,12 @@ AUFGABE: Generiere 3 Lotto-Tipps. Antworte NUR im JSON-Format:
                     name: 'Hybrid: Multi-Model Ensemble',
                     fn: () => {
                         const allNums = [...hotNumbers.slice(0, 4), ...coldNumbers.slice(0, 4)];
-                        const unique = [...new Set(allNums)];
-                        while (unique.length < 6) {
-                            unique.push(Math.floor(Math.random() * 49) + 1);
+                        const nums = new Set(allNums);
+                        // Mit zufälligen Zahlen auffüllen (ohne Duplikate)
+                        while (nums.size < 6) {
+                            nums.add(Math.floor(Math.random() * 49) + 1);
                         }
-                        return unique.slice(0, 6).sort((a, b) => a - b);
+                        return Array.from(nums).slice(0, 6).sort((a, b) => a - b);
                     }
                 }
             ];
