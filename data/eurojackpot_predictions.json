@@ -2,15 +2,15 @@
   "predictions": [
     {
       "numbers": [
-        11,
-        18,
-        32,
-        38,
-        50
+        21,
+        22,
+        24,
+        29,
+        38
       ],
       "eurozahlen": [
         2,
-        6
+        9
       ],
       "method": "ml_ensemble_real",
       "method_name": "\ud83c\udfc6 ML Ensemble (5 Modelle)",
@@ -19,41 +19,41 @@
       "confidence": 88,
       "is_real_ml": true,
       "is_champion": true,
-      "timestamp": "2025-12-23T20:19:08.707114",
+      "timestamp": "2025-12-24T19:19:50.605012",
       "verified": false
     },
     {
       "numbers": [
-        4,
-        18,
-        32,
-        45,
-        50
+        21,
+        22,
+        24,
+        41,
+        45
       ],
       "eurozahlen": [
         2,
-        6
+        7
       ],
       "method": "ensemble_champion",
       "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 21 KI-Vorhersagen",
       "confidence": 90,
-      "timestamp": "2025-12-23T20:19:09.049319",
+      "timestamp": "2025-12-24T19:19:51.059241",
       "verified": false,
       "is_champion": true
     },
     {
       "numbers": [
-        18,
+        21,
+        22,
         25,
         29,
-        44,
-        50
+        38
       ],
       "eurozahlen": [
-        2,
-        3
+        1,
+        2
       ],
       "method": "ml_bayesian_real",
       "method_name": "\ud83d\udcca Bayesian Thompson",
@@ -61,20 +61,20 @@
       "strategy": "Echtes ML: bayesian",
       "confidence": 75,
       "is_real_ml": true,
-      "timestamp": "2025-12-23T20:19:08.707141",
+      "timestamp": "2025-12-24T19:19:50.605036",
       "verified": false
     },
     {
       "numbers": [
-        11,
-        18,
-        32,
-        38,
-        50
+        21,
+        22,
+        24,
+        29,
+        38
       ],
       "eurozahlen": [
         2,
-        6
+        9
       ],
       "method": "ml_reinforcement_real",
       "method_name": "\ud83c\udfae Q-Learning (RL)",
@@ -99,16 +99,16 @@
           "rank": 3
         }
       ],
-      "timestamp": "2025-12-23T20:19:08.707151",
+      "timestamp": "2025-12-24T19:19:50.605045",
       "verified": false
     },
     {
       "numbers": [
-        21,
+        18,
         22,
-        30,
-        45,
-        50
+        24,
+        29,
+        38
       ],
       "eurozahlen": [
         2,
@@ -118,76 +118,76 @@
       "method_name": "\ud83d\udd17 Markov-Kette",
       "provider": "ml_real",
       "strategy": "Echtes ML: markov",
-      "confidence": 31.363418805187816,
+      "confidence": 28.813212504725733,
       "is_real_ml": true,
-      "timestamp": "2025-12-23T20:19:08.707136",
+      "timestamp": "2025-12-24T19:19:50.605031",
       "verified": false
     },
     {
       "numbers": [
-        11,
-        18,
-        32,
-        38,
-        50
+        21,
+        22,
+        24,
+        29,
+        38
       ],
       "eurozahlen": [
-        2,
-        6
+        7,
+        9
       ],
       "method": "ml_eurozahl_real",
       "method_name": "\ud83c\udfaf Eurozahl ML (Spezialist)",
       "provider": "ml_real",
       "strategy": "Spezialisiertes ML f\u00fcr 2 aus 12 mit Paar-Analyse",
-      "confidence": 9.772214321444292,
+      "confidence": 9.516900422434121,
       "is_real_ml": true,
       "top_pairs": [
         [
           [
-            2,
-            6
+            7,
+            9
           ],
-          0.2023887308733303
+          0.1972824528931269
         ],
         [
           [
             2,
-            7
+            9
           ],
-          0.19980309522735246
+          0.19388675080516418
         ],
         [
           [
-            6,
-            7
+            9,
+            12
           ],
-          0.1993796038529547
+          0.19273169344417496
         ],
         [
           [
-            2,
-            10
+            9,
+            11
           ],
-          0.19638561270858124
+          0.19203606138450188
         ],
         [
           [
-            6,
-            10
+            4,
+            9
           ],
-          0.19596212133418345
+          0.1918994715777585
         ]
       ],
-      "timestamp": "2025-12-23T20:19:08.707146",
+      "timestamp": "2025-12-24T19:19:50.605040",
       "verified": false
     },
     {
       "numbers": [
-        11,
-        18,
-        32,
-        38,
-        46
+        21,
+        24,
+        42,
+        43,
+        45
       ],
       "eurozahlen": [
         6,
@@ -197,30 +197,30 @@
       "method_name": "\ud83e\udde0 Neuronales Netz",
       "provider": "ml_real",
       "strategy": "Echtes ML: neural_network",
-      "confidence": 2.639762329071248,
+      "confidence": 4.172752569393326,
       "is_real_ml": true,
-      "timestamp": "2025-12-23T20:19:08.707130",
+      "timestamp": "2025-12-24T19:19:50.605025",
       "verified": false
     },
     {
       "numbers": [
-        9,
-        31,
-        36,
-        42,
+        12,
+        27,
+        41,
+        43,
         49
       ],
       "eurozahlen": [
-        6,
-        8
+        3,
+        10
       ],
-      "method": "ej_hot_cold",
-      "method_name": "\ud83d\udd25 Hot Numbers",
+      "method": "ej_bayesian",
+      "method_name": "\ud83d\udcca Bayesian Inference",
       "provider": "local_ml",
-      "strategy": "Basiert auf den h\u00e4ufigsten Zahlen",
+      "strategy": "Wahrscheinlichkeitsberechnung",
       "confidence": 78.5,
       "weight": 0.95,
-      "timestamp": "2025-12-23T20:19:08.712192",
+      "timestamp": "2025-12-24T19:19:50.610130",
       "verified": false
     }
   ],
@@ -1661,9 +1661,288 @@
         "draw_date": "23.12.2025",
         "new_weight": 0.944
       }
+    },
+    {
+      "numbers": [
+        11,
+        18,
+        32,
+        38,
+        50
+      ],
+      "eurozahlen": [
+        2,
+        6
+      ],
+      "method": "ml_ensemble_real",
+      "method_name": "\ud83c\udfc6 ML Ensemble (5 Modelle)",
+      "provider": "ml_real",
+      "strategy": "Gewichtetes Voting aus Neural Network, Markov, Bayesian & EurozahlML",
+      "confidence": 88,
+      "is_real_ml": true,
+      "is_champion": true,
+      "timestamp": "2025-12-23T20:19:08.707114",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "24.12.2025",
+        "new_weight": 0.872
+      }
+    },
+    {
+      "numbers": [
+        4,
+        18,
+        32,
+        45,
+        50
+      ],
+      "eurozahlen": [
+        2,
+        6
+      ],
+      "method": "ensemble_champion",
+      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "provider": "ensemble",
+      "strategy": "Gewichtetes Voting aus 21 KI-Vorhersagen",
+      "confidence": 90,
+      "timestamp": "2025-12-23T20:19:09.049319",
+      "verified": true,
+      "is_champion": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "24.12.2025",
+        "new_weight": 0.808
+      }
+    },
+    {
+      "numbers": [
+        18,
+        25,
+        29,
+        44,
+        50
+      ],
+      "eurozahlen": [
+        2,
+        3
+      ],
+      "method": "ml_bayesian_real",
+      "method_name": "\ud83d\udcca Bayesian Thompson",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: bayesian",
+      "confidence": 75,
+      "is_real_ml": true,
+      "timestamp": "2025-12-23T20:19:08.707141",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "24.12.2025",
+        "new_weight": 0.84
+      }
+    },
+    {
+      "numbers": [
+        11,
+        18,
+        32,
+        38,
+        50
+      ],
+      "eurozahlen": [
+        2,
+        6
+      ],
+      "method": "ml_reinforcement_real",
+      "method_name": "\ud83c\udfae Q-Learning (RL)",
+      "provider": "ml_real",
+      "strategy": "Beste Strategie: ml_ensemble",
+      "confidence": 75,
+      "is_real_ml": true,
+      "recommended_strategies": [
+        {
+          "strategy": "ml_ensemble",
+          "value": 0.0,
+          "rank": 1
+        },
+        {
+          "strategy": "ml_markov",
+          "value": 0.0,
+          "rank": 2
+        },
+        {
+          "strategy": "ml_neural_network",
+          "value": 0.0,
+          "rank": 3
+        }
+      ],
+      "timestamp": "2025-12-23T20:19:08.707151",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "24.12.2025",
+        "new_weight": 0.92
+      }
+    },
+    {
+      "numbers": [
+        21,
+        22,
+        30,
+        45,
+        50
+      ],
+      "eurozahlen": [
+        2,
+        8
+      ],
+      "method": "ml_markov_real",
+      "method_name": "\ud83d\udd17 Markov-Kette",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: markov",
+      "confidence": 31.363418805187816,
+      "is_real_ml": true,
+      "timestamp": "2025-12-23T20:19:08.707136",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "24.12.2025",
+        "new_weight": 0.864
+      }
+    },
+    {
+      "numbers": [
+        11,
+        18,
+        32,
+        38,
+        50
+      ],
+      "eurozahlen": [
+        2,
+        6
+      ],
+      "method": "ml_eurozahl_real",
+      "method_name": "\ud83c\udfaf Eurozahl ML (Spezialist)",
+      "provider": "ml_real",
+      "strategy": "Spezialisiertes ML f\u00fcr 2 aus 12 mit Paar-Analyse",
+      "confidence": 9.772214321444292,
+      "is_real_ml": true,
+      "top_pairs": [
+        [
+          [
+            2,
+            6
+          ],
+          0.2023887308733303
+        ],
+        [
+          [
+            2,
+            7
+          ],
+          0.19980309522735246
+        ],
+        [
+          [
+            6,
+            7
+          ],
+          0.1993796038529547
+        ],
+        [
+          [
+            2,
+            10
+          ],
+          0.19638561270858124
+        ],
+        [
+          [
+            6,
+            10
+          ],
+          0.19596212133418345
+        ]
+      ],
+      "timestamp": "2025-12-23T20:19:08.707146",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "24.12.2025",
+        "new_weight": 0.92
+      }
+    },
+    {
+      "numbers": [
+        11,
+        18,
+        32,
+        38,
+        46
+      ],
+      "eurozahlen": [
+        6,
+        9
+      ],
+      "method": "ml_neural_network_real",
+      "method_name": "\ud83e\udde0 Neuronales Netz",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: neural_network",
+      "confidence": 2.639762329071248,
+      "is_real_ml": true,
+      "timestamp": "2025-12-23T20:19:08.707130",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "24.12.2025",
+        "new_weight": 0.852
+      }
+    },
+    {
+      "numbers": [
+        9,
+        31,
+        36,
+        42,
+        49
+      ],
+      "eurozahlen": [
+        6,
+        8
+      ],
+      "method": "ej_hot_cold",
+      "method_name": "\ud83d\udd25 Hot Numbers",
+      "provider": "local_ml",
+      "strategy": "Basiert auf den h\u00e4ufigsten Zahlen",
+      "confidence": 78.5,
+      "weight": 0.95,
+      "timestamp": "2025-12-23T20:19:08.712192",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "24.12.2025",
+        "new_weight": 0.86
+      }
     }
   ],
-  "last_update": "2025-12-23T20:19:09.049935",
+  "last_update": "2025-12-24T19:19:51.059733",
   "next_draw": "26.12.2025",
   "ki_stats": {
     "providers_used": [
@@ -1673,36 +1952,32 @@
     "total_analyzed": 22,
     "top_8_saved": 8,
     "best_eurozahlen": [
-      3,
-      11
+      7,
+      8
     ],
     "eurozahl_ranking": [
       [
-        11,
-        60.0
+        8,
+        64.8
       ],
       [
-        3,
-        59.8
+        7,
+        63.0
       ],
       [
         5,
-        58.5
+        62.9
+      ],
+      [
+        2,
+        61.5
       ],
       [
         4,
-        58.4
-      ],
-      [
-        9,
-        56.9
+        52.8
       ]
     ],
     "top_strategies": [
-      [
-        "ej_hot_cold",
-        0.95
-      ],
       [
         "ej_bayesian",
         0.95
@@ -1716,8 +1991,12 @@
         0.944
       ],
       [
-        "ml_ensemble_real",
-        0.94
+        "ej_prime_mix",
+        0.932
+      ],
+      [
+        "ej_odd_even_23",
+        0.93
       ]
     ]
   },

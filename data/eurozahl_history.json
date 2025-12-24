@@ -311,13 +311,117 @@
       ],
       "matches": 0,
       "method": "ej_odd_even_32"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": [
+        2,
+        6
+      ],
+      "actual": [
+        11,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_ensemble_real"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": [
+        2,
+        6
+      ],
+      "actual": [
+        11,
+        12
+      ],
+      "matches": 0,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": [
+        2,
+        3
+      ],
+      "actual": [
+        11,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_bayesian_real"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": [
+        2,
+        6
+      ],
+      "actual": [
+        11,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_reinforcement_real"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": [
+        8,
+        2
+      ],
+      "actual": [
+        11,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_markov_real"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": [
+        2,
+        6
+      ],
+      "actual": [
+        11,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_eurozahl_real"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": [
+        9,
+        6
+      ],
+      "actual": [
+        11,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_neural_network_real"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": [
+        8,
+        6
+      ],
+      "actual": [
+        11,
+        12
+      ],
+      "matches": 0,
+      "method": "ej_hot_cold"
     }
   ],
   "stats": {
-    "total": 24,
+    "total": 32,
     "total_matches": 10,
-    "avg_matches": 0.42,
+    "avg_matches": 0.31,
     "perfect_matches": 2,
-    "last_update": "2025-12-23T20:19:08.485314"
+    "last_update": "2025-12-24T19:19:50.386576"
   }
 }

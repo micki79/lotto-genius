@@ -1,11 +1,11 @@
 {
   "strategies": {
     "ensemble_champion": {
-      "weight": 0.85,
+      "weight": 0.7224999999999999,
       "total_matches": 0,
-      "total_predictions": 1,
+      "total_predictions": 2,
       "gewinnklassen": {},
-      "last_updated": "2025-12-19T11:23:54.472740"
+      "last_updated": "2025-12-24T19:19:51.974062"
     },
     "gs_overdue": {
       "weight": 0.85,
@@ -15,11 +15,11 @@
       "last_updated": "2025-12-19T11:23:54.472808"
     },
     "gs_odd_even": {
-      "weight": 0.85,
+      "weight": 0.7224999999999999,
       "total_matches": 0,
-      "total_predictions": 1,
+      "total_predictions": 2,
       "gewinnklassen": {},
-      "last_updated": "2025-12-19T11:23:54.472847"
+      "last_updated": "2025-12-24T19:19:51.974214"
     },
     "gs_cold": {
       "weight": 0.85,
@@ -29,18 +29,18 @@
       "last_updated": "2025-12-19T11:23:54.472873"
     },
     "gs_sum": {
-      "weight": 0.85,
+      "weight": 0.7224999999999999,
       "total_matches": 0,
-      "total_predictions": 1,
+      "total_predictions": 2,
       "gewinnklassen": {},
-      "last_updated": "2025-12-19T11:23:54.472895"
+      "last_updated": "2025-12-24T19:19:51.974264"
     },
     "gs_hot": {
-      "weight": 0.85,
+      "weight": 0.7224999999999999,
       "total_matches": 0,
-      "total_predictions": 1,
+      "total_predictions": 2,
       "gewinnklassen": {},
-      "last_updated": "2025-12-19T11:23:54.472914"
+      "last_updated": "2025-12-24T19:19:51.974244"
     },
     "gs_fibonacci": {
       "weight": 0.85,
@@ -69,8 +69,52 @@
       "total_predictions": 1,
       "gewinnklassen": {},
       "last_updated": "2025-12-19T11:23:54.473053"
+    },
+    "ml_bayesian_real": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-24T19:19:51.974103"
+    },
+    "ml_markov_real": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-24T19:19:51.974125"
+    },
+    "ml_ensemble_real": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-24T19:19:51.974145"
+    },
+    "ml_reinforcement_real": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-24T19:19:51.974164"
+    },
+    "gs_last_var": {
+      "weight": 1.1485714285714284,
+      "total_matches": 1,
+      "total_predictions": 1,
+      "gewinnklassen": {
+        "7": 1
+      },
+      "last_updated": "2025-12-24T19:19:51.974185"
+    },
+    "gs_no_doubles": {
+      "weight": 0.85,
+      "total_matches": 0,
+      "total_predictions": 1,
+      "gewinnklassen": {},
+      "last_updated": "2025-12-24T19:19:51.974283"
     }
   },
-  "last_update": "2025-12-23T20:19:10.138775",
+  "last_update": "2025-12-24T19:19:52.139152",
   "learning_rate": 0.15
 }

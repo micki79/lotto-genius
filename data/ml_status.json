@@ -1,29 +1,29 @@
 {
-  "last_training": "2025-12-23T20:19:07.339550",
+  "last_training": "2025-12-24T19:19:48.869169",
   "training_draw": "20.12.2025",
   "models": {
     "neural_network": {
-      "epochs_trained": 120,
+      "epochs_trained": 130,
       "status": "active"
     },
     "markov_chain": {
-      "observations": 3083,
+      "observations": 3084,
       "status": "active"
     },
     "bayesian": {
-      "observations": 3083,
+      "observations": 3084,
       "status": "active"
     },
     "reinforcement": {
-      "episodes": 27,
-      "total_rewards": -11.5,
+      "episodes": 37,
+      "total_rewards": -16.0,
       "status": "active"
     }
   },
   "ensemble_weights": {
-    "neural_network": 1.51,
-    "markov_chain": 2.71,
-    "bayesian": 2.21,
+    "neural_network": 1.5256666666666667,
+    "markov_chain": 3.0,
+    "bayesian": 2.377888888888889,
     "reinforcement": 1.0
   }
 }
