@@ -1,23 +1,23 @@
 {
   "ensemble": {
-    "total_predictions": 3,
+    "total_predictions": 4,
     "total_main_matches": 2,
     "total_euro_matches": 1,
-    "main_accuracy": 13.33,
-    "euro_accuracy": 16.67
+    "main_accuracy": 10.0,
+    "euro_accuracy": 12.5
   },
   "local_ml": {
-    "total_predictions": 19,
-    "total_main_matches": 10,
+    "total_predictions": 20,
+    "total_main_matches": 12,
     "total_euro_matches": 8,
-    "main_accuracy": 10.53,
-    "euro_accuracy": 21.05
+    "main_accuracy": 12.0,
+    "euro_accuracy": 20.0
   },
   "ml_real": {
-    "total_predictions": 10,
-    "total_main_matches": 9,
-    "total_euro_matches": 1,
-    "main_accuracy": 18.0,
-    "euro_accuracy": 5.0
+    "total_predictions": 16,
+    "total_main_matches": 10,
+    "total_euro_matches": 2,
+    "main_accuracy": 12.5,
+    "euro_accuracy": 6.25
   }
 }
