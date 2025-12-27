@@ -299,14 +299,114 @@
       "exact_matches": 1,
       "method": "gs_cold",
       "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030742",
+      "draw_date": "27.12.2025",
+      "predicted": "4920583",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 2,
+      "method": "ensemble_champion",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030777",
+      "draw_date": "27.12.2025",
+      "predicted": "2937234",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "ml_bayesian_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030825",
+      "draw_date": "27.12.2025",
+      "predicted": "5924983",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 2,
+      "method": "ml_ensemble_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030846",
+      "draw_date": "27.12.2025",
+      "predicted": "4889583",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "ml_reinforcement_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030867",
+      "draw_date": "27.12.2025",
+      "predicted": "5457545",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "gs_symmetry",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030887",
+      "draw_date": "27.12.2025",
+      "predicted": "0013454",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "ml_markov_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030912",
+      "draw_date": "27.12.2025",
+      "predicted": "4190583",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 2,
+      "method": "gs_monte_carlo",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030945",
+      "draw_date": "27.12.2025",
+      "predicted": "4160593",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "gs_position_hot",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030965",
+      "draw_date": "27.12.2025",
+      "predicted": "9052903",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "gs_odd_even",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2025-12-27T20:16:18.030983",
+      "draw_date": "27.12.2025",
+      "predicted": "1722796",
+      "actual": "3991887",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "gs_cold",
+      "gewinnklasse": null
     }
   ],
   "stats": {
-    "total_entries": 30,
+    "total_entries": 40,
     "avg_end_matches": 0.03,
     "gewinnklassen": {
       "7": 1
     },
-    "last_update": "2025-12-26T20:19:12.796932"
+    "last_update": "2025-12-27T20:16:18.031530"
   }
 }

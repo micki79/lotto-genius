@@ -670,13 +670,83 @@
       "actual": 8,
       "correct": false,
       "method": "monte_carlo"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 9,
+      "actual": 8,
+      "correct": false,
+      "method": "hot_cold_mix"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 5,
+      "actual": 8,
+      "correct": false,
+      "method": "hot_cold"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 5,
+      "actual": 8,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 0,
+      "actual": 8,
+      "correct": false,
+      "method": "no_consecutive"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 4,
+      "actual": 8,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 3,
+      "actual": 8,
+      "correct": false,
+      "method": "cold_numbers"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 1,
+      "actual": 8,
+      "correct": false,
+      "method": "low_high"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 6,
+      "actual": 8,
+      "correct": false,
+      "method": "prime_mix"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 5,
+      "actual": 8,
+      "correct": false,
+      "method": "decade_balance"
+    },
+    {
+      "date": "24.12.2025",
+      "predicted": 5,
+      "actual": 8,
+      "correct": false,
+      "method": "ensemble_ml_real"
     }
   ],
   "stats": {
-    "total": 93,
+    "total": 103,
     "correct": 4,
-    "accuracy": 4.3,
-    "last_update": "2025-12-26T20:19:09.735460"
+    "accuracy": 3.88,
+    "last_update": "2025-12-27T20:16:15.213418"
   },
   "history": [
     {
@@ -1055,6 +1125,33 @@
         [
           4,
           55.7
+        ]
+      ],
+      "actual": null
+    },
+    {
+      "date": "2025-12-27T20:16:16.351299",
+      "predicted": 9,
+      "ranking": [
+        [
+          9,
+          63.7
+        ],
+        [
+          5,
+          61.2
+        ],
+        [
+          3,
+          57.5
+        ],
+        [
+          7,
+          56.8
+        ],
+        [
+          0,
+          55.3
         ]
       ],
       "actual": null

@@ -1,20 +1,20 @@
 {
   "strategies": {
     "hot_cold": {
-      "weight": 4.156355312500001,
-      "hits": 6,
-      "total": 5,
-      "last_updated": "2025-12-26T20:19:09.734820",
+      "weight": 4.532902015625,
+      "hits": 8,
+      "total": 6,
+      "last_updated": "2025-12-27T20:16:15.212683",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {}
     },
     "cold_numbers": {
-      "weight": 3.71517875,
+      "weight": 3.9079019375,
       "hits": 6,
-      "total": 5,
-      "last_updated": "2025-12-26T20:19:09.734847",
+      "total": 6,
+      "last_updated": "2025-12-27T20:16:15.212738",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
@@ -57,10 +57,10 @@
       "gewinnklassen": {}
     },
     "decade_balance": {
-      "weight": 1.4725,
+      "weight": 1.751625,
       "hits": 2,
-      "total": 2,
-      "last_updated": "2025-12-20T21:04:51.118624",
+      "total": 3,
+      "last_updated": "2025-12-27T20:16:15.212822",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -87,30 +87,30 @@
       "gewinnklassen": {}
     },
     "no_consecutive": {
-      "weight": 3.3073084375,
-      "hits": 4,
-      "total": 5,
-      "last_updated": "2025-12-26T20:19:09.734834",
+      "weight": 3.436212171875,
+      "hits": 5,
+      "total": 6,
+      "last_updated": "2025-12-27T20:16:15.212712",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {}
     },
     "prime_mix": {
-      "weight": 1.6,
+      "weight": 1.735,
       "hits": 1,
-      "total": 1,
-      "last_updated": "2025-12-23T20:19:07.069383",
+      "total": 2,
+      "last_updated": "2025-12-27T20:16:15.212787",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {}
     },
     "low_high": {
-      "weight": 1.6,
-      "hits": 1,
-      "total": 1,
-      "last_updated": "2025-12-24T19:19:48.605272",
+      "weight": 2.4850000000000003,
+      "hits": 3,
+      "total": 2,
+      "last_updated": "2025-12-27T20:16:15.212754",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -118,9 +118,9 @@
     },
     "hot_cold_mix": {
       "weight": 5.0,
-      "hits": 5,
-      "total": 3,
-      "last_updated": "2025-12-26T20:19:09.734789",
+      "hits": 7,
+      "total": 4,
+      "last_updated": "2025-12-27T20:16:15.212647",
       "three_plus": 1,
       "four_plus": 0,
       "sz_correct": 0,
@@ -129,10 +129,10 @@
       }
     },
     "monte_carlo": {
-      "weight": 2.7935000000000003,
-      "hits": 4,
-      "total": 3,
-      "last_updated": "2025-12-26T20:19:09.734954",
+      "weight": 3.3119750000000003,
+      "hits": 5,
+      "total": 4,
+      "last_updated": "2025-12-27T20:16:15.212724",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -193,24 +193,24 @@
       "last_updated": null
     },
     "ensemble_champion": {
-      "weight": 1.6971808437499998,
-      "hits": 3,
-      "total": 6,
+      "weight": 1.9783180029017853,
+      "hits": 5,
+      "total": 7,
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
       "gewinnklassen": {},
-      "last_updated": "2025-12-26T20:19:09.734863"
+      "last_updated": "2025-12-27T20:16:15.212699"
     },
     "ensemble_ml_real": {
-      "weight": 1.0975,
-      "hits": 1,
-      "total": 2,
+      "weight": 1.432875,
+      "hits": 2,
+      "total": 3,
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "last_updated": "2025-12-26T20:19:09.734942"
+      "last_updated": "2025-12-27T20:16:15.212835"
     },
     "neural_network_real": {
       "weight": 0.85,
@@ -273,7 +273,7 @@
       "last_updated": "2025-12-26T20:19:09.734925"
     }
   },
-  "last_update": "2025-12-26T20:19:09.734963",
-  "total_predictions": 57,
+  "last_update": "2025-12-27T20:16:15.212878",
+  "total_predictions": 67,
   "learning_rate": 0.15
 }

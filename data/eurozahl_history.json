@@ -519,13 +519,117 @@
       ],
       "matches": 0,
       "method": "ej_bayesian"
+    },
+    {
+      "date": "27.12.2025",
+      "predicted": [
+        8,
+        9
+      ],
+      "actual": [
+        3,
+        4
+      ],
+      "matches": 0,
+      "method": "ml_ensemble_real"
+    },
+    {
+      "date": "27.12.2025",
+      "predicted": [
+        8,
+        4
+      ],
+      "actual": [
+        3,
+        4
+      ],
+      "matches": 1,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "27.12.2025",
+      "predicted": [
+        8,
+        2
+      ],
+      "actual": [
+        3,
+        4
+      ],
+      "matches": 0,
+      "method": "ml_bayesian_real"
+    },
+    {
+      "date": "27.12.2025",
+      "predicted": [
+        8,
+        9
+      ],
+      "actual": [
+        3,
+        4
+      ],
+      "matches": 0,
+      "method": "ml_reinforcement_real"
+    },
+    {
+      "date": "27.12.2025",
+      "predicted": [
+        8,
+        2
+      ],
+      "actual": [
+        3,
+        4
+      ],
+      "matches": 0,
+      "method": "ml_markov_real"
+    },
+    {
+      "date": "27.12.2025",
+      "predicted": [
+        9,
+        3
+      ],
+      "actual": [
+        3,
+        4
+      ],
+      "matches": 1,
+      "method": "ml_eurozahl_real"
+    },
+    {
+      "date": "27.12.2025",
+      "predicted": [
+        8,
+        9
+      ],
+      "actual": [
+        3,
+        4
+      ],
+      "matches": 0,
+      "method": "ml_neural_network_real"
+    },
+    {
+      "date": "27.12.2025",
+      "predicted": [
+        2,
+        5
+      ],
+      "actual": [
+        3,
+        4
+      ],
+      "matches": 0,
+      "method": "ej_decade_balance"
     }
   ],
   "stats": {
-    "total": 40,
-    "total_matches": 11,
-    "avg_matches": 0.28,
+    "total": 48,
+    "total_matches": 13,
+    "avg_matches": 0.27,
     "perfect_matches": 2,
-    "last_update": "2025-12-26T20:19:11.294273"
+    "last_update": "2025-12-27T20:16:16.541496"
   }
 }
