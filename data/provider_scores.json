@@ -1,10 +1,10 @@
 {
   "ensemble": {
-    "total_predictions": 12,
-    "total_matches": 15,
+    "total_predictions": 13,
+    "total_matches": 16,
     "sz_correct": 2,
-    "accuracy": 20.83,
-    "sz_accuracy": 16.67
+    "accuracy": 20.51,
+    "sz_accuracy": 15.38
   },
   "local_ml": {
     "total_predictions": 36,
@@ -14,11 +14,11 @@
     "sz_accuracy": 2.78
   },
   "local_strategy": {
-    "total_predictions": 46,
-    "total_matches": 40,
+    "total_predictions": 55,
+    "total_matches": 49,
     "sz_correct": 1,
-    "accuracy": 14.49,
-    "sz_accuracy": 2.17,
+    "accuracy": 14.85,
+    "sz_accuracy": 1.82,
     "gewinnklassen": {
       "8": 1
     }

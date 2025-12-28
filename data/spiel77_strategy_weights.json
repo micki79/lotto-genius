@@ -1,13 +1,13 @@
 {
   "strategies": {
     "ensemble_champion": {
-      "weight": 0.7299967857142856,
+      "weight": 0.6419258392857142,
       "total_matches": 1,
-      "total_predictions": 4,
+      "total_predictions": 5,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2025-12-27T20:16:17.303004"
+      "last_updated": "2025-12-28T03:49:44.638499"
     },
     "sp77_markov": {
       "weight": 0.85,
@@ -31,13 +31,13 @@
       "last_updated": "2025-12-27T20:16:17.303208"
     },
     "sp77_position_top3": {
-      "weight": 0.9110928571428568,
+      "weight": 0.8012146428571426,
       "total_matches": 1,
-      "total_predictions": 3,
+      "total_predictions": 4,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2025-12-26T20:19:12.092782"
+      "last_updated": "2025-12-28T03:49:44.638683"
     },
     "sp77_sum_optimized": {
       "weight": 0.7224999999999999,
@@ -54,47 +54,47 @@
       "last_updated": "2025-12-19T11:23:46.100913"
     },
     "sp77_delta": {
-      "weight": 1.2444642857142856,
+      "weight": 1.1292232142857141,
       "total_matches": 2,
-      "total_predictions": 2,
+      "total_predictions": 3,
       "gewinnklassen": {
         "6": 1
       },
-      "last_updated": "2025-12-26T20:19:12.092909"
+      "last_updated": "2025-12-28T03:49:44.638704"
     },
     "sp77_position_hot": {
-      "weight": 0.9312857142857142,
-      "total_matches": 1,
-      "total_predictions": 2,
+      "weight": 1.035625714285714,
+      "total_matches": 2,
+      "total_predictions": 3,
       "gewinnklassen": {
-        "7": 1
+        "7": 2
       },
-      "last_updated": "2025-12-27T20:16:17.303187"
+      "last_updated": "2025-12-28T03:49:44.638625"
     },
     "sp77_prime": {
-      "weight": 1.1485714285714284,
-      "total_matches": 1,
-      "total_predictions": 1,
-      "gewinnklassen": {
-        "7": 1
-      },
-      "last_updated": "2025-12-19T11:23:46.101037"
-    },
-    "ml_ensemble_real": {
       "weight": 1.0298571428571426,
       "total_matches": 1,
       "total_predictions": 2,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2025-12-27T20:16:17.303048"
+      "last_updated": "2025-12-28T03:49:44.638725"
+    },
+    "ml_ensemble_real": {
+      "weight": 0.9110928571428568,
+      "total_matches": 1,
+      "total_predictions": 3,
+      "gewinnklassen": {
+        "7": 1
+      },
+      "last_updated": "2025-12-28T03:49:44.638542"
     },
     "ml_reinforcement_real": {
-      "weight": 0.6141249999999999,
+      "weight": 0.5220062499999999,
       "total_matches": 0,
-      "total_predictions": 3,
+      "total_predictions": 4,
       "gewinnklassen": {},
-      "last_updated": "2025-12-27T20:16:17.303071"
+      "last_updated": "2025-12-28T03:49:44.638584"
     },
     "ml_bayesian_real": {
       "weight": 0.6141249999999999,
@@ -104,22 +104,22 @@
       "last_updated": "2025-12-27T20:16:17.303131"
     },
     "sp77_bayesian": {
-      "weight": 0.9312857142857142,
-      "total_matches": 1,
-      "total_predictions": 2,
+      "weight": 1.035625714285714,
+      "total_matches": 2,
+      "total_predictions": 3,
       "gewinnklassen": {
-        "7": 1
+        "7": 2
       },
-      "last_updated": "2025-12-27T20:16:17.303153"
+      "last_updated": "2025-12-28T03:49:44.638652"
     },
     "ml_neural_network_real": {
-      "weight": 1.0298571428571426,
+      "weight": 0.9110928571428568,
       "total_matches": 1,
-      "total_predictions": 2,
+      "total_predictions": 3,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2025-12-26T20:19:12.092715"
+      "last_updated": "2025-12-28T03:49:44.638564"
     },
     "sp77_neural": {
       "weight": 0.85,
@@ -159,14 +159,14 @@
       "last_updated": "2025-12-27T20:16:17.303112"
     },
     "ml_markov_real": {
-      "weight": 0.7224999999999999,
+      "weight": 0.6141249999999999,
       "total_matches": 0,
-      "total_predictions": 2,
+      "total_predictions": 3,
       "gewinnklassen": {},
-      "last_updated": "2025-12-27T20:16:17.303091"
+      "last_updated": "2025-12-28T03:49:44.638604"
     }
   },
-  "last_update": "2025-12-27T20:16:17.486783",
-  "total_predictions": 40,
+  "last_update": "2025-12-28T03:49:44.813214",
+  "total_predictions": 50,
   "learning_rate": 0.15
 }

@@ -623,13 +623,117 @@
       ],
       "matches": 0,
       "method": "ej_decade_balance"
+    },
+    {
+      "date": "28.12.2025",
+      "predicted": [
+        9,
+        12
+      ],
+      "actual": [
+        1,
+        12
+      ],
+      "matches": 1,
+      "method": "ml_ensemble_real"
+    },
+    {
+      "date": "28.12.2025",
+      "predicted": [
+        9,
+        12
+      ],
+      "actual": [
+        1,
+        12
+      ],
+      "matches": 1,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "28.12.2025",
+      "predicted": [
+        1,
+        2
+      ],
+      "actual": [
+        1,
+        12
+      ],
+      "matches": 1,
+      "method": "ml_bayesian_real"
+    },
+    {
+      "date": "28.12.2025",
+      "predicted": [
+        9,
+        12
+      ],
+      "actual": [
+        1,
+        12
+      ],
+      "matches": 1,
+      "method": "ml_reinforcement_real"
+    },
+    {
+      "date": "28.12.2025",
+      "predicted": [
+        12,
+        6
+      ],
+      "actual": [
+        1,
+        12
+      ],
+      "matches": 1,
+      "method": "ml_markov_real"
+    },
+    {
+      "date": "28.12.2025",
+      "predicted": [
+        9,
+        12
+      ],
+      "actual": [
+        1,
+        12
+      ],
+      "matches": 1,
+      "method": "ml_eurozahl_real"
+    },
+    {
+      "date": "28.12.2025",
+      "predicted": [
+        8,
+        9
+      ],
+      "actual": [
+        1,
+        12
+      ],
+      "matches": 0,
+      "method": "ml_neural_network_real"
+    },
+    {
+      "date": "28.12.2025",
+      "predicted": [
+        5,
+        6
+      ],
+      "actual": [
+        1,
+        12
+      ],
+      "matches": 0,
+      "method": "ej_odd_even_32"
     }
   ],
   "stats": {
-    "total": 48,
-    "total_matches": 13,
-    "avg_matches": 0.27,
+    "total": 56,
+    "total_matches": 19,
+    "avg_matches": 0.34,
     "perfect_matches": 2,
-    "last_update": "2025-12-27T20:16:16.541496"
+    "last_update": "2025-12-28T03:49:43.733353"
   }
 }
