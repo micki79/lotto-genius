@@ -1,8 +1,8 @@
 {
   "strategies": {
     "ensemble_champion": {
-      "weight": 0.712,
-      "total_predictions": 6,
+      "weight": 0.67,
+      "total_predictions": 7,
       "total_main_matches": 2,
       "total_euro_matches": 3,
       "wins_3plus": 0,
@@ -111,9 +111,9 @@
       "gewinnklassen": 0
     },
     "ej_prime_mix": {
-      "weight": 0.932,
-      "total_predictions": 2,
-      "total_main_matches": 1,
+      "weight": 0.866,
+      "total_predictions": 3,
+      "total_main_matches": 2,
       "total_euro_matches": 2,
       "wins_3plus": 0,
       "wins_4plus": 0,
@@ -161,8 +161,8 @@
       "gewinnklassen": 0
     },
     "ml_ensemble_real": {
-      "weight": 0.736,
-      "total_predictions": 5,
+      "weight": 0.689,
+      "total_predictions": 6,
       "total_main_matches": 4,
       "total_euro_matches": 1,
       "wins_3plus": 0,
@@ -171,8 +171,8 @@
       "gewinnklassen": 0
     },
     "ml_bayesian_real": {
-      "weight": 0.74,
-      "total_predictions": 5,
+      "weight": 0.692,
+      "total_predictions": 6,
       "total_main_matches": 2,
       "total_euro_matches": 2,
       "wins_3plus": 0,
@@ -181,8 +181,8 @@
       "gewinnklassen": 0
     },
     "ml_markov_real": {
-      "weight": 0.736,
-      "total_predictions": 5,
+      "weight": 0.689,
+      "total_predictions": 6,
       "total_main_matches": 2,
       "total_euro_matches": 2,
       "wins_3plus": 0,
@@ -191,18 +191,18 @@
       "gewinnklassen": 0
     },
     "ml_neural_network_real": {
-      "weight": 0.71,
-      "total_predictions": 5,
+      "weight": 0.698,
+      "total_predictions": 6,
       "total_main_matches": 4,
-      "total_euro_matches": 0,
+      "total_euro_matches": 1,
       "wins_3plus": 0,
       "wins_4plus": 0,
       "wins_5": 0,
       "gewinnklassen": 0
     },
     "ml_reinforcement_real": {
-      "weight": 0.761,
-      "total_predictions": 4,
+      "weight": 0.709,
+      "total_predictions": 5,
       "total_main_matches": 2,
       "total_euro_matches": 1,
       "wins_3plus": 0,
@@ -211,8 +211,8 @@
       "gewinnklassen": 0
     },
     "ml_eurozahl_real": {
-      "weight": 0.785,
-      "total_predictions": 4,
+      "weight": 0.728,
+      "total_predictions": 5,
       "total_main_matches": 2,
       "total_euro_matches": 2,
       "wins_3plus": 0,
@@ -221,6 +221,6 @@
       "gewinnklassen": 0
     }
   },
-  "last_update": "2025-12-28T03:49:43.733384",
+  "last_update": "2026-01-02T20:19:38.445076",
   "total_predictions": 0
 }

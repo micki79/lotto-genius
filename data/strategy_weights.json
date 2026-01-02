@@ -1,20 +1,20 @@
 {
   "strategies": {
     "hot_cold": {
-      "weight": 4.817252427566964,
-      "hits": 9,
-      "total": 7,
-      "last_updated": "2025-12-28T03:49:42.284673",
+      "weight": 5.0,
+      "hits": 10,
+      "total": 8,
+      "last_updated": "2026-01-02T20:19:37.135101",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {}
     },
     "cold_numbers": {
-      "weight": 3.964573789732143,
-      "hits": 6,
-      "total": 7,
-      "last_updated": "2025-12-28T03:49:42.284688",
+      "weight": 4.026137721272321,
+      "hits": 7,
+      "total": 8,
+      "last_updated": "2026-01-02T20:19:37.135132",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
@@ -57,10 +57,10 @@
       "gewinnklassen": {}
     },
     "decade_balance": {
-      "weight": 1.751625,
-      "hits": 2,
-      "total": 3,
-      "last_updated": "2025-12-27T20:16:15.212822",
+      "weight": 2.23888125,
+      "hits": 4,
+      "total": 4,
+      "last_updated": "2026-01-02T20:19:37.135236",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -87,10 +87,10 @@
       "gewinnklassen": {}
     },
     "no_consecutive": {
-      "weight": 3.5636374889508926,
+      "weight": 3.5915918656082586,
       "hits": 6,
-      "total": 7,
-      "last_updated": "2025-12-28T03:49:42.284701",
+      "total": 8,
+      "last_updated": "2026-01-02T20:19:37.135116",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -107,10 +107,10 @@
       "gewinnklassen": {}
     },
     "low_high": {
-      "weight": 3.1122500000000004,
+      "weight": 3.3954125000000004,
       "hits": 4,
-      "total": 3,
-      "last_updated": "2025-12-28T03:49:42.284740",
+      "total": 4,
+      "last_updated": "2026-01-02T20:19:37.135160",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -118,9 +118,9 @@
     },
     "hot_cold_mix": {
       "weight": 5.0,
-      "hits": 9,
-      "total": 5,
-      "last_updated": "2025-12-28T03:49:42.284639",
+      "hits": 10,
+      "total": 6,
+      "last_updated": "2026-01-02T20:19:37.135065",
       "three_plus": 1,
       "four_plus": 0,
       "sz_correct": 0,
@@ -129,13 +129,13 @@
       }
     },
     "monte_carlo": {
-      "weight": 3.86517875,
+      "weight": 4.1604019375,
       "hits": 7,
-      "total": 5,
-      "last_updated": "2025-12-28T03:49:42.284728",
+      "total": 6,
+      "last_updated": "2026-01-02T20:19:37.135145",
       "three_plus": 0,
       "four_plus": 0,
-      "sz_correct": 0,
+      "sz_correct": 1,
       "gewinnklassen": {}
     },
     "bayesian": {
@@ -165,10 +165,10 @@
       "last_updated": null
     },
     "random_forest": {
-      "weight": 1.5721808437499998,
+      "weight": 1.550639431473214,
       "hits": 2,
-      "total": 6,
-      "last_updated": "2025-12-28T03:49:42.284803",
+      "total": 7,
+      "last_updated": "2026-01-02T20:19:37.135223",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -193,14 +193,14 @@
       "last_updated": null
     },
     "ensemble_champion": {
-      "weight": 2.2440703024665174,
+      "weight": 2.4074597570965395,
       "hits": 6,
-      "total": 8,
+      "total": 9,
       "three_plus": 0,
       "four_plus": 0,
-      "sz_correct": 1,
+      "sz_correct": 2,
       "gewinnklassen": {},
-      "last_updated": "2025-12-28T03:49:42.284713"
+      "last_updated": "2026-01-02T20:19:37.135172"
     },
     "ensemble_ml_real": {
       "weight": 1.432875,
@@ -223,14 +223,14 @@
       "last_updated": "2025-12-20T21:04:51.118472"
     },
     "thompson_sampling_real": {
-      "weight": 0.85,
+      "weight": 0.7224999999999999,
       "hits": 0,
-      "total": 1,
+      "total": 2,
       "three_plus": 0,
       "four_plus": 0,
-      "sz_correct": 0,
+      "sz_correct": 1,
       "gewinnklassen": {},
-      "last_updated": "2025-12-20T21:04:51.118504"
+      "last_updated": "2026-01-02T20:19:37.135205"
     },
     "lstm": {
       "weight": 1.6,
@@ -273,7 +273,7 @@
       "last_updated": "2025-12-26T20:19:09.734925"
     }
   },
-  "last_update": "2025-12-28T03:49:42.284812",
-  "total_predictions": 77,
+  "last_update": "2026-01-02T20:19:37.135245",
+  "total_predictions": 87,
   "learning_rate": 0.15
 }

@@ -1,10 +1,10 @@
 {
   "ensemble": {
-    "total_predictions": 13,
+    "total_predictions": 14,
     "total_matches": 16,
-    "sz_correct": 2,
-    "accuracy": 20.51,
-    "sz_accuracy": 15.38
+    "sz_correct": 3,
+    "accuracy": 19.05,
+    "sz_accuracy": 21.43
   },
   "local_ml": {
     "total_predictions": 36,
@@ -14,21 +14,21 @@
     "sz_accuracy": 2.78
   },
   "local_strategy": {
-    "total_predictions": 55,
-    "total_matches": 49,
-    "sz_correct": 1,
-    "accuracy": 14.85,
-    "sz_accuracy": 1.82,
+    "total_predictions": 63,
+    "total_matches": 54,
+    "sz_correct": 2,
+    "accuracy": 14.29,
+    "sz_accuracy": 3.17,
     "gewinnklassen": {
       "8": 1
     }
   },
   "ml_real": {
-    "total_predictions": 8,
+    "total_predictions": 9,
     "total_matches": 3,
-    "sz_correct": 0,
-    "accuracy": 6.25,
-    "sz_accuracy": 0.0,
+    "sz_correct": 1,
+    "accuracy": 5.56,
+    "sz_accuracy": 11.11,
     "gewinnklassen": {}
   }
 }

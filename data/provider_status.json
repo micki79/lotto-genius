@@ -1,5 +1,5 @@
 {
-  "last_check": "2025-12-28T03:49:43.539811",
+  "last_check": "2026-01-02T20:19:38.248705",
   "note": "Status wird durch GitHub Actions aktualisiert",
   "providers": {
     "gemini": {
@@ -61,7 +61,7 @@
       "name": "Lokale Strategien (21)",
       "icon": "\ud83d\udda5\ufe0f",
       "status": "online",
-      "last_success": "2025-12-28T03:49:43.539855",
+      "last_success": "2026-01-02T20:19:38.248749",
       "error": null
     }
   }
