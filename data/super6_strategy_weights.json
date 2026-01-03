@@ -1,20 +1,20 @@
 {
   "strategies": {
     "ensemble_champion": {
-      "weight": 0.49891275208333313,
-      "total_matches": 1,
-      "total_predictions": 6,
+      "weight": 0.5517481499821426,
+      "total_matches": 2,
+      "total_predictions": 7,
       "gewinnklassen": {
-        "6": 1
+        "6": 2
       },
-      "last_updated": "2026-01-02T20:19:39.622267"
+      "last_updated": "2026-01-03T20:16:19.180785"
     },
     "s6_cold": {
-      "weight": 0.7224999999999999,
+      "weight": 0.6141249999999999,
       "total_matches": 0,
-      "total_predictions": 2,
+      "total_predictions": 3,
       "gewinnklassen": {},
-      "last_updated": "2025-12-27T20:16:17.685663"
+      "last_updated": "2026-01-03T20:16:19.180944"
     },
     "s6_sum": {
       "weight": 0.7224999999999999,
@@ -24,11 +24,11 @@
       "last_updated": "2025-12-28T03:49:44.997543"
     },
     "s6_position_top3": {
-      "weight": 0.7224999999999999,
+      "weight": 0.6141249999999999,
       "total_matches": 0,
-      "total_predictions": 2,
+      "total_predictions": 3,
       "gewinnklassen": {},
-      "last_updated": "2025-12-28T03:49:44.997521"
+      "last_updated": "2026-01-03T20:16:19.181017"
     },
     "s6_odd_even": {
       "weight": 0.7224999999999999,
@@ -82,45 +82,45 @@
       "last_updated": "2026-01-02T20:19:39.622326"
     },
     "ml_neural_network_real": {
-      "weight": 0.5893213749999999,
-      "total_matches": 1,
-      "total_predictions": 5,
+      "weight": 0.6511078024999998,
+      "total_matches": 2,
+      "total_predictions": 6,
       "gewinnklassen": {
-        "6": 1
+        "6": 2
       },
-      "last_updated": "2026-01-02T20:19:39.622345"
+      "last_updated": "2026-01-03T20:16:19.180830"
     },
     "ml_bayesian_real": {
-      "weight": 0.5893213749999999,
+      "weight": 0.5217565020833332,
       "total_matches": 1,
-      "total_predictions": 5,
+      "total_predictions": 6,
       "gewinnklassen": {
         "6": 1
       },
-      "last_updated": "2026-01-02T20:19:39.622305"
+      "last_updated": "2026-01-03T20:16:19.180855"
     },
     "ml_markov_real": {
-      "weight": 1.3622277999999997,
+      "weight": 1.2328936299999997,
       "total_matches": 3,
-      "total_predictions": 4,
+      "total_predictions": 5,
       "gewinnklassen": {
         "6": 3
       },
-      "last_updated": "2026-01-02T20:19:39.622369"
+      "last_updated": "2026-01-03T20:16:19.180899"
     },
     "ml_reinforcement_real": {
-      "weight": 0.5220062499999999,
+      "weight": 0.4437053124999999,
       "total_matches": 0,
-      "total_predictions": 4,
+      "total_predictions": 5,
       "gewinnklassen": {},
-      "last_updated": "2025-12-28T03:49:44.997450"
+      "last_updated": "2026-01-03T20:16:19.180877"
     },
     "s6_prime": {
-      "weight": 0.7224999999999999,
+      "weight": 0.6141249999999999,
       "total_matches": 0,
-      "total_predictions": 2,
+      "total_predictions": 3,
       "gewinnklassen": {},
-      "last_updated": "2025-12-26T20:19:12.441257"
+      "last_updated": "2026-01-03T20:16:19.180975"
     },
     "s6_position_hot": {
       "weight": 0.7224999999999999,
@@ -137,11 +137,11 @@
       "last_updated": "2026-01-02T20:19:39.622463"
     },
     "s6_markov": {
-      "weight": 0.85,
+      "weight": 0.7224999999999999,
       "total_matches": 0,
-      "total_predictions": 1,
+      "total_predictions": 2,
       "gewinnklassen": {},
-      "last_updated": "2025-12-24T19:19:51.634960"
+      "last_updated": "2026-01-03T20:16:19.180923"
     },
     "s6_monte_carlo": {
       "weight": 0.6141249999999999,
@@ -151,11 +151,11 @@
       "last_updated": "2025-12-28T03:49:44.997561"
     },
     "s6_bayesian": {
-      "weight": 0.85,
+      "weight": 0.7224999999999999,
       "total_matches": 0,
-      "total_predictions": 1,
+      "total_predictions": 2,
       "gewinnklassen": {},
-      "last_updated": "2025-12-26T20:19:12.441239"
+      "last_updated": "2026-01-03T20:16:19.180997"
     },
     "s6_fibonacci": {
       "weight": 0.7224999999999999,
@@ -165,6 +165,6 @@
       "last_updated": "2026-01-02T20:19:39.622480"
     }
   },
-  "last_update": "2026-01-02T20:19:39.782602",
+  "last_update": "2026-01-03T20:16:19.339685",
   "learning_rate": 0.15
 }

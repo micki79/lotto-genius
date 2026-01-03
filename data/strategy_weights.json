@@ -2,19 +2,19 @@
   "strategies": {
     "hot_cold": {
       "weight": 5.0,
-      "hits": 10,
-      "total": 8,
-      "last_updated": "2026-01-02T20:19:37.135101",
+      "hits": 11,
+      "total": 9,
+      "last_updated": "2026-01-03T20:16:16.140468",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {}
     },
     "cold_numbers": {
-      "weight": 4.026137721272321,
-      "hits": 7,
-      "total": 8,
-      "last_updated": "2026-01-02T20:19:37.135132",
+      "weight": 4.088883729748139,
+      "hits": 8,
+      "total": 9,
+      "last_updated": "2026-01-03T20:16:16.140517",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
@@ -57,10 +57,10 @@
       "gewinnklassen": {}
     },
     "decade_balance": {
-      "weight": 2.23888125,
-      "hits": 4,
-      "total": 4,
-      "last_updated": "2026-01-02T20:19:37.135236",
+      "weight": 2.6530490625,
+      "hits": 5,
+      "total": 5,
+      "last_updated": "2026-01-03T20:16:16.140559",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -87,10 +87,10 @@
       "gewinnklassen": {}
     },
     "no_consecutive": {
-      "weight": 3.5915918656082586,
-      "hits": 6,
-      "total": 8,
-      "last_updated": "2026-01-02T20:19:37.135116",
+      "weight": 3.636186419100353,
+      "hits": 7,
+      "total": 9,
+      "last_updated": "2026-01-03T20:16:16.140492",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -107,10 +107,10 @@
       "gewinnklassen": {}
     },
     "low_high": {
-      "weight": 3.3954125000000004,
-      "hits": 4,
-      "total": 4,
-      "last_updated": "2026-01-02T20:19:37.135160",
+      "weight": 3.636100625,
+      "hits": 5,
+      "total": 5,
+      "last_updated": "2026-01-03T20:16:16.140505",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -119,8 +119,8 @@
     "hot_cold_mix": {
       "weight": 5.0,
       "hits": 10,
-      "total": 6,
-      "last_updated": "2026-01-02T20:19:37.135065",
+      "total": 7,
+      "last_updated": "2026-01-03T20:16:16.140434",
       "three_plus": 1,
       "four_plus": 0,
       "sz_correct": 0,
@@ -129,10 +129,10 @@
       }
     },
     "monte_carlo": {
-      "weight": 4.1604019375,
-      "hits": 7,
-      "total": 6,
-      "last_updated": "2026-01-02T20:19:37.135145",
+      "weight": 4.393484504017857,
+      "hits": 8,
+      "total": 7,
+      "last_updated": "2026-01-03T20:16:16.140481",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
@@ -193,24 +193,24 @@
       "last_updated": null
     },
     "ensemble_champion": {
-      "weight": 2.4074597570965395,
-      "hits": 6,
-      "total": 9,
+      "weight": 2.5713407935320585,
+      "hits": 7,
+      "total": 10,
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 2,
       "gewinnklassen": {},
-      "last_updated": "2026-01-02T20:19:37.135172"
+      "last_updated": "2026-01-03T20:16:16.140527"
     },
     "ensemble_ml_real": {
-      "weight": 1.432875,
-      "hits": 2,
-      "total": 3,
+      "weight": 1.7804437499999999,
+      "hits": 3,
+      "total": 4,
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "last_updated": "2025-12-27T20:16:15.212835"
+      "last_updated": "2026-01-03T20:16:16.140573"
     },
     "neural_network_real": {
       "weight": 0.85,
@@ -223,14 +223,14 @@
       "last_updated": "2025-12-20T21:04:51.118472"
     },
     "thompson_sampling_real": {
-      "weight": 0.7224999999999999,
+      "weight": 0.6141249999999999,
       "hits": 0,
-      "total": 2,
+      "total": 3,
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
       "gewinnklassen": {},
-      "last_updated": "2026-01-02T20:19:37.135205"
+      "last_updated": "2026-01-03T20:16:16.140585"
     },
     "lstm": {
       "weight": 1.6,
@@ -273,7 +273,7 @@
       "last_updated": "2025-12-26T20:19:09.734925"
     }
   },
-  "last_update": "2026-01-02T20:19:37.135245",
-  "total_predictions": 87,
+  "last_update": "2026-01-03T20:16:16.140595",
+  "total_predictions": 97,
   "learning_rate": 0.15
 }

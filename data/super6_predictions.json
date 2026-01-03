@@ -1,31 +1,18 @@
 {
   "predictions": [
     {
-      "number": "057860",
+      "number": "905874",
       "method": "ensemble_champion",
       "strategy": "Gewichtetes Voting",
       "strategy_weight": 3.0,
       "confidence": 95,
-      "timestamp": "2026-01-02T20:19:39.780461",
+      "timestamp": "2026-01-03T20:16:19.338077",
       "verified": false,
       "is_champion": true,
-      "quality_score": 114.0
+      "quality_score": 94.0
     },
     {
-      "number": "257860",
-      "method": "ml_neural_network_real",
-      "method_name": "🧠 Neuronales Netz",
-      "provider": "ml_real",
-      "strategy": "Echtes ML: neural_network",
-      "confidence": 11.466018405635136,
-      "is_real_ml": true,
-      "strategy_weight": 2.0,
-      "timestamp": "2026-01-02T20:19:39.765274",
-      "verified": false,
-      "quality_score": 91.0
-    },
-    {
-      "number": "057785",
+      "number": "005773",
       "method": "ml_bayesian_real",
       "method_name": "📊 Bayesian",
       "provider": "ml_real",
@@ -33,12 +20,12 @@
       "confidence": 70,
       "is_real_ml": true,
       "strategy_weight": 2.0,
-      "timestamp": "2026-01-02T20:19:39.765282",
+      "timestamp": "2026-01-03T20:16:19.324958",
       "verified": false,
-      "quality_score": 91.0
+      "quality_score": 89.0
     },
     {
-      "number": "072517",
+      "number": "818670",
       "method": "ml_reinforcement_real",
       "method_name": "🎯 Q-Learning",
       "provider": "ml_real",
@@ -46,12 +33,36 @@
       "confidence": 70,
       "is_real_ml": true,
       "strategy_weight": 2.0,
-      "timestamp": "2026-01-02T20:19:39.765285",
+      "timestamp": "2026-01-03T20:16:19.324962",
       "verified": false,
       "quality_score": 89.0
     },
     {
-      "number": "831079",
+      "number": "957874",
+      "method": "ml_ensemble_real",
+      "method_name": "🏆 ML Ensemble",
+      "provider": "ml_real",
+      "strategy": "Gewichtetes Voting aus Neural Network, Markov, Bayesian & Q-Learning",
+      "confidence": 85,
+      "is_real_ml": true,
+      "is_champion": true,
+      "strategy_weight": 2.5,
+      "timestamp": "2026-01-03T20:16:19.324935",
+      "verified": false,
+      "quality_score": 79.5
+    },
+    {
+      "number": "900990",
+      "method": "s6_neural",
+      "strategy": "Neuronales Netz",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2026-01-03T20:16:19.325079",
+      "verified": false,
+      "quality_score": 72.0
+    },
+    {
+      "number": "573575",
       "method": "ml_markov_real",
       "method_name": "🔗 Markov-Kette",
       "provider": "ml_real",
@@ -59,59 +70,52 @@
       "confidence": 65,
       "is_real_ml": true,
       "strategy_weight": 2.0,
-      "timestamp": "2026-01-02T20:19:39.765278",
+      "timestamp": "2026-01-03T20:16:19.324954",
       "verified": false,
-      "quality_score": 87.0
+      "quality_score": 70.0
     },
     {
-      "number": "197348",
+      "number": "957894",
+      "method": "ml_neural_network_real",
+      "method_name": "🧠 Neuronales Netz",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: neural_network",
+      "confidence": 11.442421328630992,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2026-01-03T20:16:19.324949",
+      "verified": false,
+      "quality_score": 69.0
+    },
+    {
+      "number": "618903",
+      "method": "s6_sum",
+      "strategy": "Quersumme ~27",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.327733",
+      "verified": false,
+      "quality_score": 59.06
+    },
+    {
+      "number": "690871",
       "method": "s6_markov",
       "strategy": "Markov-Ketten",
-      "strategy_weight": 0.85,
-      "confidence": 58.5,
-      "timestamp": "2026-01-02T20:19:39.765409",
-      "verified": false,
-      "quality_score": 58.25
-    },
-    {
-      "number": "654365",
-      "method": "s6_cold",
-      "strategy": "Kalte Ziffern",
       "strategy_weight": 0.7224999999999999,
       "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.765601",
+      "timestamp": "2026-01-03T20:16:19.327775",
+      "verified": false,
+      "quality_score": 59.06
+    },
+    {
+      "number": "308363",
+      "method": "s6_delta",
+      "strategy": "Delta-Muster",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.327863",
       "verified": false,
       "quality_score": 57.06
-    },
-    {
-      "number": "239408",
-      "method": "s6_prime",
-      "strategy": "Primziffern",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.767666",
-      "verified": false,
-      "quality_score": 57.06
-    },
-    {
-      "number": "076916",
-      "method": "s6_bayesian",
-      "strategy": "Bayesian",
-      "strategy_weight": 0.85,
-      "confidence": 58.5,
-      "timestamp": "2026-01-02T20:19:39.765477",
-      "verified": false,
-      "quality_score": 56.25
-    },
-    {
-      "number": "576411",
-      "method": "s6_position_top3",
-      "strategy": "Zufällig aus Top 3",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.765577",
-      "verified": false,
-      "quality_score": 55.06
     }
   ],
   "history": [
@@ -1034,9 +1038,7 @@
         "end_matches": 0,
         "gewinnklasse": null
       }
-    }
-  ],
-  "all_predictions": [
+    },
     {
       "number": "057860",
       "method": "ensemble_champion",
@@ -1044,21 +1046,13 @@
       "strategy_weight": 3.0,
       "confidence": 95,
       "timestamp": "2026-01-02T20:19:39.780461",
-      "verified": false,
-      "is_champion": true
-    },
-    {
-      "number": "057860",
-      "method": "ml_ensemble_real",
-      "method_name": "🏆 ML Ensemble",
-      "provider": "ml_real",
-      "strategy": "Gewichtetes Voting aus Neural Network, Markov, Bayesian & Q-Learning",
-      "confidence": 85,
-      "is_real_ml": true,
+      "verified": true,
       "is_champion": true,
-      "strategy_weight": 2.5,
-      "timestamp": "2026-01-02T20:19:39.765263",
-      "verified": false
+      "quality_score": 114.0,
+      "result": {
+        "end_matches": 1,
+        "gewinnklasse": 6
+      }
     },
     {
       "number": "257860",
@@ -1070,19 +1064,12 @@
       "is_real_ml": true,
       "strategy_weight": 2.0,
       "timestamp": "2026-01-02T20:19:39.765274",
-      "verified": false
-    },
-    {
-      "number": "831079",
-      "method": "ml_markov_real",
-      "method_name": "🔗 Markov-Kette",
-      "provider": "ml_real",
-      "strategy": "Echtes ML: markov",
-      "confidence": 65,
-      "is_real_ml": true,
-      "strategy_weight": 2.0,
-      "timestamp": "2026-01-02T20:19:39.765278",
-      "verified": false
+      "verified": true,
+      "quality_score": 91.0,
+      "result": {
+        "end_matches": 1,
+        "gewinnklasse": 6
+      }
     },
     {
       "number": "057785",
@@ -1094,7 +1081,12 @@
       "is_real_ml": true,
       "strategy_weight": 2.0,
       "timestamp": "2026-01-02T20:19:39.765282",
-      "verified": false
+      "verified": true,
+      "quality_score": 91.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
     },
     {
       "number": "072517",
@@ -1106,16 +1098,29 @@
       "is_real_ml": true,
       "strategy_weight": 2.0,
       "timestamp": "2026-01-02T20:19:39.765285",
-      "verified": false
+      "verified": true,
+      "quality_score": 89.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
     },
     {
-      "number": "079977",
-      "method": "s6_neural",
-      "strategy": "Neuronales Netz",
-      "strategy_weight": 1.0,
-      "confidence": 60.0,
-      "timestamp": "2026-01-02T20:19:39.765377",
-      "verified": false
+      "number": "831079",
+      "method": "ml_markov_real",
+      "method_name": "🔗 Markov-Kette",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: markov",
+      "confidence": 65,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2026-01-02T20:19:39.765278",
+      "verified": true,
+      "quality_score": 87.0,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
     },
     {
       "number": "197348",
@@ -1124,52 +1129,12 @@
       "strategy_weight": 0.85,
       "confidence": 58.5,
       "timestamp": "2026-01-02T20:19:39.765409",
-      "verified": false
-    },
-    {
-      "number": "076916",
-      "method": "s6_bayesian",
-      "strategy": "Bayesian",
-      "strategy_weight": 0.85,
-      "confidence": 58.5,
-      "timestamp": "2026-01-02T20:19:39.765477",
-      "verified": false
-    },
-    {
-      "number": "050050",
-      "method": "s6_symmetry",
-      "strategy": "Symmetrisch",
-      "strategy_weight": 0.85,
-      "confidence": 58.5,
-      "timestamp": "2026-01-02T20:19:39.765495",
-      "verified": false
-    },
-    {
-      "number": "076916",
-      "method": "s6_position_hot",
-      "strategy": "Häufigste pro Position",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.765520",
-      "verified": false
-    },
-    {
-      "number": "576411",
-      "method": "s6_position_top3",
-      "strategy": "Zufällig aus Top 3",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.765577",
-      "verified": false
-    },
-    {
-      "number": "000072",
-      "method": "s6_hot",
-      "strategy": "Heiße Ziffern",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.765590",
-      "verified": false
+      "verified": true,
+      "quality_score": 58.25,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
     },
     {
       "number": "654365",
@@ -1178,61 +1143,12 @@
       "strategy_weight": 0.7224999999999999,
       "confidence": 57.225,
       "timestamp": "2026-01-02T20:19:39.765601",
-      "verified": false
-    },
-    {
-      "number": "837897",
-      "method": "s6_overdue",
-      "strategy": "Überfällige + Hot",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.765612",
-      "verified": false
-    },
-    {
-      "number": "761410",
-      "method": "s6_odd_even",
-      "strategy": "Gerade/Ungerade Balance",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.765624",
-      "verified": false
-    },
-    {
-      "number": "189351",
-      "method": "s6_sum",
-      "strategy": "Quersumme ~27",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.767601",
-      "verified": false
-    },
-    {
-      "number": "737176",
-      "method": "s6_no_doubles",
-      "strategy": "Keine Doppel",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.767625",
-      "verified": false
-    },
-    {
-      "number": "346494",
-      "method": "s6_delta",
-      "strategy": "Delta-Muster",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.767642",
-      "verified": false
-    },
-    {
-      "number": "901223",
-      "method": "s6_fibonacci",
-      "strategy": "Fibonacci",
-      "strategy_weight": 0.7224999999999999,
-      "confidence": 57.225,
-      "timestamp": "2026-01-02T20:19:39.767654",
-      "verified": false
+      "verified": true,
+      "quality_score": 57.06,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
     },
     {
       "number": "239408",
@@ -1241,27 +1157,268 @@
       "strategy_weight": 0.7224999999999999,
       "confidence": 57.225,
       "timestamp": "2026-01-02T20:19:39.767666",
+      "verified": true,
+      "quality_score": 57.06,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "076916",
+      "method": "s6_bayesian",
+      "strategy": "Bayesian",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2026-01-02T20:19:39.765477",
+      "verified": true,
+      "quality_score": 56.25,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    },
+    {
+      "number": "576411",
+      "method": "s6_position_top3",
+      "strategy": "Zufällig aus Top 3",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-02T20:19:39.765577",
+      "verified": true,
+      "quality_score": 55.06,
+      "result": {
+        "end_matches": 0,
+        "gewinnklasse": null
+      }
+    }
+  ],
+  "all_predictions": [
+    {
+      "number": "905874",
+      "method": "ensemble_champion",
+      "strategy": "Gewichtetes Voting",
+      "strategy_weight": 3.0,
+      "confidence": 95,
+      "timestamp": "2026-01-03T20:16:19.338077",
+      "verified": false,
+      "is_champion": true
+    },
+    {
+      "number": "957874",
+      "method": "ml_ensemble_real",
+      "method_name": "🏆 ML Ensemble",
+      "provider": "ml_real",
+      "strategy": "Gewichtetes Voting aus Neural Network, Markov, Bayesian & Q-Learning",
+      "confidence": 85,
+      "is_real_ml": true,
+      "is_champion": true,
+      "strategy_weight": 2.5,
+      "timestamp": "2026-01-03T20:16:19.324935",
       "verified": false
     },
     {
-      "number": "676427",
+      "number": "957894",
+      "method": "ml_neural_network_real",
+      "method_name": "🧠 Neuronales Netz",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: neural_network",
+      "confidence": 11.442421328630992,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2026-01-03T20:16:19.324949",
+      "verified": false
+    },
+    {
+      "number": "573575",
+      "method": "ml_markov_real",
+      "method_name": "🔗 Markov-Kette",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: markov",
+      "confidence": 65,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2026-01-03T20:16:19.324954",
+      "verified": false
+    },
+    {
+      "number": "005773",
+      "method": "ml_bayesian_real",
+      "method_name": "📊 Bayesian",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: bayesian",
+      "confidence": 70,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2026-01-03T20:16:19.324958",
+      "verified": false
+    },
+    {
+      "number": "818670",
+      "method": "ml_reinforcement_real",
+      "method_name": "🎯 Q-Learning",
+      "provider": "ml_real",
+      "strategy": "Q-Learning: hot_digits",
+      "confidence": 70,
+      "is_real_ml": true,
+      "strategy_weight": 2.0,
+      "timestamp": "2026-01-03T20:16:19.324962",
+      "verified": false
+    },
+    {
+      "number": "900990",
+      "method": "s6_neural",
+      "strategy": "Neuronales Netz",
+      "strategy_weight": 1.0,
+      "confidence": 60.0,
+      "timestamp": "2026-01-03T20:16:19.325079",
+      "verified": false
+    },
+    {
+      "number": "305503",
+      "method": "s6_symmetry",
+      "strategy": "Symmetrisch",
+      "strategy_weight": 0.85,
+      "confidence": 58.5,
+      "timestamp": "2026-01-03T20:16:19.325108",
+      "verified": false
+    },
+    {
+      "number": "805610",
+      "method": "s6_position_hot",
+      "strategy": "Häufigste pro Position",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.325146",
+      "verified": false
+    },
+    {
+      "number": "990339",
+      "method": "s6_hot",
+      "strategy": "Heiße Ziffern",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.325185",
+      "verified": false
+    },
+    {
+      "number": "922404",
+      "method": "s6_overdue",
+      "strategy": "Überfällige + Hot",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.325204",
+      "verified": false
+    },
+    {
+      "number": "125476",
+      "method": "s6_odd_even",
+      "strategy": "Gerade/Ungerade Balance",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.325218",
+      "verified": false
+    },
+    {
+      "number": "618903",
+      "method": "s6_sum",
+      "strategy": "Quersumme ~27",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.327733",
+      "verified": false
+    },
+    {
+      "number": "134846",
+      "method": "s6_no_doubles",
+      "strategy": "Keine Doppel",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.327758",
+      "verified": false
+    },
+    {
+      "number": "690871",
+      "method": "s6_markov",
+      "strategy": "Markov-Ketten",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.327775",
+      "verified": false
+    },
+    {
+      "number": "805610",
+      "method": "s6_bayesian",
+      "strategy": "Bayesian",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.327844",
+      "verified": false
+    },
+    {
+      "number": "308363",
+      "method": "s6_delta",
+      "strategy": "Delta-Muster",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.327863",
+      "verified": false
+    },
+    {
+      "number": "952454",
+      "method": "s6_fibonacci",
+      "strategy": "Fibonacci",
+      "strategy_weight": 0.7224999999999999,
+      "confidence": 57.225,
+      "timestamp": "2026-01-03T20:16:19.327876",
+      "verified": false
+    },
+    {
+      "number": "931882",
+      "method": "s6_position_top3",
+      "strategy": "Zufällig aus Top 3",
+      "strategy_weight": 0.6141249999999999,
+      "confidence": 56.14125,
+      "timestamp": "2026-01-03T20:16:19.327934",
+      "verified": false
+    },
+    {
+      "number": "522652",
+      "method": "s6_cold",
+      "strategy": "Kalte Ziffern",
+      "strategy_weight": 0.6141249999999999,
+      "confidence": 56.14125,
+      "timestamp": "2026-01-03T20:16:19.327947",
+      "verified": false
+    },
+    {
+      "number": "835277",
       "method": "s6_monte_carlo",
       "strategy": "Monte-Carlo",
       "strategy_weight": 0.6141249999999999,
       "confidence": 56.14125,
-      "timestamp": "2026-01-02T20:19:39.780310",
+      "timestamp": "2026-01-03T20:16:19.337975",
       "verified": false
     },
     {
-      "number": "960399",
+      "number": "290440",
+      "method": "s6_prime",
+      "strategy": "Primziffern",
+      "strategy_weight": 0.6141249999999999,
+      "confidence": 56.14125,
+      "timestamp": "2026-01-03T20:16:19.337987",
+      "verified": false
+    },
+    {
+      "number": "596392",
       "method": "s6_last_var",
       "strategy": "Letzte Variation",
       "strategy_weight": 0.6141249999999999,
       "confidence": 56.14125,
-      "timestamp": "2026-01-02T20:19:39.780334",
+      "timestamp": "2026-01-03T20:16:19.337997",
       "verified": false
     }
   ],
-  "last_update": "2026-01-02T20:19:39.780673",
-  "next_draw": "03.01.2026"
+  "last_update": "2026-01-03T20:16:19.338229",
+  "next_draw": "07.01.2026"
 }
