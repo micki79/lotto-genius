@@ -1,28 +1,28 @@
 {
   "model_weights": {
-    "neural_network": 1.2500891242857146,
+    "neural_network": 1.1991542859312174,
     "markov_chain": 3.0,
-    "bayesian": 2.5099719909523817,
+    "bayesian": 2.481197014079366,
     "reinforcement": 1.0
   },
   "model_performance": {
     "neural_network": {
-      "hits": 3,
-      "total": 48
+      "hits": 4,
+      "total": 54
     },
     "markov_chain": {
-      "hits": 48,
-      "total": 48
+      "hits": 54,
+      "total": 54
     },
     "bayesian": {
-      "hits": 11,
-      "total": 48
+      "hits": 12,
+      "total": 54
     },
     "reinforcement": {
       "hits": 0,
       "total": 0
     }
   },
-  "predictions_count": 8,
-  "last_updated": "2026-01-03T20:16:16.404068"
+  "predictions_count": 9,
+  "last_updated": "2026-01-04T03:53:04.684551"
 }

@@ -3,18 +3,18 @@
     "hot_cold": {
       "weight": 5.0,
       "hits": 11,
-      "total": 9,
-      "last_updated": "2026-01-03T20:16:16.140468",
+      "total": 10,
+      "last_updated": "2026-01-04T03:53:03.948289",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {}
     },
     "cold_numbers": {
-      "weight": 4.088883729748139,
+      "weight": 4.075551170285918,
       "hits": 8,
-      "total": 9,
-      "last_updated": "2026-01-03T20:16:16.140517",
+      "total": 10,
+      "last_updated": "2026-01-04T03:53:03.948360",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
@@ -57,10 +57,10 @@
       "gewinnklassen": {}
     },
     "decade_balance": {
-      "weight": 2.6530490625,
-      "hits": 5,
-      "total": 5,
-      "last_updated": "2026-01-03T20:16:16.140559",
+      "weight": 3.005091703125,
+      "hits": 6,
+      "total": 6,
+      "last_updated": "2026-01-04T03:53:03.948527",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -87,30 +87,30 @@
       "gewinnklassen": {}
     },
     "no_consecutive": {
-      "weight": 3.636186419100353,
+      "weight": 3.6157584562353,
       "hits": 7,
-      "total": 9,
-      "last_updated": "2026-01-03T20:16:16.140492",
+      "total": 10,
+      "last_updated": "2026-01-04T03:53:03.948402",
       "three_plus": 0,
       "four_plus": 0,
-      "sz_correct": 0,
+      "sz_correct": 1,
       "gewinnklassen": {}
     },
     "prime_mix": {
-      "weight": 1.97475,
+      "weight": 2.0535375,
       "hits": 2,
-      "total": 3,
-      "last_updated": "2025-12-28T03:49:42.284791",
+      "total": 4,
+      "last_updated": "2026-01-04T03:53:03.948495",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {}
     },
     "low_high": {
-      "weight": 3.636100625,
+      "weight": 3.71568553125,
       "hits": 5,
-      "total": 5,
-      "last_updated": "2026-01-03T20:16:16.140505",
+      "total": 6,
+      "last_updated": "2026-01-04T03:53:03.948427",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
@@ -119,8 +119,8 @@
     "hot_cold_mix": {
       "weight": 5.0,
       "hits": 10,
-      "total": 7,
-      "last_updated": "2026-01-03T20:16:16.140434",
+      "total": 8,
+      "last_updated": "2026-01-04T03:53:03.948331",
       "three_plus": 1,
       "four_plus": 0,
       "sz_correct": 0,
@@ -129,10 +129,10 @@
       }
     },
     "monte_carlo": {
-      "weight": 4.393484504017857,
-      "hits": 8,
-      "total": 7,
-      "last_updated": "2026-01-03T20:16:16.140481",
+      "weight": 4.578211828415178,
+      "hits": 9,
+      "total": 8,
+      "last_updated": "2026-01-04T03:53:03.948381",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
@@ -193,24 +193,24 @@
       "last_updated": null
     },
     "ensemble_champion": {
-      "weight": 2.5713407935320585,
+      "weight": 2.6629124017749772,
       "hits": 7,
-      "total": 10,
+      "total": 11,
       "three_plus": 0,
       "four_plus": 0,
-      "sz_correct": 2,
+      "sz_correct": 3,
       "gewinnklassen": {},
-      "last_updated": "2026-01-03T20:16:16.140527"
+      "last_updated": "2026-01-04T03:53:03.948449"
     },
     "ensemble_ml_real": {
-      "weight": 1.7804437499999999,
-      "hits": 3,
-      "total": 4,
+      "weight": 2.1133771875,
+      "hits": 4,
+      "total": 5,
       "three_plus": 0,
       "four_plus": 0,
-      "sz_correct": 0,
+      "sz_correct": 1,
       "gewinnklassen": {},
-      "last_updated": "2026-01-03T20:16:16.140573"
+      "last_updated": "2026-01-04T03:53:03.948548"
     },
     "neural_network_real": {
       "weight": 0.85,
@@ -273,7 +273,7 @@
       "last_updated": "2025-12-26T20:19:09.734925"
     }
   },
-  "last_update": "2026-01-03T20:16:16.140595",
-  "total_predictions": 97,
+  "last_update": "2026-01-04T03:53:03.948570",
+  "total_predictions": 107,
   "learning_rate": 0.15
 }
