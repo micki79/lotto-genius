@@ -879,16 +879,126 @@
       "method": "sp77_no_doubles",
       "gewinnklasse": null,
       "new_weight": 0.7224999999999999
+    },
+    {
+      "date": "2026-01-06T20:20:05.381057",
+      "draw_date": "06.01.2026",
+      "predicted": "9031286",
+      "actual": "3005631",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "ml_neural_network_real",
+      "gewinnklasse": null,
+      "new_weight": 0.5380127792793366
+    },
+    {
+      "date": "2026-01-06T20:20:05.381095",
+      "draw_date": "06.01.2026",
+      "predicted": "3002186",
+      "actual": "3005631",
+      "end_matches": 0,
+      "exact_matches": 3,
+      "method": "ensemble_champion",
+      "gewinnklasse": null,
+      "new_weight": 0.38040318194635947
+    },
+    {
+      "date": "2026-01-06T20:20:05.381148",
+      "draw_date": "06.01.2026",
+      "predicted": "3572776",
+      "actual": "3005631",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "ml_reinforcement_real",
+      "gewinnklasse": null,
+      "new_weight": 0.2724905250390624
+    },
+    {
+      "date": "2026-01-06T20:20:05.381171",
+      "draw_date": "06.01.2026",
+      "predicted": "2900946",
+      "actual": "3005631",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "ml_markov_real",
+      "gewinnklasse": null,
+      "new_weight": 0.43375577124362225
+    },
+    {
+      "date": "2026-01-06T20:20:05.381191",
+      "draw_date": "06.01.2026",
+      "predicted": "3002286",
+      "actual": "3005631",
+      "end_matches": 0,
+      "exact_matches": 3,
+      "method": "ml_ensemble_real",
+      "gewinnklasse": null,
+      "new_weight": 0.5380127792793366
+    },
+    {
+      "date": "2026-01-06T20:20:05.381213",
+      "draw_date": "06.01.2026",
+      "predicted": "3523756",
+      "actual": "3005631",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "sp77_position_hot",
+      "gewinnklasse": null,
+      "new_weight": 0.8366324357142854
+    },
+    {
+      "date": "2026-01-06T20:20:05.381235",
+      "draw_date": "06.01.2026",
+      "predicted": "3002611",
+      "actual": "3005631",
+      "end_matches": 1,
+      "exact_matches": 5,
+      "method": "ml_bayesian_real",
+      "gewinnklasse": 7,
+      "new_weight": 0.4030598528762754
+    },
+    {
+      "date": "2026-01-06T20:20:05.381269",
+      "draw_date": "06.01.2026",
+      "predicted": "2522156",
+      "actual": "3005631",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "sp77_bayesian",
+      "gewinnklasse": null,
+      "new_weight": 0.9410882987142855
+    },
+    {
+      "date": "2026-01-06T20:20:05.381289",
+      "draw_date": "06.01.2026",
+      "predicted": "2873176",
+      "actual": "3005631",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "sp77_position_top3",
+      "gewinnklasse": null,
+      "new_weight": 0.6149490080357142
+    },
+    {
+      "date": "2026-01-06T20:20:05.381310",
+      "draw_date": "06.01.2026",
+      "predicted": "7945121",
+      "actual": "3005631",
+      "end_matches": 1,
+      "exact_matches": 2,
+      "method": "sp77_delta",
+      "gewinnklasse": 7,
+      "new_weight": 1.24823625
     }
   ],
   "stats": {
-    "total_entries": 80,
-    "avg_end_matches": 0.17,
-    "avg_exact_matches": 0.75,
+    "total_entries": 90,
+    "avg_end_matches": 0.18,
+    "avg_exact_matches": 0.86,
     "gewinnklassen": {
-      "7": 12,
+      "7": 14,
       "6": 1
     },
-    "last_update": "2026-01-04T03:53:06.386854"
+    "last_update": "2026-01-06T20:20:05.381923"
   }
 }

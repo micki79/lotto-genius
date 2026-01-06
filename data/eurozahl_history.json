@@ -1039,13 +1039,117 @@
       ],
       "matches": 0,
       "method": "ej_cold"
+    },
+    {
+      "date": "06.01.2026",
+      "predicted": [
+        12,
+        5
+      ],
+      "actual": [
+        4,
+        7
+      ],
+      "matches": 0,
+      "method": "ml_ensemble_real"
+    },
+    {
+      "date": "06.01.2026",
+      "predicted": [
+        12,
+        5
+      ],
+      "actual": [
+        4,
+        7
+      ],
+      "matches": 0,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "06.01.2026",
+      "predicted": [
+        2,
+        12
+      ],
+      "actual": [
+        4,
+        7
+      ],
+      "matches": 0,
+      "method": "ml_bayesian_real"
+    },
+    {
+      "date": "06.01.2026",
+      "predicted": [
+        12,
+        5
+      ],
+      "actual": [
+        4,
+        7
+      ],
+      "matches": 0,
+      "method": "ml_reinforcement_real"
+    },
+    {
+      "date": "06.01.2026",
+      "predicted": [
+        12,
+        5
+      ],
+      "actual": [
+        4,
+        7
+      ],
+      "matches": 0,
+      "method": "ml_markov_real"
+    },
+    {
+      "date": "06.01.2026",
+      "predicted": [
+        3,
+        5
+      ],
+      "actual": [
+        4,
+        7
+      ],
+      "matches": 0,
+      "method": "ml_eurozahl_real"
+    },
+    {
+      "date": "06.01.2026",
+      "predicted": [
+        8,
+        9
+      ],
+      "actual": [
+        4,
+        7
+      ],
+      "matches": 0,
+      "method": "ml_neural_network_real"
+    },
+    {
+      "date": "06.01.2026",
+      "predicted": [
+        8,
+        10
+      ],
+      "actual": [
+        4,
+        7
+      ],
+      "matches": 0,
+      "method": "ej_sum_optimized"
     }
   ],
   "stats": {
-    "total": 80,
+    "total": 88,
     "total_matches": 26,
-    "avg_matches": 0.33,
+    "avg_matches": 0.3,
     "perfect_matches": 3,
-    "last_update": "2026-01-04T03:53:05.625916"
+    "last_update": "2026-01-06T20:20:04.579684"
   }
 }
