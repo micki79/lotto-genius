@@ -2991,28 +2991,300 @@
       "provider": "local_ml",
       "confidence": 77.6,
       "strategy": "Optimiert auf typische Summen"
+    },
+    {
+      "id": "ej_07.01.2026_ml_ensemble_real_1767813864.000712",
+      "date": "2026-01-07T19:24:24.000725",
+      "draw_date": "07.01.2026",
+      "predicted_numbers": [
+        12,
+        13,
+        44,
+        50,
+        22
+      ],
+      "actual_numbers": [
+        34,
+        6,
+        16,
+        25,
+        28
+      ],
+      "main_matches": 0,
+      "predicted_euro": [
+        9,
+        2
+      ],
+      "actual_euro": [
+        8,
+        2
+      ],
+      "euro_matches": 1,
+      "gewinnklasse": null,
+      "method": "ml_ensemble_real",
+      "provider": "ml_real",
+      "confidence": 88,
+      "strategy": "Gewichtetes Voting aus Neural Network, Markov, Bayesian & EurozahlML"
+    },
+    {
+      "id": "ej_07.01.2026_ensemble_champion_1767813864.00076",
+      "date": "2026-01-07T19:24:24.000763",
+      "draw_date": "07.01.2026",
+      "predicted_numbers": [
+        35,
+        12,
+        44,
+        50,
+        22
+      ],
+      "actual_numbers": [
+        34,
+        6,
+        16,
+        25,
+        28
+      ],
+      "main_matches": 0,
+      "predicted_euro": [
+        9,
+        2
+      ],
+      "actual_euro": [
+        8,
+        2
+      ],
+      "euro_matches": 1,
+      "gewinnklasse": null,
+      "method": "ensemble_champion",
+      "provider": "ensemble",
+      "confidence": 90,
+      "strategy": "Gewichtetes Voting aus 21 KI-Vorhersagen"
+    },
+    {
+      "id": "ej_07.01.2026_ml_bayesian_real_1767813864.000781",
+      "date": "2026-01-07T19:24:24.000783",
+      "draw_date": "07.01.2026",
+      "predicted_numbers": [
+        12,
+        45,
+        44,
+        50,
+        22
+      ],
+      "actual_numbers": [
+        34,
+        6,
+        16,
+        25,
+        28
+      ],
+      "main_matches": 0,
+      "predicted_euro": [
+        2,
+        3
+      ],
+      "actual_euro": [
+        8,
+        2
+      ],
+      "euro_matches": 1,
+      "gewinnklasse": null,
+      "method": "ml_bayesian_real",
+      "provider": "ml_real",
+      "confidence": 75,
+      "strategy": "Echtes ML: bayesian"
+    },
+    {
+      "id": "ej_07.01.2026_ml_reinforcement_real_1767813864.000805",
+      "date": "2026-01-07T19:24:24.000807",
+      "draw_date": "07.01.2026",
+      "predicted_numbers": [
+        12,
+        13,
+        44,
+        50,
+        22
+      ],
+      "actual_numbers": [
+        34,
+        6,
+        16,
+        25,
+        28
+      ],
+      "main_matches": 0,
+      "predicted_euro": [
+        9,
+        2
+      ],
+      "actual_euro": [
+        8,
+        2
+      ],
+      "euro_matches": 1,
+      "gewinnklasse": null,
+      "method": "ml_reinforcement_real",
+      "provider": "ml_real",
+      "confidence": 75,
+      "strategy": "Beste Strategie: ml_ensemble"
+    },
+    {
+      "id": "ej_07.01.2026_ml_markov_real_1767813864.000825",
+      "date": "2026-01-07T19:24:24.000827",
+      "draw_date": "07.01.2026",
+      "predicted_numbers": [
+        34,
+        38,
+        44,
+        50,
+        22
+      ],
+      "actual_numbers": [
+        34,
+        6,
+        16,
+        25,
+        28
+      ],
+      "main_matches": 1,
+      "predicted_euro": [
+        1,
+        9
+      ],
+      "actual_euro": [
+        8,
+        2
+      ],
+      "euro_matches": 0,
+      "gewinnklasse": null,
+      "method": "ml_markov_real",
+      "provider": "ml_real",
+      "confidence": 29.39030496593354,
+      "strategy": "Echtes ML: markov"
+    },
+    {
+      "id": "ej_07.01.2026_ml_eurozahl_real_1767813864.000843",
+      "date": "2026-01-07T19:24:24.000845",
+      "draw_date": "07.01.2026",
+      "predicted_numbers": [
+        12,
+        13,
+        44,
+        50,
+        22
+      ],
+      "actual_numbers": [
+        34,
+        6,
+        16,
+        25,
+        28
+      ],
+      "main_matches": 0,
+      "predicted_euro": [
+        2,
+        4
+      ],
+      "actual_euro": [
+        8,
+        2
+      ],
+      "euro_matches": 1,
+      "gewinnklasse": null,
+      "method": "ml_eurozahl_real",
+      "provider": "ml_real",
+      "confidence": 10.184252425112842,
+      "strategy": "Spezialisiertes ML f\u00fcr 2 aus 12 mit Paar-Analyse"
+    },
+    {
+      "id": "ej_07.01.2026_ml_neural_network_real_1767813864.00086",
+      "date": "2026-01-07T19:24:24.000862",
+      "draw_date": "07.01.2026",
+      "predicted_numbers": [
+        35,
+        12,
+        13,
+        49,
+        22
+      ],
+      "actual_numbers": [
+        34,
+        6,
+        16,
+        25,
+        28
+      ],
+      "main_matches": 0,
+      "predicted_euro": [
+        8,
+        9
+      ],
+      "actual_euro": [
+        8,
+        2
+      ],
+      "euro_matches": 1,
+      "gewinnklasse": null,
+      "method": "ml_neural_network_real",
+      "provider": "ml_real",
+      "confidence": 3.414582901658931,
+      "strategy": "Echtes ML: neural_network"
+    },
+    {
+      "id": "ej_07.01.2026_ej_overdue_1767813864.000893",
+      "date": "2026-01-07T19:24:24.000895",
+      "draw_date": "07.01.2026",
+      "predicted_numbers": [
+        35,
+        36,
+        44,
+        21,
+        26
+      ],
+      "actual_numbers": [
+        34,
+        6,
+        16,
+        25,
+        28
+      ],
+      "main_matches": 0,
+      "predicted_euro": [
+        3,
+        12
+      ],
+      "actual_euro": [
+        8,
+        2
+      ],
+      "euro_matches": 0,
+      "gewinnklasse": null,
+      "method": "ej_overdue",
+      "provider": "local_ml",
+      "confidence": 77.0,
+      "strategy": "Zahlen die lange nicht kamen"
     }
   ],
   "stats": {
-    "total_entries": 88,
-    "avg_main_matches": 0.49,
-    "avg_euro_matches": 0.3,
+    "total_entries": 96,
+    "avg_main_matches": 0.46,
+    "avg_euro_matches": 0.33,
     "three_plus_rate": 0.0,
-    "gewinnklasse_rate": 4.55,
-    "last_update": "2026-01-06T20:20:04.579721",
-    "last_draw": "06.01.2026"
+    "gewinnklasse_rate": 4.17,
+    "last_update": "2026-01-07T19:24:24.001030",
+    "last_draw": "07.01.2026"
   },
   "by_method": {
     "ensemble_champion": {
-      "total_predictions": 10,
+      "total_predictions": 11,
       "total_main_matches": 5,
-      "total_euro_matches": 4,
+      "total_euro_matches": 5,
       "three_plus": 0,
       "four_plus": 0,
       "five": 0,
       "gewinnklasse_count": 1,
-      "main_accuracy": 10.0,
-      "euro_accuracy": 20.0,
+      "main_accuracy": 9.09,
+      "euro_accuracy": 22.73,
       "three_plus_rate": 0.0
     },
     "ej_hot_cold": {
@@ -3040,7 +3312,7 @@
       "three_plus_rate": 0.0
     },
     "ej_overdue": {
-      "total_predictions": 1,
+      "total_predictions": 2,
       "total_main_matches": 0,
       "total_euro_matches": 0,
       "three_plus": 0,
@@ -3196,75 +3468,75 @@
       "three_plus_rate": 0.0
     },
     "ml_ensemble_real": {
-      "total_predictions": 9,
-      "total_main_matches": 4,
-      "total_euro_matches": 2,
-      "three_plus": 0,
-      "four_plus": 0,
-      "five": 0,
-      "gewinnklasse_count": 0,
-      "main_accuracy": 8.89,
-      "euro_accuracy": 11.11,
-      "three_plus_rate": 0.0
-    },
-    "ml_bayesian_real": {
-      "total_predictions": 9,
+      "total_predictions": 10,
       "total_main_matches": 4,
       "total_euro_matches": 3,
       "three_plus": 0,
       "four_plus": 0,
       "five": 0,
       "gewinnklasse_count": 0,
-      "main_accuracy": 8.89,
-      "euro_accuracy": 16.67,
+      "main_accuracy": 8.0,
+      "euro_accuracy": 15.0,
       "three_plus_rate": 0.0
     },
-    "ml_markov_real": {
-      "total_predictions": 9,
-      "total_main_matches": 2,
+    "ml_bayesian_real": {
+      "total_predictions": 10,
+      "total_main_matches": 4,
       "total_euro_matches": 4,
       "three_plus": 0,
       "four_plus": 0,
       "five": 0,
       "gewinnklasse_count": 0,
-      "main_accuracy": 4.44,
-      "euro_accuracy": 22.22,
+      "main_accuracy": 8.0,
+      "euro_accuracy": 20.0,
+      "three_plus_rate": 0.0
+    },
+    "ml_markov_real": {
+      "total_predictions": 10,
+      "total_main_matches": 3,
+      "total_euro_matches": 4,
+      "three_plus": 0,
+      "four_plus": 0,
+      "five": 0,
+      "gewinnklasse_count": 0,
+      "main_accuracy": 6.0,
+      "euro_accuracy": 20.0,
       "three_plus_rate": 0.0
     },
     "ml_neural_network_real": {
-      "total_predictions": 9,
+      "total_predictions": 10,
       "total_main_matches": 6,
-      "total_euro_matches": 1,
+      "total_euro_matches": 2,
       "three_plus": 0,
       "four_plus": 0,
       "five": 0,
       "gewinnklasse_count": 0,
-      "main_accuracy": 13.33,
-      "euro_accuracy": 5.56,
+      "main_accuracy": 12.0,
+      "euro_accuracy": 10.0,
       "three_plus_rate": 0.0
     },
     "ml_reinforcement_real": {
-      "total_predictions": 8,
+      "total_predictions": 9,
       "total_main_matches": 2,
-      "total_euro_matches": 2,
+      "total_euro_matches": 3,
       "three_plus": 0,
       "four_plus": 0,
       "five": 0,
       "gewinnklasse_count": 0,
-      "main_accuracy": 5.0,
-      "euro_accuracy": 12.5,
+      "main_accuracy": 4.44,
+      "euro_accuracy": 16.67,
       "three_plus_rate": 0.0
     },
     "ml_eurozahl_real": {
-      "total_predictions": 8,
+      "total_predictions": 9,
       "total_main_matches": 2,
-      "total_euro_matches": 2,
+      "total_euro_matches": 3,
       "three_plus": 0,
       "four_plus": 0,
       "five": 0,
       "gewinnklasse_count": 0,
-      "main_accuracy": 5.0,
-      "euro_accuracy": 12.5,
+      "main_accuracy": 4.44,
+      "euro_accuracy": 16.67,
       "three_plus_rate": 0.0
     }
   },

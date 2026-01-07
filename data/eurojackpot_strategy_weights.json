@@ -1,10 +1,10 @@
 {
   "strategies": {
     "ensemble_champion": {
-      "weight": 0.711,
-      "total_predictions": 10,
+      "weight": 0.699,
+      "total_predictions": 11,
       "total_main_matches": 5,
-      "total_euro_matches": 4,
+      "total_euro_matches": 5,
       "wins_3plus": 0,
       "wins_4plus": 0,
       "wins_5": 0,
@@ -31,8 +31,8 @@
       "gewinnklassen": 0
     },
     "ej_overdue": {
-      "weight": 0.9,
-      "total_predictions": 1,
+      "weight": 0.82,
+      "total_predictions": 2,
       "total_main_matches": 0,
       "total_euro_matches": 0,
       "wins_3plus": 0,
@@ -161,18 +161,8 @@
       "gewinnklassen": 0
     },
     "ml_ensemble_real": {
-      "weight": 0.621,
-      "total_predictions": 9,
-      "total_main_matches": 4,
-      "total_euro_matches": 2,
-      "wins_3plus": 0,
-      "wins_4plus": 0,
-      "wins_5": 0,
-      "gewinnklassen": 0
-    },
-    "ml_bayesian_real": {
-      "weight": 0.658,
-      "total_predictions": 9,
+      "weight": 0.627,
+      "total_predictions": 10,
       "total_main_matches": 4,
       "total_euro_matches": 3,
       "wins_3plus": 0,
@@ -180,10 +170,20 @@
       "wins_5": 0,
       "gewinnklassen": 0
     },
+    "ml_bayesian_real": {
+      "weight": 0.656,
+      "total_predictions": 10,
+      "total_main_matches": 4,
+      "total_euro_matches": 4,
+      "wins_3plus": 0,
+      "wins_4plus": 0,
+      "wins_5": 0,
+      "gewinnklassen": 0
+    },
     "ml_markov_real": {
-      "weight": 0.645,
-      "total_predictions": 9,
-      "total_main_matches": 2,
+      "weight": 0.636,
+      "total_predictions": 10,
+      "total_main_matches": 3,
       "total_euro_matches": 4,
       "wins_3plus": 0,
       "wins_4plus": 0,
@@ -191,36 +191,36 @@
       "gewinnklassen": 0
     },
     "ml_neural_network_real": {
-      "weight": 0.637,
-      "total_predictions": 9,
+      "weight": 0.64,
+      "total_predictions": 10,
       "total_main_matches": 6,
-      "total_euro_matches": 1,
+      "total_euro_matches": 2,
       "wins_3plus": 0,
       "wins_4plus": 0,
       "wins_5": 0,
       "gewinnklassen": 0
     },
     "ml_reinforcement_real": {
-      "weight": 0.631,
-      "total_predictions": 8,
+      "weight": 0.635,
+      "total_predictions": 9,
       "total_main_matches": 2,
-      "total_euro_matches": 2,
+      "total_euro_matches": 3,
       "wins_3plus": 0,
       "wins_4plus": 0,
       "wins_5": 0,
       "gewinnklassen": 0
     },
     "ml_eurozahl_real": {
-      "weight": 0.617,
-      "total_predictions": 8,
+      "weight": 0.624,
+      "total_predictions": 9,
       "total_main_matches": 2,
-      "total_euro_matches": 2,
+      "total_euro_matches": 3,
       "wins_3plus": 0,
       "wins_4plus": 0,
       "wins_5": 0,
       "gewinnklassen": 0
     }
   },
-  "last_update": "2026-01-06T20:20:04.579724",
+  "last_update": "2026-01-07T19:24:24.001034",
   "total_predictions": 0
 }

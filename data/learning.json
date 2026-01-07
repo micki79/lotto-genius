@@ -4641,31 +4641,342 @@
       "strategy": "Random Forest Ensemble",
       "gewinnklasse": null,
       "new_weight": 1.6930435167522317
+    },
+    {
+      "id": "03.01.2026_hot_cold_mix_1767813862.556912",
+      "date": "2026-01-07T19:24:22.556931",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        32,
+        1,
+        7,
+        43,
+        47,
+        30
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 0,
+      "predicted_sz": 3,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "hot_cold_mix",
+      "provider": "local_strategy",
+      "confidence": 104.83061372794647,
+      "strategy": "Optimierter Mix aus Hot, Cold und Overdue",
+      "gewinnklasse": null,
+      "new_weight": 5.0
+    },
+    {
+      "id": "03.01.2026_hot_cold_1767813862.55695",
+      "date": "2026-01-07T19:24:22.556952",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        32,
+        1,
+        37,
+        6,
+        16,
+        30
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 1,
+      "predicted_sz": 5,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "hot_cold",
+      "provider": "local_strategy",
+      "confidence": 106.9126414163881,
+      "strategy": "Kombination aus hei\u00dfen und kalten Zahlen",
+      "gewinnklasse": null,
+      "new_weight": 5.0
+    },
+    {
+      "id": "03.01.2026_monte_carlo_1767813862.556963",
+      "date": "2026-01-07T19:24:22.556965",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        5,
+        8,
+        9,
+        44,
+        28,
+        30
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 1,
+      "predicted_sz": 7,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "monte_carlo",
+      "provider": "local_strategy",
+      "confidence": 99.79062187334088,
+      "strategy": "Monte-Carlo Simulation (1000 Durchl\u00e4ufe)",
+      "gewinnklasse": null,
+      "new_weight": 4.8410913793632995
+    },
+    {
+      "id": "03.01.2026_no_consecutive_1767813862.556975",
+      "date": "2026-01-07T19:24:22.556976",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        32,
+        14,
+        49,
+        20,
+        27,
+        29
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 0,
+      "predicted_sz": 2,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "no_consecutive",
+      "provider": "local_strategy",
+      "confidence": 92.19097918525898,
+      "strategy": "Keine aufeinanderfolgenden Zahlen",
+      "gewinnklasse": null,
+      "new_weight": 3.5760218482663677
+    },
+    {
+      "id": "03.01.2026_low_high_1767813862.556986",
+      "date": "2026-01-07T19:24:22.556988",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        2,
+        38,
+        8,
+        11,
+        49,
+        28
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 2,
+      "predicted_sz": 4,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "low_high",
+      "provider": "local_strategy",
+      "confidence": 93.16595632455454,
+      "strategy": "3 niedrige, 3 hohe Zahlen",
+      "gewinnklasse": null,
+      "new_weight": 3.796189939185268
+    },
+    {
+      "id": "03.01.2026_cold_numbers_1767813862.556999",
+      "date": "2026-01-07T19:24:22.557001",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        43,
+        47,
+        17,
+        18,
+        19,
+        31
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 0,
+      "predicted_sz": 6,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "cold_numbers",
+      "provider": "local_strategy",
+      "confidence": 98.81734502689845,
+      "strategy": "Kalte/seltene Zahlen bevorzugt",
+      "gewinnklasse": null,
+      "new_weight": 3.9082220841679387
+    },
+    {
+      "id": "03.01.2026_decade_balance_1767813862.557014",
+      "date": "2026-01-07T19:24:22.557015",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        34,
+        12,
+        16,
+        49,
+        20,
+        21
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 2,
+      "predicted_sz": 8,
+      "actual_sz": 8,
+      "sz_match": true,
+      "method": "decade_balance",
+      "provider": "local_strategy",
+      "confidence": 87.02058484653513,
+      "strategy": "Ausgewogene Dekaden-Verteilung",
+      "gewinnklasse": 9,
+      "new_weight": 4.017671631058595
+    },
+    {
+      "id": "03.01.2026_ensemble_champion_1767813862.557055",
+      "date": "2026-01-07T19:24:22.557057",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        32,
+        37,
+        8,
+        47,
+        49,
+        30
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 1,
+      "predicted_sz": 5,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "ensemble_champion",
+      "provider": "ensemble",
+      "confidence": 95,
+      "strategy": "Gewichtetes Voting aus 26 Vorhersagen",
+      "gewinnklasse": null,
+      "new_weight": 2.86818497951319
+    },
+    {
+      "id": "03.01.2026_ensemble_ml_real_1767813862.557072",
+      "date": "2026-01-07T19:24:22.557073",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        32,
+        37,
+        5,
+        7,
+        47,
+        25
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 0,
+      "predicted_sz": 5,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "ensemble_ml_real",
+      "provider": "ml_real",
+      "confidence": 44.44444444444444,
+      "strategy": "Gewichtetes Voting: NN=1.16, Markov=3.00, Bayes=2.45",
+      "gewinnklasse": null,
+      "new_weight": 2.3804864465401785
+    },
+    {
+      "id": "03.01.2026_thompson_sampling_real_1767813862.557084",
+      "date": "2026-01-07T19:24:22.557085",
+      "draw_date": "03.01.2026",
+      "predicted_numbers": [
+        3,
+        11,
+        17,
+        49,
+        29,
+        31
+      ],
+      "actual_numbers": [
+        3,
+        8,
+        11,
+        12,
+        46,
+        16
+      ],
+      "matches": 2,
+      "predicted_sz": 5,
+      "actual_sz": 8,
+      "sz_match": false,
+      "method": "thompson_sampling_real",
+      "provider": "ml_real",
+      "confidence": 75.0,
+      "strategy": "Exploration/Exploitation Balance mit Beta-Verteilung",
+      "gewinnklasse": null,
+      "new_weight": 0.8970062499999999
     }
   ],
   "stats": {
-    "total_entries": 152,
+    "total_entries": 162,
     "avg_matches": 0.9,
-    "sz_accuracy": 7.24,
-    "three_plus_rate": 5.26,
-    "four_plus_rate": 1.97,
+    "sz_accuracy": 7.41,
+    "three_plus_rate": 4.94,
+    "four_plus_rate": 1.85,
     "gewinnklassen_total": {
-      "8": 1
+      "8": 1,
+      "9": 1
     },
-    "last_update": "2026-01-06T20:20:03.295789",
+    "last_update": "2026-01-07T19:24:22.557620",
     "last_draw": "03.01.2026"
   },
   "by_method": {
     "ensemble_champion": {
-      "total_predictions": 17,
-      "total_matches": 18,
-      "total_possible": 102,
+      "total_predictions": 18,
+      "total_matches": 19,
+      "total_possible": 108,
       "sz_correct": 4,
       "three_plus": 2,
       "four_plus": 0,
-      "accuracy": 17.65,
-      "sz_accuracy": 23.53,
-      "three_plus_rate": 11.76
+      "accuracy": 17.59,
+      "sz_accuracy": 22.22,
+      "three_plus_rate": 11.11
     },
     "neural_network": {
       "total_predictions": 7,
@@ -4712,14 +5023,14 @@
       "three_plus_rate": 0.0
     },
     "monte_carlo": {
-      "total_predictions": 14,
-      "total_matches": 14,
-      "total_possible": 84,
+      "total_predictions": 15,
+      "total_matches": 15,
+      "total_possible": 90,
       "sz_correct": 1,
       "three_plus": 0,
       "four_plus": 0,
       "accuracy": 16.67,
-      "sz_accuracy": 7.14,
+      "sz_accuracy": 6.67,
       "three_plus_rate": 0.0
     },
     "ensemble_ml": {
@@ -4734,15 +5045,15 @@
       "three_plus_rate": 33.33
     },
     "cold_numbers": {
-      "total_predictions": 11,
+      "total_predictions": 12,
       "total_matches": 8,
-      "total_possible": 66,
+      "total_possible": 72,
       "sz_correct": 1,
       "three_plus": 0,
       "four_plus": 0,
       "gewinnklassen": {},
-      "accuracy": 12.12,
-      "sz_accuracy": 9.09,
+      "accuracy": 11.11,
+      "sz_accuracy": 8.33,
       "three_plus_rate": 0.0
     },
     "overdue": {
@@ -4770,14 +5081,14 @@
       "three_plus_rate": 0.0
     },
     "hot_cold": {
-      "total_predictions": 11,
-      "total_matches": 13,
-      "total_possible": 66,
+      "total_predictions": 12,
+      "total_matches": 14,
+      "total_possible": 72,
       "sz_correct": 0,
       "three_plus": 0,
       "four_plus": 0,
       "gewinnklassen": {},
-      "accuracy": 19.7,
+      "accuracy": 19.44,
       "sz_accuracy": 0.0,
       "three_plus_rate": 0.0
     },
@@ -4794,39 +5105,41 @@
       "three_plus_rate": 0.0
     },
     "decade_balance": {
-      "total_predictions": 7,
-      "total_matches": 7,
-      "total_possible": 42,
-      "sz_correct": 1,
+      "total_predictions": 8,
+      "total_matches": 9,
+      "total_possible": 48,
+      "sz_correct": 2,
       "three_plus": 0,
       "four_plus": 0,
-      "gewinnklassen": {},
-      "accuracy": 16.67,
-      "sz_accuracy": 14.29,
+      "gewinnklassen": {
+        "9": 1
+      },
+      "accuracy": 18.75,
+      "sz_accuracy": 25.0,
       "three_plus_rate": 0.0
     },
     "no_consecutive": {
-      "total_predictions": 11,
+      "total_predictions": 12,
       "total_matches": 8,
-      "total_possible": 66,
-      "sz_correct": 1,
-      "three_plus": 0,
-      "four_plus": 0,
-      "gewinnklassen": {},
-      "accuracy": 12.12,
-      "sz_accuracy": 9.09,
-      "three_plus_rate": 0.0
-    },
-    "ensemble_ml_real": {
-      "total_predictions": 6,
-      "total_matches": 4,
-      "total_possible": 36,
+      "total_possible": 72,
       "sz_correct": 1,
       "three_plus": 0,
       "four_plus": 0,
       "gewinnklassen": {},
       "accuracy": 11.11,
-      "sz_accuracy": 16.67,
+      "sz_accuracy": 8.33,
+      "three_plus_rate": 0.0
+    },
+    "ensemble_ml_real": {
+      "total_predictions": 7,
+      "total_matches": 4,
+      "total_possible": 42,
+      "sz_correct": 1,
+      "three_plus": 0,
+      "four_plus": 0,
+      "gewinnklassen": {},
+      "accuracy": 9.52,
+      "sz_accuracy": 14.29,
       "three_plus_rate": 0.0
     },
     "neural_network_real": {
@@ -4842,30 +5155,30 @@
       "three_plus_rate": 0.0
     },
     "thompson_sampling_real": {
-      "total_predictions": 3,
-      "total_matches": 0,
-      "total_possible": 18,
+      "total_predictions": 4,
+      "total_matches": 2,
+      "total_possible": 24,
       "sz_correct": 1,
       "three_plus": 0,
       "four_plus": 0,
       "gewinnklassen": {},
-      "accuracy": 0.0,
-      "sz_accuracy": 33.33,
+      "accuracy": 8.33,
+      "sz_accuracy": 25.0,
       "three_plus_rate": 0.0
     },
     "hot_cold_mix": {
-      "total_predictions": 9,
+      "total_predictions": 10,
       "total_matches": 10,
-      "total_possible": 54,
+      "total_possible": 60,
       "sz_correct": 0,
       "three_plus": 1,
       "four_plus": 0,
       "gewinnklassen": {
         "8": 1
       },
-      "accuracy": 18.52,
+      "accuracy": 16.67,
       "sz_accuracy": 0.0,
-      "three_plus_rate": 11.11
+      "three_plus_rate": 10.0
     },
     "prime_mix": {
       "total_predictions": 4,
@@ -4904,14 +5217,14 @@
       "three_plus_rate": 0.0
     },
     "low_high": {
-      "total_predictions": 7,
-      "total_matches": 5,
-      "total_possible": 42,
+      "total_predictions": 8,
+      "total_matches": 7,
+      "total_possible": 48,
       "sz_correct": 0,
       "three_plus": 0,
       "four_plus": 0,
       "gewinnklassen": {},
-      "accuracy": 11.9,
+      "accuracy": 14.58,
       "sz_accuracy": 0.0,
       "three_plus_rate": 0.0
     },
