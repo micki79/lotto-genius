@@ -3,205 +3,203 @@
     {
       "numbers": [
         6,
-        11,
-        13,
-        28,
+        14,
         30,
+        32,
+        34,
         43
       ],
-      "superzahl": 5,
-      "method": "hot_cold",
-      "method_name": "\ud83c\udfaf hot_cold",
-      "provider": "local_strategy",
-      "strategy": "Kombination aus hei\u00dfen und kalten Zahlen",
-      "strategy_weight": 5.0,
-      "confidence": 100.17410067606274,
-      "timestamp": "2026-01-07T19:24:23.018467",
-      "verified": false,
-      "quality_score": 193.0
-    },
-    {
-      "numbers": [
-        6,
-        11,
-        12,
-        19,
-        28,
-        47
-      ],
-      "superzahl": 7,
+      "superzahl": 2,
       "method": "hot_cold_mix",
       "method_name": "\ud83c\udfaf hot_cold_mix",
       "provider": "local_strategy",
       "strategy": "Optimierter Mix aus Hot, Cold und Overdue",
       "strategy_weight": 5.0,
-      "confidence": 100.61860565327528,
-      "timestamp": "2026-01-07T19:24:23.018507",
+      "confidence": 105.66255127206719,
+      "timestamp": "2026-01-09T20:21:02.089357",
       "verified": false,
-      "quality_score": 174.0
-    },
-    {
-      "numbers": [
-        9,
-        25,
-        28,
-        30,
-        37,
-        44
-      ],
-      "superzahl": 6,
-      "method": "monte_carlo",
-      "method_name": "\ud83c\udfaf monte_carlo",
-      "provider": "local_strategy",
-      "strategy": "Monte-Carlo Simulation (1000 Durchl\u00e4ufe)",
-      "strategy_weight": 4.8410913793632995,
-      "confidence": 99.8533245085415,
-      "timestamp": "2026-01-07T19:24:23.052690",
-      "verified": false,
-      "quality_score": 172.03
-    },
-    {
-      "numbers": [
-        1,
-        4,
-        13,
-        30,
-        35,
-        40
-      ],
-      "superzahl": 3,
-      "method": "decade_balance",
-      "method_name": "\ud83c\udfaf decade_balance",
-      "provider": "local_strategy",
-      "strategy": "Ausgewogene Dekaden-Verteilung",
-      "strategy_weight": 4.017671631058595,
-      "confidence": 92.51084077068074,
-      "timestamp": "2026-01-07T19:24:23.052749",
-      "verified": false,
-      "quality_score": 152.44
-    },
-    {
-      "numbers": [
-        1,
-        2,
-        18,
-        32,
-        43,
-        47
-      ],
-      "superzahl": 4,
-      "method": "cold_numbers",
-      "method_name": "\ud83c\udfaf cold_numbers",
-      "provider": "local_strategy",
-      "strategy": "Kalte/seltene Zahlen bevorzugt",
-      "strategy_weight": 3.9082220841679387,
-      "confidence": 92.37710609431224,
-      "timestamp": "2026-01-07T19:24:23.052781",
-      "verified": false,
-      "quality_score": 147.71
+      "quality_score": 183.0
     },
     {
       "numbers": [
         6,
-        11,
+        12,
+        13,
         28,
+        31,
+        34
+      ],
+      "superzahl": 7,
+      "method": "hot_cold",
+      "method_name": "\ud83c\udfaf hot_cold",
+      "provider": "local_strategy",
+      "strategy": "Kombination aus hei\u00dfen und kalten Zahlen",
+      "strategy_weight": 5.0,
+      "confidence": 105.63044305626659,
+      "timestamp": "2026-01-09T20:21:02.089322",
+      "verified": false,
+      "quality_score": 176.0
+    },
+    {
+      "numbers": [
+        8,
+        9,
         30,
+        36,
         37,
-        43
+        44
+      ],
+      "superzahl": 4,
+      "method": "monte_carlo",
+      "method_name": "\ud83c\udfaf monte_carlo",
+      "provider": "local_strategy",
+      "strategy": "Monte-Carlo Simulation (1000 Durchl\u00e4ufe)",
+      "strategy_weight": 4.864927672458805,
+      "confidence": 106.31087528367316,
+      "timestamp": "2026-01-09T20:21:02.130898",
+      "verified": false,
+      "quality_score": 160.62
+    },
+    {
+      "numbers": [
+        5,
+        11,
+        13,
+        37,
+        40,
+        42
+      ],
+      "superzahl": 6,
+      "method": "no_consecutive",
+      "method_name": "\ud83c\udfaf no_consecutive",
+      "provider": "local_strategy",
+      "strategy": "Keine aufeinanderfolgenden Zahlen",
+      "strategy_weight": 4.409080746770156,
+      "confidence": 104.04544734025121,
+      "timestamp": "2026-01-09T20:21:02.131011",
+      "verified": false,
+      "quality_score": 157.23
+    },
+    {
+      "numbers": [
+        14,
+        23,
+        34,
+        38,
+        47,
+        48
+      ],
+      "superzahl": 9,
+      "method": "cold_numbers",
+      "method_name": "\ud83c\udfaf cold_numbers",
+      "provider": "local_strategy",
+      "strategy": "Kalte/seltene Zahlen bevorzugt",
+      "strategy_weight": 4.747924987389759,
+      "confidence": 105.83557008231539,
+      "timestamp": "2026-01-09T20:21:02.130953",
+      "verified": false,
+      "quality_score": 145.7
+    },
+    {
+      "numbers": [
+        12,
+        21,
+        24,
+        25,
+        46,
+        47
       ],
       "superzahl": 5,
+      "method": "decade_balance",
+      "method_name": "\ud83c\udfaf decade_balance",
+      "provider": "local_strategy",
+      "strategy": "Ausgewogene Dekaden-Verteilung",
+      "strategy_weight": 4.165020886399805,
+      "confidence": 94.44273465277841,
+      "timestamp": "2026-01-09T20:21:02.131061",
+      "verified": false,
+      "quality_score": 137.13
+    },
+    {
+      "numbers": [
+        17,
+        19,
+        20,
+        38,
+        41,
+        44
+      ],
+      "superzahl": 8,
+      "method": "low_high",
+      "method_name": "\ud83c\udfaf low_high",
+      "provider": "local_strategy",
+      "strategy": "3 niedrige, 3 hohe Zahlen",
+      "strategy_weight": 3.810094781640811,
+      "confidence": 89.14001577101239,
+      "timestamp": "2026-01-09T20:21:02.131091",
+      "verified": false,
+      "quality_score": 133.25
+    },
+    {
+      "numbers": [
+        6,
+        8,
+        12,
+        32,
+        34,
+        44
+      ],
+      "superzahl": 8,
       "method": "ensemble_champion",
       "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 26 Vorhersagen",
       "strategy_weight": 3.0,
       "confidence": 95,
-      "timestamp": "2026-01-07T19:24:23.804101",
+      "timestamp": "2026-01-09T20:21:02.878837",
       "verified": false,
       "is_champion": true,
-      "quality_score": 140.0
-    },
-    {
-      "numbers": [
-        2,
-        12,
-        23,
-        37,
-        43,
-        48
-      ],
-      "superzahl": 2,
-      "method": "low_high",
-      "method_name": "\ud83c\udfaf low_high",
-      "provider": "local_strategy",
-      "strategy": "3 niedrige, 3 hohe Zahlen",
-      "strategy_weight": 3.796189939185268,
-      "confidence": 95.53723611269864,
-      "timestamp": "2026-01-07T19:24:23.052797",
-      "verified": false,
-      "quality_score": 139.9
-    },
-    {
-      "numbers": [
-        6,
-        18,
-        22,
-        32,
-        36,
-        46
-      ],
-      "superzahl": 8,
-      "method": "no_consecutive",
-      "method_name": "\ud83c\udfaf no_consecutive",
-      "provider": "local_strategy",
-      "strategy": "Keine aufeinanderfolgenden Zahlen",
-      "strategy_weight": 3.5760218482663677,
-      "confidence": 93.74611419508983,
-      "timestamp": "2026-01-07T19:24:23.052833",
-      "verified": false,
-      "quality_score": 134.4
+      "quality_score": 103.0
     },
     {
       "numbers": [
         5,
-        7,
-        25,
-        32,
-        37,
-        44
+        6,
+        12,
+        27,
+        29,
+        41
       ],
-      "superzahl": 5,
-      "method": "ensemble_ml_real",
-      "method_name": "\ud83c\udfc6 ML Ensemble (Alle Modelle)",
-      "provider": "ml_real",
-      "strategy": "Gewichtetes Voting: NN=1.14, Markov=3.00, Bayes=2.42",
-      "confidence": 44.44444444444444,
-      "is_real_ml": true,
-      "is_champion": true,
-      "timestamp": "2026-01-07T19:24:23.120303",
-      "verified": false,
-      "strategy_weight": 2.0,
-      "quality_score": 115.0
-    },
-    {
-      "numbers": [
-        4,
-        28,
-        31,
-        35,
-        43,
-        49
-      ],
-      "superzahl": 5,
+      "superzahl": 0,
       "method": "position_based",
       "method_name": "\ud83c\udfaf position_based",
       "provider": "local_strategy",
       "strategy": "Positionsbasierte h\u00e4ufigste Zahlen",
-      "strategy_weight": 1.6,
-      "confidence": 68.45610962682652,
-      "timestamp": "2026-01-07T19:24:23.052948",
+      "strategy_weight": 1.735,
+      "confidence": 72.65464338901953,
+      "timestamp": "2026-01-09T20:21:02.131206",
       "verified": false,
-      "quality_score": 108.0
+      "quality_score": 94.38
+    },
+    {
+      "numbers": [
+        3,
+        19,
+        27,
+        31,
+        32,
+        33
+      ],
+      "superzahl": 3,
+      "method": "prime_mix",
+      "method_name": "\ud83c\udfaf prime_mix",
+      "provider": "local_strategy",
+      "strategy": "Mix aus Primzahlen und Nicht-Primzahlen",
+      "strategy_weight": 2.0535375,
+      "confidence": 79.07163512127958,
+      "timestamp": "2026-01-09T20:21:02.131148",
+      "verified": false,
+      "quality_score": 94.34
     }
   ],
   "history": [
@@ -4301,9 +4299,272 @@
         "draw_date": "03.01.2026",
         "gewinnklasse": null
       }
+    },
+    {
+      "numbers": [
+        6,
+        11,
+        13,
+        28,
+        30,
+        43
+      ],
+      "superzahl": 5,
+      "method": "hot_cold",
+      "method_name": "\ud83c\udfaf hot_cold",
+      "provider": "local_strategy",
+      "strategy": "Kombination aus hei\u00dfen und kalten Zahlen",
+      "strategy_weight": 5.0,
+      "confidence": 100.17410067606274,
+      "timestamp": "2026-01-07T19:24:23.018467",
+      "verified": true,
+      "quality_score": 193.0,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": null
+      }
+    },
+    {
+      "numbers": [
+        6,
+        11,
+        12,
+        19,
+        28,
+        47
+      ],
+      "superzahl": 7,
+      "method": "hot_cold_mix",
+      "method_name": "\ud83c\udfaf hot_cold_mix",
+      "provider": "local_strategy",
+      "strategy": "Optimierter Mix aus Hot, Cold und Overdue",
+      "strategy_weight": 5.0,
+      "confidence": 100.61860565327528,
+      "timestamp": "2026-01-07T19:24:23.018507",
+      "verified": true,
+      "quality_score": 174.0,
+      "result": {
+        "matches": 1,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": null
+      }
+    },
+    {
+      "numbers": [
+        9,
+        25,
+        28,
+        30,
+        37,
+        44
+      ],
+      "superzahl": 6,
+      "method": "monte_carlo",
+      "method_name": "\ud83c\udfaf monte_carlo",
+      "provider": "local_strategy",
+      "strategy": "Monte-Carlo Simulation (1000 Durchl\u00e4ufe)",
+      "strategy_weight": 4.8410913793632995,
+      "confidence": 99.8533245085415,
+      "timestamp": "2026-01-07T19:24:23.052690",
+      "verified": true,
+      "quality_score": 172.03,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": null
+      }
+    },
+    {
+      "numbers": [
+        1,
+        4,
+        13,
+        30,
+        35,
+        40
+      ],
+      "superzahl": 3,
+      "method": "decade_balance",
+      "method_name": "\ud83c\udfaf decade_balance",
+      "provider": "local_strategy",
+      "strategy": "Ausgewogene Dekaden-Verteilung",
+      "strategy_weight": 4.017671631058595,
+      "confidence": 92.51084077068074,
+      "timestamp": "2026-01-07T19:24:23.052749",
+      "verified": true,
+      "quality_score": 152.44,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": null
+      }
+    },
+    {
+      "numbers": [
+        1,
+        2,
+        18,
+        32,
+        43,
+        47
+      ],
+      "superzahl": 4,
+      "method": "cold_numbers",
+      "method_name": "\ud83c\udfaf cold_numbers",
+      "provider": "local_strategy",
+      "strategy": "Kalte/seltene Zahlen bevorzugt",
+      "strategy_weight": 3.9082220841679387,
+      "confidence": 92.37710609431224,
+      "timestamp": "2026-01-07T19:24:23.052781",
+      "verified": true,
+      "quality_score": 147.71,
+      "result": {
+        "matches": 3,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": 8
+      }
+    },
+    {
+      "numbers": [
+        6,
+        11,
+        28,
+        30,
+        37,
+        43
+      ],
+      "superzahl": 5,
+      "method": "ensemble_champion",
+      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "provider": "ensemble",
+      "strategy": "Gewichtetes Voting aus 26 Vorhersagen",
+      "strategy_weight": 3.0,
+      "confidence": 95,
+      "timestamp": "2026-01-07T19:24:23.804101",
+      "verified": true,
+      "is_champion": true,
+      "quality_score": 140.0,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": null
+      }
+    },
+    {
+      "numbers": [
+        2,
+        12,
+        23,
+        37,
+        43,
+        48
+      ],
+      "superzahl": 2,
+      "method": "low_high",
+      "method_name": "\ud83c\udfaf low_high",
+      "provider": "local_strategy",
+      "strategy": "3 niedrige, 3 hohe Zahlen",
+      "strategy_weight": 3.796189939185268,
+      "confidence": 95.53723611269864,
+      "timestamp": "2026-01-07T19:24:23.052797",
+      "verified": true,
+      "quality_score": 139.9,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": null
+      }
+    },
+    {
+      "numbers": [
+        6,
+        18,
+        22,
+        32,
+        36,
+        46
+      ],
+      "superzahl": 8,
+      "method": "no_consecutive",
+      "method_name": "\ud83c\udfaf no_consecutive",
+      "provider": "local_strategy",
+      "strategy": "Keine aufeinanderfolgenden Zahlen",
+      "strategy_weight": 3.5760218482663677,
+      "confidence": 93.74611419508983,
+      "timestamp": "2026-01-07T19:24:23.052833",
+      "verified": true,
+      "quality_score": 134.4,
+      "result": {
+        "matches": 3,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": 8
+      }
+    },
+    {
+      "numbers": [
+        5,
+        7,
+        25,
+        32,
+        37,
+        44
+      ],
+      "superzahl": 5,
+      "method": "ensemble_ml_real",
+      "method_name": "\ud83c\udfc6 ML Ensemble (Alle Modelle)",
+      "provider": "ml_real",
+      "strategy": "Gewichtetes Voting: NN=1.14, Markov=3.00, Bayes=2.42",
+      "confidence": 44.44444444444444,
+      "is_real_ml": true,
+      "is_champion": true,
+      "timestamp": "2026-01-07T19:24:23.120303",
+      "verified": true,
+      "strategy_weight": 2.0,
+      "quality_score": 115.0,
+      "result": {
+        "matches": 1,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": null
+      }
+    },
+    {
+      "numbers": [
+        4,
+        28,
+        31,
+        35,
+        43,
+        49
+      ],
+      "superzahl": 5,
+      "method": "position_based",
+      "method_name": "\ud83c\udfaf position_based",
+      "provider": "local_strategy",
+      "strategy": "Positionsbasierte h\u00e4ufigste Zahlen",
+      "strategy_weight": 1.6,
+      "confidence": 68.45610962682652,
+      "timestamp": "2026-01-07T19:24:23.052948",
+      "verified": true,
+      "quality_score": 108.0,
+      "result": {
+        "matches": 0,
+        "sz_match": false,
+        "draw_date": "07.01.2026",
+        "gewinnklasse": null
+      }
     }
   ],
-  "last_update": "2026-01-07T19:24:23.804439",
+  "last_update": "2026-01-09T20:21:02.879177",
   "next_draw": "10.01.2026",
   "ki_stats": {
     "providers_used": [
@@ -4312,76 +4573,76 @@
     ],
     "total_generated": 27,
     "top_10_selected": 10,
-    "best_superzahl": 5,
+    "best_superzahl": 7,
     "superzahl_ranking": [
       [
-        5,
-        62.0
-      ],
-      [
         7,
-        61.9
+        70.0
       ],
       [
-        6,
-        59.0
-      ],
-      [
-        3,
-        58.4
+        2,
+        67.7
       ],
       [
         4,
-        57.9
+        55.0
+      ],
+      [
+        9,
+        54.3
+      ],
+      [
+        6,
+        52.0
       ]
     ],
     "superzahl_patterns": {
       "frequency": {
+        "0": 304,
         "8": 289,
         "5": 326,
         "6": 315,
         "2": 301,
         "3": 308,
-        "0": 303,
         "9": 289,
         "7": 336,
         "1": 299,
         "4": 322
       },
       "gaps": {
-        "0": 10,
-        "1": 23,
-        "2": 5,
-        "3": 6,
-        "4": 30,
-        "5": 1,
-        "6": 2,
-        "7": 15,
-        "8": 0,
-        "9": 14
+        "0": 0,
+        "1": 24,
+        "2": 6,
+        "3": 7,
+        "4": 31,
+        "5": 2,
+        "6": 3,
+        "7": 16,
+        "8": 1,
+        "9": 15
       },
       "trends": {
-        "0": -1,
+        "0": 0,
         "1": -5,
-        "2": 1,
+        "2": 2,
         "3": 1,
         "4": -2,
         "5": 2,
         "6": 2,
         "7": 0,
         "8": 3,
-        "9": -1
+        "9": -3
       },
       "wednesday": {
+        "0": 4,
         "5": 3,
         "8": 9,
         "2": 7,
         "6": 9,
         "7": 7,
         "9": 2,
-        "0": 3,
         "1": 5,
-        "4": 3,
+        "4": 2,
         "3": 2
       },
       "saturday": {
@@ -4421,35 +4682,37 @@
         "8->5": 35,
         "4->6": 35,
         "9->5": 35,
+        "8->0": 34,
         "6->5": 34,
         "5->2": 34,
         "5->3": 34,
         "3->9": 34,
-        "3->3": 34,
-        "4->9": 34
+        "3->3": 34
       },
-      "last_sz": 8
+      "last_sz": 0
     },
     "strategy_weights": {
       "hot_cold": {
         "weight": 5.0,
         "hits": 14,
-        "total": 12,
-        "last_updated": "2026-01-07T19:24:22.556948",
+        "total": 13,
+        "last_updated": "2026-01-09T20:21:01.624619",
         "three_plus": 0,
         "four_plus": 0,
         "sz_correct": 0,
         "gewinnklassen": {}
       },
       "cold_numbers": {
-        "weight": 3.9082220841679387,
-        "hits": 8,
-        "total": 12,
-        "last_updated": "2026-01-07T19:24:22.556998",
-        "three_plus": 0,
+        "weight": 4.747924987389759,
+        "hits": 11,
+        "total": 13,
+        "last_updated": "2026-01-09T20:21:01.624697",
+        "three_plus": 1,
         "four_plus": 0,
         "sz_correct": 1,
-        "gewinnklassen": {}
+        "gewinnklassen": {
+          "8": 1
+        }
       },
       "overdue": {
         "weight": 1.86388125,
@@ -4488,10 +4751,10 @@
         "gewinnklassen": {}
       },
       "decade_balance": {
-        "weight": 4.017671631058595,
+        "weight": 4.165020886399805,
         "hits": 9,
-        "total": 8,
-        "last_updated": "2026-01-07T19:24:22.557012",
+        "total": 9,
+        "last_updated": "2026-01-09T20:21:01.624683",
         "three_plus": 0,
         "four_plus": 0,
         "sz_correct": 2,
@@ -4510,24 +4773,26 @@
         "gewinnklassen": {}
       },
       "position_based": {
-        "weight": 1.6,
+        "weight": 1.735,
         "hits": 1,
-        "total": 1,
-        "last_updated": "2025-12-24T19:19:48.605320",
+        "total": 2,
+        "last_updated": "2026-01-09T20:21:01.624796",
         "three_plus": 0,
         "four_plus": 0,
         "sz_correct": 0,
         "gewinnklassen": {}
       },
       "no_consecutive": {
-        "weight": 3.5760218482663677,
-        "hits": 8,
-        "total": 12,
-        "last_updated": "2026-01-07T19:24:22.556973",
-        "three_plus": 0,
+        "weight": 4.409080746770156,
+        "hits": 11,
+        "total": 13,
+        "last_updated": "2026-01-09T20:21:01.624764",
+        "three_plus": 1,
         "four_plus": 0,
         "sz_correct": 1,
-        "gewinnklassen": {}
+        "gewinnklassen": {
+          "8": 1
+        }
       },
       "prime_mix": {
         "weight": 2.0535375,
@@ -4540,10 +4805,10 @@
         "gewinnklassen": {}
       },
       "low_high": {
-        "weight": 3.796189939185268,
+        "weight": 3.810094781640811,
         "hits": 7,
-        "total": 8,
-        "last_updated": "2026-01-07T19:24:22.556985",
+        "total": 9,
+        "last_updated": "2026-01-09T20:21:01.624728",
         "three_plus": 0,
         "four_plus": 0,
         "sz_correct": 0,
@@ -4551,9 +4816,9 @@
       },
       "hot_cold_mix": {
         "weight": 5.0,
-        "hits": 10,
-        "total": 10,
-        "last_updated": "2026-01-07T19:24:22.556904",
+        "hits": 11,
+        "total": 11,
+        "last_updated": "2026-01-09T20:21:01.624649",
         "three_plus": 1,
         "four_plus": 0,
         "sz_correct": 0,
@@ -4562,10 +4827,10 @@
         }
       },
       "monte_carlo": {
-        "weight": 4.8410913793632995,
+        "weight": 4.864927672458805,
         "hits": 11,
-        "total": 10,
-        "last_updated": "2026-01-07T19:24:22.556962",
+        "total": 11,
+        "last_updated": "2026-01-09T20:21:01.624665",
         "three_plus": 0,
         "four_plus": 0,
         "sz_correct": 1,
@@ -4626,24 +4891,24 @@
         "last_updated": null
       },
       "ensemble_champion": {
-        "weight": 2.86818497951319,
+        "weight": 2.9201000897290688,
         "hits": 9,
-        "total": 13,
+        "total": 14,
         "three_plus": 0,
         "four_plus": 0,
         "sz_correct": 3,
         "gewinnklassen": {},
-        "last_updated": "2026-01-07T19:24:22.557053"
+        "last_updated": "2026-01-09T20:21:01.624716"
       },
       "ensemble_ml_real": {
-        "weight": 2.3804864465401785,
-        "hits": 4,
-        "total": 7,
+        "weight": 2.4921634795591516,
+        "hits": 5,
+        "total": 8,
         "three_plus": 0,
         "four_plus": 0,
         "sz_correct": 1,
         "gewinnklassen": {},
-        "last_updated": "2026-01-07T19:24:22.557070"
+        "last_updated": "2026-01-09T20:21:01.624783"
       },
       "neural_network_real": {
         "weight": 0.85,
@@ -4711,287 +4976,192 @@
     {
       "numbers": [
         6,
-        11,
-        28,
-        30,
-        37,
-        43
+        8,
+        12,
+        32,
+        34,
+        44
       ],
-      "superzahl": 5,
+      "superzahl": 8,
       "method": "ensemble_champion",
       "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 26 Vorhersagen",
       "strategy_weight": 3.0,
       "confidence": 95,
-      "timestamp": "2026-01-07T19:24:23.804101",
+      "timestamp": "2026-01-09T20:21:02.878837",
       "verified": false,
       "is_champion": true
     },
     {
       "numbers": [
         6,
-        11,
+        12,
         13,
         28,
-        30,
-        43
+        31,
+        34
       ],
-      "superzahl": 5,
+      "superzahl": 7,
       "method": "hot_cold",
       "method_name": "\ud83c\udfaf hot_cold",
       "provider": "local_strategy",
       "strategy": "Kombination aus hei\u00dfen und kalten Zahlen",
       "strategy_weight": 5.0,
-      "confidence": 100.17410067606274,
-      "timestamp": "2026-01-07T19:24:23.018467",
+      "confidence": 105.63044305626659,
+      "timestamp": "2026-01-09T20:21:02.089322",
       "verified": false
     },
     {
       "numbers": [
         6,
-        11,
-        12,
-        19,
-        28,
-        47
+        14,
+        30,
+        32,
+        34,
+        43
       ],
-      "superzahl": 7,
+      "superzahl": 2,
       "method": "hot_cold_mix",
       "method_name": "\ud83c\udfaf hot_cold_mix",
       "provider": "local_strategy",
       "strategy": "Optimierter Mix aus Hot, Cold und Overdue",
       "strategy_weight": 5.0,
-      "confidence": 100.61860565327528,
-      "timestamp": "2026-01-07T19:24:23.018507",
-      "verified": false
-    },
-    {
-      "numbers": [
-        9,
-        25,
-        28,
-        30,
-        37,
-        44
-      ],
-      "superzahl": 6,
-      "method": "monte_carlo",
-      "method_name": "\ud83c\udfaf monte_carlo",
-      "provider": "local_strategy",
-      "strategy": "Monte-Carlo Simulation (1000 Durchl\u00e4ufe)",
-      "strategy_weight": 4.8410913793632995,
-      "confidence": 99.8533245085415,
-      "timestamp": "2026-01-07T19:24:23.052690",
-      "verified": false
-    },
-    {
-      "numbers": [
-        1,
-        4,
-        13,
-        30,
-        35,
-        40
-      ],
-      "superzahl": 3,
-      "method": "decade_balance",
-      "method_name": "\ud83c\udfaf decade_balance",
-      "provider": "local_strategy",
-      "strategy": "Ausgewogene Dekaden-Verteilung",
-      "strategy_weight": 4.017671631058595,
-      "confidence": 92.51084077068074,
-      "timestamp": "2026-01-07T19:24:23.052749",
-      "verified": false
-    },
-    {
-      "numbers": [
-        1,
-        2,
-        18,
-        32,
-        43,
-        47
-      ],
-      "superzahl": 4,
-      "method": "cold_numbers",
-      "method_name": "\ud83c\udfaf cold_numbers",
-      "provider": "local_strategy",
-      "strategy": "Kalte/seltene Zahlen bevorzugt",
-      "strategy_weight": 3.9082220841679387,
-      "confidence": 92.37710609431224,
-      "timestamp": "2026-01-07T19:24:23.052781",
-      "verified": false
-    },
-    {
-      "numbers": [
-        2,
-        12,
-        23,
-        37,
-        43,
-        48
-      ],
-      "superzahl": 2,
-      "method": "low_high",
-      "method_name": "\ud83c\udfaf low_high",
-      "provider": "local_strategy",
-      "strategy": "3 niedrige, 3 hohe Zahlen",
-      "strategy_weight": 3.796189939185268,
-      "confidence": 95.53723611269864,
-      "timestamp": "2026-01-07T19:24:23.052797",
-      "verified": false
-    },
-    {
-      "numbers": [
-        6,
-        18,
-        22,
-        32,
-        36,
-        46
-      ],
-      "superzahl": 8,
-      "method": "no_consecutive",
-      "method_name": "\ud83c\udfaf no_consecutive",
-      "provider": "local_strategy",
-      "strategy": "Keine aufeinanderfolgenden Zahlen",
-      "strategy_weight": 3.5760218482663677,
-      "confidence": 93.74611419508983,
-      "timestamp": "2026-01-07T19:24:23.052833",
-      "verified": false
-    },
-    {
-      "numbers": [
-        7,
-        30,
-        31,
-        37,
-        46,
-        49
-      ],
-      "superzahl": 1,
-      "method": "prime_mix",
-      "method_name": "\ud83c\udfaf prime_mix",
-      "provider": "local_strategy",
-      "strategy": "Mix aus Primzahlen und Nicht-Primzahlen",
-      "strategy_weight": 2.0535375,
-      "confidence": 72.34738942033373,
-      "timestamp": "2026-01-07T19:24:23.052868",
-      "verified": false
-    },
-    {
-      "numbers": [
-        14,
-        20,
-        30,
-        43,
-        47,
-        48
-      ],
-      "superzahl": 9,
-      "method": "overdue",
-      "method_name": "\ud83c\udfaf overdue",
-      "provider": "local_strategy",
-      "strategy": "\u00dcberf\u00e4llige Zahlen mit gro\u00dfer L\u00fccke",
-      "strategy_weight": 1.86388125,
-      "confidence": 76.59645030976405,
-      "timestamp": "2026-01-07T19:24:23.052880",
-      "verified": false
-    },
-    {
-      "numbers": [
-        12,
-        13,
-        26,
-        30,
-        32,
-        39
-      ],
-      "superzahl": 0,
-      "method": "random_forest",
-      "method_name": "\ud83c\udfaf random_forest",
-      "provider": "local_strategy",
-      "strategy": "Random Forest Ensemble",
-      "strategy_weight": 1.6930435167522317,
-      "confidence": 74.67065155631313,
-      "timestamp": "2026-01-07T19:24:23.052927",
-      "verified": false
-    },
-    {
-      "numbers": [
-        4,
-        28,
-        31,
-        35,
-        43,
-        49
-      ],
-      "superzahl": 5,
-      "method": "position_based",
-      "method_name": "\ud83c\udfaf position_based",
-      "provider": "local_strategy",
-      "strategy": "Positionsbasierte h\u00e4ufigste Zahlen",
-      "strategy_weight": 1.6,
-      "confidence": 68.45610962682652,
-      "timestamp": "2026-01-07T19:24:23.052948",
+      "confidence": 105.66255127206719,
+      "timestamp": "2026-01-09T20:21:02.089357",
       "verified": false
     },
     {
       "numbers": [
         8,
         9,
-        28,
         30,
+        36,
         37,
         44
       ],
-      "superzahl": 7,
-      "method": "bayesian",
-      "method_name": "\ud83c\udfaf bayesian",
+      "superzahl": 4,
+      "method": "monte_carlo",
+      "method_name": "\ud83c\udfaf monte_carlo",
       "provider": "local_strategy",
-      "strategy": "Bayesian Wahrscheinlichkeitsberechnung",
-      "strategy_weight": 1.6,
-      "confidence": 72.359838926451,
-      "timestamp": "2026-01-07T19:24:23.052990",
+      "strategy": "Monte-Carlo Simulation (1000 Durchl\u00e4ufe)",
+      "strategy_weight": 4.864927672458805,
+      "confidence": 106.31087528367316,
+      "timestamp": "2026-01-09T20:21:02.130898",
+      "verified": false
+    },
+    {
+      "numbers": [
+        14,
+        23,
+        34,
+        38,
+        47,
+        48
+      ],
+      "superzahl": 9,
+      "method": "cold_numbers",
+      "method_name": "\ud83c\udfaf cold_numbers",
+      "provider": "local_strategy",
+      "strategy": "Kalte/seltene Zahlen bevorzugt",
+      "strategy_weight": 4.747924987389759,
+      "confidence": 105.83557008231539,
+      "timestamp": "2026-01-09T20:21:02.130953",
+      "verified": false
+    },
+    {
+      "numbers": [
+        5,
+        11,
+        13,
+        37,
+        40,
+        42
+      ],
+      "superzahl": 6,
+      "method": "no_consecutive",
+      "method_name": "\ud83c\udfaf no_consecutive",
+      "provider": "local_strategy",
+      "strategy": "Keine aufeinanderfolgenden Zahlen",
+      "strategy_weight": 4.409080746770156,
+      "confidence": 104.04544734025121,
+      "timestamp": "2026-01-09T20:21:02.131011",
+      "verified": false
+    },
+    {
+      "numbers": [
+        12,
+        21,
+        24,
+        25,
+        46,
+        47
+      ],
+      "superzahl": 5,
+      "method": "decade_balance",
+      "method_name": "\ud83c\udfaf decade_balance",
+      "provider": "local_strategy",
+      "strategy": "Ausgewogene Dekaden-Verteilung",
+      "strategy_weight": 4.165020886399805,
+      "confidence": 94.44273465277841,
+      "timestamp": "2026-01-09T20:21:02.131061",
+      "verified": false
+    },
+    {
+      "numbers": [
+        17,
+        19,
+        20,
+        38,
+        41,
+        44
+      ],
+      "superzahl": 8,
+      "method": "low_high",
+      "method_name": "\ud83c\udfaf low_high",
+      "provider": "local_strategy",
+      "strategy": "3 niedrige, 3 hohe Zahlen",
+      "strategy_weight": 3.810094781640811,
+      "confidence": 89.14001577101239,
+      "timestamp": "2026-01-09T20:21:02.131091",
+      "verified": false
+    },
+    {
+      "numbers": [
+        3,
+        19,
+        27,
+        31,
+        32,
+        33
+      ],
+      "superzahl": 3,
+      "method": "prime_mix",
+      "method_name": "\ud83c\udfaf prime_mix",
+      "provider": "local_strategy",
+      "strategy": "Mix aus Primzahlen und Nicht-Primzahlen",
+      "strategy_weight": 2.0535375,
+      "confidence": 79.07163512127958,
+      "timestamp": "2026-01-09T20:21:02.131148",
       "verified": false
     },
     {
       "numbers": [
         2,
-        5,
-        6,
-        30,
-        34,
+        9,
+        14,
+        19,
+        31,
         48
       ],
-      "superzahl": 6,
-      "method": "fibonacci",
-      "method_name": "\ud83c\udfaf fibonacci",
+      "superzahl": 1,
+      "method": "overdue",
+      "method_name": "\ud83c\udfaf overdue",
       "provider": "local_strategy",
-      "strategy": "Fibonacci-Zahlen bevorzugt",
-      "strategy_weight": 1.0,
-      "confidence": 69.048051581959,
-      "timestamp": "2026-01-07T19:24:23.053011",
-      "verified": false
-    },
-    {
-      "numbers": [
-        6,
-        7,
-        12,
-        37,
-        39,
-        46
-      ],
-      "superzahl": 3,
-      "method": "neighbor_pairs",
-      "method_name": "\ud83c\udfaf neighbor_pairs",
-      "provider": "local_strategy",
-      "strategy": "Basierend auf h\u00e4ufigen Nachbarpaaren",
-      "strategy_weight": 1.0,
-      "confidence": 68.62240469879694,
-      "timestamp": "2026-01-07T19:24:23.053023",
+      "strategy": "\u00dcberf\u00e4llige Zahlen mit gro\u00dfer L\u00fccke",
+      "strategy_weight": 1.86388125,
+      "confidence": 71.3922100476825,
+      "timestamp": "2026-01-09T20:21:02.131174",
       "verified": false
     },
     {
@@ -4999,47 +5169,142 @@
         5,
         6,
         12,
-        13,
-        28,
-        29
+        27,
+        29,
+        41
       ],
-      "superzahl": 4,
-      "method": "end_digit",
-      "method_name": "\ud83c\udfaf end_digit",
+      "superzahl": 0,
+      "method": "position_based",
+      "method_name": "\ud83c\udfaf position_based",
       "provider": "local_strategy",
-      "strategy": "Ausgewogene Endziffern-Verteilung",
-      "strategy_weight": 1.0,
-      "confidence": 68.94144751562217,
-      "timestamp": "2026-01-07T19:24:23.053059",
+      "strategy": "Positionsbasierte h\u00e4ufigste Zahlen",
+      "strategy_weight": 1.735,
+      "confidence": 72.65464338901953,
+      "timestamp": "2026-01-09T20:21:02.131206",
       "verified": false
     },
     {
       "numbers": [
         8,
         11,
-        12,
-        16,
+        13,
+        28,
+        32,
+        37
+      ],
+      "superzahl": 7,
+      "method": "random_forest",
+      "method_name": "\ud83c\udfaf random_forest",
+      "provider": "local_strategy",
+      "strategy": "Random Forest Ensemble",
+      "strategy_weight": 1.6930435167522317,
+      "confidence": 74.84960223500075,
+      "timestamp": "2026-01-09T20:21:02.131305",
+      "verified": false
+    },
+    {
+      "numbers": [
+        8,
+        9,
+        28,
+        30,
         37,
-        46
+        44
       ],
       "superzahl": 2,
+      "method": "bayesian",
+      "method_name": "\ud83c\udfaf bayesian",
+      "provider": "local_strategy",
+      "strategy": "Bayesian Wahrscheinlichkeitsberechnung",
+      "strategy_weight": 1.6,
+      "confidence": 70.37552377791864,
+      "timestamp": "2026-01-09T20:21:02.131385",
+      "verified": false
+    },
+    {
+      "numbers": [
+        3,
+        6,
+        8,
+        13,
+        30,
+        43
+      ],
+      "superzahl": 4,
+      "method": "fibonacci",
+      "method_name": "\ud83c\udfaf fibonacci",
+      "provider": "local_strategy",
+      "strategy": "Fibonacci-Zahlen bevorzugt",
+      "strategy_weight": 1.0,
+      "confidence": 67.21830103852443,
+      "timestamp": "2026-01-09T20:21:02.131430",
+      "verified": false
+    },
+    {
+      "numbers": [
+        7,
+        12,
+        18,
+        29,
+        32,
+        36
+      ],
+      "superzahl": 9,
+      "method": "neighbor_pairs",
+      "method_name": "\ud83c\udfaf neighbor_pairs",
+      "provider": "local_strategy",
+      "strategy": "Basierend auf h\u00e4ufigen Nachbarpaaren",
+      "strategy_weight": 1.0,
+      "confidence": 64.15647762875157,
+      "timestamp": "2026-01-09T20:21:02.131457",
+      "verified": false
+    },
+    {
+      "numbers": [
+        8,
+        13,
+        30,
+        32,
+        36,
+        44
+      ],
+      "superzahl": 6,
+      "method": "end_digit",
+      "method_name": "\ud83c\udfaf end_digit",
+      "provider": "local_strategy",
+      "strategy": "Ausgewogene Endziffern-Verteilung",
+      "strategy_weight": 1.0,
+      "confidence": 65.36189438754829,
+      "timestamp": "2026-01-09T20:21:02.131525",
+      "verified": false
+    },
+    {
+      "numbers": [
+        12,
+        18,
+        29,
+        32,
+        36,
+        37
+      ],
+      "superzahl": 5,
       "method": "lstm_sequence",
       "method_name": "\ud83c\udfaf lstm_sequence",
       "provider": "local_strategy",
       "strategy": "LSTM Sequenzanalyse",
       "strategy_weight": 1.0,
-      "confidence": 64.50604113537867,
-      "timestamp": "2026-01-07T19:24:23.053113",
+      "confidence": 63.30999959296479,
+      "timestamp": "2026-01-09T20:21:02.131629",
       "verified": false
     },
     {
       "numbers": [
-        4,
-        6,
+        3,
+        7,
+        16,
         23,
-        25,
-        29,
-        49
+        41,
+        42
       ],
       "superzahl": 8,
       "method": "odd_even_42",
@@ -5047,56 +5312,56 @@
       "provider": "local_strategy",
       "strategy": "4 ungerade, 2 gerade Zahlen",
       "strategy_weight": 0.85,
-      "confidence": 63.36428457735185,
-      "timestamp": "2026-01-07T19:24:23.053131",
+      "confidence": 66.28251463902447,
+      "timestamp": "2026-01-09T20:21:02.131666",
+      "verified": false
+    },
+    {
+      "numbers": [
+        1,
+        22,
+        23,
+        32,
+        44,
+        48
+      ],
+      "superzahl": 3,
+      "method": "sum_optimized",
+      "method_name": "\ud83c\udfaf sum_optimized",
+      "provider": "local_strategy",
+      "strategy": "Optimierte Summe ~170",
+      "strategy_weight": 0.85,
+      "confidence": 62.40711520464009,
+      "timestamp": "2026-01-09T20:21:02.135068",
       "verified": false
     },
     {
       "numbers": [
         5,
-        24,
-        32,
-        35,
-        39,
-        44
+        16,
+        22,
+        26,
+        27,
+        32
       ],
       "superzahl": 1,
-      "method": "sum_optimized",
-      "method_name": "\ud83c\udfaf sum_optimized",
-      "provider": "local_strategy",
-      "strategy": "Optimierte Summe ~179",
-      "strategy_weight": 0.85,
-      "confidence": 61.71024294971429,
-      "timestamp": "2026-01-07T19:24:23.054804",
-      "verified": false
-    },
-    {
-      "numbers": [
-        2,
-        6,
-        14,
-        24,
-        25,
-        31
-      ],
-      "superzahl": 9,
       "method": "delta_pattern",
       "method_name": "\ud83c\udfaf delta_pattern",
       "provider": "local_strategy",
       "strategy": "Delta-System mit typischen Abst\u00e4nden",
       "strategy_weight": 0.85,
-      "confidence": 62.35439970742629,
-      "timestamp": "2026-01-07T19:24:23.054818",
+      "confidence": 64.80499685328157,
+      "timestamp": "2026-01-09T20:21:02.135100",
       "verified": false
     },
     {
       "numbers": [
-        3,
-        22,
-        30,
-        31,
-        32,
-        39
+        1,
+        7,
+        8,
+        18,
+        25,
+        36
       ],
       "superzahl": 0,
       "method": "odd_even_33",
@@ -5104,27 +5369,27 @@
       "provider": "local_strategy",
       "strategy": "Ausgewogene 3:3 Verteilung gerade/ungerade",
       "strategy_weight": 0.7224999999999999,
-      "confidence": 65.42935803474148,
-      "timestamp": "2026-01-07T19:24:23.054833",
+      "confidence": 59.56133488376032,
+      "timestamp": "2026-01-09T20:21:02.135130",
       "verified": false
     },
     {
       "numbers": [
-        7,
-        9,
+        6,
         14,
-        16,
-        30,
-        47
+        29,
+        31,
+        32,
+        34
       ],
-      "superzahl": 5,
+      "superzahl": 7,
       "method": "neural_network",
       "method_name": "\ud83c\udfaf neural_network",
       "provider": "local_strategy",
       "strategy": "Neuronales Netz Simulation",
       "strategy_weight": 0.7224999999999999,
-      "confidence": 63.85310357010728,
-      "timestamp": "2026-01-07T19:24:23.054895",
+      "confidence": 65.97212267731697,
+      "timestamp": "2026-01-09T20:21:02.135274",
       "verified": false
     },
     {
@@ -5136,34 +5401,34 @@
         48,
         49
       ],
-      "superzahl": 5,
+      "superzahl": 8,
       "method": "neural_network_real",
       "method_name": "\ud83e\udde0 Echtes Neuronales Netz",
       "provider": "ml_real",
-      "strategy": "64-32 Hidden Layers, 210 Epochen trainiert",
+      "strategy": "64-32 Hidden Layers, 220 Epochen trainiert",
       "confidence": 2.040816326526447,
       "is_real_ml": true,
-      "timestamp": "2026-01-07T19:24:23.120268",
+      "timestamp": "2026-01-09T20:21:02.200839",
       "verified": false,
       "strategy_weight": 2.0
     },
     {
       "numbers": [
-        5,
-        7,
-        25,
-        32,
-        37,
-        39
+        3,
+        8,
+        11,
+        12,
+        16,
+        25
       ],
-      "superzahl": 8,
+      "superzahl": 5,
       "method": "markov_chain_real",
       "method_name": "\ud83d\udd17 Echte Markov-Kette",
       "provider": "ml_real",
-      "strategy": "\u00dcbergangswahrscheinlichkeiten aus 3092 Ziehungen",
-      "confidence": 36.81359081180791,
+      "strategy": "\u00dcbergangswahrscheinlichkeiten aus 3093 Ziehungen",
+      "confidence": 40.14600767262013,
       "is_real_ml": true,
-      "timestamp": "2026-01-07T19:24:23.120291",
+      "timestamp": "2026-01-09T20:21:02.200856",
       "verified": false,
       "strategy_weight": 2.0
     },
@@ -5176,55 +5441,55 @@
         26,
         33
       ],
-      "superzahl": 6,
+      "superzahl": 7,
       "method": "bayesian_map_real",
       "method_name": "\ud83d\udcca Bayesian MAP",
       "provider": "ml_real",
-      "strategy": "Maximum A Posteriori aus 3092 Updates",
-      "confidence": 13.268712977921378,
+      "strategy": "Maximum A Posteriori aus 3093 Updates",
+      "confidence": 13.264427217915589,
       "is_real_ml": true,
-      "timestamp": "2026-01-07T19:24:23.120296",
+      "timestamp": "2026-01-09T20:21:02.200861",
       "verified": false,
       "strategy_weight": 2.0
     },
     {
       "numbers": [
-        1,
+        3,
         6,
-        10,
         11,
-        33,
-        40
+        19,
+        26,
+        31
       ],
-      "superzahl": 5,
+      "superzahl": 8,
       "method": "thompson_sampling_real",
       "method_name": "\ud83c\udfb2 Thompson Sampling",
       "provider": "ml_real",
       "strategy": "Exploration/Exploitation Balance mit Beta-Verteilung",
       "confidence": 75.0,
       "is_real_ml": true,
-      "timestamp": "2026-01-07T19:24:23.120300",
+      "timestamp": "2026-01-09T20:21:02.200864",
       "verified": false,
       "strategy_weight": 2.0
     },
     {
       "numbers": [
-        5,
-        7,
+        3,
+        8,
+        11,
+        12,
         25,
-        32,
-        37,
-        44
+        49
       ],
-      "superzahl": 5,
+      "superzahl": 8,
       "method": "ensemble_ml_real",
       "method_name": "\ud83c\udfc6 ML Ensemble (Alle Modelle)",
       "provider": "ml_real",
-      "strategy": "Gewichtetes Voting: NN=1.14, Markov=3.00, Bayes=2.42",
-      "confidence": 44.44444444444444,
+      "strategy": "Gewichtetes Voting: NN=1.12, Markov=3.00, Bayes=2.37",
+      "confidence": 55.55555555555556,
       "is_real_ml": true,
       "is_champion": true,
-      "timestamp": "2026-01-07T19:24:23.120303",
+      "timestamp": "2026-01-09T20:21:02.200867",
       "verified": false,
       "strategy_weight": 2.0
     }

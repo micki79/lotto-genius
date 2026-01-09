@@ -2,15 +2,15 @@
   "predictions": [
     {
       "numbers": [
-        13,
         18,
-        22,
-        25,
-        35
+        21,
+        24,
+        28,
+        45
       ],
       "eurozahlen": [
-        8,
-        11
+        2,
+        10
       ],
       "method": "ml_ensemble_real",
       "method_name": "\ud83c\udfc6 ML Ensemble (5 Modelle)",
@@ -19,19 +19,19 @@
       "confidence": 88,
       "is_real_ml": true,
       "is_champion": true,
-      "timestamp": "2026-01-07T19:24:24.211964",
+      "timestamp": "2026-01-09T20:21:03.292613",
       "verified": false
     },
     {
       "numbers": [
+        7,
         18,
-        22,
-        24,
-        25,
-        47
+        21,
+        28,
+        45
       ],
       "eurozahlen": [
-        3,
+        2,
         8
       ],
       "method": "ensemble_champion",
@@ -39,21 +39,21 @@
       "provider": "ensemble",
       "strategy": "Gewichtetes Voting aus 21 KI-Vorhersagen",
       "confidence": 90,
-      "timestamp": "2026-01-07T19:24:24.532917",
+      "timestamp": "2026-01-09T20:21:03.743413",
       "verified": false,
       "is_champion": true
     },
     {
       "numbers": [
+        10,
         18,
-        22,
         25,
         29,
-        33
+        45
       ],
       "eurozahlen": [
         2,
-        9
+        12
       ],
       "method": "ml_bayesian_real",
       "method_name": "\ud83d\udcca Bayesian Thompson",
@@ -61,20 +61,20 @@
       "strategy": "Echtes ML: bayesian",
       "confidence": 75,
       "is_real_ml": true,
-      "timestamp": "2026-01-07T19:24:24.211993",
+      "timestamp": "2026-01-09T20:21:03.292637",
       "verified": false
     },
     {
       "numbers": [
-        13,
         18,
-        22,
-        25,
-        35
+        21,
+        24,
+        28,
+        45
       ],
       "eurozahlen": [
-        8,
-        11
+        2,
+        10
       ],
       "method": "ml_reinforcement_real",
       "method_name": "\ud83c\udfae Q-Learning (RL)",
@@ -99,128 +99,128 @@
           "rank": 3
         }
       ],
-      "timestamp": "2026-01-07T19:24:24.212006",
+      "timestamp": "2026-01-09T20:21:03.292647",
       "verified": false
     },
     {
       "numbers": [
-        18,
+        11,
         21,
         22,
         45,
         50
       ],
       "eurozahlen": [
-        3,
-        11
+        2,
+        3
       ],
       "method": "ml_markov_real",
       "method_name": "\ud83d\udd17 Markov-Kette",
       "provider": "ml_real",
       "strategy": "Echtes ML: markov",
-      "confidence": 28.998473297827854,
+      "confidence": 31.328008519884307,
       "is_real_ml": true,
-      "timestamp": "2026-01-07T19:24:24.211987",
+      "timestamp": "2026-01-09T20:21:03.292632",
       "verified": false
     },
     {
       "numbers": [
-        13,
         18,
-        22,
-        25,
-        35
+        21,
+        24,
+        28,
+        45
       ],
       "eurozahlen": [
-        8,
-        11
+        4,
+        10
       ],
       "method": "ml_eurozahl_real",
       "method_name": "\ud83c\udfaf Eurozahl ML (Spezialist)",
       "provider": "ml_real",
       "strategy": "Spezialisiertes ML f\u00fcr 2 aus 12 mit Paar-Analyse",
-      "confidence": 9.810595973414129,
+      "confidence": 10.411729747876894,
       "is_real_ml": true,
       "top_pairs": [
         [
           [
-            8,
-            11
+            4,
+            10
           ],
-          0.20315636391272707
+          0.2151790394019823
         ],
         [
           [
-            7,
-            11
+            6,
+            10
           ],
-          0.20287294659237634
-        ],
-        [
-          [
-            7,
-            8
-          ],
-          0.20037258323724144
-        ],
-        [
-          [
-            11,
-            12
-          ],
-          0.19957501267106192
+          0.20920391507155212
         ],
         [
           [
             8,
-            12
+            10
           ],
-          0.197074649315927
+          0.20214311810308477
+        ],
+        [
+          [
+            9,
+            10
+          ],
+          0.19971394052686625
+        ],
+        [
+          [
+            2,
+            10
+          ],
+          0.1991908754402318
         ]
       ],
-      "timestamp": "2026-01-07T19:24:24.211999",
+      "timestamp": "2026-01-09T20:21:03.292642",
       "verified": false
     },
     {
       "numbers": [
-        13,
         18,
-        25,
-        35,
-        40
+        21,
+        24,
+        28,
+        43
       ],
       "eurozahlen": [
-        8,
-        9
+        9,
+        10
       ],
       "method": "ml_neural_network_real",
       "method_name": "\ud83e\udde0 Neuronales Netz",
       "provider": "ml_real",
       "strategy": "Echtes ML: neural_network",
-      "confidence": 3.3461695705602237,
+      "confidence": 2.782532203359953,
       "is_real_ml": true,
-      "timestamp": "2026-01-07T19:24:24.211981",
+      "timestamp": "2026-01-09T20:21:03.292626",
       "verified": false
     },
     {
       "numbers": [
-        3,
         4,
-        11,
-        14,
-        23
+        19,
+        21,
+        36,
+        47
       ],
       "eurozahlen": [
-        1,
-        5
+        4,
+        12
       ],
-      "method": "ej_delta",
-      "method_name": "\ud83d\udd22 Delta-Muster",
+      "method": "ej_position",
+      "method_name": "\ud83d\udccd Positions-Optimierung",
       "provider": "local_ml",
-      "strategy": "Basiert auf typischen Abst\u00e4nden",
+      "strategy": "Typische Bereiche pro Position",
       "confidence": 77.0,
       "weight": 0.9,
-      "timestamp": "2026-01-07T19:24:24.218134",
+      "timestamp": "2026-01-09T20:21:03.297652",
       "verified": false
     }
   ],
@@ -4176,10 +4176,301 @@
         "draw_date": "07.01.2026",
         "new_weight": 0.82
       }
+    },
+    {
+      "numbers": [
+        13,
+        18,
+        22,
+        25,
+        35
+      ],
+      "eurozahlen": [
+        8,
+        11
+      ],
+      "method": "ml_ensemble_real",
+      "method_name": "\ud83c\udfc6 ML Ensemble (5 Modelle)",
+      "provider": "ml_real",
+      "strategy": "Gewichtetes Voting aus Neural Network, Markov, Bayesian & EurozahlML",
+      "confidence": 88,
+      "is_real_ml": true,
+      "is_champion": true,
+      "timestamp": "2026-01-07T19:24:24.211964",
+      "verified": true,
+      "result": {
+        "main_matches": 2,
+        "euro_matches": 1,
+        "gewinnklasse": {
+          "klasse": 12,
+          "name": "2+1",
+          "quote": "6-10 \u20ac"
+        },
+        "draw_date": "09.01.2026",
+        "new_weight": 0.732
+      }
+    },
+    {
+      "numbers": [
+        18,
+        22,
+        24,
+        25,
+        47
+      ],
+      "eurozahlen": [
+        3,
+        8
+      ],
+      "method": "ensemble_champion",
+      "method_name": "\ud83c\udfc6 CHAMPION (Alle KIs)",
+      "provider": "ensemble",
+      "strategy": "Gewichtetes Voting aus 21 KI-Vorhersagen",
+      "confidence": 90,
+      "timestamp": "2026-01-07T19:24:24.532917",
+      "verified": true,
+      "is_champion": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "09.01.2026",
+        "new_weight": 0.679
+      }
+    },
+    {
+      "numbers": [
+        18,
+        22,
+        25,
+        29,
+        33
+      ],
+      "eurozahlen": [
+        2,
+        9
+      ],
+      "method": "ml_bayesian_real",
+      "method_name": "\ud83d\udcca Bayesian Thompson",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: bayesian",
+      "confidence": 75,
+      "is_real_ml": true,
+      "timestamp": "2026-01-07T19:24:24.211993",
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "09.01.2026",
+        "new_weight": 0.645
+      }
+    },
+    {
+      "numbers": [
+        13,
+        18,
+        22,
+        25,
+        35
+      ],
+      "eurozahlen": [
+        8,
+        11
+      ],
+      "method": "ml_reinforcement_real",
+      "method_name": "\ud83c\udfae Q-Learning (RL)",
+      "provider": "ml_real",
+      "strategy": "Beste Strategie: ml_ensemble",
+      "confidence": 75,
+      "is_real_ml": true,
+      "recommended_strategies": [
+        {
+          "strategy": "ml_ensemble",
+          "value": 0.0,
+          "rank": 1
+        },
+        {
+          "strategy": "ml_markov",
+          "value": 0.0,
+          "rank": 2
+        },
+        {
+          "strategy": "ml_neural_network",
+          "value": 0.0,
+          "rank": 3
+        }
+      ],
+      "timestamp": "2026-01-07T19:24:24.212006",
+      "verified": true,
+      "result": {
+        "main_matches": 2,
+        "euro_matches": 1,
+        "gewinnklasse": {
+          "klasse": 12,
+          "name": "2+1",
+          "quote": "6-10 \u20ac"
+        },
+        "draw_date": "09.01.2026",
+        "new_weight": 0.738
+      }
+    },
+    {
+      "numbers": [
+        18,
+        21,
+        22,
+        45,
+        50
+      ],
+      "eurozahlen": [
+        3,
+        11
+      ],
+      "method": "ml_markov_real",
+      "method_name": "\ud83d\udd17 Markov-Kette",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: markov",
+      "confidence": 28.998473297827854,
+      "is_real_ml": true,
+      "timestamp": "2026-01-07T19:24:24.211987",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 1,
+        "gewinnklasse": null,
+        "draw_date": "09.01.2026",
+        "new_weight": 0.639
+      }
+    },
+    {
+      "numbers": [
+        13,
+        18,
+        22,
+        25,
+        35
+      ],
+      "eurozahlen": [
+        8,
+        11
+      ],
+      "method": "ml_eurozahl_real",
+      "method_name": "\ud83c\udfaf Eurozahl ML (Spezialist)",
+      "provider": "ml_real",
+      "strategy": "Spezialisiertes ML f\u00fcr 2 aus 12 mit Paar-Analyse",
+      "confidence": 9.810595973414129,
+      "is_real_ml": true,
+      "top_pairs": [
+        [
+          [
+            8,
+            11
+          ],
+          0.20315636391272707
+        ],
+        [
+          [
+            7,
+            11
+          ],
+          0.20287294659237634
+        ],
+        [
+          [
+            7,
+            8
+          ],
+          0.20037258323724144
+        ],
+        [
+          [
+            11,
+            12
+          ],
+          0.19957501267106192
+        ],
+        [
+          [
+            8,
+            12
+          ],
+          0.197074649315927
+        ]
+      ],
+      "timestamp": "2026-01-07T19:24:24.211999",
+      "verified": true,
+      "result": {
+        "main_matches": 2,
+        "euro_matches": 1,
+        "gewinnklasse": {
+          "klasse": 12,
+          "name": "2+1",
+          "quote": "6-10 \u20ac"
+        },
+        "draw_date": "09.01.2026",
+        "new_weight": 0.729
+      }
+    },
+    {
+      "numbers": [
+        13,
+        18,
+        25,
+        35,
+        40
+      ],
+      "eurozahlen": [
+        8,
+        9
+      ],
+      "method": "ml_neural_network_real",
+      "method_name": "\ud83e\udde0 Neuronales Netz",
+      "provider": "ml_real",
+      "strategy": "Echtes ML: neural_network",
+      "confidence": 3.3461695705602237,
+      "is_real_ml": true,
+      "timestamp": "2026-01-07T19:24:24.211981",
+      "verified": true,
+      "result": {
+        "main_matches": 2,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "09.01.2026",
+        "new_weight": 0.652
+      }
+    },
+    {
+      "numbers": [
+        3,
+        4,
+        11,
+        14,
+        23
+      ],
+      "eurozahlen": [
+        1,
+        5
+      ],
+      "method": "ej_delta",
+      "method_name": "\ud83d\udd22 Delta-Muster",
+      "provider": "local_ml",
+      "strategy": "Basiert auf typischen Abst\u00e4nden",
+      "confidence": 77.0,
+      "weight": 0.9,
+      "timestamp": "2026-01-07T19:24:24.218134",
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 1,
+        "gewinnklasse": null,
+        "draw_date": "09.01.2026",
+        "new_weight": 0.85
+      }
     }
   ],
-  "last_update": "2026-01-07T19:24:24.533406",
-  "next_draw": "09.01.2026",
+  "last_update": "2026-01-09T20:21:03.743887",
+  "next_draw": "13.01.2026",
   "ki_stats": {
     "providers_used": [
       "ml_real",
@@ -4188,36 +4479,32 @@
     "total_analyzed": 22,
     "top_8_saved": 8,
     "best_eurozahlen": [
-      3,
-      11
+      6,
+      7
     ],
     "eurozahl_ranking": [
       [
-        11,
-        69.8
-      ],
-      [
-        3,
-        65.7
-      ],
-      [
         7,
-        59.6
+        80.0
       ],
       [
-        1,
-        57.8
+        6,
+        71.2
       ],
       [
-        9,
-        57.7
+        10,
+        70.6
+      ],
+      [
+        5,
+        60.7
+      ],
+      [
+        4,
+        60.0
       ]
     ],
     "top_strategies": [
-      [
-        "ej_delta",
-        0.9
-      ],
       [
         "ej_position",
         0.9
@@ -4232,6 +4519,10 @@
       ],
       [
         "ej_hot_cold_mix",
+        0.9
+      ],
+      [
+        "ej_monte_carlo",
         0.9
       ]
     ]
