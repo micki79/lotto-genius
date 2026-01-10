@@ -684,7 +684,16 @@ class LocalStrategies:
         return sorted(numbers[:6]), "Ausgewogene Endziffern-Verteilung"
 
     def strategy_neural_network(self):
-        """Strategie 19: Simuliertes Neuronales Netz"""
+        """Strategie 19: ECHTES Neuronales Netz aus ml_models.py"""
+        if ML_AVAILABLE:
+            try:
+                nn = NeuralNetwork()
+                numbers, confidence = nn.predict(self.draws)
+                return sorted(numbers), f"Echtes Neural Network (Conf: {confidence:.1f}%)"
+            except Exception as e:
+                pass  # Fallback below
+
+        # Fallback wenn ML nicht verfügbar
         weights = {}
         for n in range(1, 50):
             w = 0
@@ -693,20 +702,28 @@ class LocalStrategies:
             if n in self.cold_numbers: w += 0.5
             if n in self.overdue[:5]: w += 2.5
             elif n in self.overdue[5:]: w += 1.0
-            # Sigmoid-ähnliche Aktivierung
             w = w / (1 + abs(w - 2))
             weights[n] = w + random.random() * 0.5
 
         sorted_nums = sorted(weights.items(), key=lambda x: x[1], reverse=True)
-        return sorted([n for n, _ in sorted_nums[:6]]), "Neuronales Netz Simulation"
+        return sorted([n for n, _ in sorted_nums[:6]]), "Neural Network (Fallback)"
 
     def strategy_lstm_sequence(self):
-        """Strategie 20: LSTM-ähnliche Sequenzanalyse"""
+        """Strategie 20: ECHTE Markov-Chain Sequenzanalyse aus ml_models.py"""
+        if ML_AVAILABLE and self.draws:
+            try:
+                markov = MarkovChain()
+                last_draw = self.draws[0] if self.draws else {}
+                numbers, confidence = markov.predict(last_draw)
+                return sorted(numbers), f"Echte Markov-Chain Sequenz (Conf: {confidence:.1f}%)"
+            except Exception as e:
+                pass  # Fallback below
+
+        # Fallback: einfache Sequenzanalyse
         sequences = []
         for i in range(min(10, len(self.draws))):
             sequences.extend(self.draws[i].get('numbers', []))
 
-        # Finde häufige Folgemuster
         seq_freq = Counter()
         for i in range(len(sequences) - 1):
             seq_freq[(sequences[i], sequences[i+1])] += 1
@@ -723,10 +740,20 @@ class LocalStrategies:
             if n not in result:
                 result.append(n)
 
-        return sorted(result), "LSTM Sequenzanalyse"
+        return sorted(result), "Sequenzanalyse (Fallback)"
 
     def strategy_random_forest(self):
-        """Strategie 21: Simulierter Random Forest"""
+        """Strategie 21: ECHTES Ensemble ML aus ml_models.py"""
+        if ML_AVAILABLE and self.draws:
+            try:
+                ensemble = EnsembleML()
+                last_draw = self.draws[0] if self.draws else {}
+                numbers, confidence = ensemble.predict(self.draws, last_draw)
+                return sorted(numbers), f"Echtes Ensemble ML (Conf: {confidence:.1f}%)"
+            except Exception as e:
+                pass  # Fallback below
+
+        # Fallback: Multi-Tree-Ansatz
         trees = []
 
         # Baum 1: Nur heiße Zahlen
@@ -749,9 +776,9 @@ class LocalStrategies:
             votes = Counter()
             for tree in trees:
                 votes.update(tree)
-            return sorted([n for n, _ in votes.most_common(6)]), "Random Forest Ensemble"
+            return sorted([n for n, _ in votes.most_common(6)]), "Ensemble (Fallback)"
         else:
-            return sorted(random.sample(range(1, 50), 6)), "Random Forest (Fallback)"
+            return sorted(random.sample(range(1, 50), 6)), "Random (Fallback)"
 
     def get_all_strategies(self):
         """Gibt alle Strategien mit Gewichtung zurück"""

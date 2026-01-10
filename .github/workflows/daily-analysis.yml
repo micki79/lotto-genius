@@ -95,6 +95,11 @@ jobs:
       - name: 🔮 Glücksspirale - Neue Multi-KI Vorhersagen generieren
         run: python scripts/predict_gluecksspirale.py
 
+      # ===== TRAININGS-ASSISTENT =====
+      - name: 🎓 Trainings-Assistent - Vollständiges KI-Training
+        run: python scripts/training_assistant.py --full
+        continue-on-error: true
+
       # ===== COMMIT =====
       - name: 📤 Änderungen committen
         run: |

@@ -1,0 +1,112 @@
+{
+  "last_update": "2026-01-10T17:01:03.150479",
+  "patterns": {},
+  "statistics": {},
+  "insights": [
+    {
+      "type": "frequency",
+      "hot_numbers": [
+        25,
+        10,
+        8,
+        44,
+        19,
+        9,
+        37,
+        1,
+        5,
+        26
+      ],
+      "cold_numbers": [
+        48,
+        23,
+        34,
+        18,
+        36,
+        17,
+        24,
+        31,
+        32,
+        45
+      ],
+      "recommendation": "Mix aus hei\u00dfen und kalten Zahlen verwenden",
+      "confidence": 0.7
+    },
+    {
+      "type": "sequence",
+      "patterns": [
+        [
+          10,
+          42
+        ],
+        [
+          6,
+          27
+        ],
+        [
+          13,
+          6
+        ],
+        [
+          29,
+          6
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          31,
+          34
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          6,
+          22
+        ],
+        [
+          11,
+          22
+        ],
+        [
+          7,
+          22
+        ]
+      ],
+      "recommendation": "Markov-Kette mit diesen \u00dcberg\u00e4ngen trainieren",
+      "confidence": 0.6
+    },
+    {
+      "type": "temporal",
+      "wednesday_numbers": [
+        9,
+        37,
+        30,
+        5,
+        7,
+        28,
+        13,
+        4,
+        8,
+        15
+      ],
+      "saturday_numbers": [
+        8,
+        44,
+        10,
+        11,
+        20,
+        40,
+        6,
+        25,
+        30,
+        12
+      ],
+      "recommendation": "Wochentag-spezifische Gewichtung verwenden",
+      "confidence": 0.5
+    }
+  ]
+}
