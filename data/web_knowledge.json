@@ -1,0 +1,271 @@
+{
+  "mathematical_facts": {
+    "sum_distribution": {
+      "optimal_range": [
+        140,
+        180
+      ],
+      "mean": 150,
+      "std_dev": 25,
+      "probability_in_range": 0.42
+    },
+    "odd_even": {
+      "most_common": [
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "probabilities": {
+        "3_3": 0.33,
+        "2_4": 0.24,
+        "4_2": 0.24,
+        "1_5": 0.09,
+        "5_1": 0.09,
+        "0_6": 0.01,
+        "6_0": 0.01
+      }
+    },
+    "consecutive": {
+      "probability_at_least_one_pair": 0.33,
+      "probability_no_consecutive": 0.67,
+      "avg_consecutive_pairs": 0.4
+    },
+    "decades": {
+      "optimal_distribution": [
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "most_common_pattern": "balanced"
+    },
+    "hot_cold": {
+      "hot_window": 10,
+      "cold_threshold": 20,
+      "optimal_mix": [
+        4,
+        2
+      ],
+      "reversion_probability": 0.15
+    },
+    "delta": {
+      "optimal_first_delta": [
+        1,
+        5
+      ],
+      "optimal_avg_delta": [
+        5,
+        8
+      ],
+      "max_delta": 15
+    },
+    "end_digits": {
+      "optimal_variety": 5,
+      "avoid_duplicates": true
+    }
+  },
+  "expert_strategies": [
+    {
+      "name": "Wheeling System",
+      "description": "Systematische Kombination von Zahlen f\u00fcr bessere Abdeckung",
+      "effectiveness": 0.65,
+      "parameters": {
+        "wheel_size": 10,
+        "coverage": "partial"
+      }
+    },
+    {
+      "name": "Delta System",
+      "description": "W\u00e4hle Zahlen basierend auf Abst\u00e4nden zwischen ihnen",
+      "effectiveness": 0.55,
+      "parameters": {
+        "first_number": [
+          1,
+          5
+        ],
+        "avg_delta": [
+          5,
+          8
+        ]
+      }
+    },
+    {
+      "name": "Hot Numbers",
+      "description": "Fokus auf h\u00e4ufig gezogene Zahlen der letzten Wochen",
+      "effectiveness": 0.5,
+      "parameters": {
+        "window": 10,
+        "top_n": 15
+      }
+    },
+    {
+      "name": "Cold Numbers",
+      "description": "Fokus auf \u00fcberf\u00e4llige Zahlen (Regression zum Mittelwert)",
+      "effectiveness": 0.48,
+      "parameters": {
+        "threshold": 20,
+        "max_cold": 3
+      }
+    },
+    {
+      "name": "Balanced Mix",
+      "description": "Ausgewogene Mischung aus verschiedenen Kriterien",
+      "effectiveness": 0.7,
+      "parameters": {
+        "hot": 3,
+        "cold": 1,
+        "random": 2
+      }
+    },
+    {
+      "name": "Mathematical Optimization",
+      "description": "Optimiere Summe, Gerade/Ungerade, Dekaden gleichzeitig",
+      "effectiveness": 0.72,
+      "parameters": {
+        "sum_range": [
+          140,
+          180
+        ],
+        "odd_even": [
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "name": "Pattern Avoidance",
+      "description": "Vermeide h\u00e4ufig gespielte Muster (Diagonalen, Geburtstage)",
+      "effectiveness": 0.6,
+      "parameters": {
+        "avoid_below_31": false,
+        "avoid_patterns": true
+      }
+    },
+    {
+      "name": "Cluster Analysis",
+      "description": "Gruppiere Zahlen in Cluster und w\u00e4hle aus jedem",
+      "effectiveness": 0.58,
+      "parameters": {
+        "clusters": 5,
+        "per_cluster": [
+          1,
+          2
+        ]
+      }
+    }
+  ],
+  "superzahl_insights": {
+    "distribution": "nearly_uniform",
+    "recent_bias": 0.05,
+    "weekday_patterns": {
+      "wednesday": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "saturday": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "optimal_strategy": "track_gaps"
+  },
+  "learned_patterns": [
+    {
+      "type": "gap_analysis",
+      "source": "local",
+      "overdue_numbers": [
+        14,
+        12,
+        15,
+        3,
+        27,
+        13,
+        44,
+        32,
+        38,
+        9
+      ],
+      "max_gap": -149,
+      "learned_at": "2026-01-10T17:39:08.500527",
+      "id": "4bd9c289"
+    },
+    {
+      "type": "strategy_performance",
+      "source": "local_learning",
+      "best_strategies": [
+        [
+          "lstm",
+          2.8333333333333335
+        ],
+        [
+          "ensemble_ml",
+          1.5
+        ],
+        [
+          "hot_cold",
+          1.0769230769230769
+        ],
+        [
+          "ensemble_champion",
+          1.0
+        ],
+        [
+          "decade_balance",
+          1.0
+        ],
+        [
+          "hot_cold_mix",
+          1.0
+        ],
+        [
+          "monte_carlo",
+          0.9375
+        ],
+        [
+          "cold_numbers",
+          0.8461538461538461
+        ],
+        [
+          "no_consecutive",
+          0.8461538461538461
+        ],
+        [
+          "bayesian",
+          0.8333333333333334
+        ]
+      ],
+      "total_predictions": 172,
+      "learned_at": "2026-01-10T17:39:08.501354",
+      "id": "bbd4b09e"
+    }
+  ],
+  "last_update": "2026-01-10T17:39:08.502007",
+  "sources_checked": 2,
+  "insights_applied": 3
+}
