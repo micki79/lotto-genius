@@ -31,6 +31,12 @@ import requests
 import time
 import hashlib
 import math
+import sys
+
+# Füge scripts-Verzeichnis zum Pfad hinzu für ML-Modelle Import
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
 
 # Importiere echte ML-Modelle
 try:
@@ -40,9 +46,9 @@ try:
         get_ml_predictions, train_all_models
     )
     ML_AVAILABLE = True
-except ImportError:
+except ImportError as e:
     ML_AVAILABLE = False
-    print("⚠️ Echte ML-Modelle nicht verfügbar")
+    print(f"⚠️ Echte ML-Modelle nicht verfügbar: {e}")
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 

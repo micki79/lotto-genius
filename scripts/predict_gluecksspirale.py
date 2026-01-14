@@ -13,6 +13,7 @@ Hauptgewinn: 10.000€ monatliche Rente (20 Jahre) oder 2,1 Mio € einmalig
 """
 import json
 import os
+import sys
 from datetime import datetime, timedelta
 import random
 from collections import Counter, defaultdict

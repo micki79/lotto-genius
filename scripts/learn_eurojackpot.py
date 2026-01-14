@@ -23,6 +23,12 @@ from collections import Counter
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
+
+# Füge scripts-Verzeichnis zum Pfad hinzu für ML-Modelle Import
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+
 # Importiere echte ML-Modelle
 try:
     from ml_models import (

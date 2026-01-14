@@ -19,6 +19,7 @@ Der Assistent lernt aus:
 
 import json
 import os
+import sys
 import random
 import requests
 from datetime import datetime, timedelta
