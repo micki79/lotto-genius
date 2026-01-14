@@ -1099,15 +1099,215 @@
       "exact_matches": 1,
       "method": "s6_no_doubles",
       "gewinnklasse": 6
+    },
+    {
+      "date": "2026-01-14T15:10:11.174729",
+      "draw_date": "09.01.2026",
+      "predicted": "022333",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "ensemble_champion",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174769",
+      "draw_date": "09.01.2026",
+      "predicted": "922527",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "ml_reinforcement_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174795",
+      "draw_date": "09.01.2026",
+      "predicted": "053419",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "ml_markov_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174814",
+      "draw_date": "09.01.2026",
+      "predicted": "037863",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "ml_bayesian_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174832",
+      "draw_date": "09.01.2026",
+      "predicted": "022338",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "ml_ensemble_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174850",
+      "draw_date": "09.01.2026",
+      "predicted": "222338",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 2,
+      "method": "ml_neural_network_real",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174868",
+      "draw_date": "09.01.2026",
+      "predicted": "922533",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "s6_bayesian",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174898",
+      "draw_date": "09.01.2026",
+      "predicted": "198642",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 2,
+      "method": "s6_no_doubles",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174924",
+      "draw_date": "09.01.2026",
+      "predicted": "853825",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "s6_hot",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:10:11.174951",
+      "draw_date": "09.01.2026",
+      "predicted": "922583",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "s6_monte_carlo",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.027823",
+      "draw_date": "09.01.2026",
+      "predicted": "932533",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "ensemble_champion",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.027886",
+      "draw_date": "09.01.2026",
+      "predicted": "922533",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "s6_position_hot",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.027917",
+      "draw_date": "09.01.2026",
+      "predicted": "236932",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "s6_last_var",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.027940",
+      "draw_date": "09.01.2026",
+      "predicted": "803308",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "s6_symmetry",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.027962",
+      "draw_date": "09.01.2026",
+      "predicted": "439143",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "s6_no_doubles",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.027983",
+      "draw_date": "09.01.2026",
+      "predicted": "323285",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "s6_hot",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.028004",
+      "draw_date": "09.01.2026",
+      "predicted": "990083",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "s6_position_top3",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.028037",
+      "draw_date": "09.01.2026",
+      "predicted": "761278",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 0,
+      "method": "s6_odd_even",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.028067",
+      "draw_date": "09.01.2026",
+      "predicted": "568710",
+      "actual": "228041",
+      "end_matches": 0,
+      "exact_matches": 1,
+      "method": "s6_delta",
+      "gewinnklasse": null
+    },
+    {
+      "date": "2026-01-14T15:11:35.028092",
+      "draw_date": "09.01.2026",
+      "predicted": "392951",
+      "actual": "228041",
+      "end_matches": 1,
+      "exact_matches": 1,
+      "method": "s6_markov",
+      "gewinnklasse": 6
     }
   ],
   "stats": {
-    "total_entries": 110,
-    "avg_end_matches": 0.15,
+    "total_entries": 130,
+    "avg_end_matches": 0.13,
     "gewinnklassen": {
-      "6": 14,
+      "6": 15,
       "5": 1
     },
-    "last_update": "2026-01-09T20:21:04.301532"
+    "last_update": "2026-01-14T15:11:35.029012"
   }
 }

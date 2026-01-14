@@ -1230,13 +1230,223 @@
       "actual": 0,
       "correct": false,
       "method": "position_based"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 2,
+      "actual": 0,
+      "correct": false,
+      "method": "hot_cold_mix"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 7,
+      "actual": 0,
+      "correct": false,
+      "method": "hot_cold"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 4,
+      "actual": 0,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 6,
+      "actual": 0,
+      "correct": false,
+      "method": "no_consecutive"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 9,
+      "actual": 0,
+      "correct": false,
+      "method": "cold_numbers"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 5,
+      "actual": 0,
+      "correct": false,
+      "method": "decade_balance"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 8,
+      "actual": 0,
+      "correct": false,
+      "method": "low_high"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 8,
+      "actual": 0,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 0,
+      "actual": 0,
+      "correct": true,
+      "method": "position_based"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 3,
+      "actual": 0,
+      "correct": false,
+      "method": "prime_mix"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 7,
+      "actual": 0,
+      "correct": false,
+      "method": "hot_cold_mix"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 6,
+      "actual": 0,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 3,
+      "actual": 0,
+      "correct": false,
+      "method": "low_high"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 8,
+      "actual": 0,
+      "correct": false,
+      "method": "cold_numbers"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 2,
+      "actual": 0,
+      "correct": false,
+      "method": "hot_cold"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 4,
+      "actual": 0,
+      "correct": false,
+      "method": "no_consecutive"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 5,
+      "actual": 0,
+      "correct": false,
+      "method": "decade_balance"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 7,
+      "actual": 0,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 0,
+      "actual": 0,
+      "correct": true,
+      "method": "overdue"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 7,
+      "actual": 0,
+      "correct": false,
+      "method": "random_forest"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 7,
+      "actual": 0,
+      "correct": false,
+      "method": "hot_cold"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 4,
+      "actual": 0,
+      "correct": false,
+      "method": "decade_balance"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 6,
+      "actual": 0,
+      "correct": false,
+      "method": "cold_numbers"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 2,
+      "actual": 0,
+      "correct": false,
+      "method": "hot_cold_mix"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 5,
+      "actual": 0,
+      "correct": false,
+      "method": "no_consecutive"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 8,
+      "actual": 0,
+      "correct": false,
+      "method": "monte_carlo"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 7,
+      "actual": 0,
+      "correct": false,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 1,
+      "actual": 0,
+      "correct": false,
+      "method": "low_high"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 7,
+      "actual": 0,
+      "correct": false,
+      "method": "overdue"
+    },
+    {
+      "date": "07.01.2026",
+      "predicted": 3,
+      "actual": 0,
+      "correct": false,
+      "method": "prime_mix"
     }
   ],
   "stats": {
-    "total": 173,
-    "correct": 12,
-    "accuracy": 6.94,
-    "last_update": "2026-01-09T20:21:01.625339"
+    "total": 203,
+    "correct": 14,
+    "accuracy": 6.9,
+    "last_update": "2026-01-14T15:11:33.933514"
   },
   "history": [
     {
@@ -1831,6 +2041,87 @@
         [
           6,
           52.0
+        ]
+      ],
+      "actual": null
+    },
+    {
+      "date": "2026-01-14T15:08:28.937360",
+      "predicted": 7,
+      "ranking": [
+        [
+          7,
+          73.4
+        ],
+        [
+          2,
+          70.4
+        ],
+        [
+          6,
+          60.1
+        ],
+        [
+          8,
+          59.8
+        ],
+        [
+          4,
+          56.3
+        ]
+      ],
+      "actual": null
+    },
+    {
+      "date": "2026-01-14T15:10:10.389230",
+      "predicted": 7,
+      "ranking": [
+        [
+          7,
+          73.8
+        ],
+        [
+          2,
+          69.0
+        ],
+        [
+          8,
+          59.9
+        ],
+        [
+          6,
+          59.6
+        ],
+        [
+          4,
+          56.1
+        ]
+      ],
+      "actual": null
+    },
+    {
+      "date": "2026-01-14T15:11:34.229242",
+      "predicted": 7,
+      "ranking": [
+        [
+          7,
+          74.9
+        ],
+        [
+          2,
+          69.8
+        ],
+        [
+          8,
+          59.5
+        ],
+        [
+          6,
+          58.2
+        ],
+        [
+          4,
+          55.9
         ]
       ],
       "actual": null

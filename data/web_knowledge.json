@@ -263,9 +263,349 @@
       "total_predictions": 172,
       "learned_at": "2026-01-10T17:39:08.501354",
       "id": "bbd4b09e"
+    },
+    {
+      "type": "gap_analysis",
+      "source": "local",
+      "overdue_numbers": [
+        14,
+        12,
+        15,
+        3,
+        27,
+        13,
+        44,
+        32,
+        38,
+        9
+      ],
+      "max_gap": -149,
+      "learned_at": "2026-01-14T15:10:11.750429",
+      "id": "1282f799"
+    },
+    {
+      "type": "strategy_performance",
+      "source": "local_learning",
+      "best_strategies": [
+        [
+          "lstm",
+          2.8333333333333335
+        ],
+        [
+          "ensemble_ml",
+          1.5
+        ],
+        [
+          "decade_balance",
+          1.0909090909090908
+        ],
+        [
+          "hot_cold",
+          1.0
+        ],
+        [
+          "ensemble_champion",
+          0.9523809523809523
+        ],
+        [
+          "hot_cold_mix",
+          0.9230769230769231
+        ],
+        [
+          "monte_carlo",
+          0.8888888888888888
+        ],
+        [
+          "bayesian",
+          0.8333333333333334
+        ],
+        [
+          "cold_numbers",
+          0.8
+        ],
+        [
+          "no_consecutive",
+          0.7333333333333333
+        ]
+      ],
+      "total_predictions": 192,
+      "learned_at": "2026-01-14T15:10:11.751663",
+      "id": "eb261d8c"
+    },
+    {
+      "type": "gap_analysis",
+      "source": "local",
+      "overdue_numbers": [
+        14,
+        12,
+        15,
+        3,
+        27,
+        13,
+        44,
+        32,
+        38,
+        9
+      ],
+      "max_gap": -149,
+      "learned_at": "2026-01-14T15:10:20.425322",
+      "id": "4266f276"
+    },
+    {
+      "type": "strategy_performance",
+      "source": "local_learning",
+      "best_strategies": [
+        [
+          "lstm",
+          2.8333333333333335
+        ],
+        [
+          "ensemble_ml",
+          1.5
+        ],
+        [
+          "decade_balance",
+          1.0909090909090908
+        ],
+        [
+          "hot_cold",
+          1.0
+        ],
+        [
+          "ensemble_champion",
+          0.9523809523809523
+        ],
+        [
+          "hot_cold_mix",
+          0.9230769230769231
+        ],
+        [
+          "monte_carlo",
+          0.8888888888888888
+        ],
+        [
+          "bayesian",
+          0.8333333333333334
+        ],
+        [
+          "cold_numbers",
+          0.8
+        ],
+        [
+          "no_consecutive",
+          0.7333333333333333
+        ]
+      ],
+      "total_predictions": 192,
+      "learned_at": "2026-01-14T15:10:20.426224",
+      "id": "e3cddc0f"
+    },
+    {
+      "type": "gap_analysis",
+      "source": "local",
+      "overdue_numbers": [
+        14,
+        12,
+        15,
+        3,
+        27,
+        13,
+        44,
+        32,
+        38,
+        9
+      ],
+      "max_gap": -149,
+      "learned_at": "2026-01-14T15:10:29.116817",
+      "id": "8baae4f9"
+    },
+    {
+      "type": "strategy_performance",
+      "source": "local_learning",
+      "best_strategies": [
+        [
+          "lstm",
+          2.8333333333333335
+        ],
+        [
+          "ensemble_ml",
+          1.5
+        ],
+        [
+          "decade_balance",
+          1.0909090909090908
+        ],
+        [
+          "hot_cold",
+          1.0
+        ],
+        [
+          "ensemble_champion",
+          0.9523809523809523
+        ],
+        [
+          "hot_cold_mix",
+          0.9230769230769231
+        ],
+        [
+          "monte_carlo",
+          0.8888888888888888
+        ],
+        [
+          "bayesian",
+          0.8333333333333334
+        ],
+        [
+          "cold_numbers",
+          0.8
+        ],
+        [
+          "no_consecutive",
+          0.7333333333333333
+        ]
+      ],
+      "total_predictions": 192,
+      "learned_at": "2026-01-14T15:10:29.117870",
+      "id": "f5f03ffd"
+    },
+    {
+      "type": "gap_analysis",
+      "source": "local",
+      "overdue_numbers": [
+        14,
+        12,
+        15,
+        3,
+        27,
+        13,
+        44,
+        32,
+        38,
+        9
+      ],
+      "max_gap": -149,
+      "learned_at": "2026-01-14T15:11:18.848666",
+      "id": "05f99d57"
+    },
+    {
+      "type": "strategy_performance",
+      "source": "local_learning",
+      "best_strategies": [
+        [
+          "lstm",
+          2.8333333333333335
+        ],
+        [
+          "ensemble_ml",
+          1.5
+        ],
+        [
+          "decade_balance",
+          1.0909090909090908
+        ],
+        [
+          "hot_cold",
+          1.0
+        ],
+        [
+          "ensemble_champion",
+          0.9523809523809523
+        ],
+        [
+          "hot_cold_mix",
+          0.9230769230769231
+        ],
+        [
+          "monte_carlo",
+          0.8888888888888888
+        ],
+        [
+          "bayesian",
+          0.8333333333333334
+        ],
+        [
+          "cold_numbers",
+          0.8
+        ],
+        [
+          "no_consecutive",
+          0.7333333333333333
+        ]
+      ],
+      "total_predictions": 192,
+      "learned_at": "2026-01-14T15:11:18.849768",
+      "id": "dfb0247d"
+    },
+    {
+      "type": "gap_analysis",
+      "source": "local",
+      "overdue_numbers": [
+        14,
+        12,
+        15,
+        3,
+        27,
+        13,
+        44,
+        32,
+        38,
+        9
+      ],
+      "max_gap": -149,
+      "learned_at": "2026-01-14T15:11:35.594946",
+      "id": "579d17e6"
+    },
+    {
+      "type": "strategy_performance",
+      "source": "local_learning",
+      "best_strategies": [
+        [
+          "lstm",
+          2.8333333333333335
+        ],
+        [
+          "ensemble_ml",
+          1.5
+        ],
+        [
+          "hot_cold",
+          1.0625
+        ],
+        [
+          "ensemble_champion",
+          1.0
+        ],
+        [
+          "decade_balance",
+          1.0
+        ],
+        [
+          "hot_cold_mix",
+          0.9285714285714286
+        ],
+        [
+          "monte_carlo",
+          0.8421052631578947
+        ],
+        [
+          "bayesian",
+          0.8333333333333334
+        ],
+        [
+          "low_high",
+          0.8333333333333334
+        ],
+        [
+          "cold_numbers",
+          0.75
+        ]
+      ],
+      "total_predictions": 202,
+      "learned_at": "2026-01-14T15:11:35.595998",
+      "id": "7ab2eea1"
     }
   ],
-  "last_update": "2026-01-10T17:39:08.502007",
-  "sources_checked": 2,
-  "insights_applied": 3
+  "last_update": "2026-01-14T15:11:35.596974",
+  "sources_checked": 12,
+  "insights_applied": 18
 }
