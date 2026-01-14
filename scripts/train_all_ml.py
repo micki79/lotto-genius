@@ -55,6 +55,12 @@ def train_all():
     print("🎱 1/5: LOTTO 6aus49 ML-TRAINING")
     print("=" * 70)
 
+
+# Füge scripts-Verzeichnis zum Pfad hinzu für ML-Modelle Import
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+
     try:
         from ml_models import train_all_models
 

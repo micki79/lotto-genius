@@ -82,6 +82,12 @@ GAMES = {
 def load_json(filename, default=None):
     path = os.path.join(DATA_DIR, filename)
     if os.path.exists(path):
+
+# Füge scripts-Verzeichnis zum Pfad hinzu für ML-Modelle Import
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+
         try:
             with open(path, 'r') as f:
                 return json.load(f)
