@@ -1,42 +1,42 @@
 {
   "strategies": {
     "hot_cold": {
-      "weight": 3.781,
-      "hits": 14,
-      "total": 13,
-      "last_updated": "2026-01-09T20:21:01.624619",
+      "weight": 2.032,
+      "hits": 17,
+      "total": 16,
+      "last_updated": "2026-01-14T15:11:33.932213",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317476"
+      "auto_tuned": "2026-01-14T15:11:35.627837"
     },
     "cold_numbers": {
-      "weight": 3.639,
-      "hits": 11,
-      "total": 13,
-      "last_updated": "2026-01-09T20:21:01.624697",
+      "weight": 1.849,
+      "hits": 12,
+      "total": 16,
+      "last_updated": "2026-01-14T15:11:33.932328",
       "three_plus": 1,
       "four_plus": 0,
       "sz_correct": 1,
       "gewinnklassen": {
         "8": 1
       },
-      "auto_tuned": "2026-01-10T17:04:59.317472"
+      "auto_tuned": "2026-01-14T15:11:35.627833"
     },
     "overdue": {
-      "weight": 1.516,
+      "weight": 0.949,
       "hits": 2,
-      "total": 4,
-      "last_updated": "2025-12-28T03:49:42.284774",
+      "total": 6,
+      "last_updated": "2026-01-14T15:11:33.932529",
       "three_plus": 0,
       "four_plus": 0,
-      "sz_correct": 0,
+      "sz_correct": 1,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317494"
+      "auto_tuned": "2026-01-14T15:11:35.627873"
     },
     "odd_even_33": {
-      "weight": 0.656,
+      "weight": 0.537,
       "hits": 0,
       "total": 2,
       "last_updated": "2025-12-20T21:04:51.118655",
@@ -44,17 +44,17 @@
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317502"
+      "auto_tuned": "2026-01-14T15:11:35.627875"
     },
     "odd_even_42": {
-      "weight": 0.745,
+      "weight": 0.559,
       "hits": 0,
       "total": 1,
       "last_updated": "2025-12-19T10:44:08.470859",
-      "auto_tuned": "2026-01-10T17:04:59.317503"
+      "auto_tuned": "2026-01-14T15:11:35.627877"
     },
     "sum_optimized": {
-      "weight": 0.745,
+      "weight": 0.559,
       "hits": 0,
       "total": 1,
       "last_updated": "2025-12-23T20:19:07.069414",
@@ -62,23 +62,23 @@
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317508"
+      "auto_tuned": "2026-01-14T15:11:35.627882"
     },
     "decade_balance": {
-      "weight": 3.187,
-      "hits": 9,
-      "total": 9,
-      "last_updated": "2026-01-09T20:21:01.624683",
+      "weight": 1.932,
+      "hits": 12,
+      "total": 12,
+      "last_updated": "2026-01-14T15:11:33.932293",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 2,
       "gewinnklassen": {
         "9": 1
       },
-      "auto_tuned": "2026-01-10T17:04:59.317481"
+      "auto_tuned": "2026-01-14T15:11:35.627842"
     },
     "delta_pattern": {
-      "weight": 0.745,
+      "weight": 0.559,
       "hits": 0,
       "total": 1,
       "last_updated": "2025-12-23T20:19:07.069393",
@@ -86,80 +86,80 @@
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317507"
+      "auto_tuned": "2026-01-14T15:11:35.627880"
     },
     "position_based": {
-      "weight": 1.425,
-      "hits": 1,
-      "total": 2,
-      "last_updated": "2026-01-09T20:21:01.624796",
+      "weight": 0.996,
+      "hits": 2,
+      "total": 3,
+      "last_updated": "2026-01-14T15:08:18.261257",
       "three_plus": 0,
       "four_plus": 0,
-      "sz_correct": 0,
+      "sz_correct": 1,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317499"
+      "auto_tuned": "2026-01-14T15:11:35.627866"
     },
     "no_consecutive": {
-      "weight": 3.402,
-      "hits": 11,
-      "total": 13,
-      "last_updated": "2026-01-09T20:21:01.624764",
+      "weight": 1.784,
+      "hits": 12,
+      "total": 16,
+      "last_updated": "2026-01-14T15:11:33.932383",
       "three_plus": 1,
       "four_plus": 0,
       "sz_correct": 1,
       "gewinnklassen": {
         "8": 1
       },
-      "auto_tuned": "2026-01-10T17:04:59.317474"
+      "auto_tuned": "2026-01-14T15:11:35.627835"
     },
     "prime_mix": {
-      "weight": 1.648,
-      "hits": 2,
-      "total": 4,
-      "last_updated": "2026-01-04T03:53:03.948495",
+      "weight": 1.249,
+      "hits": 4,
+      "total": 6,
+      "last_updated": "2026-01-14T15:11:33.932552",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317497"
+      "auto_tuned": "2026-01-14T15:11:35.627864"
     },
     "low_high": {
-      "weight": 2.912,
-      "hits": 7,
-      "total": 9,
-      "last_updated": "2026-01-09T20:21:01.624728",
+      "weight": 1.631,
+      "hits": 10,
+      "total": 12,
+      "last_updated": "2026-01-14T15:11:33.932470",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317487"
+      "auto_tuned": "2026-01-14T15:11:35.627849"
     },
     "hot_cold_mix": {
-      "weight": 3.845,
-      "hits": 11,
-      "total": 11,
-      "last_updated": "2026-01-09T20:21:01.624649",
+      "weight": 2.07,
+      "hits": 13,
+      "total": 14,
+      "last_updated": "2026-01-14T15:11:33.932358",
       "three_plus": 1,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {
         "8": 1
       },
-      "auto_tuned": "2026-01-10T17:04:59.317470"
+      "auto_tuned": "2026-01-14T15:11:35.627831"
     },
     "monte_carlo": {
-      "weight": 3.669,
-      "hits": 11,
-      "total": 11,
-      "last_updated": "2026-01-09T20:21:01.624665",
+      "weight": 1.851,
+      "hits": 12,
+      "total": 14,
+      "last_updated": "2026-01-14T15:11:33.932406",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 1,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317483"
+      "auto_tuned": "2026-01-14T15:11:35.627845"
     },
     "bayesian": {
-      "weight": 1.371,
+      "weight": 0.966,
       "hits": 1,
       "total": 1,
       "last_updated": "2025-12-23T20:19:07.069247",
@@ -167,10 +167,10 @@
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317485"
+      "auto_tuned": "2026-01-14T15:11:35.627847"
     },
     "neural_network": {
-      "weight": 0.743,
+      "weight": 0.779,
       "hits": 0,
       "total": 2,
       "last_updated": "2025-12-23T20:19:07.069335",
@@ -178,7 +178,7 @@
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317488"
+      "auto_tuned": "2026-01-14T15:11:35.627850"
     },
     "lstm_sequence": {
       "weight": 1.0,
@@ -187,15 +187,15 @@
       "last_updated": null
     },
     "random_forest": {
-      "weight": 1.41,
-      "hits": 4,
-      "total": 8,
-      "last_updated": "2026-01-06T20:20:03.295209",
+      "weight": 1.008,
+      "hits": 6,
+      "total": 9,
+      "last_updated": "2026-01-14T15:10:10.100878",
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 0,
       "gewinnklassen": {},
-      "auto_tuned": "2026-01-10T17:04:59.317492"
+      "auto_tuned": "2026-01-14T15:11:35.627862"
     },
     "fibonacci": {
       "weight": 1.0,
@@ -216,18 +216,18 @@
       "last_updated": null
     },
     "ensemble_champion": {
-      "weight": 2.401,
-      "hits": 9,
-      "total": 14,
+      "weight": 1.699,
+      "hits": 12,
+      "total": 17,
       "three_plus": 0,
       "four_plus": 0,
       "sz_correct": 3,
       "gewinnklassen": {},
-      "last_updated": "2026-01-09T20:21:01.624716",
-      "auto_tuned": "2026-01-10T17:04:59.317468"
+      "last_updated": "2026-01-14T15:11:33.932426",
+      "auto_tuned": "2026-01-14T15:11:35.627829"
     },
     "ensemble_ml_real": {
-      "weight": 1.971,
+      "weight": 1.046,
       "hits": 5,
       "total": 8,
       "three_plus": 0,
@@ -235,10 +235,10 @@
       "sz_correct": 1,
       "gewinnklassen": {},
       "last_updated": "2026-01-09T20:21:01.624783",
-      "auto_tuned": "2026-01-10T17:04:59.317490"
+      "auto_tuned": "2026-01-14T15:11:35.627868"
     },
     "neural_network_real": {
-      "weight": 0.745,
+      "weight": 0.559,
       "hits": 0,
       "total": 1,
       "three_plus": 0,
@@ -246,10 +246,10 @@
       "sz_correct": 0,
       "gewinnklassen": {},
       "last_updated": "2025-12-20T21:04:51.118472",
-      "auto_tuned": "2026-01-10T17:04:59.317505"
+      "auto_tuned": "2026-01-14T15:11:35.627878"
     },
     "thompson_sampling_real": {
-      "weight": 0.839,
+      "weight": 0.735,
       "hits": 2,
       "total": 4,
       "three_plus": 0,
@@ -257,10 +257,10 @@
       "sz_correct": 1,
       "gewinnklassen": {},
       "last_updated": "2026-01-07T19:24:22.557083",
-      "auto_tuned": "2026-01-10T17:04:59.317495"
+      "auto_tuned": "2026-01-14T15:11:35.627869"
     },
     "lstm": {
-      "weight": 2.02,
+      "weight": 2.765,
       "hits": 1,
       "total": 1,
       "three_plus": 0,
@@ -268,10 +268,10 @@
       "sz_correct": 0,
       "gewinnklassen": {},
       "last_updated": "2025-12-23T20:19:07.069212",
-      "auto_tuned": "2026-01-10T17:04:59.317459"
+      "auto_tuned": "2026-01-14T15:11:35.627820"
     },
     "ensemble_ml": {
-      "weight": 1.198,
+      "weight": 1.814,
       "hits": 0,
       "total": 1,
       "three_plus": 0,
@@ -279,10 +279,10 @@
       "sz_correct": 0,
       "gewinnklassen": {},
       "last_updated": "2025-12-23T20:19:07.069272",
-      "auto_tuned": "2026-01-10T17:04:59.317465"
+      "auto_tuned": "2026-01-14T15:11:35.627826"
     },
     "bayesian_map_real": {
-      "weight": 0.745,
+      "weight": 0.559,
       "hits": 0,
       "total": 1,
       "three_plus": 0,
@@ -290,10 +290,10 @@
       "sz_correct": 0,
       "gewinnklassen": {},
       "last_updated": "2025-12-24T19:19:48.605285",
-      "auto_tuned": "2026-01-10T17:04:59.317510"
+      "auto_tuned": "2026-01-14T15:11:35.627884"
     },
     "markov_chain_real": {
-      "weight": 0.979,
+      "weight": 0.769,
       "hits": 1,
       "total": 2,
       "three_plus": 0,
@@ -301,11 +301,11 @@
       "sz_correct": 0,
       "gewinnklassen": {},
       "last_updated": "2025-12-26T20:19:09.734925",
-      "auto_tuned": "2026-01-10T17:04:59.317500"
+      "auto_tuned": "2026-01-14T15:11:35.627871"
     }
   },
-  "last_update": "2026-01-09T20:21:01.624807",
-  "total_predictions": 137,
+  "last_update": "2026-01-14T15:11:33.932594",
+  "total_predictions": 167,
   "learning_rate": 0.15,
-  "last_auto_tune": "2026-01-10T17:04:59.317511"
+  "last_auto_tune": "2026-01-14T15:11:35.627885"
 }

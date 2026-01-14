@@ -1165,13 +1165,24 @@ class TrainingAssistant:
         self.tuner = StrategyWeightTuner()
         self.web_learner = WebLearningEngine()  # NEU: Web-Learning Engine
         self.knowledge_base = WebKnowledgeBase()  # NEU: Wissensbasis
-        self.status = load_json('training_assistant_status.json', {
+
+        # Lade Status mit Standardwerten für fehlende Schlüssel
+        default_status = {
             'last_run': None,
             'total_runs': 0,
             'improvements': [],
             'total_patterns_learned': 0,
-            'web_learning_sessions': 0
-        })
+            'web_learning_sessions': 0,
+            'last_cv_results': {},
+            'last_training_results': {},
+            'last_web_learning': {}
+        }
+        self.status = load_json('training_assistant_status.json', default_status)
+
+        # Ergänze fehlende Schlüssel mit Standardwerten (für ältere Status-Dateien)
+        for key, value in default_status.items():
+            if key not in self.status:
+                self.status[key] = value
 
     def run_full_cycle(self, draws=None):
         """Führt einen vollständigen Trainings-Zyklus durch"""

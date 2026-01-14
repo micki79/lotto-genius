@@ -1,46 +1,46 @@
 {
-  "last_check": "2026-01-09T20:21:02.878469",
+  "last_check": "2026-01-14T15:11:34.222013",
   "note": "Status wird durch GitHub Actions aktualisiert",
   "providers": {
     "gemini": {
       "name": "Google Gemini",
       "icon": "\ud83d\udd2e",
-      "status": "error",
+      "status": "no_key",
       "github_secret": true,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "groq": {
       "name": "Groq (Llama)",
       "icon": "\u26a1",
-      "status": "error",
+      "status": "no_key",
       "github_secret": true,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "deepseek": {
       "name": "DeepSeek",
       "icon": "\ud83e\udde0",
-      "status": "error",
+      "status": "no_key",
       "github_secret": true,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "openrouter": {
       "name": "OpenRouter",
       "icon": "\ud83c\udf10",
-      "status": "error",
+      "status": "no_key",
       "github_secret": true,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "huggingface": {
       "name": "HuggingFace",
       "icon": "\ud83e\udd17",
-      "status": "error",
+      "status": "no_key",
       "github_secret": false,
       "last_success": null,
-      "error": "API-Aufruf fehlgeschlagen"
+      "error": "Kein API-Key konfiguriert"
     },
     "together": {
       "name": "Together AI",
@@ -61,7 +61,7 @@
       "name": "Lokale Strategien (21)",
       "icon": "\ud83d\udda5\ufe0f",
       "status": "online",
-      "last_success": "2026-01-09T20:21:02.878512",
+      "last_success": "2026-01-14T15:11:34.222470",
       "error": null
     }
   }
