@@ -3961,9 +3961,11 @@
         }
 
         function updateFrequencyGrid() {
-            const maxFreq = Math.max(...Object.values(frequencyMap));
-            const minFreq = Math.min(...Object.values(frequencyMap));
-            const avgFreq = Object.values(frequencyMap).reduce((a, b) => a + b, 0) / 49;
+            const freqValues = Object.values(frequencyMap);
+            if (freqValues.length === 0) return; // Keine Daten vorhanden
+            const maxFreq = Math.max(...freqValues, 1); // Fallback auf 1 um Division durch 0 zu vermeiden
+            const minFreq = Math.min(...freqValues, 0);
+            const avgFreq = freqValues.reduce((a, b) => a + b, 0) / 49;
             
             // Determine hot and cold thresholds
             const hotThreshold = avgFreq + (maxFreq - avgFreq) * 0.3;
@@ -3990,10 +3992,11 @@
             document.getElementById('frequencyGrid').innerHTML = freqHTML;
 
             // Superzahl frequency
-            const maxSZ = Math.max(...Object.values(superzahlMap));
+            const szValues = Object.values(superzahlMap);
+            const maxSZ = Math.max(...szValues, 1); // Fallback auf 1 um Division durch 0 zu vermeiden
             let szHTML = '';
             for (let i = 0; i <= 9; i++) {
-                const count = superzahlMap[i];
+                const count = superzahlMap[i] || 0;
                 const percentage = ((count / maxSZ) * 100).toFixed(0);
                 
                 szHTML += `
@@ -4504,16 +4507,16 @@
 
                 for (let i = 0; i <= 9; i++) {
                     let score = 0;
-                    
+
                     // 1. Häufigkeits-Score (20%)
-                    const maxFreq = Math.max(...Object.values(patterns.frequency));
+                    const maxFreq = Math.max(...Object.values(patterns.frequency), 1); // Fallback auf 1
                     const freqScore = (patterns.frequency[i] / maxFreq) * 20;
-                    score += freqScore;
+                    score += freqScore || 0;
 
                     // 2. Trend-Score - bevorzuge Zahlen im Aufwärtstrend (25%)
-                    const avgRecent = Object.values(patterns.recentTrend).reduce((a, b) => a + b, 0) / 10;
+                    const avgRecent = Object.values(patterns.recentTrend).reduce((a, b) => a + b, 0) / 10 || 1; // Fallback auf 1
                     const trendScore = ((patterns.recentTrend[i] - avgRecent) / avgRecent + 1) * 12.5;
-                    score += Math.max(0, Math.min(25, trendScore));
+                    score += Math.max(0, Math.min(25, trendScore || 0));
 
                     // 3. Wochentag-Score (15%)
                     const dayPattern = isWednesday ? patterns.dayOfWeek.wednesday : patterns.dayOfWeek.saturday;
@@ -4522,17 +4525,19 @@
                     score += dayScore;
 
                     // 4. Lücken-Score - überfällige Zahlen bevorzugen (20%)
-                    const maxGap = Math.max(...Object.values(patterns.gaps).filter(g => g < 999));
+                    const gapValues = Object.values(patterns.gaps).filter(g => g < 999);
+                    const maxGap = gapValues.length > 0 ? Math.max(...gapValues, 1) : 1;
                     const gapScore = patterns.gaps[i] < 999 ? (patterns.gaps[i] / maxGap) * 20 : 10;
-                    score += gapScore;
+                    score += gapScore || 0;
 
                     // 5. Folge-Muster-Score (15%)
                     if (lastSZ !== undefined) {
                         const followKey = `${lastSZ}->${i}`;
                         const followCount = patterns.afterNumber[followKey] || 0;
-                        const maxFollow = Math.max(...Object.values(patterns.afterNumber));
+                        const followValues = Object.values(patterns.afterNumber);
+                        const maxFollow = followValues.length > 0 ? Math.max(...followValues, 1) : 1;
                         const followScore = maxFollow > 0 ? (followCount / maxFollow) * 15 : 7.5;
-                        score += followScore;
+                        score += followScore || 0;
                     } else {
                         score += 7.5;
                     }
