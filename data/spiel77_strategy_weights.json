@@ -1,13 +1,13 @@
 {
   "strategies": {
     "ensemble_champion": {
-      "weight": 0.2280211308285541,
+      "weight": 0.20147102242876078,
       "total_matches": 1,
-      "total_predictions": 13,
+      "total_predictions": 14,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2026-01-14T15:11:34.788398"
+      "last_updated": "2026-01-23T21:21:56.931220"
     },
     "sp77_markov": {
       "weight": 0.6141249999999999,
@@ -17,11 +17,11 @@
       "last_updated": "2026-01-14T15:11:34.788652"
     },
     "sp77_monte_carlo": {
-      "weight": 0.5220062499999999,
+      "weight": 0.4437053124999999,
       "total_matches": 0,
-      "total_predictions": 4,
+      "total_predictions": 5,
       "gewinnklassen": {},
-      "last_updated": "2026-01-14T15:11:34.788748"
+      "last_updated": "2026-01-23T21:21:56.931523"
     },
     "sp77_odd_even": {
       "weight": 0.6141249999999999,
@@ -31,13 +31,13 @@
       "last_updated": "2026-01-14T15:11:34.788581"
     },
     "sp77_position_top3": {
-      "weight": 0.6149490080357142,
+      "weight": 0.5380127792793366,
       "total_matches": 1,
-      "total_predictions": 6,
+      "total_predictions": 7,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2026-01-06T20:20:05.381286"
+      "last_updated": "2026-01-23T21:21:56.931466"
     },
     "sp77_sum_optimized": {
       "weight": 0.4437053124999999,
@@ -54,14 +54,14 @@
       "last_updated": "2026-01-14T15:11:34.788506"
     },
     "sp77_delta": {
-      "weight": 1.0100649763392855,
+      "weight": 0.9044735972353314,
       "total_matches": 3,
-      "total_predictions": 6,
+      "total_predictions": 7,
       "gewinnklassen": {
         "6": 1,
         "7": 1
       },
-      "last_updated": "2026-01-14T15:11:34.788703"
+      "last_updated": "2026-01-23T21:21:56.931497"
     },
     "sp77_position_hot": {
       "weight": 0.8366324357142854,
@@ -91,11 +91,11 @@
       "last_updated": "2026-01-14T15:10:10.945267"
     },
     "ml_reinforcement_real": {
-      "weight": 0.16734324368961417,
+      "weight": 0.14224175713617204,
       "total_matches": 0,
-      "total_predictions": 11,
+      "total_predictions": 12,
       "gewinnklassen": {},
-      "last_updated": "2026-01-14T15:10:10.945292"
+      "last_updated": "2026-01-23T21:21:56.931350"
     },
     "ml_bayesian_real": {
       "weight": 0.27803880476669024,
@@ -107,22 +107,22 @@
       "last_updated": "2026-01-14T15:10:10.945386"
     },
     "sp77_bayesian": {
-      "weight": 0.6109826089348055,
+      "weight": 0.5485559968153639,
       "total_matches": 3,
-      "total_predictions": 10,
+      "total_predictions": 11,
       "gewinnklassen": {
         "7": 3
       },
-      "last_updated": "2026-01-14T15:11:34.788545"
+      "last_updated": "2026-01-23T21:21:56.931416"
     },
     "ml_neural_network_real": {
-      "weight": 0.46137839864228797,
+      "weight": 0.41165215832646423,
       "total_matches": 2,
-      "total_predictions": 10,
+      "total_predictions": 11,
       "gewinnklassen": {
         "7": 2
       },
-      "last_updated": "2026-01-14T15:10:10.945313"
+      "last_updated": "2026-01-23T21:21:56.931373"
     },
     "sp77_neural": {
       "weight": 0.7224999999999999,
@@ -132,13 +132,13 @@
       "last_updated": "2026-01-14T15:10:10.945416"
     },
     "sp77_hot_digits": {
-      "weight": 1.028330357142857,
+      "weight": 0.9276522321428571,
       "total_matches": 2,
-      "total_predictions": 3,
+      "total_predictions": 4,
       "gewinnklassen": {
         "6": 1
       },
-      "last_updated": "2026-01-09T20:21:03.949531"
+      "last_updated": "2026-01-23T21:21:56.931550"
     },
     "sp77_no_doubles": {
       "weight": 0.6141249999999999,
@@ -155,22 +155,22 @@
       "last_updated": "2026-01-09T20:21:03.949459"
     },
     "sp77_fibonacci": {
-      "weight": 0.7024610178571427,
+      "weight": 0.6149490080357142,
       "total_matches": 1,
-      "total_predictions": 5,
+      "total_predictions": 6,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2026-01-14T15:11:34.788617"
+      "last_updated": "2026-01-23T21:21:56.931440"
     },
     "ml_markov_real": {
-      "weight": 0.29688993563403715,
+      "weight": 0.2620967050291913,
       "total_matches": 1,
-      "total_predictions": 10,
+      "total_predictions": 11,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2026-01-14T15:10:10.945236"
+      "last_updated": "2026-01-23T21:21:56.931326"
     },
     "sp77_cold_digits": {
       "weight": 0.7224999999999999,
@@ -187,7 +187,7 @@
       "last_updated": "2026-01-14T15:11:34.788460"
     }
   },
-  "last_update": "2026-01-14T15:24:44.028598",
-  "total_predictions": 130,
+  "last_update": "2026-01-23T21:22:01.103684",
+  "total_predictions": 140,
   "learning_rate": 0.15
 }

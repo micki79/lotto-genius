@@ -1,11 +1,11 @@
 {
   "strategies": {
     "ensemble_champion": {
-      "weight": 0.12090549356574623,
+      "weight": 0.10276966953088429,
       "total_matches": 0,
-      "total_predictions": 13,
+      "total_predictions": 14,
       "gewinnklassen": {},
-      "last_updated": "2026-01-14T15:11:35.251080"
+      "last_updated": "2026-01-23T21:22:33.882195"
     },
     "gs_overdue": {
       "weight": 0.7224999999999999,
@@ -22,11 +22,11 @@
       "last_updated": "2026-01-09T20:21:04.680489"
     },
     "gs_cold": {
-      "weight": 0.6141249999999999,
+      "weight": 0.5220062499999999,
       "total_matches": 0,
-      "total_predictions": 3,
+      "total_predictions": 4,
       "gewinnklassen": {},
-      "last_updated": "2025-12-27T20:16:18.030981"
+      "last_updated": "2026-01-23T21:22:33.882531"
     },
     "gs_sum": {
       "weight": 0.32057708828124987,
@@ -36,13 +36,13 @@
       "last_updated": "2026-01-14T15:11:35.251215"
     },
     "gs_hot": {
-      "weight": 0.7767186830357142,
+      "weight": 0.6959251662946427,
       "total_matches": 2,
-      "total_predictions": 5,
+      "total_predictions": 6,
       "gewinnklassen": {
         "6": 1
       },
-      "last_updated": "2026-01-14T15:11:35.251149"
+      "last_updated": "2026-01-23T21:22:33.882552"
     },
     "gs_fibonacci": {
       "weight": 0.5220062499999999,
@@ -75,22 +75,22 @@
       "last_updated": "2026-01-14T15:10:11.385459"
     },
     "ml_bayesian_real": {
-      "weight": 0.35677027674725226,
+      "weight": 0.32111187809230723,
       "total_matches": 2,
-      "total_predictions": 11,
+      "total_predictions": 12,
       "gewinnklassen": {
         "7": 2
       },
-      "last_updated": "2026-01-14T15:10:11.385327"
+      "last_updated": "2026-01-23T21:22:33.882345"
     },
     "ml_markov_real": {
-      "weight": 0.22148072359636817,
+      "weight": 0.19718718648548436,
       "total_matches": 1,
-      "total_predictions": 11,
+      "total_predictions": 12,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2026-01-14T15:10:11.385364"
+      "last_updated": "2026-01-23T21:22:33.882309"
     },
     "ml_ensemble_real": {
       "weight": 0.23161694628320303,
@@ -100,11 +100,11 @@
       "last_updated": "2026-01-14T15:10:11.385345"
     },
     "ml_reinforcement_real": {
-      "weight": 0.16734324368961417,
+      "weight": 0.14224175713617204,
       "total_matches": 0,
-      "total_predictions": 11,
+      "total_predictions": 12,
       "gewinnklassen": {},
-      "last_updated": "2026-01-14T15:10:11.385401"
+      "last_updated": "2026-01-23T21:22:33.882366"
     },
     "gs_last_var": {
       "weight": 0.9110928571428568,
@@ -125,13 +125,13 @@
       "last_updated": "2026-01-09T20:21:04.680468"
     },
     "ml_neural_network_real": {
-      "weight": 0.41245155064636474,
+      "weight": 0.36248857995417194,
       "total_matches": 1,
-      "total_predictions": 8,
+      "total_predictions": 9,
       "gewinnklassen": {
         "7": 1
       },
-      "last_updated": "2026-01-14T15:10:11.385301"
+      "last_updated": "2026-01-23T21:22:33.882272"
     },
     "gs_prime": {
       "weight": 0.5220062499999999,
@@ -148,11 +148,11 @@
       "last_updated": "2026-01-14T15:11:35.251187"
     },
     "gs_symmetry": {
-      "weight": 0.6141249999999999,
+      "weight": 0.5220062499999999,
       "total_matches": 0,
-      "total_predictions": 3,
+      "total_predictions": 4,
       "gewinnklassen": {},
-      "last_updated": "2026-01-14T15:11:35.251235"
+      "last_updated": "2026-01-23T21:22:33.882455"
     },
     "gs_monte_carlo": {
       "weight": 0.4437053124999999,
@@ -162,20 +162,20 @@
       "last_updated": "2026-01-14T15:11:35.251319"
     },
     "gs_bayesian": {
-      "weight": 0.6141249999999999,
-      "total_matches": 0,
-      "total_predictions": 3,
-      "gewinnklassen": {},
-      "last_updated": "2026-01-14T15:11:35.251265"
-    },
-    "gs_position_top3": {
       "weight": 0.5220062499999999,
       "total_matches": 0,
       "total_predictions": 4,
       "gewinnklassen": {},
-      "last_updated": "2026-01-14T15:11:35.251168"
+      "last_updated": "2026-01-23T21:22:33.882430"
+    },
+    "gs_position_top3": {
+      "weight": 0.4437053124999999,
+      "total_matches": 0,
+      "total_predictions": 5,
+      "gewinnklassen": {},
+      "last_updated": "2026-01-23T21:22:33.882495"
     }
   },
-  "last_update": "2026-01-14T15:25:11.847371",
+  "last_update": "2026-01-23T21:22:38.400867",
   "learning_rate": 0.15
 }

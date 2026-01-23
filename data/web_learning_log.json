@@ -629,9 +629,219 @@
       "errors": [],
       "end": "2026-01-14T15:11:35.597861",
       "total_patterns": 2
+    },
+    {
+      "start": "2026-01-23T21:22:46.371184",
+      "patterns_learned": [
+        {
+          "type": "gap_analysis",
+          "source": "local",
+          "overdue_numbers": [
+            14,
+            12,
+            15,
+            3,
+            27,
+            13,
+            44,
+            32,
+            38,
+            9
+          ],
+          "max_gap": -149,
+          "learned_at": "2026-01-23T21:22:46.391708",
+          "id": "2bf219e4"
+        },
+        {
+          "type": "strategy_performance",
+          "source": "local_learning",
+          "best_strategies": [
+            [
+              "lstm",
+              2.8333333333333335
+            ],
+            [
+              "ensemble_ml",
+              1.5
+            ],
+            [
+              "hot_cold",
+              1.0588235294117647
+            ],
+            [
+              "ensemble_champion",
+              1.0
+            ],
+            [
+              "hot_cold_mix",
+              0.9333333333333333
+            ],
+            [
+              "decade_balance",
+              0.9230769230769231
+            ],
+            [
+              "monte_carlo",
+              0.85
+            ],
+            [
+              "bayesian",
+              0.8333333333333334
+            ],
+            [
+              "cold_numbers",
+              0.8235294117647058
+            ],
+            [
+              "low_high",
+              0.7692307692307693
+            ]
+          ],
+          "total_predictions": 212,
+          "learned_at": "2026-01-23T21:22:46.392826",
+          "id": "d9f650ab"
+        }
+      ],
+      "insights": [
+        {
+          "type": "strategy_recommendation",
+          "insight": "Kombiniere hei\u00dfe Zahlen mit ausgewogener Summe",
+          "parameters": {
+            "use_hot": true,
+            "hot_count": 3,
+            "sum_target": 160,
+            "odd_even": [
+              3,
+              3
+            ]
+          },
+          "confidence": 0.75
+        },
+        {
+          "type": "timing",
+          "insight": "\u00dcberf\u00e4llige Zahlen haben h\u00f6here R\u00fcckkehr-Wahrscheinlichkeit",
+          "action": "increase_overdue_weight",
+          "weight_boost": 1.2,
+          "confidence": 0.6
+        },
+        {
+          "type": "pattern_avoidance",
+          "insight": "Vermeide Geburtstags-Zahlen (1-31) \u00dcbergewichtung",
+          "action": "balance_number_range",
+          "confidence": 0.8
+        }
+      ],
+      "errors": [],
+      "end": "2026-01-23T21:22:46.394587",
+      "total_patterns": 2
+    },
+    {
+      "start": "2026-01-23T21:23:44.560818",
+      "patterns_learned": [
+        {
+          "type": "gap_analysis",
+          "source": "local",
+          "overdue_numbers": [
+            14,
+            12,
+            15,
+            3,
+            27,
+            13,
+            44,
+            32,
+            38,
+            9
+          ],
+          "max_gap": -149,
+          "learned_at": "2026-01-23T21:23:44.588349",
+          "id": "7501f4a6"
+        },
+        {
+          "type": "strategy_performance",
+          "source": "local_learning",
+          "best_strategies": [
+            [
+              "lstm",
+              2.8333333333333335
+            ],
+            [
+              "ensemble_ml",
+              1.5
+            ],
+            [
+              "hot_cold",
+              1.0588235294117647
+            ],
+            [
+              "ensemble_champion",
+              1.0
+            ],
+            [
+              "hot_cold_mix",
+              0.9333333333333333
+            ],
+            [
+              "decade_balance",
+              0.9230769230769231
+            ],
+            [
+              "monte_carlo",
+              0.85
+            ],
+            [
+              "bayesian",
+              0.8333333333333334
+            ],
+            [
+              "cold_numbers",
+              0.8235294117647058
+            ],
+            [
+              "low_high",
+              0.7692307692307693
+            ]
+          ],
+          "total_predictions": 212,
+          "learned_at": "2026-01-23T21:23:44.589542",
+          "id": "7d7de597"
+        }
+      ],
+      "insights": [
+        {
+          "type": "strategy_recommendation",
+          "insight": "Kombiniere hei\u00dfe Zahlen mit ausgewogener Summe",
+          "parameters": {
+            "use_hot": true,
+            "hot_count": 3,
+            "sum_target": 160,
+            "odd_even": [
+              3,
+              3
+            ]
+          },
+          "confidence": 0.75
+        },
+        {
+          "type": "timing",
+          "insight": "\u00dcberf\u00e4llige Zahlen haben h\u00f6here R\u00fcckkehr-Wahrscheinlichkeit",
+          "action": "increase_overdue_weight",
+          "weight_boost": 1.2,
+          "confidence": 0.6
+        },
+        {
+          "type": "pattern_avoidance",
+          "insight": "Vermeide Geburtstags-Zahlen (1-31) \u00dcbergewichtung",
+          "action": "balance_number_range",
+          "confidence": 0.8
+        }
+      ],
+      "errors": [],
+      "end": "2026-01-23T21:23:44.591633",
+      "total_patterns": 2
     }
   ],
-  "total_patterns_learned": 12,
-  "sources_analyzed": 12,
-  "last_learning": "2026-01-14T15:11:35.597866"
+  "total_patterns_learned": 16,
+  "sources_analyzed": 16,
+  "last_learning": "2026-01-23T21:23:44.591636"
 }

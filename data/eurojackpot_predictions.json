@@ -20,7 +20,14 @@
       "is_real_ml": true,
       "is_champion": true,
       "timestamp": "2026-01-14T15:24:34.601601",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "gewinnklasse": null,
+        "draw_date": "23.01.2026",
+        "new_weight": 0.723
+      }
     },
     {
       "numbers": [
@@ -40,8 +47,15 @@
       "strategy": "Gewichtetes Voting aus 21 KI-Vorhersagen",
       "confidence": 90,
       "timestamp": "2026-01-14T15:24:34.605743",
-      "verified": false,
-      "is_champion": true
+      "verified": true,
+      "is_champion": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 1,
+        "gewinnklasse": null,
+        "draw_date": "23.01.2026",
+        "new_weight": 0.661
+      }
     },
     {
       "numbers": [
@@ -62,7 +76,14 @@
       "confidence": 75,
       "is_real_ml": true,
       "timestamp": "2026-01-14T15:24:34.601786",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "gewinnklasse": null,
+        "draw_date": "23.01.2026",
+        "new_weight": 0.659
+      }
     },
     {
       "numbers": [
@@ -100,7 +121,14 @@
         }
       ],
       "timestamp": "2026-01-14T15:24:34.601824",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "gewinnklasse": null,
+        "draw_date": "23.01.2026",
+        "new_weight": 0.726
+      }
     },
     {
       "numbers": [
@@ -121,7 +149,14 @@
       "confidence": 29.580523646360387,
       "is_real_ml": true,
       "timestamp": "2026-01-14T15:24:34.601748",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "23.01.2026",
+        "new_weight": 0.609
+      }
     },
     {
       "numbers": [
@@ -179,7 +214,14 @@
         ]
       ],
       "timestamp": "2026-01-14T15:24:34.601809",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 1,
+        "euro_matches": 1,
+        "gewinnklasse": null,
+        "draw_date": "23.01.2026",
+        "new_weight": 0.72
+      }
     },
     {
       "numbers": [
@@ -200,7 +242,14 @@
       "confidence": 3.5683356280765315,
       "is_real_ml": true,
       "timestamp": "2026-01-14T15:24:34.601709",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 1,
+        "gewinnklasse": null,
+        "draw_date": "23.01.2026",
+        "new_weight": 0.652
+      }
     },
     {
       "numbers": [
@@ -221,7 +270,14 @@
       "confidence": 77.9,
       "weight": 0.93,
       "timestamp": "2026-01-14T15:24:34.605372",
-      "verified": false
+      "verified": true,
+      "result": {
+        "main_matches": 0,
+        "euro_matches": 0,
+        "gewinnklasse": null,
+        "draw_date": "23.01.2026",
+        "new_weight": 0.844
+      }
     }
   ],
   "history": [
