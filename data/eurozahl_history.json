@@ -1559,13 +1559,117 @@
       ],
       "matches": 1,
       "method": "ej_odd_even_32"
+    },
+    {
+      "date": "23.01.2026",
+      "predicted": [
+        9,
+        11
+      ],
+      "actual": [
+        9,
+        5
+      ],
+      "matches": 1,
+      "method": "ml_ensemble_real"
+    },
+    {
+      "date": "23.01.2026",
+      "predicted": [
+        9,
+        6
+      ],
+      "actual": [
+        9,
+        5
+      ],
+      "matches": 1,
+      "method": "ensemble_champion"
+    },
+    {
+      "date": "23.01.2026",
+      "predicted": [
+        9,
+        2
+      ],
+      "actual": [
+        9,
+        5
+      ],
+      "matches": 1,
+      "method": "ml_bayesian_real"
+    },
+    {
+      "date": "23.01.2026",
+      "predicted": [
+        9,
+        11
+      ],
+      "actual": [
+        9,
+        5
+      ],
+      "matches": 1,
+      "method": "ml_reinforcement_real"
+    },
+    {
+      "date": "23.01.2026",
+      "predicted": [
+        2,
+        11
+      ],
+      "actual": [
+        9,
+        5
+      ],
+      "matches": 0,
+      "method": "ml_markov_real"
+    },
+    {
+      "date": "23.01.2026",
+      "predicted": [
+        9,
+        11
+      ],
+      "actual": [
+        9,
+        5
+      ],
+      "matches": 1,
+      "method": "ml_eurozahl_real"
+    },
+    {
+      "date": "23.01.2026",
+      "predicted": [
+        9,
+        12
+      ],
+      "actual": [
+        9,
+        5
+      ],
+      "matches": 1,
+      "method": "ml_neural_network_real"
+    },
+    {
+      "date": "23.01.2026",
+      "predicted": [
+        12,
+        7
+      ],
+      "actual": [
+        9,
+        5
+      ],
+      "matches": 0,
+      "method": "ej_odd_even_32"
     }
   ],
   "stats": {
-    "total": 120,
-    "total_matches": 48,
-    "avg_matches": 0.4,
+    "total": 128,
+    "total_matches": 54,
+    "avg_matches": 0.42,
     "perfect_matches": 4,
-    "last_update": "2026-01-14T15:11:34.383417"
+    "last_update": "2026-01-23T21:21:38.786066"
   }
 }
